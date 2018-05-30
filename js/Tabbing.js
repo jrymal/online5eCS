@@ -8,7 +8,7 @@ function openTab(evt, idName) {
     // Take the data object and put it in the history page
     // No title, not used per MDN
     // Set hash location in url
-    window.history.replaceState(generateDataToJSON(), "", "#"+idName);
+    window.history.replaceState(generateDataToJSON(), "", generateNameHash(idName));
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");

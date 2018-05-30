@@ -6,12 +6,22 @@ function getElementByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
+function stripFirst(matchChar, string){
+    if (string.indexOf(matchChar)>0){
+        return string.split('#')[1];
+    }
+    return string;
+}
+
+function generateNameHash(idName){
+    return "index.html?"+$("player").value+"_"+$("name").value+"#"+stripFirst("#",idName);
+}
 
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
         // set last settings into history
-        window.history.replaceState(generateDataToJSON(), "", window.location.hash);
+        window.history.pushState(generateDataToJSON(), "", generateNameHash(window.location.hash));
         
         // Ask if there are changes they's like to save
         return "Discard changes?";
@@ -166,6 +176,7 @@ function loadFromJSON() {
         reader.onload = function(evt) {
             clearAllFields();
             parseDataFromJSON(JSON.parse(evt.target.result));
+            window.history.pushState(generateDataToJSON(), "", generateNameHash(window.location.hash));
         };
         reader.onerror = function(evt) {
             console.log("Error:"+evt.target.result);
