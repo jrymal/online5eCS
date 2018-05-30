@@ -10,7 +10,11 @@ function getElementByXpath(path) {
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
-          return "Discard changes?";
+        // set last settings into history
+        window.history.replaceState(generateDataToJSON(), "", window.location.hash);
+        
+        // Ask if there are changes they's like to save
+        return "Discard changes?";
     };
 
     // set up export Functionality
@@ -22,10 +26,15 @@ function init() {
 
     // set up selects
     populateSelect($('class'), Classes);
-    // TODO: group by familty
     populateSelect($('race'), Races);
     populateSelect($('backstory.type'), Backstories);
     populateCheckboxes($('skills_container'), Skills);
+
+    // Check for a previous state in the history on load
+    if (window.history.state){
+        // apply the data found in the previous state
+        parseDataFromJSON(window.history.state);
+    }
 
     // configure initial tab
     var tabId = window.location.hash ? window.location.hash.split('#')[1]: 'PlayerInfo';
@@ -87,7 +96,6 @@ function generateDataToJSON() {
   return  [].reduce.call(dataholders, (data, dataholder) => {
       for (var i = 0; i < dataholder.elements.length; i++) {
           var element = dataholder.elements[i];
-          console.log("Element: "+element.name+":"+element.values);
           var name = element.name;
 
           if (isValidElement(element) && isValidValue(element)) {
@@ -126,18 +134,44 @@ function getSelectValues(options) {
     }, []);
 }
 
+function clearAllFields() {
+  var dataholders = document.getElementsByClassName("dataholder");
+
+  // Retrieves input data from a form and returns it as a JSON object.
+  return  [].reduce.call(dataholders, (data, dataholder) => {
+      for (var i = 0; i < dataholder.elements.length; i++) {
+          var element = dataholder.elements[i];
+          var name = element.name;
+
+          if (isValidElement(element) && isValidValue(element)) {
+              if (isCheckbox(element)) {
+                  element.checked = false;
+              } else if (isMultiSelect(element)) {
+                  console.log("Identified a MultiSelect elment to clear: "+name);
+              } else {
+                  element.value = null;
+              }
+          }
+      }
+      return data;
+  }, {});
+}
+
 //
 // Loading Functionality
 //
 function loadFromJSON() {
-    var reader = new FileReader();
-    reader.onload = function(evt) {
-        parseDataFromJSON(JSON.parse(evt.target.result));
-    };
-    reader.onerror = function(evt) {
-        console.log("Error:"+evt.target.result);
-    };
-    reader.readAsText($('importFile').files[0]);
+    if (confirm("Loading will clear out all values. Continue?")) {
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+            clearAllFields();
+            parseDataFromJSON(JSON.parse(evt.target.result));
+        };
+        reader.onerror = function(evt) {
+            console.log("Error:"+evt.target.result);
+        };
+        reader.readAsText($('importFile').files[0]);
+    }
 }
 
 function parseDataFromJSON(myData) {
