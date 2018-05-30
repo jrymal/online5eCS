@@ -1,0 +1,190 @@
+<html>
+    <head>
+        <title>You have no Class!</title>
+        <script type="text/javascript" src="js/GameEngine.js"> </script>
+        <script type="text/javascript" src="js/Init.js"> </script>
+        <script type="text/javascript" src="js/Tabbing.js"> </script>
+        <link rel="stylesheet" type="text/css" href="css/core.css"/>
+    </head>
+    <body onload="init()">
+
+        <h1>You have no Class!</h1>
+
+        <div class="inline">
+            <label for="upload">Import file</label>
+            <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
+        </div>
+
+        <!-- Tab links -->
+        <div class="tab">
+          <button id="firsttab" type="button" class="tablinks" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
+          <button type="button" class="tablinks" onclick="openTab(event, 'Info')">Info</button>
+          <button type="button" class="tablinks" onclick="openTab(event, 'Details')">Details</button>
+          <button type="button" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button>
+          <button type="button" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button>
+          <button type="button" class="tablinks" onclick="openTab(event,
+              'Inventory')">Inventory</button>
+        
+        </div>
+
+        <form id="PlayerInfo" class="stack tabcontent dataholder">
+            <label for="player" name="player">Role Player</label>
+            <input type="text" id="player" name="player"/>
+
+            <label for="phone" name="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone"/>
+
+            <label for="email" name="email">Email</label>
+            <input type="email" id="email" name="email"/>
+        </form>
+
+        <form id='Info' class='stack tabcontent dataholder'>
+            <label for="name" name="name">Character Name</label>
+            <input type="text" id="name" name="name"/>
+
+            <label for="class" name="class">Class</label>
+            <select id="class" name="class"></select>
+
+            <label for="level" name="level">Level</label>
+            <input type="number" id="level" class="short" name="level"/>
+
+            <label for="race" name="race">Race</label>
+            <select id="race" onchange="updateRace(event)" name="race"></select>
+
+            <label for="experience" name="experience">Experience Points</label>
+            <input type="number" id="experience" name="experience"/>
+
+            <label for="inspiration" name="inspiration">Inspiration</label>
+            <input type="checkbox" id="inspiration" name="inspiration"/>
+
+            <label for="backstory" name="backstory">Backstory</label>
+            <select id="backstory.type" name="backstory.type"></select>
+            <textarea id="backstory" name="backstory" spellcheck="true"></textarea>
+        </form>
+
+        <form id='Details' class='stack tabcontent dataholder'>
+            <label for="age" name="age">Age</label>
+            <input type="number" id="age" class="short" name="age"/>
+
+            <label for="height" name="height">Height</label>
+            <input type="text" id="height" name="height"/>
+
+            <label for="weight" name="weight">Weight</label>
+            <input type="text" id="weight" name="weight"/>
+
+            <label for="eyecolor" name="eyecolor">Eye Color</label>
+            <input type="color" id="eyecolor" name="eyecolor"/>
+
+            <label for="skin" name="skin">Skin Color</label>
+            <input type="color" id="skin" name="skin"/>
+
+            <label for="hair" name="hair">Hair Color</label>
+            <input type="color" id="hair" name="hair"/>
+
+            <label for="appearance" name="appearance">Appearance</label>
+            <textarea id="appearance" spellcheck="true" name="appearance"></textarea>
+
+        </form>
+
+        <form id='Attributes' class='stack tabcontent dataholder'>
+
+            <div class="attribute_grid">
+                <div></div>
+                <div>Natural</div>
+                <div>Race Modifier</div>
+                <div>Total</div>
+                <div>Saving Throw</div>
+                <div>Passive Score</div>
+
+                <label for="strength" name="strength">Strength</label>
+                <input type="number"  name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.strength" class="short" readonly/>
+                <input type="number" id="Total.strength" class="short" readonly/>
+                <input type="number" id="SavingThrows.strength" class="short" readonly/>
+                <input type="number" id="Passive.strength" class="short" readonly/>
+
+                <label for="dexterity" name="dexterity">Dexterity</label>
+                <input type="number"  name="dexterity" id="dexterity" class="short" onchange="updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.dexterity" class="short" readonly/>
+                <input type="number" id="Total.dexterity" class="short" readonly/>
+                <input type="number" id="SavingThrows.dexterity" class="short" readonly/>
+                <input type="number" id="Passive.dexterity" class="short" readonly/>
+
+                <label for="constitution" name="constitution">Constitution</label>
+                <input type="number" name="constitution" id="constitution" class="short" onchange="updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.constitution" class="short" readonly/>
+                <input type="number" id="Total.constitution" class="short" readonly/>
+                <input type="number" id="SavingThrows.constitution" class="short" readonly/>
+                <input type="number" id="Passive.constitution" class="short" readonly/>
+            
+                <label for="intelligence" name="intelligence">Intelligence</label>
+                <input type="number" name="intelligence" id="intelligence" class="short" onchange="updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.intelligence" class="short" readonly/>
+                <input type="number" id="Total.intelligence" class="short" readonly/>
+                <input type="number" id="SavingThrows.intelligence" class="short" readonly/>
+                <input type="number" id="Passive.intelligence" class="short" readonly/>
+            
+                <label for="wisdom" name="wisdom">Wisdom</label>
+                <input type="number" name="wisdom" id="wisdom" class="short" onchange="updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.wisdom" class="short" readonly/>
+                <input type="number" id="Total.wisdom" class="short" readonly/>
+                <input type="number" id="SavingThrows.wisdom" class="short" readonly/>
+                <input type="number" id="Passive.wisdom" class="short" readonly/>
+            
+                <label for="charisma" name="charisma">Charisma</label>
+                <input type="number" name="charisma" id="charisma" class="short" onchange="updateAttribute(event)"/>
+                <input type="number" id="RaceModifier.charisma" class="short" readonly/>
+                <input type="number" id="Total.charisma" class="short" readonly/>
+                <input type="number" id="SavingThrows.charisma" class="short" readonly/>
+                <input type="number" id="Passive.charisma" class="short" readonly/>
+            
+            </div>
+
+            <label>Skills</label>
+            <div id="skills_container" class="skills_grid">
+            </div>
+            
+        </form>
+
+        <form id='Abilities' class='stack tabcontent dataholder'>
+            <label for="languages" name="languages">Languages</label>
+            <textarea id="languages" name="languages" spellcheck="true"></textarea>
+
+            <label for="proficiencies" name="proficiencies">Proficiencies</label>
+            <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
+            
+            <label for="features" name="features">Features & Traits</label>
+            <textarea id="features" name="features" spellcheck="true"></textarea>
+            
+            <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
+            <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+            
+            <label for="ideals" name="ideals">Ideals</label>
+            <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
+            
+            <label for="bonds" name="bonds">Bonds</label>
+            <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
+            
+            <label for="flaws" name="flaws">Flaws</label>
+            <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
+            
+            <label for="allies" name="allies">Allies</label>
+            <textarea id="allies" name="allies" spellcheck="true"></textarea>
+        </form>
+ 
+
+        <form id='Inventory' class='stack tabcontent dataholder'>
+            <label for="weapons" name="weapons">Weapons</label>
+            <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
+            
+            <label for="equipment" name="equipment">Equipment</label>
+            <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
+            
+            <label for="treasure" name="treasure">Treasure</label>
+            <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
+        </form>
+
+        <a id="exportFileLink" href="" download="">Download Character</a>
+
+    </body>
+</html>
