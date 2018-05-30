@@ -2,6 +2,11 @@ function $(id) {
     return document.getElementById(id);
 }
 
+function getElementByXpath(path) {
+  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
+
+
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
@@ -23,9 +28,9 @@ function init() {
     populateCheckboxes($('skills_container'), Skills);
 
     // configure initial tab
-    var initEvent = {};
-    initEvent.currentTarget = $('firsttab');
-    openTab(initEvent, 'PlayerInfo');
+    var tabId = window.location.hash ? window.location.hash.split('#')[1]: 'PlayerInfo';
+    var tabElement = getElementByXpath("/html/body/div/button[@for='"+tabId+"']");
+    openTab({currentTarget: tabElement}, tabId);
 }
 
 function populateSelect(selectEle, sourceObj) {

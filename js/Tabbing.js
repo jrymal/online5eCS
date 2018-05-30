@@ -4,6 +4,9 @@
 function openTab(evt, idName) {
     // Declare all variables
     var i, tabcontent, tablinks;
+                                  
+    // Could probably stuff the data in the state (first param)
+    window.history.replaceState({}, "", "#"+idName);
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
