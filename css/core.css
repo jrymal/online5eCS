@@ -1,6 +1,6 @@
 body {
     font-family:sans-serif;
-    font-size: 13px;
+    font-size: 1.0em;
 }
 
 form {
@@ -13,8 +13,7 @@ input,
 select, 
 textarea, 
 a  {
-    font-size: 13px;
-    padding: 2px;
+    padding: .2em;
 }
 
 button, 
@@ -28,12 +27,12 @@ textarea {
 input, 
 select, 
 textarea {
-    margin: 2px 0 2px 2px;
+    margin: .5em 0 .5em .5em;
 }
 
 table td,
 th {
-  border: 1px solid black;
+  border: .1em solid black;
 }
 
 .stack > label,
@@ -44,11 +43,11 @@ th {
 }
 
 .stack > label {
-    padding-top: 15px;
+    padding-top: 1em;
 }
 
 .stack > :first-child {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .inline > label,
@@ -70,8 +69,12 @@ th {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: .5em .5em;
     transition: 0.3s;
+}
+
+.skill_title{
+    font-size: 1.2em;
 }
 
 /* Change background color of buttons on hover */
@@ -80,6 +83,10 @@ th {
 }
 
 /* Create an active/current tablink class */
+.tablinks {
+    font-size: 1.2em;
+}
+
 .tab button.active {
     background-color: #ccc;
 }
@@ -87,7 +94,7 @@ th {
 /* Style the tab content */
 .tabcontent {
     display: none;
-    padding: 20px 12px;
+    padding: .5em .5em;
     border: 1px solid #ccc;
     border-top: none;
 }
@@ -98,9 +105,8 @@ th {
 }
 .skills_grid {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto auto;
 }
-
 input.short {
-    width: 50px;
+    width: 3em;
 }

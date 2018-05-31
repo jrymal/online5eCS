@@ -81,7 +81,8 @@ function populateCheckboxes(divEle, sourceObj) {
 
         var lbl = document.createElement('label');
         lbl.innerHTML = obj.name;
-        lbl.for="skills."+obj.name;
+        lbl.htmlFor="skills."+obj.name;
+        lbl.className="skills_item";
 
         var opt = document.createElement('input');
         opt.value = value;
@@ -89,8 +90,8 @@ function populateCheckboxes(divEle, sourceObj) {
         opt.name = "skills";
         opt.id ="skills."+obj.name;
         
-        lbl.appendChild(opt);
         fragment.appendChild(lbl);
+        fragment.appendChild(opt);
     };
 
     divEle.appendChild(fragment);
