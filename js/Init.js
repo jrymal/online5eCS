@@ -49,6 +49,11 @@ function init() {
     // configure initial tab
     var tabId = window.location.hash ? window.location.hash.split('#')[1]: 'PlayerInfo';
     var tabElement = getElementByXpath("/html/body/div/button[@for='"+tabId+"']");
+    if (!tabElement){
+        // ZOMG things went bad....let's get to a safe place
+        tabId = 'PlayerInfo';
+        tabElement = getElementByXpath("/html/body/div/button[@for='"+tabId+"']");
+    }
     openTab({currentTarget: tabElement}, tabId);
 }
 
