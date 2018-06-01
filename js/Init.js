@@ -89,7 +89,8 @@ function populateCheckboxes(divEle, sourceObj) {
         opt.type = "checkbox";
         opt.name = "skills";
         opt.id ="skills."+obj.name;
-        
+        opt.setAttribute("onChange", "updateRace()");
+
         fragment.appendChild(lbl);
         fragment.appendChild(opt);
     };

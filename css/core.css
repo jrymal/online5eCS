@@ -13,7 +13,8 @@ input,
 select, 
 textarea, 
 a  {
-    padding: .2em;
+    padding: 0 0.2em 0.2em 0;
+    font-size: 1.0em;
 }
 
 button, 
@@ -27,7 +28,7 @@ textarea {
 input, 
 select, 
 textarea {
-    margin: .5em 0 .5em .5em;
+    margin: 0 0.5em 0.5em 0;
 }
 
 table td,

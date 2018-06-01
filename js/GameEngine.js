@@ -269,12 +269,29 @@ function updateRace(evt) {
 function updateAttribute(evt) {
     var targetId = evt.target.id;
     var raceMod = getValue(Races[$('race').value].attribute, targetId, 0);
-    var totalValue =  Number(evt.target.value) + raceMod;
+    var totalValue = Number(evt.target.value) + raceMod;
+    var savingThrow = Engine.savingthrow(totalValue);
+
+    var skillMod = getCheckedSkillCount(targetId)
 
     $("RaceModifier."+targetId).value = raceMod;
     $("Total."+targetId).value = totalValue;
-    $("SavingThrows."+targetId).value = Engine.savingthrow(totalValue);
-    $("Passive."+targetId).value = 10 + Engine.savingthrow(totalValue); // plus skill adds
+    $("SavingThrows."+targetId).value = savingThrow;
+    $("Passive."+targetId).value = 10 + savingThrow + skillMod;
+}
+
+function getCheckedSkillCount(attributeId) {
+    var skillsArray = Object.keys(Skills);
+    var cnt = 0;
+    for(var i = 0; i < skillsArray.length; i++) {
+        var skillName = skillsArray[i];
+        var skill = Skills[skillName];
+        var skillEle = $("skills."+skillName);
+        if (attributeId === skill.attribute && $("skills."+skill.name).checked) {
+            cnt++;
+        }
+    }
+    return cnt;
 }
 
 function getValue(obj, key, defaultValue) {
