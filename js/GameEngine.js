@@ -1,4 +1,4 @@
- var Skills = {
+ const SKILLS = {
     acrobatics: {
         name: "Acrobatics",
         attribute: "dexterity",
@@ -73,7 +73,7 @@
     }
 };
 
-var Classes = {
+const CLASSES = {
     Barbarian:{
         hitDie: "d12",
         primaryAbility: ["strength"],
@@ -200,7 +200,7 @@ var Classes = {
     }
 };
 
-var Races = {
+const RACES = {
     Dwarf:{
         name: "Dwarf",
         family: "Dwarf",
@@ -341,7 +341,7 @@ var Races = {
     }
 };
 
-var Backstories = {
+const BACKSTORIES= {
     Acolyte:{},
     Charlatan:{},
     Criminal:{},
@@ -357,7 +357,7 @@ var Backstories = {
     Urchin:{}
 };
 
-var Engine = {
+const ENGINE = {
     savingthrow: function(value) {
         return Math.floor((value-10)/2);
     }
@@ -378,11 +378,22 @@ function updateRace(evt) {
     }
 }
 
+function updateClass(evt) {
+    var classes = CLASSES[$('class').value];
+
+    $("hitDie").innerHTML = classes.hitDie;
+    $("maxHitPoints").innerHTML = Number(stripFirst("d", classes.hitDie))*$("level").value;
+    $("ability").innerHTML = classes.primaryAbility.join("<br>");
+    $("savingThrows").innerHTML = classes.savingThrowProficiencies.join("<br>");
+    $("class.proficiencies").innerHTML = classes.proficiencies.join("<br>");
+    
+}
+
 function updateAttribute(evt) {
     var targetId = evt.target.id;
-    var raceMod = getValue(Races[$('race').value].attribute, targetId, 0);
+    var raceMod = getValue(RACES[$('race').value].attribute, targetId, 0);
     var totalValue = Number(evt.target.value) + raceMod;
-    var savingThrow = Engine.savingthrow(totalValue);
+    var savingThrow = ENGINE.savingthrow(totalValue);
 
     var skillMod = getCheckedSkillCount(targetId)
 
@@ -393,11 +404,11 @@ function updateAttribute(evt) {
 }
 
 function getCheckedSkillCount(attributeId) {
-    var skillsArray = Object.keys(Skills);
+    var skillsArray = Object.keys(SKILLS);
     var cnt = 0;
     for(var i = 0; i < skillsArray.length; i++) {
         var skillName = skillsArray[i];
-        var skill = Skills[skillName];
+        var skill = SKILLS[skillName];
         var skillEle = $("skills."+skillName);
         if (attributeId === skill.attribute && $("skills."+skill.name).checked) {
             cnt++;

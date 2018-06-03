@@ -7,8 +7,9 @@ function getElementByXpath(path) {
 }
 
 function stripFirst(matchChar, string){
-    if (string.indexOf(matchChar)>0){
-        return string.split('#')[1];
+    var index = string.indexOf(matchChar);
+    if (index>=0){
+        return string.split(matchChar)[1];
     }
     return string;
 }
@@ -35,10 +36,10 @@ function init() {
     }
 
     // set up selects
-    populateSelect($('class'), Classes);
-    populateSelect($('race'), Races);
-    populateSelect($('backstory.type'), Backstories);
-    populateCheckboxes($('skills_container'), Skills);
+    populateSelect($('class'), CLASSES);
+    populateSelect($('race'), RACES);
+    populateSelect($('backstory.type'), BACKSTORIES);
+    populateCheckboxes($('skills_container'), SKILLS);
 
     // Check for a previous state in the history on load
     if (window.history.state){
@@ -225,4 +226,5 @@ function parseDataFromJSON(myData) {
   }
    
     updateRace({});
+    updateClass({});
 }

@@ -111,3 +111,11 @@ th {
 input.short {
     width: 3em;
 }
+input:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+

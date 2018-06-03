@@ -47,19 +47,32 @@
 
         <form id='Info' class='stack tabcontent dataholder'>
             <label for="name" name="name">Character Name</label>
-            <input type="text" id="name" name="name"/>
+            <input type="text" id="name" name="name" required/>
 
             <label for="class" name="class">Class</label>
-            <select id="class" name="class"></select>
+            <select id="class" name="class" onchange="updateClass(event)"></select>
 
             <label for="level" name="level">Level</label>
-            <input type="number" id="level" class="short" name="level"/>
+            <input type="number" id="level" class="short" name="level" min="1" max="40" required/>
 
             <label for="race" name="race">Race</label>
             <select id="race" onchange="updateRace(event)" name="race"></select>
 
             <label for="experience" name="experience">Experience Points</label>
             <input type="number" id="experience" name="experience"/>
+
+            <label>Hit Dice</label>
+            <div id="hitDie"></div>
+            <div id="maxHitPoints"></div>
+
+            <label for="damage" name="damage">Damage</label>
+            <input type="number" id="damage" name="damage"/>
+
+            <label>Ability</label>
+            <div id="ability"></div>
+
+            <label>Saving Throws</label>
+            <div id="savingThrows"></div>
 
             <label for="inspiration" name="inspiration">Inspiration</label>
             <input type="checkbox" id="inspiration" name="inspiration"/>
@@ -158,6 +171,7 @@
             <textarea id="languages" name="languages" spellcheck="true"></textarea>
 
             <label for="proficiencies" name="proficiencies">Proficiencies</label>
+            <div id="class.proficiencies"></div>
             <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
             
             <label for="features" name="features">Features & Traits</label>
