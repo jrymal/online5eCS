@@ -87,14 +87,14 @@ function populateCheckboxes(divEle, sourceObj) {
 
         var lbl = document.createElement('label');
         lbl.innerHTML = obj.name;
-        lbl.htmlFor="skills."+obj.name;
+        lbl.htmlFor="skills."+value;
         lbl.className="skills_item";
 
         var opt = document.createElement('input');
         opt.value = value;
         opt.type = "checkbox";
         opt.name = "skills";
-        opt.id ="skills."+obj.name;
+        opt.id ="skills."+value;
         opt.setAttribute("onChange", "updateRace()");
 
         fragment.appendChild(lbl);

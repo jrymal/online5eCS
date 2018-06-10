@@ -1,6 +1,10 @@
 <html>
     <head>
         <title>You have no Class!</title>
+        <script type="text/javascript" src="js/Races.js"> </script>
+        <script type="text/javascript" src="js/Skills.js"> </script>
+        <script type="text/javascript" src="js/Classes.js"> </script>
+        <script type="text/javascript" src="js/Backstories.js"> </script>
         <script type="text/javascript" src="js/GameEngine.js"> </script>
         <script type="text/javascript" src="js/Init.js"> </script>
         <script type="text/javascript" src="js/Tabbing.js"> </script>
@@ -78,7 +82,7 @@
             <input type="checkbox" id="inspiration" name="inspiration"/>
 
             <label for="backstory" name="backstory">Backstory</label>
-            <select id="backstory.type" name="backstory.type"></select>
+            <select id="backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
             <textarea id="backstory" name="backstory" spellcheck="true"></textarea>
         </form>
 
@@ -169,6 +173,7 @@
         <form id='Abilities' class='stack tabcontent dataholder'>
             <label for="languages" name="languages">Languages</label>
             <textarea id="languages" name="languages" spellcheck="true"></textarea>
+            <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
 
             <label for="proficiencies" name="proficiencies">Proficiencies</label>
             <div id="class.proficiencies"></div>
@@ -200,6 +205,7 @@
             
             <label for="equipment" name="equipment">Equipment</label>
             <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
+            <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true"></textarea>
             
             <label for="treasure" name="treasure">Treasure</label>
             <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
