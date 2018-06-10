@@ -17,7 +17,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" /-->
     </head>
-    <body onload="init()">
+    <body onload="init()" onresize="resizeScreen()">
 
         <h1>You have no Class!</h1>
 
@@ -26,27 +26,51 @@
             <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
         </div>
 
-        <!-- Tab links -->
-        <div class="tab">
+        <ul  id="nav-anchors" class="nav-anchors">
+          <li><a href="#nav" id="menu-anchor">Menu</a></li>
+          <li><a href="#search" id="search-anchor">Search</a></li>
+        </ul>
+        <form id="search" action="#" method="post" class="search reveal">
+          <fieldset>
+            <legend>Search the Site</legend>
+            <input type="search" placeholder="Search Store" />
+            <input type="submit" value="Search" />
+          </fieldset>
+        </form>
+        <nav id="nav" class="nav reveal">
+          <ul role="navigation">
+              <li><button type="button" for="PlayerInfo" class="tablinks"
+                      onclick="openTab(event, 'PlayerInfo')">Player
+                      Info</button></li>
+              <li><button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button></li>
+              <li><button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button></li>
+              <li><button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button></li>
+              <li><button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button></li>
+              <li><button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button></li>
+          </ul>
+        </nav>
+
+        <!-- Tab links 
+        <div class="navigation-tab">
           <button type="button" for="PlayerInfo" class="tablinks" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
           <button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button>
           <button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button>
           <button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button>
           <button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button>
-          <button type="button" for="Inventory" class="tablinks" onclick="openTab(event,
-              'Inventory')">Inventory</button>
-        
-        </div>
+          <button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button>
+        </div>          -->
 
         <form id="PlayerInfo" class="stack tabcontent dataholder">
             <label for="player" name="player">Role Player</label>
             <input type="text" id="player" name="player"/>
 
             <label for="phone" name="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone"/>
+            <input type="tel" id="phone" name="phone" onchange="updatePhoneNumber()"/>
+            <a id="playerinfo.phone.link" href="tel:+"></a>
 
             <label for="email" name="email">Email</label>
-            <input type="email" id="email" name="email"/>
+            <input type="email" id="email" name="email" onchange="updateEmail()"/>
+            <a id="playerinfo.email.link" href="mailto:+"></a>
         </form>
 
         <form id='Info' class='stack tabcontent dataholder'>

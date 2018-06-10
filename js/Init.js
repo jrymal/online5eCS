@@ -1,5 +1,12 @@
+const NAV_BUTTON_XPATH = "/html/body/nav/ul/li/";                                                        
+const MOBILE_BREAKPOINT = 300;                                                        
+
 function $(id) {
     return document.getElementById(id);
+}
+
+function isBlank(stringValue) {
+    return stringValue == null || stringValue === "" || !stringValue;
 }
 
 function getElementByXpath(path) {
@@ -27,7 +34,7 @@ function init() {
         // Ask if there are changes they's like to save
         return "Discard changes?";
     };
-
+    
     // set up export Functionality
     $('exportFileLink').onclick = function() {
         var curData = generateDataToJSON();
@@ -49,14 +56,50 @@ function init() {
 
     // configure initial tab
     var tabId = window.location.hash ? window.location.hash.split('#')[1]: 'PlayerInfo';
-    var tabElement = getElementByXpath("/html/body/div/button[@for='"+tabId+"']");
+    var tabElement = getElementByXpath(NAV_BUTTON_XPATH + "button[@for='"+tabId+"']");
     if (!tabElement){
         // ZOMG things went bad....let's get to a safe place
         tabId = 'PlayerInfo';
-        tabElement = getElementByXpath("/html/body/div/button[@for='"+tabId+"']");
+        tabElement = getElementByXpath(NAV_BUTTON_XPATH + "button[@for='"+tabId+"']");
     }
     openTab({currentTarget: tabElement}, tabId);
 }
+
+//Check if Mobile
+function resizeScreen() {
+  sw = document.documentElement.clientWidth;
+  mobile = sw <= MOBILE_BREAKPOINT;
+
+  if (!mobile) { //If Not Mobile
+      $('[role="tabpanel"]').show();
+      $("#nav").show();
+      $("#search").show(); //Show full navigation and search
+  } else { //Hide
+      if(!$('#nav-anchors a').hasClass('active')) {
+          $('#nav,#search').hide(); //Hide full navigation and search
+      }
+  }
+}
+
+function updatePhoneNumber() {
+    updateLink('phone', 'playerinfo.phone.link', 'tel:+', 'Call ');
+}
+
+function updateEmail() {                                        
+    updateLink('email', 'playerinfo.email.link', 'mailto:', 'Send email to ');
+}
+
+function updateLink(valueId, linkId, hrefPrefix, innerHtmlPrefix) {
+    var value = $(valueId).value;
+    var valueLink = $(linkId);
+    var isblank = isBlank(value);
+    valueLink.style.visibility = isblank ? 'hidden' : 'visible';
+
+    if (!isblank) {
+        $(linkId).href = hrefPrefix+value;
+        $(linkId).innerHTML = innerHtmlPrefix+value;
+    }
+} 
 
 function populateSelect(selectEle, sourceObj) {
     var fragment = document.createDocumentFragment();
@@ -72,7 +115,7 @@ function populateSelect(selectEle, sourceObj) {
         opt.value = value;
 
         fragment.appendChild(opt);
-    };
+    }
 
     selectEle.appendChild(fragment);
 }
@@ -99,7 +142,7 @@ function populateCheckboxes(divEle, sourceObj) {
 
         fragment.appendChild(lbl);
         fragment.appendChild(opt);
-    };
+    }
 
     divEle.appendChild(fragment);
 }
@@ -227,4 +270,7 @@ function parseDataFromJSON(myData) {
    
     updateRace({});
     updateClass({});
+    updateBackstory({});
+    updateEmail();
+    updatePhoneNumber();
 }

@@ -26,3 +26,5 @@ function openTab(evt, idName) {
     document.getElementById(idName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+
