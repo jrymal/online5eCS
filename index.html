@@ -26,39 +26,29 @@
             <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
         </div>
 
-        <ul  id="nav-anchors" class="nav-anchors">
-          <li><a href="#nav" id="menu-anchor">Menu</a></li>
-          <li><a href="#search" id="search-anchor">Search</a></li>
+        <ul id="mobile-nav" class="nav-anchors">
+            <li><a nohref id="menu-anchor" onclick="openMobileMenu()">Menu</a></li>
+            <nav role="tabpanel" id="mobile-nav-menu"class="mobile-nav">
+                <ul role="navigation">
+                    <li><a nohref onclick="openTab(event, 'PlayerInfo')">Player Info</a></li>
+                    <li><a nohref onclick="openTab(event, 'Info')">Info</a></li>
+                    <li><a nohref onclick="openTab(event, 'Details')">Details</a></li>
+                    <li><a nohref onclick="openTab(event, 'Attributes')">Attributes</a></li>
+                    <li><a nohref onclick="openTab(event, 'Abilities')">Abilities</a></li>
+                    <li><a nohref onclick="openTab(event,'Inventory')">Inventory</a></li>
+                </ul>
+            </nav>
         </ul>
-        <form id="search" action="#" method="post" class="search reveal">
-          <fieldset>
-            <legend>Search the Site</legend>
-            <input type="search" placeholder="Search Store" />
-            <input type="submit" value="Search" />
-          </fieldset>
-        </form>
-        <nav id="nav" class="nav reveal">
-          <ul role="navigation">
-              <li><button type="button" for="PlayerInfo" class="tablinks"
-                      onclick="openTab(event, 'PlayerInfo')">Player
-                      Info</button></li>
-              <li><button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button></li>
-              <li><button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button></li>
-              <li><button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button></li>
-              <li><button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button></li>
-              <li><button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button></li>
-          </ul>
-        </nav>
 
-        <!-- Tab links 
-        <div class="navigation-tab">
-          <button type="button" for="PlayerInfo" class="tablinks" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
-          <button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button>
-          <button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button>
-          <button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button>
-          <button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button>
-          <button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button>
-        </div>          -->
+        <!-- Tab links -->
+        <nav role="tabpanel" id="nav" class="tab">
+            <button type="button" for="PlayerInfo" class="tablinks" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
+            <button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button>
+            <button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button>
+            <button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button>
+            <button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button>
+            <button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button>
+        </nav>
 
         <form id="PlayerInfo" class="stack tabcontent dataholder">
             <label for="player" name="player">Role Player</label>

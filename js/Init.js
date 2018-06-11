@@ -1,5 +1,5 @@
-const NAV_BUTTON_XPATH = "/html/body/nav/ul/li/";                                                        
-const MOBILE_BREAKPOINT = 300;                                                        
+const NAV_BUTTON_XPATH = "/html/body/nav/";                                                        
+const MOBILE_BREAKPOINT = 550;                                                        
 
 function $(id) {
     return document.getElementById(id);
@@ -9,8 +9,23 @@ function isBlank(stringValue) {
     return stringValue == null || stringValue === "" || !stringValue;
 }
 
+function hasClass(element, className){
+    for (var classIdx = 0; classIdx < element.classList.length; classIdx++) {
+        var eleClassName = element.classList[classId];
+        if (className == eleClassName) {
+            return true;
+        }
+    }
+    return false;
+}
+ 
+function show(element, isVis){
+    element.style.display = isVis ? 'block' : 'none';
+}
+
 function getElementByXpath(path) {
-  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  return document.evaluate(path, document, null, 
+      XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
 function stripFirst(matchChar, string){
@@ -22,14 +37,21 @@ function stripFirst(matchChar, string){
 }
 
 function generateNameHash(idName){
-    return "index.html?"+$("player").value+"_"+$("name").value+"#"+stripFirst("#",idName);
+    return "index.html?"+$("player").value
+        +"_"+$("name").value
+        +"#"+stripFirst("#",idName);
+}
+
+function openMobileMenu() {
+    show($('mobile-nav-menu'), true);
 }
 
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
         // set last settings into history
-        window.history.pushState(generateDataToJSON(), "", generateNameHash(window.location.hash));
+        window.history.pushState(generateDataToJSON(), "", 
+            generateNameHash(window.location.hash));
         
         // Ask if there are changes they's like to save
         return "Discard changes?";
@@ -38,8 +60,10 @@ function init() {
     // set up export Functionality
     $('exportFileLink').onclick = function() {
         var curData = generateDataToJSON();
-        this.href = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(JSON.stringify(curData));
-        this.download = encodeURIComponent(curData.name) + '_'+curData.level+'.json'
+        this.href = 'data:text/javascript;charset=utf-8,' 
+            + encodeURIComponent(JSON.stringify(curData));
+        this.download = encodeURIComponent(curData.name) 
+            + '_'+curData.level+'.json'
     }
 
     // set up selects
@@ -47,6 +71,8 @@ function init() {
     populateSelect($('race'), RACES);
     populateSelect($('backstory.type'), BACKSTORIES);
     populateCheckboxes($('skills_container'), SKILLS);
+    
+    show($('mobile-nav-menu'), false);
 
     // Check for a previous state in the history on load
     if (window.history.state){
@@ -63,22 +89,15 @@ function init() {
         tabElement = getElementByXpath(NAV_BUTTON_XPATH + "button[@for='"+tabId+"']");
     }
     openTab({currentTarget: tabElement}, tabId);
+    resizeScreen();
 }
 
-//Check if Mobile
 function resizeScreen() {
-  sw = document.documentElement.clientWidth;
-  mobile = sw <= MOBILE_BREAKPOINT;
+    var sw = document.documentElement.clientWidth;
+    var mobile = sw <= MOBILE_BREAKPOINT;
 
-  if (!mobile) { //If Not Mobile
-      $('[role="tabpanel"]').show();
-      $("#nav").show();
-      $("#search").show(); //Show full navigation and search
-  } else { //Hide
-      if(!$('#nav-anchors a').hasClass('active')) {
-          $('#nav,#search').hide(); //Hide full navigation and search
-      }
-  }
+    show($('mobile-nav'), mobile);
+    show($('nav'), !mobile);
 }
 
 function updatePhoneNumber() {
@@ -93,7 +112,7 @@ function updateLink(valueId, linkId, hrefPrefix, innerHtmlPrefix) {
     var value = $(valueId).value;
     var valueLink = $(linkId);
     var isblank = isBlank(value);
-    valueLink.style.visibility = isblank ? 'hidden' : 'visible';
+    show(valueLink, !isblank);
 
     if (!isblank) {
         $(linkId).href = hrefPrefix+value;
@@ -274,3 +293,34 @@ function parseDataFromJSON(myData) {
     updateEmail();
     updatePhoneNumber();
 }
+
+//
+// Tabbing Functionality
+//
+function openTab(evt, idName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+                                  
+    // Take the data object and put it in the history page
+    // No title, not used per MDN
+    // Set hash location in url
+    window.history.replaceState(generateDataToJSON(), "", generateNameHash(idName));
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(idName).style.display = "block";
+    evt.currentTarget.className += " active";
+    
+    show($('mobile-nav-menu'), false);
+} 
