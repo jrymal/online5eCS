@@ -38,6 +38,7 @@ th {
 
 a {
     color: blue;
+    cursor: pointer;
 }
 
 .stack > label,
