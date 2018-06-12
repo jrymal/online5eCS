@@ -21,6 +21,11 @@ function hasClass(element, className){
  
 function show(element, isVis){
     element.style.display = isVis ? 'block' : 'none';
+    element['aria-hidden'] = isVis;
+}
+
+function isVisible(element) {
+    return element.style.display != 'none';
 }
 
 function getElementByXpath(path) {
@@ -43,7 +48,7 @@ function generateNameHash(idName){
 }
 
 function openMobileMenu() {
-    show($('mobile-nav-menu'), true);
+    show($('mobile-nav-menu'), !isVisible($('mobile-nav-menu')));
 }
 
 function init() {
