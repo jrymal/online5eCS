@@ -23,7 +23,7 @@ self.addEventListener('fetch', function(event) {
     caches.match(e.request).then(function(response) {
       return response || fetch(e.request);
     }).catch(function() {
-      console.log(i"Failed to extract file: "+event.request.url);
+      console.log("Failed to extract file: "+event.request.url);
       return caches.match("/fallback.html");
     })
   );
