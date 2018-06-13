@@ -58,10 +58,10 @@ function updateAttribute(evt) {
 
     var skillMod = getCheckedSkillCount(targetId)
 
-    $("RaceModifier."+targetId).value = raceMod;
-    $("Total."+targetId).value = totalValue;
-    $("SavingThrows."+targetId).value = savingThrow;
-    $("Passive."+targetId).value = 10 + savingThrow + skillMod;
+    $("RaceModifier."+targetId).innerHTML = raceMod;
+    $("Total."+targetId).innerHTML = totalValue;
+    $("SavingThrows."+targetId).innerHTML = savingThrow;
+    $("Passive."+targetId).innerHTML = 10 + savingThrow + skillMod;
 }
 
 function getCheckedSkillCount(attributeId) {
