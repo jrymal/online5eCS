@@ -3,11 +3,10 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
         <meta name="keywords" content="Character Sheet"/>
-        <meta name="description" content="An online only Dungeons and Dragons
-        %th Edition character record sheet editor."/>
-        <meta name="author" content="jrymal"/> 
+        <meta name="description" content="An online only Dungeons and Dragons 5th Edition character record sheet editor."/>
+        <meta name="author" content="jrymal"/>
+        <meta name="theme-color" content="#3367D6"/>
         
         <title>You have no Class!</title>
         
@@ -231,5 +230,12 @@
 
         <a id="exportFileLink" href="" download="">Download Character</a>
 
+        <script>
+            if('serviceWorker' in navigator) {
+              navigator.serviceWorker
+                       .register('js/online5eCS-serviceworker.js')
+                       .then(function() { console.log("Service Worker Registered"); });
+            }
+        </script>
     </body>
 </html>
