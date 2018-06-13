@@ -30,20 +30,20 @@
             <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
         </div>
 
-        <a nohref id="mobile-nav" class="nav-anchors" onclick="openMobileMenu()">Menu</a>
-        <nav role="tabpanel" id="mobile-nav-menu" class="mobile-nav">
-            <ul role="navigation">
-                <li><a nohref onclick="openTab(event, 'PlayerInfo')">Player Info</a></li>
-                <li><a nohref onclick="openTab(event, 'Info')">Info</a></li>
-                <li><a nohref onclick="openTab(event, 'Details')">Details</a></li>
-                <li><a nohref onclick="openTab(event, 'Attributes')">Attributes</a></li>
-                <li><a nohref onclick="openTab(event, 'Abilities')">Abilities</a></li>
-                <li><a nohref onclick="openTab(event,'Inventory')">Inventory</a></li>
+        <button id="mobile-nav" class="nav-anchors" onclick="openMobileMenu()">Menu</button>
+        <nav id="mobile-nav-menu" class="mobile-nav">
+            <ul>
+                <li><button onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
+                <li><button onclick="openTab(event, 'Info')">Info</button></li>
+                <li><button onclick="openTab(event, 'Details')">Details</button></li>
+                <li><button onclick="openTab(event, 'Attributes')">Attributes</button></li>
+                <li><button onclick="openTab(event, 'Abilities')">Abilities</button></li>
+                <li><button onclick="openTab(event,'Inventory')">Inventory</button></li>
             </ul>
         </nav>
 
         <!-- Tab links -->
-        <nav role="tabpanel" id="nav" class="tab">
+        <nav id="nav" class="tab">
             <button type="button" for="PlayerInfo" class="tablinks" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
             <button type="button" for="Info" class="tablinks" onclick="openTab(event, 'Info')">Info</button>
             <button type="button" for="Details" class="tablinks" onclick="openTab(event, 'Details')">Details</button>
@@ -62,7 +62,7 @@
 
             <label for="email" name="email">Email</label>
             <input type="email" id="email" name="email" onchange="updateEmail()"/>
-            <a target="_blank" id="playerinfo.email.link" href="mailto:+">iEmail missing</a>
+            <a target="_blank" id="playerinfo.email.link" href="mailto:+">Email missing</a>
         </form>
 
         <form id='Info' class='stack tabcontent dataholder'>
