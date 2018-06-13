@@ -6,13 +6,13 @@ self.addEventListener('install', function(e) {
        '/index.html',
        '/fallback.html',
        '/manifest.json',
-       'js/Backstories.js',
-       'js/Classes.js',
-       'js/GameEngine.js',
-       'js/Init.js',
-       'js/Races.js',
-       'js/Skills.js',
-       'css/core.css'
+       '/js/Backstories.js',
+       '/js/Classes.js',
+       '/js/GameEngine.js',
+       '/js/Init.js',
+       '/js/Races.js',
+       '/js/Skills.js',
+       '/css/core.css'
      ]);
    })
  );
