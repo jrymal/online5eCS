@@ -12,7 +12,9 @@ self.addEventListener('install', function(e) {
        '/online5eCS/js/Init.js',
        '/online5eCS/js/Races.js',
        '/online5eCS/js/Skills.js',
-       '/online5eCS/css/core.css'
+       '/online5eCS/css/core.css',
+       '/online5eCS/images/icons-192.png',
+       '/online5eCS/images/icons-512.png'
      ]);
    })
  );
