@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="EN-US" manifest="online5ECS.appcache">
+<html lang="EN-US">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -10,15 +10,17 @@
         <meta name="author" content="jrymal"/> 
         
         <title>You have no Class!</title>
+        
+        <link rel="manifest" href="manifest.json">
+        
         <script type="text/javascript" src="js/Races.js" async> </script>
         <script type="text/javascript" src="js/Skills.js" async> </script>
         <script type="text/javascript" src="js/Classes.js" async> </script>
         <script type="text/javascript" src="js/Backstories.js" async> </script>
         <script type="text/javascript" src="js/GameEngine.js" async> </script>
         <script type="text/javascript" src="js/Init.js" async> </script>
-        <link rel="stylesheet" type="text/css" href="css/core.css" async/>
-        
 
+        <link rel="stylesheet" type="text/css" href="css/core.css" media="all"/>
     </head>
     <body onload="init()">
 
