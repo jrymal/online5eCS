@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="EN-US">
+<html lang="EN-US" manifest="online5ECS.appcache">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
-        <!--meta name="keywords" content="" />
-        <meta name="description" content="" />
-        <meta name="author" content="" /--> 
+        <meta name="keywords" content="Character Sheet"/>
+        <meta name="description" content="An online only Dungeons and Dragons
+        %th Edition character record sheet editor."/>
+        <meta name="author" content="jrymal"/> 
         
         <title>You have no Class!</title>
-        <script type="text/javascript" src="js/Races.js"> </script>
-        <script type="text/javascript" src="js/Skills.js"> </script>
-        <script type="text/javascript" src="js/Classes.js"> </script>
-        <script type="text/javascript" src="js/Backstories.js"> </script>
-        <script type="text/javascript" src="js/GameEngine.js"> </script>
-        <script type="text/javascript" src="js/Init.js"> </script>
-        <link rel="stylesheet" type="text/css" href="css/core.css"/>
+        <script type="text/javascript" src="js/Races.js" async> </script>
+        <script type="text/javascript" src="js/Skills.js" async> </script>
+        <script type="text/javascript" src="js/Classes.js" async> </script>
+        <script type="text/javascript" src="js/Backstories.js" async> </script>
+        <script type="text/javascript" src="js/GameEngine.js" async> </script>
+        <script type="text/javascript" src="js/Init.js" async> </script>
+        <link rel="stylesheet" type="text/css" href="css/core.css" async/>
         
 
     </head>
@@ -24,23 +25,21 @@
         <h1>You have no Class!</h1>
 
         <div class="inline">
-            <label for="upload">Import file</label>
+            <label for="importFile">Import file</label>
             <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
         </div>
 
-        <ul id="mobile-nav" class="nav-anchors">
-            <li><a nohref id="menu-anchor" onclick="openMobileMenu()">Menu</a></li>
-            <nav role="tabpanel" id="mobile-nav-menu"class="mobile-nav">
-                <ul role="navigation">
-                    <li><a nohref onclick="openTab(event, 'PlayerInfo')">Player Info</a></li>
-                    <li><a nohref onclick="openTab(event, 'Info')">Info</a></li>
-                    <li><a nohref onclick="openTab(event, 'Details')">Details</a></li>
-                    <li><a nohref onclick="openTab(event, 'Attributes')">Attributes</a></li>
-                    <li><a nohref onclick="openTab(event, 'Abilities')">Abilities</a></li>
-                    <li><a nohref onclick="openTab(event,'Inventory')">Inventory</a></li>
-                </ul>
-            </nav>
-        </ul>
+        <a nohref id="mobile-nav" class="nav-anchors" onclick="openMobileMenu()">Menu</a>
+        <nav role="tabpanel" id="mobile-nav-menu" class="mobile-nav">
+            <ul role="navigation">
+                <li><a nohref onclick="openTab(event, 'PlayerInfo')">Player Info</a></li>
+                <li><a nohref onclick="openTab(event, 'Info')">Info</a></li>
+                <li><a nohref onclick="openTab(event, 'Details')">Details</a></li>
+                <li><a nohref onclick="openTab(event, 'Attributes')">Attributes</a></li>
+                <li><a nohref onclick="openTab(event, 'Abilities')">Abilities</a></li>
+                <li><a nohref onclick="openTab(event,'Inventory')">Inventory</a></li>
+            </ul>
+        </nav>
 
         <!-- Tab links -->
         <nav role="tabpanel" id="nav" class="tab">
@@ -58,11 +57,11 @@
 
             <label for="phone" name="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" onchange="updatePhoneNumber()"/>
-            <a target="_blank" id="playerinfo.phone.link" href="tel:+"></a>
+            <a target="_blank" id="playerinfo.phone.link" href="tel:+">Phone number missing</a>
 
             <label for="email" name="email">Email</label>
             <input type="email" id="email" name="email" onchange="updateEmail()"/>
-            <a target="_blank" id="playerinfo.email.link" href="mailto:+"></a>
+            <a target="_blank" id="playerinfo.email.link" href="mailto:+">iEmail missing</a>
         </form>
 
         <form id='Info' class='stack tabcontent dataholder'>
@@ -180,9 +179,10 @@
             
             </div>
 
-            <div class="skill_title">Skills</div>
-            <div id="skills_container" class="skills_grid">
-            </div>
+            <fieldset>
+                <legend class="skill_title">Skills</legend>
+                <div id="skills_container" class="skills_grid"></div>
+            </fieldset>
             
         </form>
 
