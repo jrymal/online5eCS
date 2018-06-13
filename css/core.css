@@ -1,3 +1,4 @@
+
 body {
     font-family:sans-serif;
     font-size: 1.0em;
@@ -40,6 +41,7 @@ a {
     color: blue;
     cursor: pointer;
 }
+
 
 .stack > label,
 .stack > input,
@@ -124,3 +126,23 @@ input:focus:invalid {
   outline: none;
 }
 
+/* Default navigation set up */
+#nav {
+    display: block;
+}
+
+#mobile-nav {
+    display: none;
+}
+
+/* Mobile */
+@media screen and (max-width:550px) {
+    #nav {
+        display: none;
+    }
+
+    #mobile-nav {
+        display: block;
+    }
+}
+ 

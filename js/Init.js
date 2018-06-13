@@ -20,8 +20,9 @@ function hasClass(element, className){
 }
  
 function show(element, isVis){
+    // since we are using display: none, we do not need to set aria-hidden as
+    // display:none affects the aria tree
     element.style.display = isVis ? 'block' : 'none';
-    element['aria-hidden'] = isVis;
 }
 
 function isVisible(element) {
@@ -94,15 +95,6 @@ function init() {
         tabElement = getElementByXpath(NAV_BUTTON_XPATH + "button[@for='"+tabId+"']");
     }
     openTab({currentTarget: tabElement}, tabId);
-    resizeScreen();
-}
-
-function resizeScreen() {
-    var sw = document.documentElement.clientWidth;
-    var mobile = sw <= MOBILE_BREAKPOINT;
-
-    show($('mobile-nav'), mobile);
-    show($('nav'), !mobile);
 }
 
 function updatePhoneNumber() {
