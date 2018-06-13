@@ -2,17 +2,17 @@ self.addEventListener('install', function(e) {
  e.waitUntil(
    caches.open('online5eCS').then(function(cache) {
      return cache.addAll([
-       '/',
-       '/index.html',
-       '/fallback.html',
-       '/manifest.json',
-       '/js/Backstories.js',
-       '/js/Classes.js',
-       '/js/GameEngine.js',
-       '/js/Init.js',
-       '/js/Races.js',
-       '/js/Skills.js',
-       '/css/core.css'
+       '/online5eCS/',
+       '/online5eCS/index.html',
+       '/online5eCS/fallback.html',
+       '/online5eCS/manifest.json',
+       '/online5eCS/js/Backstories.js',
+       '/online5eCS/js/Classes.js',
+       '/online5eCS/js/GameEngine.js',
+       '/online5eCS/js/Init.js',
+       '/online5eCS/js/Races.js',
+       '/online5eCS/js/Skills.js',
+       '/online5eCS/css/core.css'
      ]);
    })
  );
@@ -24,7 +24,7 @@ self.addEventListener('fetch', function(event) {
       return response || fetch(e.request);
     }).catch(function() {
       console.log("Failed to extract file: "+event.request.url);
-      return caches.match("/fallback.html");
+      return caches.match("/online5eCS/fallback.html");
     })
   );
 });
