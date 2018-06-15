@@ -12,8 +12,7 @@ self.addEventListener('install', function(event) {
                 })
                 .catch(function(error) {console.log('Failed openning cache: ' + error);});
         })
-        .catch(function(error) {console.log('Failed fetching cache: ' + error);});
-    );
+        .catch(function(error) {console.log('Failed fetching cache: ' + error);}));
 
    /* e.waitUntil(
    caches.open('online5eCS').then(function(cache) {
