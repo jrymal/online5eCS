@@ -21,13 +21,4 @@ self.addEventListener('install', function(e) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log("Fetching file: "+event.request.url);
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    }).catch(function() {
-      console.log("Failed to extract file: "+event.request.url);
-      return caches.match("/online5eCS/fallback.html");
-    })
-  );
 });
