@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
                 '/online5eCS/images/icons-192.png',
                 '/online5eCS/images/icons-512.png'
             ]);
-        });
+        })
     );
 });
 
