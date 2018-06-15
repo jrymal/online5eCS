@@ -18,8 +18,8 @@ self.addEventListener('install', function(event) {
                 '/online5eCS/images/icons-192.png',
                 '/online5eCS/images/icons-512.png'
             ]);
-        })
-        .catch(function(error) {console.log('Failed fetching cache: ' + error);}));
+        });i
+    );
 });
 
 self.addEventListener('fetch', function(event) {
@@ -28,8 +28,7 @@ self.addEventListener('fetch', function(event) {
             return fetch(request).then(function (response) {
                 console.log(CACHE_NAME+': add page to offline'+response.url)
                 return cache.put(request, response);
-            })
-            .catch(function(error) {console.log('Registration failed with ' + error);})
+            });
         });
     };
   
@@ -48,10 +47,8 @@ self.addEventListener('fetch', function(event) {
                         .then(function (matching) {
                             var report =  !matching || matching.status == 404?Promise.reject('no-match'): matching;
                             return report
-                        })
-                        .catch(function(error) {console.log('Failed to extract cache: ' + error);})
-                })
-                .catch(function(error) {console.log('Registration failed with ' + error);})
+                        });
+                });
         })
     );
 });
