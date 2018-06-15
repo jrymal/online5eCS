@@ -98,7 +98,7 @@ function init() {
         tabId = 'PlayerInfo';
         tabElement = getElementByXpath(NAV_BUTTON_XPATH + "button[@for='"+tabId+"']");
     }
-    openTab({currentTarget: tabElement}, tabId);
+    openTab({currentTarget: tabElement}, tabId, false);
     
     updatePhoneNumber();
     updateEmail();
@@ -301,14 +301,16 @@ function parseDataFromJSON(myData) {
 //
 // Tabbing Functionality
 //
-function openTab(evt, idName) {
+function openTab(evt, idName, replaceState = true) {
     // Declare all variables
     var i, tabcontent, tablinks;
                                   
     // Take the data object and put it in the history page
     // No title, not used per MDN
     // Set hash location in url
-    window.history.replaceState(generateDataToJSON(), "", generateNameHash(idName));
+    if (replaceState) {
+        window.history.replaceState(generateDataToJSON(), "", generateNameHash(idName));
+    }
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
