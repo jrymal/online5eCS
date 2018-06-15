@@ -18,6 +18,10 @@ function hasClass(element, className){
     return false;
 }
  
+function openMobileMenu() {
+    show($('mobile-nav-menu'), true);
+}
+
 function show(element, isVis){
     // since we are using display: none, we do not need to set aria-hidden as
     // display:none affects the aria tree
