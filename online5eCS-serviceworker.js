@@ -28,7 +28,8 @@ self.addEventListener('fetch', function(event) {
             return fetch(request).then(function (response) {
                 console.log(CACHE_NAME+': add page to offline'+response.url)
                 return cache.put(request, response);
-            });
+            })
+            .catch(function(error) {console.log('Registration failed with ' + error);})
         });
     };
   
