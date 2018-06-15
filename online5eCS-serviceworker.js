@@ -3,12 +3,16 @@ const CACHE_NAME = 'online5eCS';
 self.addEventListener('install', function(event) {
     var indexPage = new Request('index.html');
     event.waitUntil(
-        fetch(indexPage).then(function(response) {
-            return caches.open(CACHE_NAME).then(function(cache) {
-                console.log(CACHE_NAME+': Cached index page during Install'+ response.url);
-                return cache.put(indexPage, response);
-            });
+        fetch(indexPage)
+        .then(function(response) {
+            return caches.open(CACHE_NAME)
+                .then(function(cache) {
+                    console.log(CACHE_NAME+': Cached index page during Install'+ response.url);
+                    return cache.put(indexPage, response);
+                })
+                .catch(function(error) {console.log('Failed openning cache: ' + error);});
         })
+        .catch(function(error) {console.log('Failed fetching cache: ' + error);});
     );
 
    /* e.waitUntil(
@@ -45,17 +49,22 @@ self.addEventListener('fetch', function(event) {
     event.waitUntil(updateCache(event.request));
   
     event.respondWith(
-        fetch(event.request).catch(function(error) {
+        fetch(event.request)
+        .catch(function(error) {
             console.log( CACHE_NAME+': Network request Failed. Serving content from cache: ' + error );
             //Check to see if you have it in the cache
             //Return response
             //If not in the cache, then return error page
-            return caches.open(CACHE_NAME).then(function (cache) {
-                return cache.match(event.request).then(function (matching) {
-                    var report =  !matching || matching.status == 404?Promise.reject('no-match'): matching;
-                    return report
-                });
-            });
-        })
+            return caches.open(CACHE_NAME)
+                .then(function (cache) {
+                    return cache.match(event.request)
+                        .then(function (matching) {
+                            var report =  !matching || matching.status == 404?Promise.reject('no-match'): matching;
+                            return report
+                        })
+                        .catch(function(error) {console.log('Failed to extract cache: ' + error);})
+                })
+                .catch(function(error) {console.log('Registration failed with ' + error);});
+        });
     );
 });
