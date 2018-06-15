@@ -19,7 +19,7 @@ function hasClass(element, className){
 }
  
 function openMobileMenu() {
-    show($('mobile-nav-menu'), !isVisible('mobile-nav-menu'));
+    show($('mobile-nav'), !isVisible('mobile-nav'));
 }
 
 function show(element, isVis){
