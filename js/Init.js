@@ -52,10 +52,6 @@ function generateNameHash(idName){
     return resp;
 }
 
-function openMobileMenu() {
-    show($('mobile-nav-menu'), !isVisible($('mobile-nav-menu')));
-}
-
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
@@ -65,6 +61,11 @@ function init() {
         
         // Ask if there are changes they's like to save
         return "Discard changes?";
+    };
+ 
+    // Enable navigation prompt
+    window.onbeforeinstallprompt= function() {
+        preventDefault(); 
     };
     
     // set up export Functionality
