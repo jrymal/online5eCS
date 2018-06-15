@@ -64,6 +64,6 @@ self.addEventListener('fetch', function(event) {
                         .catch(function(error) {console.log('Failed to extract cache: ' + error);})
                 })
                 .catch(function(error) {console.log('Registration failed with ' + error);})
-        });
+        })
     );
 });
