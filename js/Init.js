@@ -1,5 +1,4 @@
 const NAV_BUTTON_XPATH = "/html/body/nav/";                                                        
-const MOBILE_BREAKPOINT = 550;                                                        
 
 function $(id) {
     return document.getElementById(id);
@@ -43,9 +42,14 @@ function stripFirst(matchChar, string){
 }
 
 function generateNameHash(idName){
-    return "index.html?"+$("player").value
-        +"_"+$("name").value
-        +"#"+stripFirst("#",idName);
+    var playerName = $("player").value;
+    var charName = $("name").value;
+    var resp = "index.html";
+    if (playerName && charName) {
+        resp += '?' + playerName + '_' + charName;
+    }
+    resp += '#'+stripFirst('#',idName);
+    return resp;
 }
 
 function openMobileMenu() {
