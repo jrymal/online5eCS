@@ -24,6 +24,7 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
     var updateCache = function(request){
+        console.log(CACHE_NAME+': add page '+request)
         return caches.open(CACHE_NAME).then(function (cache) {
             return fetch(request).then(function (response) {
                 console.log(CACHE_NAME+': add page to offline'+response.url)
