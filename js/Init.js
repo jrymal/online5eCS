@@ -52,6 +52,8 @@ function generateNameHash(idName){
     return resp;
 }
 
+let installPromptEvent;
+
 function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
@@ -63,11 +65,15 @@ function init() {
         return "Discard changes?";
     };
  
-    // Enable navigation prompt
-    window.onbeforeinstallprompt= function() {
-        preventDefault(); 
-    };
-    
+    window.addEventListener('beforeinstallprompt', (event) => {
+      // Prevent Chrome <= 67 from automatically showing the prompt
+      event.preventDefault();
+      // Stash the event so it can be triggered later.
+      installPromptEvent = event;
+      // Update the install UI to notify the user app can be installed
+      document.querySelector('#installApp').disabled = false;
+    });
+
     // set up export Functionality
     $('exportFileLink').onclick = function() {
         var curData = generateDataToJSON();
@@ -103,6 +109,23 @@ function init() {
     
     updatePhoneNumber();
     updateEmail();
+}
+
+function installApp() {
+    // Update the install UI to remove the install button
+  document.querySelector('#installApp').disabled = true;
+  // Show the modal add to home screen dialog
+  installPromptEvent.prompt();
+  // Wait for the user to respond to the prompt
+  installPromptEvent.userChoice.then((choice) => {
+    if (choice.outcome === 'accepted') {
+      console.log('User accepted the A2HS prompt');
+    } else {
+      console.log('User dismissed the A2HS prompt');
+    }
+    // Clear the saved prompt since it can't be used again
+    installPromptEvent = null;
+  });
 }
 
 function updatePhoneNumber() {
