@@ -74,8 +74,9 @@ function init() {
       event.preventDefault();
       // Stash the event so it can be triggered later.
       installPromptEvent = event;
-      // Update the install UI to notify the user app can be installed
-      document.querySelector('#installApp').disabled = false;
+
+    show($('mobile-install-app'), true);
+    show($('install-app'), true);
     });
 
     // set up export Functionality
@@ -94,6 +95,9 @@ function init() {
     populateCheckboxes($('skills_container'), SKILLS);
     
     show($('mobile-nav-menu'), false);
+    
+    show($('mobile-install-app'), false);
+    show($('install-app'), false);
 
     // Check for a previous state in the history on load
     if (window.history.state){
@@ -116,9 +120,11 @@ function init() {
 }
 
 function installApp() {
-    // Update the install UI to remove the install button
-  document.querySelector('#installApp').disabled = true;
-  // Show the modal add to home screen dialog
+
+    show($('mobile-install-app'), false);
+    show($('install-app'), false);
+  
+    // Show the modal add to home screen dialog
   installPromptEvent.prompt();
   // Wait for the user to respond to the prompt
   installPromptEvent.userChoice.then((choice) => {

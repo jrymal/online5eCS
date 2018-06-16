@@ -28,7 +28,6 @@
 
         <h1>You have no Class!</h1>
  
-        <button id="installApp" onclick="installApp()" name="Install as Application" disabled>Install as Application</button>
  
         <div class="inline">
             <label for="importFile">Import file</label>
@@ -38,12 +37,13 @@
         <button id="mobile-nav" class="nav-anchors" onclick="openMobileMenu()">Menu</button>
         <nav id="mobile-nav-menu" class="mobile-nav">
             <ul>
-                <li><button onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
-                <li><button onclick="openTab(event, 'Info')">Info</button></li>
-                <li><button onclick="openTab(event, 'Details')">Details</button></li>
-                <li><button onclick="openTab(event, 'Attributes')">Attributes</button></li>
-                <li><button onclick="openTab(event, 'Abilities')">Abilities</button></li>
-                <li><button onclick="openTab(event,'Inventory')">Inventory</button></li>
+                <li><button type="button" onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
+                <li><button type="button" onclick="openTab(event, 'Info')">Info</button></li>
+                <li><button type="button" onclick="openTab(event, 'Details')">Details</button></li>
+                <li><button type="button" onclick="openTab(event, 'Attributes')">Attributes</button></li>
+                <li><button type="button" onclick="openTab(event, 'Abilities')">Abilities</button></li>
+                <li><button type="button" onclick="openTab(event,'Inventory')">Inventory</button></li>
+                <li><button type="button" id="mobile-install-app" onclick="installApp()">Install as Application</button></li>
             </ul>
         </nav>
 
@@ -55,6 +55,7 @@
             <button type="button" for="Attributes" class="tablinks" onclick="openTab(event, 'Attributes')">Attributes</button>
             <button type="button" for="Abilities" class="tablinks" onclick="openTab(event, 'Abilities')">Abilities</button>
             <button type="button" for="Inventory" class="tablinks" onclick="openTab(event,'Inventory')">Inventory</button>
+            <button type="button" id="install-app" onclick="installApp()" name="Install as Application" disabled>Install as Application</button>
         </nav>
 
         <form id="PlayerInfo" class="stack tabcontent dataholder">
