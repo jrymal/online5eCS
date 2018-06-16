@@ -79,20 +79,20 @@
             <select id="class" name="class" onchange="updateClass(event)"></select>
 
             <label for="level" name="level">Level</label>
-            <input type="number" id="level" class="short" name="level" min="1" max="40" required/>
+            <input type="number" id="level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
 
             <label for="race" name="race">Race</label>
             <select id="race" onchange="updateRace(event)" name="race"></select>
 
             <label for="experience" name="experience">Experience Points</label>
-            <input type="number" id="experience" name="experience"/>
+            <input type="number" pattern="[0-9]*" id="experience" name="experience"/>
 
             <label>Hit Dice</label>
             <div id="hitDie"></div>
             <div id="maxHitPoints"></div>
 
             <label for="damage" name="damage">Damage</label>
-            <input type="number" id="damage" name="damage"/>
+            <input type="number" pattern="[0-9]*" id="damage" name="damage"/>
 
             <label>Ability</label>
             <div id="ability"></div>
@@ -110,7 +110,7 @@
 
         <form id='Details' class='stack tabcontent dataholder'>
             <label for="age" name="age">Age</label>
-            <input type="number" id="age" class="short" name="age"/>
+            <input type="number" pattern="[0-9]*" id="age" class="short" name="age"/>
 
             <label for="height" name="height">Height</label>
             <input type="text" id="height" name="height"/>
@@ -143,14 +143,14 @@
                 <div>Passive Score</div>
 
                 <label for="strength" name="strength">Strength</label>
-                <input type="number"  name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                <input type="number"  pattern="[0-9]*" name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.strength" class="short"></div>
                 <div id="Total.strength" class="short"></div>
                 <div id="SavingThrows.strength" class="short"></div>
                 <div id="Passive.strength" class="short"></div>
 
                 <label for="dexterity" name="dexterity">Dexterity</label>
-                <input type="number"  name="dexterity" id="dexterity"
+                <input type="number"  name="dexterity" pattern="[0-9]*" id="dexterity"
                                                        class="short"
                                                        onchange="updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.dexterity" class="short"></div>
@@ -159,14 +159,14 @@
                 <div id="Passive.dexterity" class="short"></div>
 
                 <label for="constitution" name="constitution">Constitution</label>
-                <input type="number" name="constitution" id="constitution" class="short" onchange="updateAttribute(event)" min="3" max="20" />
+                <input type="number" name="constitution" pattern="[0-9]*" id="constitution" class="short" onchange="updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.constitution" class="short"></div>
                 <div id="Total.constitution" class="short"></div>
                 <div id="SavingThrows.constitution" class="short"></div>
                 <div id="Passive.constitution" class="short"></div>
             
                 <label for="intelligence" name="intelligence">Intelligence</label>
-                <input type="number" name="intelligence" id="intelligence"
+                <input type="number" name="intelligence" pattern="[0-9]*" id="intelligence"
                                                          class="short"
                                                          onchange="updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.intelligence" class="short"></div>
@@ -175,7 +175,7 @@
                 <div id="Passive.intelligence" class="short"></div>
             
                 <label for="wisdom" name="wisdom">Wisdom</label>
-                <input type="number" name="wisdom" id="wisdom" class="short"
+                <input type="number" name="wisdom" pattern="[0-9]*" id="wisdom" class="short"
                                                                onchange="updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.wisdom" class="short"></div>
                 <div id="Total.wisdom" class="short"></div>
@@ -183,7 +183,7 @@
                 <div id="Passive.wisdom" class="short"></div>
             
                 <label for="charisma" name="charisma">Charisma</label>
-                <input type="number" name="charisma" id="charisma" class="short"
+                <input type="number" name="charisma" pattern="[0-9]*" id="charisma" class="short"
                                                                    onchange="updateAttribute(event)" min="3" max="20" />
                 <div id="RaceModifier.charisma" class="short"></div>
                 <div id="Total.charisma" class="short"></div>
