@@ -77,6 +77,7 @@ a {
     cursor: pointer;
     padding: .5em .5em;
     transition: 0.3s;
+    font-size: 1.2em;
 }
 
 /* Change background color of buttons on hover */
@@ -86,24 +87,26 @@ a {
     text-decoration: underline;
 }
 
-
 .tab button.active {
     background-color: #ccc;
     font-weight: bold;
+}
+
+.tab .install-app {
+    background-color: #0cc;
+}
+.tab .install-app:active,
+.tab .install-app:hover{
+    background-color: #0dd;
 }
 
 .skill_title{
     font-size: 1.2em;
 }
  
-/* Create an active/current tablink class */
-.tablinks {
-    font-size: 1.2em;
-}
- 
+
 /* Style the tab content */
 .tabcontent {
-    display: none;
     padding: .5em .5em;
     border: 1px solid #ccc;
     border-top: none;
@@ -162,4 +165,8 @@ input:focus:invalid {
 @media screen and (min-width:1000px) {
     /*It would be nice if we have the space to put the inputs in 2 columns on
      * the screen*/
-} 
+}
+
+.hidden{
+    display: none; !important
+}

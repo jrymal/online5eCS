@@ -9,27 +9,21 @@ function isBlank(stringValue) {
 }
 
 function hasClass(element, className){
-    for (var classIdx = 0; classIdx < element.classList.length; classIdx++) {
-        var eleClassName = element.classList[classId];
-        if (className == eleClassName) {
-            return true;
-        }
-    }
-    return false;
+    return element.classList.contains(className);
 }
  
+// used directly in the HTML
 function openMobileMenu() {
     show($('mobile-nav-menu'), !isVisible($('mobile-nav-menu')));
 }
 
-function show(element, isVis){
-    // since we are using display: none, we do not need to set aria-hidden as
-    // display:none affects the aria tree
-    element.style.display = isVis ? 'block' : 'none';
+function show(element, vis){
+    //element.classList.toggle("hidden", !vis);
+    vis ? element.classList.remove("hidden") : element.classList.add("hidden");
 }
 
 function isVisible(element) {
-    return element.style.display != 'none';
+    return !hasClass(element, "hidden");
 }
 
 function getElementByXpath(path) {
@@ -349,22 +343,22 @@ function openTab(evt, idName, replaceState = true) {
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i]['aria-hidden'] = true;
+        show(tabcontent[i], false);
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
+    tablinks = document.getElementById("nav").childNodes;
     for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        if (tablinks[i].classList){
+            tablinks[i].classList.remove("active");
+        }
         tablinks[i]['aria-selected'] = false;
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     var activePanel = document.getElementById(idName);
-    activePanel.style.display = "block";
-    activePanel['aria-hidden'] = false;
-    evt.currentTarget.className += " active";
+    show(activePanel, true);
+    evt.currentTarget.classList.add("active");
     evt.currentTarget['aria-sellected'] = true;
     
     show($('mobile-nav-menu'), false);
