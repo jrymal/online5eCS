@@ -1,11 +1,11 @@
-const NAV_BUTTON_XPATH = "/html/body/nav/";                                                        
+const NAV_BUTTON_XPATH = "/html/body/nav/";
 
 function $(id) {
     return document.getElementById(id);
 }
 
 function isBlank(stringValue) {
-    return stringValue == null || stringValue === "" || !stringValue;
+    return stringValue === null || stringValue === "" || !stringValue;
 }
 
 function hasClass(element, className){
@@ -27,7 +27,7 @@ function isVisible(element) {
 }
 
 function getElementByXpath(path) {
-  return document.evaluate(path, document, null, 
+  return document.evaluate(path, document, null,
       XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
@@ -56,7 +56,7 @@ function init() {
     // Enable navigation prompt
     window.onbeforeunload = function() {
         // set last settings into history
-        window.history.pushState(generateDataToJSON(), "", 
+        window.history.pushState(generateDataToJSON(), "",
             generateNameHash(window.location.hash));
         
         // Ask if there are changes they's like to save
@@ -76,9 +76,9 @@ function init() {
     // set up export Functionality
     $('exportFileLink').onclick = function() {
         var curData = generateDataToJSON();
-        this.href = 'data:text/javascript;charset=utf-8,' 
+        this.href = 'data:text/javascript;charset=utf-8,'
             + encodeURIComponent(JSON.stringify(curData));
-        this.download = encodeURIComponent(curData.name) 
+        this.download = encodeURIComponent(curData.name)
             + '_'+curData.level+'.json'
     }
 
@@ -136,7 +136,7 @@ function updatePhoneNumber() {
     updateLink('phone', 'playerinfo.phone.link', 'tel:+', 'Call ');
 }
 
-function updateEmail() {                                        
+function updateEmail() {
     updateLink('email', 'playerinfo.email.link', 'mailto:', 'Send email to ');
 }
 
@@ -150,7 +150,7 @@ function updateLink(valueId, linkId, hrefPrefix, innerHtmlPrefix) {
         $(linkId).href = hrefPrefix+value;
         $(linkId).innerHTML = innerHtmlPrefix+value;
     }
-} 
+}
 
 function populateSelect(selectEle, sourceObj) {
     var fragment = document.createDocumentFragment();
@@ -362,4 +362,4 @@ function openTab(evt, idName, replaceState = true) {
     evt.currentTarget['aria-sellected'] = true;
     
     show($('mobile-nav-menu'), false);
-} 
+}
