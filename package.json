@@ -1,0 +1,9 @@
+{
+"name": "Online 5th Edition Character Sheet",
+"description": "5th Edition Character Sheet Editor",
+"homepage": "https://jrymal.github.com/pnline5eCS",
+"keywords":["dnd", "Character Sheet"],
+"dependencies":[],
+"repository":{"type":"git","url":"git://github.com/jrymal/online5eCS"},
+"version":"0.0.1-prealpha"
+}
