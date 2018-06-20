@@ -1,9 +1,25 @@
 {
-"name": "Online 5th Edition Character Sheet",
-"description": "5th Edition Character Sheet Editor",
-"homepage": "https://jrymal.github.com/pnline5eCS",
-"keywords":["dnd", "Character Sheet"],
-"dependencies":[],
-"repository":{"type":"git","url":"git://github.com/jrymal/online5eCS"},
-"version":"0.0.1-prealpha"
+    "name": "online5eCS",
+    "description": "5th Edition Character Sheet Editor",
+    "homepage": "https://jrymal.github.com/pnline5eCS",
+    "keywords":[
+        "dnd",
+        "Character Sheet"
+    ],
+    "dependencies":{},
+    "repository":{
+        "type":"git",
+        "url":"git://github.com/jrymal/online5eCS"
+    },
+    "version":"0.0.1-prealpha",
+    "bugs": "https://github.com/jrymal/online5eCS/issues",
+    "licenses": [
+        {
+            "type":"MIT",
+            "url":"https://jrymal.github.com/pnline5eCS/LICENSE"
+        }
+    ],
+    "author":["Jason Rymal"],
+    "contributors":["Jason Rymal"],
+    "engines":{}
 }
