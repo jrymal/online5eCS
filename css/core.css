@@ -41,10 +41,7 @@ a {
     cursor: pointer;
 }
 
-.stack > label,
-.stack > input,
-.stack > select,
-.stack > textarea {
+.stack > label {
     display:block;
 }
 
@@ -170,3 +167,4 @@ input:focus:invalid {
 .hidden{
     display: none; !important
 }
+

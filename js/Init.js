@@ -1,4 +1,4 @@
-const NAV_BUTTON_XPATH = "/html/body/nav/";
+const NAV_BUTTON_XPATH = "/html/body/div/div/nav/";
 
 function $(id) {
     return document.getElementById(id);
@@ -12,10 +12,11 @@ function hasClass(element, className){
     return element.classList.contains(className);
 }
  
-// used directly in the HTML
-function openMobileMenu() {
-    show($('mobile-nav-menu'), !isVisible($('mobile-nav-menu')));
+
+function toggle(element) {
+    show(element, !isVisible(element));
 }
+
 
 function show(element, vis){
     //element.classList.toggle("hidden", !vis);
@@ -362,4 +363,7 @@ function openTab(evt, idName, replaceState = true) {
     evt.currentTarget['aria-sellected'] = true;
     
     show($('mobile-nav-menu'), false);
+}
+
+function startWizard() {
 }

@@ -21,6 +21,8 @@
         <script type="text/javascript" src="js/Backstories.js" async> </script>
         <script type="text/javascript" src="js/GameEngine.js" async> </script>
         <script type="text/javascript" src="js/Init.js" async> </script>
+        <script type="text/javascript" src="js/Languages.js" async> </script>
+        <script type="text/javascript" src="js/Coinage.js" async> </script>
 
         <link rel="stylesheet" type="text/css" href="css/core.css" media="all"/>
     </head>
@@ -29,13 +31,17 @@
         <h1>You have no Class!</h1>
  
         <button type="button" id="install-app" class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button>
- 
+
+        <button type="button" onclick="startWizard()">Create a new Character</button>
+
         <div class="inline">
             <label for="importFile">Import file</label>
             <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
         </div>
+        
 
-        <button id="mobile-nav" class="nav-anchors" onclick="openMobileMenu()">Menu</button>
+
+        <button id="mobile-nav" class="nav-anchors" onclick="toggle($('mobile-nav-menu'))">Menu</button>
         <nav id="mobile-nav-menu" class="mobile-nav">
             <ul>
                 <li><button type="button" onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
@@ -44,203 +50,366 @@
                 <li><button type="button" onclick="openTab(event, 'Attributes')">Attributes</button></li>
                 <li><button type="button" onclick="openTab(event, 'Abilities')">Abilities</button></li>
                 <li><button type="button" onclick="openTab(event,'Inventory')">Inventory</button></li>
-                <li id="mobile-install-app"><button type="button" onclick="installApp()">Install as Application</button></li>
             </ul>
         </nav>
 
-        <!-- Tab links -->
-        <nav id="nav" class="tab">
-            <button type="button" for="PlayerInfo" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
-            <button type="button" for="Info" onclick="openTab(event, 'Info')">Info</button>
-            <button type="button" for="Details" onclick="openTab(event, 'Details')">Details</button>
-            <button type="button" for="Attributes" onclick="openTab(event, 'Attributes')">Attributes</button>
-            <button type="button" for="Abilities" onclick="openTab(event, 'Abilities')">Abilities</button>
-            <button type="button" for="Inventory" onclick="openTab(event,'Inventory')">Inventory</button>
-        </nav>
-
-        <form id="PlayerInfo" class="stack tabcontent dataholder">
-            <label for="player" name="player">Role Player</label>
-            <input type="text" id="player" name="player"/>
-
-            <label for="phone" name="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
-            <a target="_blank" id="playerinfo.phone.link" href="tel:+" >Phone number missing</a>
-
-            <label for="email" name="email">Email</label>
-            <input type="email" id="email" name="email" onchange="updateEmail()" autocomplete="email"/>
-            <a target="_blank" id="playerinfo.email.link" href="mailto:">Email missing</a>
-        </form>
-
-        <form id='Info' class='stack tabcontent dataholder'>
-            <label for="name" name="name">Character Name</label>
-            <input type="text" id="name" name="name" required/>
-
-            <label for="class" name="class">Class</label>
-            <select id="class" name="class" onchange="updateClass(event)"></select>
-
-            <label for="level" name="level">Level</label>
-            <input type="number" id="level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
-
-            <label for="race" name="race">Race</label>
-            <select id="race" onchange="updateRace(event)" name="race"></select>
-
-            <label for="experience" name="experience">Experience Points</label>
-            <input type="number" pattern="[0-9]*" id="experience" name="experience"/>
-
-            <label>Hit Dice</label>
-            <div id="hitDie"></div>
-            <div id="maxHitPoints"></div>
-
-            <label for="damage" name="damage">Damage</label>
-            <input type="number" pattern="[0-9]*" id="damage" name="damage"/>
-
-            <label>Ability</label>
-            <div id="ability"></div>
-
-            <label>Saving Throws</label>
-            <div id="savingThrows"></div>
-
-            <label for="inspiration" name="inspiration">Inspiration</label>
-            <input type="checkbox" id="inspiration" name="inspiration"/>
-
-            <label for="backstory" name="backstory">Backstory</label>
-            <select id="backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
-            <textarea id="backstory" name="backstory" spellcheck="true"></textarea>
-        </form>
-
-        <form id='Details' class='stack tabcontent dataholder'>
-            <label for="age" name="age">Age</label>
-            <input type="number" pattern="[0-9]*" id="age" class="short" name="age"/>
-
-            <label for="height" name="height">Height</label>
-            <input type="text" id="height" name="height"/>
-
-            <label for="weight" name="weight">Weight</label>
-            <input type="text" id="weight" name="weight"/>
-
-            <label for="eyecolor" name="eyecolor">Eye Color</label>
-            <input type="color" id="eyecolor" name="eyecolor"/>
-
-            <label for="skin" name="skin">Skin Color</label>
-            <input type="color" id="skin" name="skin"/>
-
-            <label for="hair" name="hair">Hair Color</label>
-            <input type="color" id="hair" name="hair"/>
-
-            <label for="appearance" name="appearance">Appearance</label>
-            <textarea id="appearance" spellcheck="true" name="appearance"></textarea>
-
-        </form>
-
-        <form id='Attributes' class='stack tabcontent dataholder'>
-
-            <div class="attribute_grid">
-                <div></div>
-                <div>Natural</div>
-                <div>Race Modifier</div>
-                <div>Total</div>
-                <div>Saving Throw</div>
-                <div>Passive Score</div>
-
-                <label for="strength" name="strength">Strength</label>
-                <input type="number"  pattern="[0-9]*" name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.strength" class="short"></div>
-                <div id="Total.strength" class="short"></div>
-                <div id="SavingThrows.strength" class="short"></div>
-                <div id="Passive.strength" class="short"></div>
-
-                <label for="dexterity" name="dexterity">Dexterity</label>
-                <input type="number"  name="dexterity" pattern="[0-9]*" id="dexterity"
-                                                       class="short"
-                                                       onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.dexterity" class="short"></div>
-                <div id="Total.dexterity" class="short"></div>
-                <div id="SavingThrows.dexterity" class="short"></div>
-                <div id="Passive.dexterity" class="short"></div>
-
-                <label for="constitution" name="constitution">Constitution</label>
-                <input type="number" name="constitution" pattern="[0-9]*" id="constitution" class="short" onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.constitution" class="short"></div>
-                <div id="Total.constitution" class="short"></div>
-                <div id="SavingThrows.constitution" class="short"></div>
-                <div id="Passive.constitution" class="short"></div>
+       
+        <div class="overlay" class="hidden">
+            <!-- Modal Dialogs, I think these should be in imports as needed but
+                that's a later project -->
+            <div id="purseUpdate" class="hidden">
+                <label for="purse.pp" name="purse.pp">Purse (PP)</label>
+                <input type="number" name="purse.pp" pattern="[0-9]*" id="purse.pp" class="short"
+                                                                   min="0" />
+                <label for="purse.gp" name="purse.gp">Purse (GP)</label>
+                <input type="number" name="purse.gp" pattern="[0-9]*" id="purse.gp" class="short"
+                                                                   min="0" />
             
-                <label for="intelligence" name="intelligence">Intelligence</label>
-                <input type="number" name="intelligence" pattern="[0-9]*" id="intelligence"
-                                                         class="short"
-                                                         onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.intelligence" class="short"></div>
-                <div id="Total.intelligence" class="short"></div>
-                <div id="SavingThrows.intelligence" class="short"></div>
-                <div id="Passive.intelligence" class="short"></div>
-            
-                <label for="wisdom" name="wisdom">Wisdom</label>
-                <input type="number" name="wisdom" pattern="[0-9]*" id="wisdom" class="short"
-                                                               onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.wisdom" class="short"></div>
-                <div id="Total.wisdom" class="short"></div>
-                <div id="SavingThrows.wisdom" class="short"></div>
-                <div id="Passive.wisdom" class="short"></div>
-            
-                <label for="charisma" name="charisma">Charisma</label>
-                <input type="number" name="charisma" pattern="[0-9]*" id="charisma" class="short"
-                                                                   onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.charisma" class="short"></div>
-                <div id="Total.charisma" class="short"></div>
-                <div id="SavingThrows.charisma" class="short"></div>
-                <div id="Passive.charisma" class="short"></div>
-            
+                <label for="purse.ep" name="purse.ep">Purse (EP)</label>
+                <input type="number" name="purse.ep" pattern="[0-9]*" id="purse.ep" class="short"
+                                                                   min="0" />
+                <label for="purse.sp" name="purse.sp">Purse (SP)</label>
+                <input type="number" name="purse.sp" pattern="[0-9]*" id="purse.sp" class="short"
+                                                                   min="0" />
+                
+                <label for="purse.cp" name="purse.cp">Purse (CP)</label>
+                <input type="number" name="purse.cp" pattern="[0-9]*" id="purse.cp" class="short"
+                                                                   min="0" />
+                <label for="purse.description" name="purse.description">Purchase Description</label>
+                <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
+                <button onclick="usePurse('-')">Spend</button>
+                <button onclick="usePurse('+')">Gain</button>
             </div>
+                
+            <div id="createCharacter" class="hidden">
+                <div id="createCharacter.nav"/>
+                <div id="createCharacter.player">
+                    <label for="player" name="player">Role Player</label>
+                    <input type="text" id="createCharacter.player.name" name="player"/>
 
-            <fieldset>
-                <legend class="skill_title">Skills</legend>
-                <div id="skills_container" class="skills_grid"></div>
-            </fieldset>
-            
-        </form>
+                    <label for="phone" name="phone">Phone Number</label>
+                    <input type="tel" id="createCharacter.player.phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
 
-        <form id='Abilities' class='stack tabcontent dataholder'>
-            <label for="languages" name="languages">Languages</label>
-            <textarea id="languages" name="languages" spellcheck="true"></textarea>
-            <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+                    <label for="email" name="email">Email</label>
+                    <input type="email" id="createCharacter.player.email" name="email" onchange="updateEmail()" autocomplete="email"/> 
+                </div>
+            
+                <div id="createCharacter.race">
+                    <label for="name" name="name">Character Name</label>
+                    <input type="text" id="createCharacter.race.name" name="name" required/>
 
-            <label for="proficiencies" name="proficiencies">Proficiencies</label>
-            <div id="class.proficiencies"></div>
-            <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
-            
-            <label for="features" name="features">Features & Traits</label>
-            <textarea id="features" name="features" spellcheck="true"></textarea>
-            
-            <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
-            <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
-            
-            <label for="ideals" name="ideals">Ideals</label>
-            <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
-            
-            <label for="bonds" name="bonds">Bonds</label>
-            <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
-            
-            <label for="flaws" name="flaws">Flaws</label>
-            <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
-            
-            <label for="allies" name="allies">Allies</label>
-            <textarea id="allies" name="allies" spellcheck="true"></textarea>
-        </form>
- 
+                    <label for="race" name="race">Race</label>
+                    <select id="createCharacter.race.race" onchange="updateRace(event)" name="race"></select>
+               </div>
 
-        <form id='Inventory' class='stack tabcontent dataholder'>
-            <label for="weapons" name="weapons">Weapons</label>
-            <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
-            
-            <label for="equipment" name="equipment">Equipment</label>
-            <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
-            <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
-            
-            <label for="treasure" name="treasure">Treasure</label>
-            <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
-        </form>
+                <div id="createCharacter.class">
+                    <label for="class" name="class">Class</label>
+                    <select id="createCharacter.class.class" name="class" onchange="updateClass(event)"></select>
 
+                    <label for="level" name="level">Level</label>
+                    <input type="number" id="createCharacter.class.level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
+                     
+                </div>
+                
+                <div id="createCharacter.attributes">
+                    <label for="createCharacter.strength" name="createCharacter.strength">Strength</label>
+                    <input type="number"  pattern="[0-9]*" name="strength" id="createCharacter.strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <label for="createCharacter.dexterity" name="createCharacter.dexterity">Dexterity</label>
+                    <input type="number"  pattern="[0-9]*" name="dexterity" id="createCharacter.dexterity" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <label for="createCharacter.constitution" name="createCharacter.constitution">Constitution</label>
+                    <input type="number"  pattern="[0-9]*" name="constitution" id="createCharacter.constitution" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <label for="createCharacter.intelligence" name="createCharacter.intelligence">Intelligence</label>
+                    <input type="number"  pattern="[0-9]*" name="intelligence" id="createCharacter.intelligence" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <label for="createCharacter.wisdom" name="createCharacter.wisdom">wisdom</label>
+                    <input type="number"  pattern="[0-9]*" name="wisdom" id="createCharacter.wisdom" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <label for="createCharacter.charisma" name="createCharacter.charisma">charisma</label>
+                    <input type="number"  pattern="[0-9]*" name="charisma" id="createCharacter.charisma" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                </div>
+                
+                <div id="createCharacter.backstory">
+                    <label for="backstory" name="backstory">Backstory</label>
+                    <select id="createCharacter.backstory.backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
+                    <textarea id="createCharacter.backstory.backstory" name="backstory" spellcheck="true"></textarea> 
+                </div>
+
+                <div id="createCharacter.details">
+                    <label for="age" name="age">Age</label>
+                    <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="age"/>
+
+                    <label for="height" name="height">Height</label>
+                    <input type="text" id="createCharacter.details.height" name="height"/>
+
+                    <label for="weight" name="weight">Weight</label>
+                    <input type="text" id="createCharacter.details.weight" name="weight"/>
+
+                    <label for="eyecolor" name="eyecolor">Eye Color</label>
+                    <input type="color" id="createCharacter.details.eyecolor" name="eyecolor"/>
+
+                    <label for="skin" name="skin">Skin Color</label>
+                    <input type="color" id="createCharacter.details.skin" name="skin"/>
+
+                    <label for="hair" name="hair">Hair Color</label>
+                    <input type="color" id="createCharacter.details.hair" name="hair"/>
+
+                    <label for="appearance" name="appearance">Appearance</label>
+                    <textarea id="createCharacter.details.appearance" spellcheck="true" name="appearance"></textarea> 
+                </div>
+
+                <div id="createCharacter.skills">
+                    <fieldset>
+                        <legend class="skill_title">Skills</legend>
+                        <div id="createCharacter.skills_container" class="skills_grid"></div>
+                    </fieldset>
+                </div>
+                
+                <form id='createCharacter.Abilities'>
+                    <label for="languages" name="languages">Languages</label>
+                    <textarea id="languages" name="languages" spellcheck="true"></textarea>
+                    <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+
+                    <label for="proficiencies" name="proficiencies">Proficiencies</label>
+                    <div id="class.proficiencies"></div>
+                    <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
+                    
+                    <label for="features" name="features">Features & Traits</label>
+                    <textarea id="features" name="features" spellcheck="true"></textarea>
+                    
+                    <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
+                    <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+                    
+                    <label for="ideals" name="ideals">Ideals</label>
+                    <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
+                    
+                    <label for="bonds" name="bonds">Bonds</label>
+                    <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
+                    
+                    <label for="flaws" name="flaws">Flaws</label>
+                    <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
+                    
+                    <label for="allies" name="allies">Allies</label>
+                    <textarea id="allies" name="allies" spellcheck="true"></textarea>
+                </form>
+         
+
+                <form id='createCharacter.Inventory'>
+                    <label for="weapons" name="weapons">Weapons</label>
+                    <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
+                    
+                    <label for="equipment" name="equipment">Equipment</label>
+                    <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
+                    <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
+                    
+                    <label for="treasure" name="treasure">Treasure</label>
+                    <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
+                
+                    <label for="purse" name="purse">Purse</label>
+                    <a id="purse" href="" download="" class="store"></a>
+
+                </form> 
+            </div>
+        </div>
+                                              
+                                              
+        <div id="advanced_ham" onclick="toggle($('advanced'))" ><h2 id="advanced_header">Advanced</h2></div>
+        <div id="advanced" >
+
+            <!-- Tab links -->
+            <nav id="nav" class="tab">
+                <button type="button" for="PlayerInfo" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
+                <button type="button" for="Info" onclick="openTab(event, 'Info')">Info</button>
+                <button type="button" for="Details" onclick="openTab(event, 'Details')">Details</button>
+                <button type="button" for="Attributes" onclick="openTab(event, 'Attributes')">Attributes</button>
+                <button type="button" for="Abilities" onclick="openTab(event, 'Abilities')">Abilities</button>
+                <button type="button" for="Inventory" onclick="openTab(event,'Inventory')">Inventory</button>
+            </nav> 
+            <form id="PlayerInfo" class="stack tabcontent dataholder">
+                <label for="player" name="player">Role Player</label>
+                <input type="text" id="player" name="player"/>
+
+                <label for="phone" name="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
+                <a target="_blank" id="playerinfo.phone.link" href="tel:+" >Phone number missing</a>
+
+                <label for="email" name="email">Email</label>
+                <input type="email" id="email" name="email" onchange="updateEmail()" autocomplete="email"/>
+                <a target="_blank" id="playerinfo.email.link" href="mailto:">Email missing</a>
+            </form>
+
+            <form id='Info' class='stack tabcontent dataholder'>
+                <label for="name" name="name">Character Name</label>
+                <input type="text" id="name" name="name" required/>
+
+                <label for="race" name="race">Race</label>
+                <select id="race" onchange="updateRace(event)" name="race"></select>
+
+                <label for="class" name="class">Class</label>
+                <select id="class" name="class" onchange="updateClass(event)"></select>
+
+                <label for="level" name="level">Level</label>
+                <input type="number" id="level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
+
+                <label for="experience" name="experience">Experience Points</label>
+                <input type="number" name="experience" pattern="[0-9]*" id="experience" class="short" min="0" />
+
+                <label>Hit Dice</label>
+                <div id="hitDie"></div>
+                <div id="maxHitPoints"></div>
+
+                <label for="damage" name="damage">Damage</label>
+                <input type="number" pattern="[0-9]*" id="damage" name="damage"/>
+
+                <label>Ability</label>
+                <div id="ability"></div>
+
+                <label>Saving Throws</label>
+                <div id="savingThrows"></div>
+
+                <label for="inspiration" name="inspiration">Inspiration</label>
+                <input type="checkbox" id="inspiration" name="inspiration"/>
+
+                <label for="backstory" name="backstory">Backstory</label>
+                <select id="backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
+                <textarea id="backstory" name="backstory" spellcheck="true"></textarea>
+            </form>
+
+            <form id='Details' class='stack tabcontent dataholder'>
+                <label for="age" name="age">Age</label>
+                <input type="number" pattern="[0-9]*" id="age" class="short" name="age"/>
+
+                <label for="height" name="height">Height</label>
+                <input type="text" id="height" name="height"/>
+
+                <label for="weight" name="weight">Weight</label>
+                <input type="text" id="weight" name="weight"/>
+
+                <label for="eyecolor" name="eyecolor">Eye Color</label>
+                <input type="color" id="eyecolor" name="eyecolor"/>
+
+                <label for="skin" name="skin">Skin Color</label>
+                <input type="color" id="skin" name="skin"/>
+
+                <label for="hair" name="hair">Hair Color</label>
+                <input type="color" id="hair" name="hair"/>
+
+                <label for="appearance" name="appearance">Appearance</label>
+                <textarea id="appearance" spellcheck="true" name="appearance"></textarea>
+
+            </form>
+
+            <form id='Attributes' class='stack tabcontent dataholder'>
+
+                <div class="attribute_grid">
+                    <div></div>
+                    <div>Natural</div>
+                    <div>Race Modifier</div>
+                    <div>Total</div>
+                    <div>Saving Throw</div>
+                    <div>Passive Score</div>
+
+                    <label for="strength" name="strength">Strength</label>
+                    <input type="number"  pattern="[0-9]*" name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.strength" class="short"></div>
+                    <div id="Total.strength" class="short"></div>
+                    <div id="SavingThrows.strength" class="short"></div>
+                    <div id="Passive.strength" class="short"></div>
+
+                    <label for="dexterity" name="dexterity">Dexterity</label>
+                    <input type="number"  name="dexterity" pattern="[0-9]*" id="dexterity"
+                                                           class="short"
+                                                           onchange="updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.dexterity" class="short"></div>
+                    <div id="Total.dexterity" class="short"></div>
+                    <div id="SavingThrows.dexterity" class="short"></div>
+                    <div id="Passive.dexterity" class="short"></div>
+
+                    <label for="constitution" name="constitution">Constitution</label>
+                    <input type="number" name="constitution" pattern="[0-9]*" id="constitution" class="short" onchange="updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.constitution" class="short"></div>
+                    <div id="Total.constitution" class="short"></div>
+                    <div id="SavingThrows.constitution" class="short"></div>
+                    <div id="Passive.constitution" class="short"></div>
+                
+                    <label for="intelligence" name="intelligence">Intelligence</label>
+                    <input type="number" name="intelligence" pattern="[0-9]*" id="intelligence"
+                                                             class="short"
+                                                             onchange="updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.intelligence" class="short"></div>
+                    <div id="Total.intelligence" class="short"></div>
+                    <div id="SavingThrows.intelligence" class="short"></div>
+                    <div id="Passive.intelligence" class="short"></div>
+                
+                    <label for="wisdom" name="wisdom">Wisdom</label>
+                    <input type="number" name="wisdom" pattern="[0-9]*" id="wisdom" class="short"
+                                                                   onchange="updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.wisdom" class="short"></div>
+                    <div id="Total.wisdom" class="short"></div>
+                    <div id="SavingThrows.wisdom" class="short"></div>
+                    <div id="Passive.wisdom" class="short"></div>
+                
+                    <label for="charisma" name="charisma">Charisma</label>
+                    <input type="number" name="charisma" pattern="[0-9]*" id="charisma" class="short"
+                                                                       onchange="updateAttribute(event)" min="3" max="20" />
+                    <div id="RaceModifier.charisma" class="short"></div>
+                    <div id="Total.charisma" class="short"></div>
+                    <div id="SavingThrows.charisma" class="short"></div>
+                    <div id="Passive.charisma" class="short"></div>
+                
+                </div>
+
+                <fieldset>
+                    <legend class="skill_title">Skills</legend>
+                    <div id="skills_container" class="skills_grid"></div>
+                </fieldset>
+                
+            </form>
+
+            <form id='Abilities' class='stack tabcontent dataholder'>
+                <label for="languages" name="languages">Languages</label>
+                <textarea id="languages" name="languages" spellcheck="true"></textarea>
+                <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+
+                <label for="proficiencies" name="proficiencies">Proficiencies</label>
+                <div id="class.proficiencies"></div>
+                <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
+                
+                <label for="features" name="features">Features & Traits</label>
+                <textarea id="features" name="features" spellcheck="true"></textarea>
+                
+                <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
+                <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+                
+                <label for="ideals" name="ideals">Ideals</label>
+                <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
+                
+                <label for="bonds" name="bonds">Bonds</label>
+                <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
+                
+                <label for="flaws" name="flaws">Flaws</label>
+                <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
+                
+                <label for="allies" name="allies">Allies</label>
+                <textarea id="allies" name="allies" spellcheck="true"></textarea>
+            </form>
+     
+
+            <form id='Inventory' class='stack tabcontent dataholder'>
+                <label for="weapons" name="weapons">Weapons</label>
+                <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
+                
+                <label for="equipment" name="equipment">Equipment</label>
+                <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
+                <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
+                
+                <label for="treasure" name="treasure">Treasure</label>
+                <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
+            
+                <label for="purse" name="purse">Purse</label>
+                <a id="purse" href="" download="" class="store"></a>
+
+            </form>
+        </div>
         <a id="exportFileLink" href="" download="">Download Character</a>
+
 
         <script>
             if('serviceWorker' in navigator) {
