@@ -70,7 +70,6 @@ function init() {
       // Stash the event so it can be triggered later.
       installPromptEvent = event;
 
-    show($('mobile-install-app'), true);
     show($('install-app'), true);
     });
 
@@ -91,7 +90,6 @@ function init() {
     
     show($('mobile-nav-menu'), false);
     
-    show($('mobile-install-app'), false);
     show($('install-app'), false);
 
     // Check for a previous state in the history on load
@@ -116,7 +114,6 @@ function init() {
 
 function installApp() {
 
-    show($('mobile-install-app'), false);
     show($('install-app'), false);
   
     // Show the modal add to home screen dialog
