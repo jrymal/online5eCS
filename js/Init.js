@@ -142,19 +142,19 @@ function loadFromJSON() {
 }
 
 function startWizard() {
-    showModal('createCharacter', "Create a new character");
+    showModal('createCharacter');
 }
 
 function openCharacterFromFile() {
-    showModal('importFromFile', "Loading from File");
+    showModal('importFromFile');
 }
 
 function viewCurrentCharacter() {
-    showModal('createCharacter', "View Character");
+    showModal('createCharacter');
 }
 
 function viewPurse() {
-    showModal('purseUpdate', "Purse", "Update your purse");
+    showModal('purseUpdate');
 }
 
 function showModal(modelId, title, desc){

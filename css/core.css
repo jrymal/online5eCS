@@ -166,5 +166,18 @@ input:focus:invalid {
 
 .base {
     background: white;
+    margin: 20px;
+    padding: 20px;
+    border: thin;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
 }
 
+.base h2 {
+    margin: 0;
+}
+
+.description {
+    margin: 10px 0;
+}
