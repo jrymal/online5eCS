@@ -142,19 +142,19 @@ function loadFromJSON() {
 }
 
 function startWizard() {
-    showModal('createCharacter');
+    showModal('createCharacter', "Create a new character");
 }
 
 function openCharacterFromFile() {
-    showModal('loadFromFile');
+    showModal('importFromFile', "Loading from File");
 }
 
 function viewCurrentCharacter() {
-    showModal('createCharacter');
+    showModal('createCharacter', "View Character");
 }
 
 function viewPurse() {
-    showModal('purseUpdate');
+    showModal('purseUpdate', "Purse", "Update your purse");
 }
 
 function showModal(modelId, title, desc){
@@ -166,11 +166,21 @@ function showModal(modelId, title, desc){
     // Bring in the import content.
     var link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
     
+    if (!link) {
+        console.log("Link Mismatch: "+modelId);
+    }
+
     // Clone the <template> in the import.
     var importDom = link.import;
-    modalTitleDiv.innerHTML = title ? title : importDom.querySelector('title').innerHTML;
-    modalDescDiv.innerHTML = desc ? desc : importDom.querySelector('description').innerHTML;
-    modalBody.appendChild(document.importNode(importDom.querySelector('template').content, true));
+    var titleEle = importDom.querySelector('title');
+    var descEle = importDom.querySelector('description');
+
+    // need to clear out before adding the new elements
+    modalBodyDiv.innerHTML="";
+
+    modalTitleDiv.innerHTML = title ? title : titleEle ? titleEle.innerHTML : "";
+    modalDescDiv.innerHTML = desc ? desc : descEle ? descEle.innerHTML : "";
+    modalBodyDiv.appendChild(document.importNode(importDom.querySelector('template').content, true));
     
     show(modalDiv);
 }

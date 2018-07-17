@@ -9,6 +9,9 @@ case $1 in
         echo $PID > $file
         ;;
     stop )
-        kill $(cat $file)
+        if [ -f $file ]; then
+            kill $(cat $file)
+            rm $file
+        fi
         ;;
 esac
