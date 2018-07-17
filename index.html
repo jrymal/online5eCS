@@ -24,7 +24,11 @@
         <script type="text/javascript" src="js/Languages.js" async> </script>
         <script type="text/javascript" src="js/Coinage.js" async> </script>
 
-        <link rel="stylesheet" type="text/css" href="css/core.css" media="all"/>
+        <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
+        
+        <link rel="import" id="importFromFile" href="./template/importFromFile.html" async/>
+        <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
+        <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
     <body onload="init()">
 
@@ -33,31 +37,25 @@
         <button type="button" id="install-app" class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button>
 
         <button type="button" onclick="startWizard()">Create a new Character</button>
-
-        <div class="inline">
-            <label for="importFile">Import file</label>
-            <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
-        </div>
+        <button type="button" onclick="openCharacterFromFile()">Load a character from file</button>
+        <button type="button" onclick="viewCurrentCharacter()">View Current character</button>
+        <a id="exportFileLink" href="" download="">Download Character</a>
         
+        <!-- temp test -->
+        <button type="button" onclick="viewPurse()">View Purse</button>
 
+        <div class="overlay hidden" id="modalOverlay">
 
-        <button id="mobile-nav" class="nav-anchors" onclick="toggle($('mobile-nav-menu'))">Menu</button>
-        <nav id="mobile-nav-menu" class="mobile-nav">
-            <ul>
-                <li><button type="button" onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
-                <li><button type="button" onclick="openTab(event, 'Info')">Info</button></li>
-                <li><button type="button" onclick="openTab(event, 'Details')">Details</button></li>
-                <li><button type="button" onclick="openTab(event, 'Attributes')">Attributes</button></li>
-                <li><button type="button" onclick="openTab(event, 'Abilities')">Abilities</button></li>
-                <li><button type="button" onclick="openTab(event,'Inventory')">Inventory</button></li>
-            </ul>
-        </nav>
+            <h2 id="modal.title"></h2>
+            <div id="modal.description"></div>
+            <div id="modal.bod"></div>
 
-       
-        <div class="overlay" class="hidden">
-            <!-- Modal Dialogs, I think these should be in imports as needed but
-                that's a later project -->
-            <div id="purseUpdate" class="hidden">
+            <!--div id="loadFromFile" class="hidden">
+                <label for="importFile">Import file</label>
+                <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
+            </div-->
+
+            <!--div id="purseUpdate" class="hidden">
                 <label for="purse.pp" name="purse.pp">Purse (PP)</label>
                 <input type="number" name="purse.pp" pattern="[0-9]*" id="purse.pp" class="short"
                                                                    min="0" />
@@ -79,9 +77,9 @@
                 <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
                 <button onclick="usePurse('-')">Spend</button>
                 <button onclick="usePurse('+')">Gain</button>
-            </div>
+            </div-->
                 
-            <div id="createCharacter" class="hidden">
+            <!--div id="createCharacter" class="hidden">
                 <div id="createCharacter.nav"/>
                 <div id="createCharacter.player">
                     <label for="player" name="player">Role Player</label>
@@ -164,55 +162,61 @@
                 
                 <form id='createCharacter.Abilities'>
                     <label for="languages" name="languages">Languages</label>
-                    <textarea id="languages" name="languages" spellcheck="true"></textarea>
-                    <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.languages" name="languages" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
 
                     <label for="proficiencies" name="proficiencies">Proficiencies</label>
-                    <div id="class.proficiencies"></div>
-                    <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
+                    <div id="createCharacter.class.proficiencies"></div>
+                    <textarea id="createCharacter.proficiencies" name="proficiencies" spellcheck="true"></textarea>
                     
                     <label for="features" name="features">Features & Traits</label>
-                    <textarea id="features" name="features" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.features" name="features" spellcheck="true"></textarea>
                     
                     <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
-                    <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
                     
                     <label for="ideals" name="ideals">Ideals</label>
-                    <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.ideals" name="ideals" spellcheck="true"></textarea>
                     
                     <label for="bonds" name="bonds">Bonds</label>
-                    <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.bonds" name="bonds" spellcheck="true"></textarea>
                     
                     <label for="flaws" name="flaws">Flaws</label>
-                    <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.flaws" name="flaws" spellcheck="true"></textarea>
                     
                     <label for="allies" name="allies">Allies</label>
-                    <textarea id="allies" name="allies" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.allies" name="allies" spellcheck="true"></textarea>
                 </form>
          
 
                 <form id='createCharacter.Inventory'>
                     <label for="weapons" name="weapons">Weapons</label>
-                    <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.weapons" name="weapons" spellcheck="true"></textarea>
                     
                     <label for="equipment" name="equipment">Equipment</label>
-                    <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
-                    <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
+                    <textarea id="createCharacter.equipment" name="equipment" spellcheck="true"></textarea>
+                    <textarea id="createCharacter.backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
                     
                     <label for="treasure" name="treasure">Treasure</label>
-                    <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
-                
-                    <label for="purse" name="purse">Purse</label>
-                    <a id="purse" href="" download="" class="store"></a>
-
+                    <textarea id="createCharacter.treasure" name="treasure" spellcheck="true"></textarea>
                 </form> 
-            </div>
+            </div-->
         </div>
-                                              
-                                              
+        
         <div id="advanced_ham" onclick="toggle($('advanced'))" ><h2 id="advanced_header">Advanced</h2></div>
         <div id="advanced" >
-
+            <button id="mobile-nav" class="nav-anchors" onclick="toggle($('mobile-nav-menu'))">Menu</button>
+            <nav id="mobile-nav-menu" class="mobile-nav">
+                <ul>
+                    <li><button type="button" onclick="openTab(event, 'PlayerInfo')">Player Info</button></li>
+                    <li><button type="button" onclick="openTab(event, 'Info')">Info</button></li>
+                    <li><button type="button" onclick="openTab(event, 'Details')">Details</button></li>
+                    <li><button type="button" onclick="openTab(event, 'Attributes')">Attributes</button></li>
+                    <li><button type="button" onclick="openTab(event, 'Abilities')">Abilities</button></li>
+                    <li><button type="button" onclick="openTab(event,'Inventory')">Inventory</button></li>
+                </ul>
+            </nav>
+ 
             <!-- Tab links -->
             <nav id="nav" class="tab">
                 <button type="button" for="PlayerInfo" onclick="openTab(event, 'PlayerInfo')">Player Info</button>
@@ -408,9 +412,7 @@
 
             </form>
         </div>
-        <a id="exportFileLink" href="" download="">Download Character</a>
-
-
+                                              
         <script>
             if('serviceWorker' in navigator) {
               navigator.serviceWorker

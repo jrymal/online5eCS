@@ -15,6 +15,7 @@ textarea,
 a  {
     padding: 0 0.2em 0.2em 0;
     font-size: 1.0em;
+    display: block;
 }
 
 button, 
@@ -39,23 +40,6 @@ th {
 a {
     color: blue;
     cursor: pointer;
-}
-
-.stack > label {
-    display:block;
-}
-
-.stack > label {
-    padding-top: 1em;
-}
-
-.stack > :first-child {
-    padding-top: 0;
-}
-
-.inline > label,
-.inline > input {
-    display:inline;
 }
 
 /* Style the tab */

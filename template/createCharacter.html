@@ -1,0 +1,122 @@
+<template>
+   <div id="createCharacter.nav"/>
+   <div id="createCharacter.player">
+       <label for="player" name="player">Role Player</label>
+       <input type="text" id="createCharacter.player.name" name="player"/>
+
+       <label for="phone" name="phone">Phone Number</label>
+       <input type="tel" id="createCharacter.player.phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
+
+       <label for="email" name="email">Email</label>
+       <input type="email" id="createCharacter.player.email" name="email" onchange="updateEmail()" autocomplete="email"/> 
+   </div>
+   
+   <div id="createCharacter.race">
+       <label for="name" name="name">Character Name</label>
+       <input type="text" id="createCharacter.race.name" name="name" required/>
+
+       <label for="race" name="race">Race</label>
+       <select id="createCharacter.race.race" onchange="updateRace(event)" name="race"></select>
+   </div>
+
+   <div id="createCharacter.class">
+       <label for="class" name="class">Class</label>
+       <select id="createCharacter.class.class" name="class" onchange="updateClass(event)"></select>
+
+       <label for="level" name="level">Level</label>
+       <input type="number" id="createCharacter.class.level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
+        
+   </div>
+   
+   <div id="createCharacter.attributes">
+       <label for="createCharacter.strength" name="createCharacter.strength">Strength</label>
+       <input type="number"  pattern="[0-9]*" name="strength" id="createCharacter.strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <label for="createCharacter.dexterity" name="createCharacter.dexterity">Dexterity</label>
+       <input type="number"  pattern="[0-9]*" name="dexterity" id="createCharacter.dexterity" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <label for="createCharacter.constitution" name="createCharacter.constitution">Constitution</label>
+       <input type="number"  pattern="[0-9]*" name="constitution" id="createCharacter.constitution" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <label for="createCharacter.intelligence" name="createCharacter.intelligence">Intelligence</label>
+       <input type="number"  pattern="[0-9]*" name="intelligence" id="createCharacter.intelligence" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <label for="createCharacter.wisdom" name="createCharacter.wisdom">wisdom</label>
+       <input type="number"  pattern="[0-9]*" name="wisdom" id="createCharacter.wisdom" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <label for="createCharacter.charisma" name="createCharacter.charisma">charisma</label>
+       <input type="number"  pattern="[0-9]*" name="charisma" id="createCharacter.charisma" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+   </div>
+   
+   <div id="createCharacter.backstory">
+       <label for="backstory" name="backstory">Backstory</label>
+       <select id="createCharacter.backstory.backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
+       <textarea id="createCharacter.backstory.backstory" name="backstory" spellcheck="true"></textarea> 
+   </div>
+
+   <div id="createCharacter.details">
+       <label for="age" name="age">Age</label>
+       <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="age"/>
+
+       <label for="height" name="height">Height</label>
+       <input type="text" id="createCharacter.details.height" name="height"/>
+
+       <label for="weight" name="weight">Weight</label>
+       <input type="text" id="createCharacter.details.weight" name="weight"/>
+
+       <label for="eyecolor" name="eyecolor">Eye Color</label>
+       <input type="color" id="createCharacter.details.eyecolor" name="eyecolor"/>
+
+       <label for="skin" name="skin">Skin Color</label>
+       <input type="color" id="createCharacter.details.skin" name="skin"/>
+
+       <label for="hair" name="hair">Hair Color</label>
+       <input type="color" id="createCharacter.details.hair" name="hair"/>
+
+       <label for="appearance" name="appearance">Appearance</label>
+       <textarea id="createCharacter.details.appearance" spellcheck="true" name="appearance"></textarea> 
+   </div>
+
+   <div id="createCharacter.skills">
+       <fieldset>
+           <legend class="skill_title">Skills</legend>
+           <div id="createCharacter.skills_container" class="skills_grid"></div>
+       </fieldset>
+   </div>
+   
+   <form id='createCharacter.Abilities'>
+       <label for="languages" name="languages">Languages</label>
+       <textarea id="createCharacter.languages" name="languages" spellcheck="true"></textarea>
+       <textarea id="createCharacter.backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+
+       <label for="proficiencies" name="proficiencies">Proficiencies</label>
+       <div id="createCharacter.class.proficiencies"></div>
+       <textarea id="createCharacter.proficiencies" name="proficiencies" spellcheck="true"></textarea>
+       
+       <label for="features" name="features">Features & Traits</label>
+       <textarea id="createCharacter.features" name="features" spellcheck="true"></textarea>
+       
+       <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
+       <textarea id="createCharacter.personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+       
+       <label for="ideals" name="ideals">Ideals</label>
+       <textarea id="createCharacter.ideals" name="ideals" spellcheck="true"></textarea>
+       
+       <label for="bonds" name="bonds">Bonds</label>
+       <textarea id="createCharacter.bonds" name="bonds" spellcheck="true"></textarea>
+       
+       <label for="flaws" name="flaws">Flaws</label>
+       <textarea id="createCharacter.flaws" name="flaws" spellcheck="true"></textarea>
+       
+       <label for="allies" name="allies">Allies</label>
+       <textarea id="createCharacter.allies" name="allies" spellcheck="true"></textarea>
+   </form>
+   
+
+   <form id='createCharacter.Inventory'>
+       <label for="weapons" name="weapons">Weapons</label>
+       <textarea id="createCharacter.weapons" name="weapons" spellcheck="true"></textarea>
+       
+       <label for="equipment" name="equipment">Equipment</label>
+       <textarea id="createCharacter.equipment" name="equipment" spellcheck="true"></textarea>
+       <textarea id="createCharacter.backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
+       
+       <label for="treasure" name="treasure">Treasure</label>
+       <textarea id="createCharacter.treasure" name="treasure" spellcheck="true"></textarea>
+   </form>
+</template>
