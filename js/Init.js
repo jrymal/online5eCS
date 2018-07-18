@@ -186,3 +186,7 @@ function showModal(modelId, title, desc){
 
     show(modalDiv);
 }
+
+function cancelModal() {
+    show($('modalOverlay'), false);
+}

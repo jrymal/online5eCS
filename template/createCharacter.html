@@ -1,58 +1,58 @@
 <title>Create a new character</title>
 <description>Build your character.</description>
 <template>
-   <div id="createCharacter.player" class="tab">
+   <form class="wizardScreen">
        <label for="player" name="player">Role Player</label>
-       <input type="text" id="createCharacter.player.name" name="player"/>
+       <input type="text" id="createCharacter.player.name" name="player" required/>
 
        <label for="phone" name="phone">Phone Number</label>
-       <input type="tel" id="createCharacter.player.phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
+       <input type="tel" id="createCharacter.player.phone" name="phone" autocomplete="tel"/>
 
        <label for="email" name="email">Email</label>
-       <input type="email" id="createCharacter.player.email" name="email" onchange="updateEmail()" autocomplete="email"/> 
-   </div>
+       <input type="email" id="createCharacter.player.email" name="email" autocomplete="email"/> 
+   </form>
    
-   <div id="createCharacter.race" class="tab">
+   <form class="wizardScreen">
        <label for="name" name="name">Character Name</label>
        <input type="text" id="createCharacter.race.name" name="name" required/>
 
        <label for="race" name="race">Race</label>
        <select id="createCharacter.race.race" onchange="updateRace(event)" name="race"></select>
-   </div>
+   </form>
 
-   <div id="createCharacter.class" class="tab">
+   <form class="wizardScreen">
        <label for="class" name="class">Class</label>
        <select id="createCharacter.class.class" name="class" onchange="updateClass(event)"></select>
 
        <label for="level" name="level">Level</label>
-       <input type="number" id="createCharacter.class.level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
+       <input type="number" id="createCharacter.class.level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required value="1"/>
         
-   </div>
+   </form>
    
-   <div id="createCharacter.attributes" class="tab">
+   <form class="wizardScreen">
        <label for="createCharacter.strength" name="createCharacter.strength">Strength</label>
-       <input type="number"  pattern="[0-9]*" name="strength" id="createCharacter.strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <input type="number"  pattern="[0-9]*" name="strength" id="createCharacter.strength" class="short"  min="3" max="20" />
        <label for="createCharacter.dexterity" name="createCharacter.dexterity">Dexterity</label>
-       <input type="number"  pattern="[0-9]*" name="dexterity" id="createCharacter.dexterity" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <input type="number"  pattern="[0-9]*" name="dexterity" id="createCharacter.dexterity" class="short"  min="3" max="20" />
        <label for="createCharacter.constitution" name="createCharacter.constitution">Constitution</label>
-       <input type="number"  pattern="[0-9]*" name="constitution" id="createCharacter.constitution" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <input type="number"  pattern="[0-9]*" name="constitution" id="createCharacter.constitution" class="short"  min="3" max="20" />
        <label for="createCharacter.intelligence" name="createCharacter.intelligence">Intelligence</label>
-       <input type="number"  pattern="[0-9]*" name="intelligence" id="createCharacter.intelligence" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <input type="number"  pattern="[0-9]*" name="intelligence" id="createCharacter.intelligence" class="short"  min="3" max="20" />
        <label for="createCharacter.wisdom" name="createCharacter.wisdom">wisdom</label>
-       <input type="number"  pattern="[0-9]*" name="wisdom" id="createCharacter.wisdom" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
+       <input type="number"  pattern="[0-9]*" name="wisdom" id="createCharacter.wisdom" class="short"  min="3" max="20" />
        <label for="createCharacter.charisma" name="createCharacter.charisma">charisma</label>
-       <input type="number"  pattern="[0-9]*" name="charisma" id="createCharacter.charisma" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
-   </div>
+       <input type="number"  pattern="[0-9]*" name="charisma" id="createCharacter.charisma" class="short"  min="3" max="20" />
+   </form>
    
-   <div id="createCharacter.backstory" class="tab">
+   <form class="wizardScreen">
        <label for="backstory" name="backstory">Backstory</label>
        <select id="createCharacter.backstory.backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
        <textarea id="createCharacter.backstory.backstory" name="backstory" spellcheck="true"></textarea> 
-   </div>
+   </form>
 
-   <div id="createCharacter.details" class="tab">
+   <form class="wizardScreen">
        <label for="age" name="age">Age</label>
-       <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="age"/>
+       <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="age" min="1" max="100" value="18"/>
 
        <label for="height" name="height">Height</label>
        <input type="text" id="createCharacter.details.height" name="height"/>
@@ -71,16 +71,16 @@
 
        <label for="appearance" name="appearance">Appearance</label>
        <textarea id="createCharacter.details.appearance" spellcheck="true" name="appearance"></textarea> 
-   </div>
+   </form>
 
-   <div id="createCharacter.skills" class="tab">
+   <form class="wizardScreen">
        <fieldset>
            <legend class="skill_title">Skills</legend>
            <div id="createCharacter.skills_container" class="skills_grid"></div>
        </fieldset>
-   </div>
+   </form>
    
-   <div id='createCharacter.Abilities' class="tab">
+   <form class="wizardScreen">
        <label for="languages" name="languages">Languages</label>
        <textarea id="createCharacter.languages" name="languages" spellcheck="true"></textarea>
        <textarea id="createCharacter.backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
@@ -106,10 +106,10 @@
        
        <label for="allies" name="allies">Allies</label>
        <textarea id="createCharacter.allies" name="allies" spellcheck="true"></textarea>
-   </div>
+   </form>
    
 
-   <div id='createCharacter.Inventory' class="tab">
+   <form class="wizardScreen">
        <label for="weapons" name="weapons">Weapons</label>
        <textarea id="createCharacter.weapons" name="weapons" spellcheck="true"></textarea>
        
@@ -119,18 +119,16 @@
        
        <label for="treasure" name="treasure">Treasure</label>
        <textarea id="createCharacter.treasure" name="treasure" spellcheck="true"></textarea>
-   </div>
+   </form>
 
-   <div style="overflow:auto;">
-  <div style="float:right;">
-    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-  </div>
-</div>
+   <div class="buttonbar">
+       <button type="button" onclick="cancelModal()">Cancel</button>
+       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+       <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
 
     <!-- Circles which indicates the steps of the form: -->
     <div class="step_wrapper">
-        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
@@ -148,7 +146,7 @@
 
         function showTab(n) {
           // This function will display the specified tab of the form ...
-          var x = document.getElementsByClassName("tab");
+          var x = document.getElementsByClassName("wizardScreen");
           x[n].style.display = "block";
           // ... and fix the Previous/Next buttons:
           if (n == 0) {
@@ -167,7 +165,7 @@
 
         function nextPrev(n) {
           // This function will figure out which tab to display
-          var x = document.getElementsByClassName("tab");
+          var x = document.getElementsByClassName("wizardScreen");
           // Exit the function if any field in the current tab is invalid:
           if (n == 1 && !validateForm()) return false;
           // Hide the current tab:
@@ -185,25 +183,17 @@
         }
 
         function validateForm() {
-          // This function deals with validation of the form fields
-          var x, y, i, valid = true;
-          x = document.getElementsByClassName("tab");
-          y = x[currentTab].getElementsByTagName("input");
-          // A loop that checks every input field in the current tab:
-          for (i = 0; i < y.length; i++) {
-            // If a field is empty...
-            if (y[i].value == "") {
-              // add an "invalid" class to the field:
-              y[i].className += " invalid";
-              // and set the current valid status to false:
-              valid = false;
+            var x = document.getElementsByClassName("wizardScreen");
+            var currentForm = x[currentTab];
+            var valid = currentForm.checkValidity(); 
+            
+            // could use the validity object to add top level error messages....
+
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
             }
-          }
-          // If the valid status is true, mark the step as finished and valid:
-          if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-          }
-          return valid; // return the valid status
+            return valid; // return the valid status
         }
 
         function fixStepIndicator(n) {
@@ -218,9 +208,9 @@
 
         function initModal() {
             // set up selects
-            populateSelect($('class', 'createCharacter'), CLASSES);
-            populateSelect($('race', 'createCharacter'), RACES);
-            populateSelect($('backstory.type', 'createCharacter'), BACKSTORIES);
+            populateSelect($('class', 'createCharacter.class'), CLASSES);
+            populateSelect($('race', 'createCharacter.race'), RACES);
+            populateSelect($('backstory.type', 'createCharacter.backstory'), BACKSTORIES);
             populateCheckboxes($('skills_container', 'createCharacter'), SKILLS);
          
         }

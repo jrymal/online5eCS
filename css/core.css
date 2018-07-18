@@ -13,7 +13,7 @@ input,
 select, 
 textarea, 
 a  {
-    padding: 0 0.2em 0.2em 0;
+    padding: 0 0 0.2em 0;
     font-size: 1.0em;
     display: block;
 }
@@ -42,10 +42,20 @@ a {
     cursor: pointer;
 }
 
+button {
+    padding: .2em;
+    margin: .2em;
+}
+
+input:last-child {
+    padding: 0;
+    margin: 0;
+}
+
 /* Style the tab */
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: .1em solid #ccc;
     background-color: #f1f1f1;
 }
 
@@ -57,6 +67,7 @@ a {
     outline: none;
     cursor: pointer;
     padding: .5em .5em;
+    margin: 0;
     transition: 0.3s;
     font-size: 1.2em;
 }
@@ -73,23 +84,14 @@ a {
     font-weight: bold;
 }
 
-.tab .install-app {
-    background-color: #0cc;
-}
-.tab .install-app:active,
-.tab .install-app:hover{
-    background-color: #0dd;
-}
-
 .skill_title{
     font-size: 1.2em;
 }
  
-
 /* Style the tab content */
 .tabcontent {
     padding: .5em .5em;
-    border: 1px solid #ccc;
+    border: .1em solid #ccc;
     border-top: none;
 }
 
@@ -105,7 +107,7 @@ input.short {
     width: 3em;
 }
 input:invalid {
-  box-shadow: 0 0 5px 1px red;
+  box-shadow: 0 0 .3em .1em red;
 }
 
 input:focus:invalid {
@@ -122,7 +124,7 @@ input:focus:invalid {
 }
 
 /* Mobile */
-@media screen and (max-width:550px) {
+@media screen and (max-width:34.2em) {
     #nav {
         display: none;
     }
@@ -132,7 +134,7 @@ input:focus:invalid {
     }
 }
 
-@media screen and (min-width:550px) {
+@media screen and (min-width:34.2em) {
     #nav {
         display: block;
     }
@@ -143,7 +145,7 @@ input:focus:invalid {
     }
 }
 
-@media screen and (min-width:1000px) {
+@media screen and (min-width:80em) {
     /*It would be nice if we have the space to put the inputs in 2 columns on
      * the screen*/
 }
@@ -166,12 +168,12 @@ input:focus:invalid {
 
 .base {
     background: white;
-    margin: 20px;
-    padding: 20px;
+    margin: 1em;
+    padding: 1em;
     border: thin;
     border-style: solid;
     border-color: black;
-    border-radius: 10px;
+    border-radius: .8em;
 }
 
 .base h2 {
@@ -179,25 +181,26 @@ input:focus:invalid {
 }
 
 .description {
-    margin: 10px 0;
+    margin: .8em 0;
 }
 
 .step_wrapper {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 3em;
 }
 
-.tab {
+.wizardScreen{
   display: none;
+  padding: 1em;
 }
-.tab.active {
+.wizardScreen.active {
   display: block;
 }
 
 .step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
+  height: 1em;
+  width: 1em;
+  margin: 0 .1em;
   background-color: #bbbbbb;
   border: none;
   border-radius: 50%;
@@ -211,4 +214,10 @@ input:focus:invalid {
 
 .step.finish {
   background-color: #4CAF50;
+}
+.buttonbar {
+    display: inline-flex;
+}
+.buttonbar > *:first-child {
+    margin-left: 0;
 }
