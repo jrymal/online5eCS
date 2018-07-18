@@ -186,12 +186,15 @@ input:focus:invalid {
 
 .step_wrapper {
     text-align: center;
-    margin-top: 3em;
+    margin: 1em;
 }
 
 .wizardScreen{
-  display: none;
-  padding: 1em;
+    display: none;
+    padding: 1em;
+    overflow: hidden;
+    border: .1em solid #ccc;
+    background-color: #f1f1f1; 
 }
 .wizardScreen.active {
   display: block;

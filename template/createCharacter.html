@@ -120,27 +120,28 @@
        <label for="treasure" name="treasure">Treasure</label>
        <textarea id="createCharacter.treasure" name="treasure" spellcheck="true"></textarea>
    </form>
-
+ 
+   <!-- Circles which indicates the steps of the form: -->
+   <div class="step_wrapper">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+   </div>
+ 
    <div class="buttonbar">
        <button type="button" onclick="cancelModal()">Cancel</button>
        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-    </div>
+   </div>
 
-    <!-- Circles which indicates the steps of the form: -->
-    <div class="step_wrapper">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-    </div>
 
-    <script type="text/javascript" >
+   <script type="text/javascript" >
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
 
