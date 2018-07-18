@@ -181,3 +181,34 @@ input:focus:invalid {
 .description {
     margin: 10px 0;
 }
+
+.step_wrapper {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.finish {
+  background-color: #4CAF50;
+}

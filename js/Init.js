@@ -181,6 +181,8 @@ function showModal(modelId, title, desc){
     modalTitleDiv.innerHTML = title ? title : titleEle ? titleEle.innerHTML : "";
     modalDescDiv.innerHTML = desc ? desc : descEle ? descEle.innerHTML : "";
     modalBodyDiv.appendChild(document.importNode(importDom.querySelector('template').content, true));
-    
+
+    initModal();
+
     show(modalDiv);
 }
