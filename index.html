@@ -23,6 +23,7 @@
         <script type="text/javascript" src="js/Init.js" async> </script>
         <script type="text/javascript" src="js/Languages.js" async> </script>
         <script type="text/javascript" src="js/Coinage.js" async> </script>
+        <script type="text/javascript" src="js/CharacterWizard.js" async> </script>
 
         <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
         
@@ -44,7 +45,7 @@
         <!-- temp test -->
         <button type="button" onclick="viewPurse()">View Purse</button>
 
-        <div class="overlay hidden" id="modalOverlay">
+        <div class="modal overlay hidden" id="modalOverlay">
             <div class="base">
                 <h2 id="modal.title"></h2>
                 <div class="description" id="modal.description"></div>
@@ -53,7 +54,7 @@
         </div>
         
         <div id="advanced_ham" onclick="toggle($('advanced'))" ><h2 id="advanced_header">Advanced</h2></div>
-        <div id="advanced" >
+        <div id="advanced" class="view">
             <button id="mobile-nav" class="nav-anchors" onclick="toggle($('mobile-nav-menu'))">Menu</button>
             <nav id="mobile-nav-menu" class="mobile-nav">
                 <ul>

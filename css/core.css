@@ -52,15 +52,26 @@ input:last-child {
     margin: 0;
 }
 
+input.short {
+    width: 3em;
+}
+input:invalid {
+  box-shadow: 0 0 .3em .1em red;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+ 
 /* Style the tab */
-.tab {
+.view .tab {
     overflow: hidden;
     border: .1em solid #ccc;
     background-color: #f1f1f1;
 }
 
 /* Style the buttons that are used to open the tab content */
-.tab button {
+.view .tab button {
     background-color: inherit;
     float: left;
     border: none;
@@ -73,45 +84,108 @@ input:last-child {
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover,
-.tab button:focus {
+.view .tab button:hover,
+.view .tab button:focus {
     background-color: #ddd;
     text-decoration: underline;
 }
 
-.tab button.active {
+.view .tab button.active {
     background-color: #ccc;
     font-weight: bold;
 }
 
-.skill_title{
-    font-size: 1.2em;
-}
- 
 /* Style the tab content */
-.tabcontent {
+.view .tabcontent {
     padding: .5em .5em;
     border: .1em solid #ccc;
     border-top: none;
 }
 
-.attribute_grid {
+.modal.overlay{
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal.overlay .base {
+    background: white;
+    margin: 1em;
+    padding: 1em;
+    border: thin;
+    border-style: solid;
+    border-color: black;
+    border-radius: .8em;
+}
+
+.modal.overlay .base h2 {
+    margin: 0;
+}
+
+.modal.overlay .description {
+    margin: .8em 0;
+}
+
+.modal.overlay .step_wrapper {
+    text-align: center;
+    margin: 1em;
+}
+
+.modal.overlay .wizardScreen .skill_title{
+    font-size: 1.2em;
+}
+ 
+.modal.overlay .wizardScreen .attribute_grid {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
 }
-.skills_grid {
+
+.modal.overlay .wizardScreen .skills_grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }
-input.short {
-    width: 3em;
-}
-input:invalid {
-  box-shadow: 0 0 .3em .1em red;
+  
+.modal.overlay .wizardScreen{
+    display: none;
+    padding: 1em;
+    overflow: hidden;
+    border: .1em solid #ccc;
+    background-color: #f1f1f1; 
 }
 
-input:focus:invalid {
-  outline: none;
+.modal.overlay .wizardScreen.active {
+  display: block;
+}
+
+.modal.overlay .step {
+  height: 1em;
+  width: 1em;
+  margin: 0 .1em;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.modal.overlay .step.active {
+  opacity: 1;
+}
+
+.modal.overlay .step.finish {
+  background-color: #4CAF50;
+}
+.modal.overlay .buttonbar {
+    display: inline-flex;
+}
+.modal.overlay .buttonbar > *:first-child {
+    margin-left: 0;
 }
 
 /* Default navigation set up */
@@ -153,74 +227,4 @@ input:focus:invalid {
 .hidden{
     display: none; !important
 }
-
-.overlay{
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.base {
-    background: white;
-    margin: 1em;
-    padding: 1em;
-    border: thin;
-    border-style: solid;
-    border-color: black;
-    border-radius: .8em;
-}
-
-.base h2 {
-    margin: 0;
-}
-
-.description {
-    margin: .8em 0;
-}
-
-.step_wrapper {
-    text-align: center;
-    margin: 1em;
-}
-
-.wizardScreen{
-    display: none;
-    padding: 1em;
-    overflow: hidden;
-    border: .1em solid #ccc;
-    background-color: #f1f1f1; 
-}
-.wizardScreen.active {
-  display: block;
-}
-
-.step {
-  height: 1em;
-  width: 1em;
-  margin: 0 .1em;
-  background-color: #bbbbbb;
-  border: none;
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
-
-.step.active {
-  opacity: 1;
-}
-
-.step.finish {
-  background-color: #4CAF50;
-}
-.buttonbar {
-    display: inline-flex;
-}
-.buttonbar > *:first-child {
-    margin-left: 0;
-}
+ 

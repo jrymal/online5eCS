@@ -143,6 +143,8 @@ function loadFromJSON() {
 
 function startWizard() {
     showModal('createCharacter');
+    
+    initWizard();
 }
 
 function openCharacterFromFile() {
@@ -182,11 +184,19 @@ function showModal(modelId, title, desc){
     modalDescDiv.innerHTML = desc ? desc : descEle ? descEle.innerHTML : "";
     modalBodyDiv.appendChild(document.importNode(importDom.querySelector('template').content, true));
 
-    initModal();
-
     show(modalDiv);
 }
 
 function cancelModal() {
     show($('modalOverlay'), false);
+}
+
+var SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA'];
+function selectFirstInput(divEle) {
+    for(var i = 0; i < divEle.childNodes.length; i++) {
+        if(SELECTABLE_TAGS.includes(divEle.childNodes[i].tagName)){
+            divEle.childNodes[i].focus();
+            return;
+        }
+    }
 }
