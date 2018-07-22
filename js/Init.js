@@ -141,10 +141,15 @@ function loadFromJSON() {
     }
 }
 
+var currentCharacter;
+
 function startWizard() {
     showModal('createCharacter');
-    
-    initWizard();
+    initWizard(function(result) {
+        currentCharacter = result;
+        console.log('Result: '+currentCharacter);
+        show($('modalOverlay'), false);
+    });
 }
 
 function openCharacterFromFile() {
