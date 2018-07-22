@@ -79,6 +79,32 @@ function initWizard(callback) {
     showWizardTab(0);
 }
 
+function generateAttributes() {
+    var generateMethod;
+    switch($('createCharacter.attr.chooser').value) {
+        case 'Manual':
+            generateMethod = function() {
+                return 10;
+            };
+            break;
+        case 'Straight':
+            generateMethod = function() {
+                return rollDie(DICE.d6,3).reduce((a,b) => a+b,0);
+            };
+            break;
+        case 'Throwaway':
+            generateMethod = function() {
+                return rollDie(DICE.d6,4).sort().reverse()
+                    .slice(0,3).reduce((a,b) => a+b,0);
+            };
+            break;
+    }
+    for(var i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
+        $('createCharacter.character.attribute.'+ATTRIBUTE_ID_LIST[i]).value = 
+            generateMethod(); 
+    }
+}
+
 function populateSelect(selectEle, sourceObj) {
     var fragment = document.createDocumentFragment();
     var sourceArray = Object.keys(sourceObj).sort();

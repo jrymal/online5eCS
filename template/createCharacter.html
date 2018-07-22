@@ -42,19 +42,19 @@
        <label for="createCharacter.character.level">Level</label>
        <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" name="character.class.level" min="1" max="40" required value="1"/>
    
-       <button >Add another Class</button>
-       <button >Scrap the current class</button>
+       <button type="button">Add another Class</button>
+       <button type="button">Scrap the current class</button>
    </form>
    
    <form class="wizardScreen">
        <!-- generation options and execution -->
        <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
-           <select id="createCharacter.attr.chooser">
+       <select id="createCharacter.attr.chooser">
            <option value="Manual">I'll roll and enter the vaules</option>
            <option value="Straight">Straight 3 rolls</option>
            <option value="Throwaway">Throwaway lowest of 4</option>
        </select>
-       <button >Generate Attributes</button>
+       <button type="button" onclick="generateAttributes()">Generate Attributes</button>
 
        <label for="createCharacter.character.attribute.strength">Strength</label>
        <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
