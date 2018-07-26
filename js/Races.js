@@ -41,7 +41,7 @@ const RACES = {
         proficiency:["battleaxe","handaxe","throwing hammer","warhammer"],
         proficiency_choice:{
             join: "or",
-            select; ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["smith's tools","brewer's supplies","mason's tools"]
         },
         languages: ["Common","Dwarfish"]
     },
@@ -88,7 +88,7 @@ const RACES = {
         proficiency:["battleaxe","handaxe","throwing hammer","warhammer","light armor","medium armor"],
         proficiency_choice:{
             join: "or",
-            select; ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["smith's tools","brewer's supplies","mason's tools"]
         },
         languages: ["Common","Dwarfish"]
     },
@@ -135,10 +135,10 @@ const RACES = {
         proficiency:["battleaxe","handaxe","throwing hammer","warhammer"],
         proficiency_choice:{
             join: "or",
-            select; ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["smith's tools","brewer's supplies","mason's tools"]
         },
-        levelup {
-            hitpoint: 1;
+        levelup: {
+            hitpoint: 1
         },
         languages: ["Common","Dwarfish"]
     },
@@ -235,7 +235,7 @@ const RACES = {
         proficiency_skill:["Perception"],
         proficiency:["Longsword","Shortsword","Shortbow","Longbow"],
         languages: ["Common","Elvish","any"],
-        level {
+        level: {
             1 : {
                 spell: ["any - wizard"]
             }
@@ -336,7 +336,7 @@ const RACES = {
         proficiency_skill:["Perception"],
         proficiency:["Rapier","Shortsword","iHandcrossbows"],
         languages: ["Common","Elvish"],
-        level {
+        level: {
             1 : {
                 spell: ["dancing lights"]
             },
@@ -363,7 +363,7 @@ const RACES = {
                 "Lavinia","Lidda","Merla","Nedda","Paela","Portia",
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
-                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage"
+                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
                 "Tosscobble","iUnderbough"]
         },
         age:{
@@ -402,7 +402,7 @@ const RACES = {
                 "Lavinia","Lidda","Merla","Nedda","Paela","Portia",
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
-                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage"
+                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
                 "Tosscobble","iUnderbough"]
         },
         age:{
@@ -441,7 +441,7 @@ const RACES = {
                 "Lavinia","Lidda","Merla","Nedda","Paela","Portia",
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
-                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage"
+                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
                 "Tosscobble","iUnderbough"]
         },
         age:{
@@ -479,7 +479,7 @@ const RACES = {
         names:{
             he: ["Aseir","Bardeid","Haseid","Khemed","Mehmed","Sudeiman",
                 "Zasheir","Darvin","Dorn","Evendur","Gorstag","Grim","Helm",
-                "Malark","Morn","Randal","Stedd","Bor","Fodel","Glar","Grigor".
+                "Malark","Morn","Randal","Stedd","Bor","Fodel","Glar","Grigor",
                 "Igan","Ivor","Kosef","Mival","Orel","Pavel","Sergor",
                 "Ander","Blath","Bran","Frath","Geth","Lander","Luth","Malcer",
                 "Stor","Taman","Urth","Aoth","Bareris","Ehput-Ki","Kethoth",
@@ -498,8 +498,8 @@ const RACES = {
                 "Umara","Zolis","Fyevarra","Hulmarra","Immith","Imzel",
                 "Navarra","Shevarra","Tammith","Yuldra","Bai","Chao","Jia",
                 "Lei","Mei","Qiao","Shui","Tai","Balama","Dona","Faila",
-                "Jalana","Luisa","Marta","Quara",'Selise","Vonda",
-                "Naull"]
+                "Jalana","Luisa","Marta","Quara","Selise","Vonda",
+                "Naull"],
             family: ["Basha","Dumein","Jassan","Khalid","Mostana","Pashar",
                 "Rein","Amblecrowne","Buckman","Dundragon","Evanwood",
                 "Greycastle","Tallstag","Bersk","Chernin","Dotsk","Kulenov",
@@ -616,11 +616,11 @@ const RACES = {
             },
             11:{
                 feature:["Breath damage increase to 4d6"]
-            }
+            },
             16:{
                 feature:["Breath damage increase to 5d6"]
             }
-        }
+        },
 
         features:["Resistance to the breath type of your ansestory"],
         languages: ["Common","Draconic"]
@@ -638,7 +638,7 @@ const RACES = {
                 "Sindri","Warryn","Wrenn","Zook"],
             she: ["Bimpnottin","Breena","Caramip","Carlin","Donelia","Duvamil",
                 "Ella","Ellyjobell","Ellywick","Lilli","Loopmottin","Lorilla",
-                "Mardnab","Nissa","Nyx","Oda","Oria","Orla"i,"Roywyn","Shamil",
+                "Mardnab","Nissa","Nyx","Oda","Oria","Orla","Roywyn","Shamil",
                 "Tana","Waywocket","Zanna"],
             nickname:["Aleslosh","Ashhearth","Badger","Cloak","Doublelock",
                 "Filchbatter","Fnipper","Ku","Nim","Oneshoe","Pock",
@@ -679,7 +679,7 @@ const RACES = {
                 "Sindri","Warryn","Wrenn","Zook"],
             she: ["Bimpnottin","Breena","Caramip","Carlin","Donelia","Duvamil",
                 "Ella","Ellyjobell","Ellywick","Lilli","Loopmottin","Lorilla",
-                "Mardnab","Nissa","Nyx","Oda","Oria","Orla"i,"Roywyn","Shamil",
+                "Mardnab","Nissa","Nyx","Oda","Oria","Orla","Roywyn","Shamil",
                 "Tana","Waywocket","Zanna"],
             nickname:["Aleslosh","Ashhearth","Badger","Cloak","Doublelock",
                 "Filchbatter","Fnipper","Ku","Nim","Oneshoe","Pock",
@@ -704,7 +704,7 @@ const RACES = {
         },
         speed: 25,
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic","Can communicate simple ideas to small animals/beasts"],
-        level {
+        level: {
             1 : {
                 spell: ["minor illusion"]
             }
@@ -725,7 +725,7 @@ const RACES = {
                 "Sindri","Warryn","Wrenn","Zook"],
             she: ["Bimpnottin","Breena","Caramip","Carlin","Donelia","Duvamil",
                 "Ella","Ellyjobell","Ellywick","Lilli","Loopmottin","Lorilla",
-                "Mardnab","Nissa","Nyx","Oda","Oria","Orla"i,"Roywyn","Shamil",
+                "Mardnab","Nissa","Nyx","Oda","Oria","Orla","Roywyn","Shamil",
                 "Tana","Waywocket","Zanna"],
             nickname:["Aleslosh","Ashhearth","Badger","Cloak","Doublelock",
                 "Filchbatter","Fnipper","Ku","Nim","Oneshoe","Pock",
@@ -764,7 +764,7 @@ const RACES = {
         names:{
             he: ["Aseir","Bardeid","Haseid","Khemed","Mehmed","Sudeiman",
                 "Zasheir","Darvin","Dorn","Evendur","Gorstag","Grim","Helm",
-                "Malark","Morn","Randal","Stedd","Bor","Fodel","Glar","Grigor".
+                "Malark","Morn","Randal","Stedd","Bor","Fodel","Glar","Grigor",
                 "Igan","Ivor","Kosef","Mival","Orel","Pavel","Sergor",
                 "Ander","Blath","Bran","Frath","Geth","Lander","Luth","Malcer",
                 "Stor","Taman","Urth","Aoth","Bareris","Ehput-Ki","Kethoth",
@@ -787,7 +787,7 @@ const RACES = {
                 "Umara","Zolis","Fyevarra","Hulmarra","Immith","Imzel",
                 "Navarra","Shevarra","Tammith","Yuldra","Bai","Chao","Jia",
                 "Lei","Mei","Qiao","Shui","Tai","Balama","Dona","Faila",
-                "Jalana","Luisa","Marta","Quara",'Selise","Vonda",
+                "Jalana","Luisa","Marta","Quara","Selise","Vonda",
                 "Naull","Adrie","Althaea","Anastrianna","Andraste","Antinua",
                 "Bethrynna","Birel","Caelynn","Drusilia","Enna","Felosial",
                 "Ielenia","Jelenneth","Keyleth","Leshanna","Lia","Meriele",
@@ -828,7 +828,7 @@ const RACES = {
             "Advantage on saving throws against being charmed and magic",
             "Magic cannot put you to sleep"],
         proficiency_skill:["any","any"],
-        languages: ["Common",i"Elvish","any"]
+        languages: ["Common","Elvish","any"]
     },
     HalfOrc:{
         name: "Half Orc",
@@ -901,9 +901,8 @@ const RACES = {
         speed: 30,
         features:["Darkvision (60 ft)",
             "Resistance to fire damage"],
-
         languages: ["Common","Infernal"],
-        level {
+        level: {
             1 : {
                 spell: ["thaumatergy"]
             },
@@ -916,4 +915,3 @@ const RACES = {
         },
     }
 };
-e
