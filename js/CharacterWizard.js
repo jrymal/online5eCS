@@ -15,6 +15,63 @@ function showWizardTab(n) {
     
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
+
+    prepopulateValues(x[n]);
+}
+
+function prepopulateValues(form){
+    switch(form.id) {
+        case 'createCharacter.name':
+            setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName());
+            setIfExistsAndEmpty('createCharacter.character.name.family', chooseFamilyName());
+            setIfExistsAndEmpty('createCharacter.character.name.nickname', chooseNickName());
+            setIfExistsAndEmpty('createCharacter.character.name.child', chooseChildName());
+            break;
+    }    
+}
+
+function setIfExists(id, value){
+    if (value){
+        $(id).value = value; 
+    }
+}
+function setIfExistsAndEmpty(id, value){
+    if (value && !$(id).value){
+        $(id).value = value; 
+    }
+}
+
+function chooseFamilyName(){
+    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    return chooseFromList(nameObj.family);
+}
+
+function chooseNickName(){
+    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    return chooseFromList(nameObj.nickname);
+}
+
+function chooseChildName(){
+    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    return chooseFromList(nameObj.child);
+}
+
+function chooseFirstName(){
+    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    var nameList = [];
+    switch($('createCharacter.character.pronoun').value) {
+        case 'he':
+        case 'she':
+            nameList = nameList.concat(nameObj[$('createCharacter.character.pronoun').value]);
+            break;
+        case 'they':
+        case 'ze':
+            nameList = nameList.concat(nameObj.he);
+            nameList = nameList.concat(nameObj.she);
+            break;
+    }
+    
+    return chooseFromList(nameList);
 }
 
 function nextPrev(n) {

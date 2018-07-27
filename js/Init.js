@@ -41,6 +41,11 @@ function randomNumber(min, max) {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
+function chooseFromList(list){
+    return list && list.length > 0 ? list[randomNumber(0,list.length)] : null;
+}
+
+
 function isBlank(stringValue) {
     return stringValue === null || stringValue === "" || !stringValue;
 }
