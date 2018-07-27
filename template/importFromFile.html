@@ -1,7 +1,10 @@
 <title>Load from File</title>
-<description>Load your character from a file</description>
+<description>Load your character</description>
 <template>
+    <!-- This will be useful to load from the db (when implemented) as well as
+        from a file-->
     <label for="importFile">Import file</label>
     <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
+    <button type="button" onclick="cancelModal()">Cancel</button>
 </template>
 

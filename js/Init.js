@@ -191,7 +191,7 @@ function startWizard() {
     });
 }
 
-function openCharacterFromFile() {
+function openCharacter() {
     showModal('importFromFile');
 }
 
