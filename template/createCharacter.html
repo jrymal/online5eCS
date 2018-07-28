@@ -39,8 +39,8 @@
    <form class="wizardScreen">
        <ol id="createCharacter.character.multiclass" class="hidden"></ol>
 
-       <label for="createCharacter.character.class">Class</label>
-       <select id="createCharacter.character.class" name="character.class" ></select>
+       <label for="createCharacter.character.class.type">Class</label>
+       <select id="createCharacter.character.class.type" name="character.class.type" ></select>
 
        <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
        <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
@@ -52,10 +52,10 @@
        <button type="button">Scrap the current class</button>
    </form>
    
-   <form class="wizardScreen">
+   <form class="wizardScreen" id="createCharacter.attr">
        <!-- generation options and execution -->
        <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
-       <select id="createCharacter.attr.chooser">
+       <select id="createCharacter.attr.chooser" value="Throwaway">
            <option value="Manual">I'll roll and enter the vaules</option>
            <option value="Straight">Straight 3 rolls</option>
            <option value="Throwaway">Throwaway lowest of 4</option>

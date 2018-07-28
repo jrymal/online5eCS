@@ -1,3 +1,5 @@
+'use strict';
+
 const SKILLS = {
     acrobatics: {
         name: "Acrobatics",

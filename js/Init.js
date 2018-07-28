@@ -1,3 +1,5 @@
+'use strict';
+
 const DICE = {
     d4 : {
         min: 1,
@@ -25,13 +27,25 @@ const DICE = {
     }
 };
 
+function findNode(jsonPath, searchObj) {
+    let pathItems = jsonPath.split('.');
+    let objItem = searchObj;
+    for(let i = 0; i < pathItems.length; i++) {
+        if (!objItem[pathItems[i]]) {
+            return null;
+        }
+        objItem = objItem[pathItems[i]];
+    }
+    return objItem;
+}
+ 
 function $(id, prefix = '') {
     return document.getElementById(isBlank(prefix) ? id : prefix+'.'+id);
 }
 
 function rollDie(die, count = 1) {
     result = [];
-    for(var i = 0; i < count; i++) {
+    for(let i = 0; i < count; i++) {
         result.push(randomNumber(die.min, die.max));
     }
     return result;
@@ -74,7 +88,7 @@ function getElementByXpath(path) {
 }
 
 function stripFirst(matchChar, string){
-    var index = string.indexOf(matchChar);
+    let index = string.indexOf(matchChar);
     if (index>=0){
         return string.split(matchChar)[1];
     }
@@ -104,13 +118,16 @@ function getSelectValues(options) {
 }
 
 function clearAllFields() {
-  var dataholders = document.getElementsByClassName("dataholder");
+  let dataholders = document.getElementsByClassName("stack");
 
   // Retrieves input data from a form and returns it as a JSON object.
   return  [].reduce.call(dataholders, (data, dataholder) => {
-      for (var i = 0; i < dataholder.elements.length; i++) {
-          var element = dataholder.elements[i];
-          var name = element.name;
+      if (!dataholder.elements) {
+          return data;
+      }
+      for (let i = 0; i < dataholder.elements.length; i++) {
+          let element = dataholder.elements[i];
+          let name = element.name;
 
           if (isValidElement(element) && isValidValue(element)) {
               if (isCheckbox(element)) {
@@ -143,8 +160,7 @@ function init() {
     // Check for a previous state in the history on load
     if (window.history.state){
         // apply the data found in the previous state
-        // need to evaluate how this works after the new design
-        // parseDataFromJSON(window.history.state);
+        setCurrentCharacter(window.history.state);
     }
 }
 
@@ -172,11 +188,11 @@ function installApp() {
 //
 function loadFromJSON() {
     if (confirm("Loading will clear out all values. Continue?")) {
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function(evt) {
             clearAllFields();
-            parseDataFromJSON(JSON.parse(evt.target.result));
-            window.history.pushState(generateDataToJSON(), "", generateNameHash(window.location.hash));
+            setCurrentCharacter(JSON.parse(evt.target.result));
+            window.history.pushState(currentCharacter,"", generateNameHash(window.location.hash));
         };
         reader.onerror = function(evt) {
             console.log("Error:"+evt.target.result);
@@ -185,15 +201,37 @@ function loadFromJSON() {
     }
 }
 
-var currentCharacter;
-
 function startWizard() {
     showModal('createCharacter');
     initWizard(function(result) {
-        currentCharacter = result;
-        console.log('Result: '+currentCharacter);
+        setCurrentCharacter(result);
         show($('modalOverlay'), false);
     });
+}
+
+let currentCharacter;
+function setCurrentCharacter(character){
+    currentCharacter = character;
+    
+    let dataholders = document.getElementsByClassName("stack");
+
+    [].reduce.call(dataholders, (data, dataholder) => {
+        if (dataholder && dataholder.childNodes) {
+            for (let i = 0; i < dataholder.childNodes.length; i++) {
+                let element = dataholder.childNodes[i];
+              
+                if (element.id){
+                    let node = findNode(element.id, character);
+                    element.innerHTML = node ? node : "";    
+                }
+            }
+        }
+        return data;
+    }, {}); 
+  
+    updateEmail();
+    updatePhoneNumber();
+    console.log('Result: '+currentCharacter);
 }
 
 function openCharacter() {
@@ -209,22 +247,22 @@ function viewPurse() {
 }
 
 function showModal(modelId, title, desc){
-    var modalDiv = $('modalOverlay');
-    var modalTitleDiv = $('modal.title');
-    var modalDescDiv = $('modal.description');
-    var modalBodyDiv = $('modal.body');
+    let modalDiv = $('modalOverlay');
+    let modalTitleDiv = $('modal.title');
+    let modalDescDiv = $('modal.description');
+    let modalBodyDiv = $('modal.body');
     
     // Bring in the import content.
-    var link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
+    let link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
     
     if (!link) {
         console.log("Link Mismatch: "+modelId);
     }
 
     // Clone the <template> in the import.
-    var importDom = link.import;
-    var titleEle = importDom.querySelector('title');
-    var descEle = importDom.querySelector('description');
+    let importDom = link.import;
+    let titleEle = importDom.querySelector('title');
+    let descEle = importDom.querySelector('description');
 
     // need to clear out before adding the new elements
     modalBodyDiv.innerHTML="";
@@ -240,12 +278,54 @@ function cancelModal() {
     show($('modalOverlay'), false);
 }
 
-var SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA'];
+const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA'];
 function selectFirstInput(divEle) {
-    for(var i = 0; i < divEle.childNodes.length; i++) {
-        if(SELECTABLE_TAGS.includes(divEle.childNodes[i].tagName)){
+    for(let i = 0; i < divEle.childNodes.length; i++) {
+        let node = divEle.childNodes[i];
+        if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
             divEle.childNodes[i].focus();
-            return;
+            return true;
         }
+        // need to decend into elements to see if they have focusable elements
+        // as well
+        if(node.childNodes && node.childNodes.length > 0 && selectFirstInput(node)){
+            return true;
+        }
+    }
+    return false;
+}
+
+function downloadToFile(link) {
+    link.href = 'data:text/javascript;charset=utf-8,'
+        + encodeURIComponent(JSON.stringify(currentCharacter));
+    link.download = encodeURIComponent(currentCharacter.name)
+        + '_'+currentCharacter.level+'.json' 
+}
+
+function beforeUnload(){
+    // set last settings into history
+    window.history.pushState(currentCharacter, "",
+        generateNameHash(window.location.hash));
+    
+    // Ask if there are changes they's like to save
+    //return "Discard changes?"; 
+}
+
+function updatePhoneNumber() {
+    updateLink(currentCharacter.player.phone, 'player.phone', 'tel:+', 'Call ');
+}
+
+function updateEmail() {
+    updateLink(currentCharacter.player.email, 'player.email', 'mailto:', 'Send email to ');
+}
+
+function updateLink(value, linkId, hrefPrefix, innerHtmlPrefix) {
+    let valueLink = $(linkId);
+    let isblank = isBlank(value);
+    show(valueLink, !isblank);
+
+    if (!isblank) {
+        $(linkId).href = hrefPrefix+value;
+        $(linkId).innerHTML = innerHtmlPrefix+value;
     }
 }

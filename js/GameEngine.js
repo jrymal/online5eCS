@@ -1,3 +1,5 @@
+'use strict';
+
 const ENGINE = {
     savingthrow: function(value) {
         return Math.floor((value-10)/2);
@@ -11,8 +13,8 @@ const ATTRIBUTE_ID_LIST = ["strength", "dexterity", "constitution", "intelligenc
 
 function updateRace(evt) {
 
-    for(var i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
-        var evt = {
+    for(let i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
+        let evt = {
             target: {
                 id: ATTRIBUTE_ID_LIST[i],
                 value: $(ATTRIBUTE_ID_LIST[i]).value
@@ -23,7 +25,7 @@ function updateRace(evt) {
 }
 
 function updateClass(evt) {
-    var classes = CLASSES[$('class').value];
+    let classes = CLASSES[$('class').value];
 
     $("hitDie").innerHTML = classes.hitDie;
     $("maxHitPoints").innerHTML = ENGINE.getMaxHitPoints(classes);
@@ -34,7 +36,7 @@ function updateClass(evt) {
 }
 
 function updateBackstory(evt) {
-    var backstory = BACKSTORIES[$('backstory.type').value];
+    let backstory = BACKSTORIES[$('backstory.type').value];
 
     addSkills(backstory.skills);
     $("backstory.languages").value = backstory.languages.join('\n');
@@ -42,8 +44,8 @@ function updateBackstory(evt) {
 }
 
 function addSkills(skillsArray) {
-    for(var i = 0; i < skillsArray.length; i++) {
-        var skillName = skillsArray[i];
+    for(let i = 0; i < skillsArray.length; i++) {
+        let skillName = skillsArray[i];
         $("skills."+skillName).checked = true;
     }
     // need to update attributes
@@ -51,12 +53,12 @@ function addSkills(skillsArray) {
 }
 
 function updateAttribute(evt) {
-    var targetId = evt.target.id;
-    var raceMod = getValue(RACES[$('race').value].attribute, targetId, 0);
-    var totalValue = Number(evt.target.value) + raceMod;
-    var savingThrow = ENGINE.savingthrow(totalValue);
+    let targetId = evt.target.id;
+    let raceMod = getValue(RACES[$('race').value].attribute, targetId, 0);
+    let totalValue = Number(evt.target.value) + raceMod;
+    let savingThrow = ENGINE.savingthrow(totalValue);
 
-    var skillMod = getCheckedSkillCount(targetId)
+    let skillMod = getCheckedSkillCount(targetId)
 
     $("RaceModifier."+targetId).innerHTML = raceMod;
     $("Total."+targetId).innerHTML = totalValue;
@@ -65,12 +67,12 @@ function updateAttribute(evt) {
 }
 
 function getCheckedSkillCount(attributeId) {
-    var skillsArray = Object.keys(SKILLS);
-    var cnt = 0;
-    for(var i = 0; i < skillsArray.length; i++) {
-        var skillName = skillsArray[i];
-        var skill = SKILLS[skillName];
-        var skillEle = $("skills."+skillName);
+    let skillsArray = Object.keys(SKILLS);
+    let cnt = 0;
+    for(let i = 0; i < skillsArray.length; i++) {
+        let skillName = skillsArray[i];
+        let skill = SKILLS[skillName];
+        let skillEle = $("skills."+skillName);
         if (attributeId === skill.attribute && $("skills."+skillName).checked) {
             cnt++;
         }
@@ -83,8 +85,8 @@ function getValue(obj, key, defaultValue) {
 }
 
 function findInMinMaxArray(minMaxArray, value) {
-    for(var i = 0; i < minMaxArray.length; i++) {
-        var valueRow = minMaxArray[i];
+    for(let i = 0; i < minMaxArray.length; i++) {
+        let valueRow = minMaxArray[i];
         if (value >= valueRow.min
             && value <= valueRow.max) {
                 return valueRow.modifier;

@@ -1,3 +1,5 @@
+'use strict';
+
 const COMMON_LANGUAGES = {
     common: {
         name: "Common",

@@ -1,3 +1,5 @@
+'use strict';
+
 const CLASSES = {
     Barbarian:{
         hitDie: "d12",

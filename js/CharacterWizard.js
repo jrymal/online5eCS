@@ -1,10 +1,12 @@
-var currentTab = 0; // Current tab is set to be the first tab (0)
-var callbackFunction = null;
+'use strict';
+
+let currentTab = 0; // Current tab is set to be the first tab (0)
+let callbackFunction = null;
 
 function showWizardTab(n) {
 
     // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("wizardScreen");
+    let x = document.getElementsByClassName("wizardScreen");
     x[n].style.display = "block";
 
     selectFirstInput(x[n]);
@@ -27,6 +29,9 @@ function prepopulateValues(form){
             setIfExistsAndEmpty('createCharacter.character.name.nickname', chooseNickName());
             setIfExistsAndEmpty('createCharacter.character.name.child', chooseChildName());
             break;
+        case 'createCharacter.attr':
+            generateAttributes();
+            break;
     }    
 }
 
@@ -42,23 +47,23 @@ function setIfExistsAndEmpty(id, value){
 }
 
 function chooseFamilyName(){
-    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    let nameObj = RACES[$('createCharacter.character.race').value].names;
     return chooseFromList(nameObj.family);
 }
 
 function chooseNickName(){
-    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    let nameObj = RACES[$('createCharacter.character.race').value].names;
     return chooseFromList(nameObj.nickname);
 }
 
 function chooseChildName(){
-    var nameObj = RACES[$('createCharacter.character.race').value].names;
+    let nameObj = RACES[$('createCharacter.character.race').value].names;
     return chooseFromList(nameObj.child);
 }
 
 function chooseFirstName(){
-    var nameObj = RACES[$('createCharacter.character.race').value].names;
-    var nameList = [];
+    let nameObj = RACES[$('createCharacter.character.race').value].names;
+    let nameList = [];
     switch($('createCharacter.character.pronoun').value) {
         case 'he':
         case 'she':
@@ -76,7 +81,7 @@ function chooseFirstName(){
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    var x = document.getElementsByClassName("wizardScreen");
+    let x = document.getElementsByClassName("wizardScreen");
     // Exit the function if any field in the current tab is invalid:
     if (n == 1 && !validateForm()){
         return false;
@@ -99,9 +104,9 @@ function nextPrev(n) {
 }
 
 function validateForm() {
-    var x = document.getElementsByClassName("wizardScreen");
-    var currentForm = x[currentTab];
-    var valid = currentForm.checkValidity(); 
+    let x = document.getElementsByClassName("wizardScreen");
+    let currentForm = x[currentTab];
+    let valid = currentForm.checkValidity(); 
     
     // could use the validity object to add top level error messages....
 
@@ -114,7 +119,7 @@ function validateForm() {
 
 function fixStepIndicator(n) {
     // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
+    let i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace(" active", "");
     }
@@ -128,7 +133,7 @@ function initWizard(callback) {
     callbackFunction = callback;
     
     // set up selects
-    populateSelect($('class', 'createCharacter.character'), CLASSES);
+    populateSelect($('class.type', 'createCharacter.character'), CLASSES);
     populateSelect($('race', 'createCharacter.character'), RACES);
     populateSelect($('backstory.type', 'createCharacter'), BACKSTORIES);
     populateCheckboxes($('skills_container', 'createCharacter'), SKILLS);
@@ -137,7 +142,7 @@ function initWizard(callback) {
 }
 
 function generateAttributes() {
-    var generateMethod;
+    let generateMethod;
     switch($('createCharacter.attr.chooser').value) {
         case 'Manual':
             generateMethod = function() {
@@ -156,22 +161,22 @@ function generateAttributes() {
             };
             break;
     }
-    for(var i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
+    for(let i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
         $('createCharacter.character.attribute.'+ATTRIBUTE_ID_LIST[i]).value = 
             generateMethod(); 
     }
 }
 
 function populateSelect(selectEle, sourceObj) {
-    var fragment = document.createDocumentFragment();
-    var sourceArray = Object.keys(sourceObj).sort();
+    let fragment = document.createDocumentFragment();
+    let sourceArray = Object.keys(sourceObj).sort();
 
-    for (var i = 0; i < sourceArray.length; i++  ) {
-        var value = sourceArray[i];
-        var obj = sourceObj[value];
+    for (let i = 0; i < sourceArray.length; i++  ) {
+        let value = sourceArray[i];
+        let obj = sourceObj[value];
 
         // create base class
-        var opt = document.createElement('option');
+        let opt = document.createElement('option');
         opt.innerHTML = obj.name ? obj.name : value;
         opt.value = value;
 
@@ -182,20 +187,20 @@ function populateSelect(selectEle, sourceObj) {
 }
 
 function populateCheckboxes(divEle, sourceObj) {
-    var fragment = document.createDocumentFragment();
-    var sourceArray = Object.keys(sourceObj).sort();
+    let fragment = document.createDocumentFragment();
+    let sourceArray = Object.keys(sourceObj).sort();
 
-    for (var i = 0; i < sourceArray.length; i++  ) {
-        var value = sourceArray[i];
-        var obj = sourceObj[value];
-        var idValue = "skills."+value;
+    for (let i = 0; i < sourceArray.length; i++  ) {
+        let value = sourceArray[i];
+        let obj = sourceObj[value];
+        let idValue = "skills."+value;
 
-        var lbl = document.createElement('label');
+        let lbl = document.createElement('label');
         lbl.innerHTML = obj.name;
         lbl.htmlFor=idValue;
         lbl.className="skills_item";
 
-        var opt = document.createElement('input');
+        let opt = document.createElement('input');
         opt.value = value;
         opt.type = "checkbox";
         opt.name = "character.skills";
@@ -210,19 +215,19 @@ function populateCheckboxes(divEle, sourceObj) {
 }
 
 function generateDataToJSON() {
-    var dataholders = document.getElementsByClassName("wizardScreen");
+    let dataholders = document.getElementsByClassName("wizardScreen");
 
     // Retrieves input data from a form and returns it as a JSON object.
     return  [].reduce.call(dataholders, (data, dataholder) => {
-        for (var i = 0; i < dataholder.elements.length; i++) {
-            var element = dataholder.elements[i];
-            var name = element.name;
+        for (let i = 0; i < dataholder.elements.length; i++) {
+            let element = dataholder.elements[i];
+            let name = element.name;
 
             if (name === "") {
                 continue;
             }
             if (isValidElement(element) && isValidValue(element)) {
-                var dataObj; 
+                let dataObj; 
                 if (isCheckbox(element)) {
                     dataObj = (findNode(name, data) || []).concat(element.value);
                 } else if (isMultiSelect(element)) {
@@ -237,27 +242,16 @@ function generateDataToJSON() {
     }, {});
 }
 
-function findNode(jsonPath, searchObj) {
-    var pathItems = jsonPath.split('.');
-    var objItem = searchObj;
-    for(var i = 0; i < pathItems.length; i++) {
-        if (!objItem[pathItems[i]]) {
-            return null;
-        }
-        objItem = objItem[pathItems[i]];
-    }
-    return objItem;
-}
-
 function insertAtNode(jsonPath, searchObj, insertObj) {
-    var pathItems = jsonPath.split('.');
-    var objItem = searchObj;
-    for(var i = 0; i < pathItems.length; i++) {
-        var lastNode = i == (pathItems.length - 1);
-        if (!objItem[pathItems[i]]) {
-            objItem[pathItems[i]] = lastNode ? insertObj : {};
+    let pathItems = jsonPath.split('.');
+    let objItem = searchObj;
+    for(let i = 0; i < pathItems.length; i++) {
+        let lastNode = i == (pathItems.length - 1);
+        if (!Object.keys(objItem).includes(pathItems[i])) {
+            console.log(jsonPath + " "+insertObj);
+            Object.defineProperty(objItem, pathItems[i],  {writable: true, configurable: true, enumerable: true, value:lastNode ? insertObj :{}});
         }else if (lastNode){
-            objItem[pathItems[i]] = insertObj;
+            Object.defineProperty(objItem, pathItems[i], {writable: true, configurable: true,value:insertObj});
         }
         objItem = objItem[pathItems[i]];
     }

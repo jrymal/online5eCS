@@ -188,35 +188,11 @@ input:focus:invalid {
     margin-left: 0;
 }
 
-/* Default navigation set up */
-#nav {
-    display: block;
-}
-
-#mobile-nav {
-    display: none;
-}
-
 /* Mobile */
 @media screen and (max-width:34.2em) {
-    #nav {
-        display: none;
-    }
-
-    #mobile-nav {
-        display: block;
-    }
 }
 
 @media screen and (min-width:34.2em) {
-    #nav {
-        display: block;
-    }
-
-    #mobile-nav,
-    #mobile-nav-menu {
-        display: none;
-    }
 }
 
 @media screen and (min-width:80em) {

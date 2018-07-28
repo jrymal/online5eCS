@@ -1,4 +1,6 @@
- const BACKSTORIES= {
+'use strict';
+
+const BACKSTORIES= {
     Acolyte:{
         skills: ["insight","religion"],
         languages: ["ANY","ANY"],

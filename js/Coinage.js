@@ -1,3 +1,5 @@
+'use strict';
+
 const COINAGE = {
     COPPER : 1,
     SILVER : 10,

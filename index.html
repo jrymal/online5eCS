@@ -31,9 +31,9 @@
         <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
-    <body onload="init()">
+    <body onload="init()" onbeforeunload="beforeUnload()">
 
-        <h1>You have no Class!</h1>
+        <h1 id="primeheader">You have no Class!</h1>
  
         <nav id="nav-menu" class="nav" role="navigation">
             <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
@@ -42,6 +42,7 @@
                     <li id="install-app"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
                     <li><button type="button" onclick="startWizard()">Create a new Character</button></li>
                     <li><button type="button" onclick="openCharacter()">Load a character</button></li>
+                    <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
                 </ul>
             <div>
         </nav>
@@ -57,54 +58,58 @@
         <h2>
             <button type="button" onclick="toggle($('PlayerInfo'))" >Player Info</button>
         </h2>
-        <div id="PlayerInfo" class="stack hidden">
-            <label for="player" name="player">Role Player</label>
-            <input type="text" id="player" name="player"/>
+        <dl id="PlayerInfo" class="stack hidden">
+            <dt>Role Player</dt>
+            <dd id="player.name"></dd>
 
-            <label for="phone" name="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" onchange="updatePhoneNumber()" autocomplete="tel"/>
-            <a target="_blank" id="playerinfo.phone.link" href="tel:+" >Phone number missing</a>
-
-            <label for="email" name="email">Email</label>
-            <input type="email" id="email" name="email" onchange="updateEmail()" autocomplete="email"/>
-            <a target="_blank" id="playerinfo.email.link" href="mailto:">Email missing</a>
-        </div>
+            <dt>Phone Number</dt>
+            <dd >
+                <a target="_blank" id="player.phone" href="tel:+" >Phone number missing</a>
+            </dd>
+            
+            <dt>Email</dt>
+            <dd>
+                <a target="_blank" id="player.email" href="mailto:">Email missing</a>
+            </dd>
+        </dl>
 
         <h2>
             <button type="button" onclick="toggle($('Info'))" >Character</button>
         </h2>
-        <div id='Info' class='stack hidden'>
-            <label for="name" name="name">Character Name</label>
-            <input type="text" id="name" name="name" required/>
+        <dl id='Info' class='stack hidden'>
+            <dt>Character Name</dt>
+            <dd id="character.name.first"></dd>
 
-            <label for="race" name="race">Race</label>
-            <select id="race" onchange="updateRace(event)" name="race"></select>
+            <dt>Race</dt>
+            <dd id="character.race"></dd>
 
-            <label for="class" name="class">Class</label>
-            <select id="class" name="class" onchange="updateClass(event)"></select>
+            <dt>Class</dt>
+            <dd id="character.class.type"></dd>
 
-            <label for="level" name="level">Level</label>
-            <input type="number" id="level" pattern="[0-9]*" class="short" name="level" min="1" max="40" required/>
+            <dt>Level</dt>
+            <dd id="character.class.level"></dd>
 
-            <label for="experience" name="experience">Experience Points</label>
-            <input type="number" name="experience" pattern="[0-9]*" id="experience" class="short" min="0" />
+            <dt>Experience Points</dt>
+            <dd id="character.experience" ></dd>
 
-            <label>Hit Dice</label>
-            <div id="hitDie"></div>
-            <div id="maxHitPoints"></div>
+            <dt>Hit Die</dt>
+            <dd id="character.hitDie"></dd>
+            
+            <dt>Max Hit Points</dt>
+            <dd id="character.hitPoints.max"></dd>
 
-            <label for="damage" name="damage">Damage</label>
-            <input type="number" pattern="[0-9]*" id="damage" name="damage"/>
+            <dt>Current Hit Points</dt>
+            <dd id="character.hitPoints.current"></dd>
 
-            <label>Ability</label>
-            <div id="ability"></div>
+            <dt>Ability</dt>
+            <dd id="character.ability"></dd>
 
-            <label>Saving Throws</label>
-            <div id="savingThrows"></div>
+            <dt>Saving Throws</dt>
+            <dd id="character.savingThrows"></dd>
 
-            <label for="inspiration" name="inspiration">Inspiration</label>
-            <input type="checkbox" id="inspiration" name="inspiration"/>
-        </div>
+            <dt>Inspiration</dt>
+            <dd id="character.inspiration"/></dd>
+        </dl>             
 
         <h2>
             <button type="button" onclick="toggle($('Backstory'))" >Backstory</button>
@@ -268,6 +273,7 @@
         </div>
                                               
         <script>
+            'use strict';
             if('serviceWorker' in navigator) {
               navigator.serviceWorker
                     .register('online5eCS-serviceworker.js')
