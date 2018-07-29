@@ -79,6 +79,9 @@
         <dl id='Info' class='stack hidden'>
             <dt>Character Name</dt>
             <dd id="character.name.first"></dd>
+            <dd id="character.name.family"></dd>
+            <dd id="character.name.nickname"></dd>
+            <dd id="character.name.child"></dd>
 
             <dt>Race</dt>
             <dd id="character.race"></dd>
@@ -114,38 +117,40 @@
         <h2>
             <button type="button" onclick="toggle($('Backstory'))" >Backstory</button>
         </h2>
-        <div id='Backstory' class='stack hidden'>
-            <label for="backstory" name="backstory">Backstory</label>
-            <select id="backstory.type" name="backstory.type" onchange="updateBackstory()"></select>
-            <textarea id="backstory" name="backstory" spellcheck="true"></textarea>
-        </div>
+        <dl id='Backstory' class='stack hidden'>
+            <dt>Backstory Type</dt>
+            <dd id="icharacter.backstory.type"></dd>
+            
+            <dt>Backstory</dt>
+            <dd id="character.backstory.story"></dd>
+        </dl>
 
         <h2>
             <button type="button" onclick="toggle($('Details'))" >Details</button>
         </h2>
-        <div id='Details' class='stack hidden'>
-            <label for="age" name="age">Age</label>
-            <input type="number" pattern="[0-9]*" id="age" class="short" name="age"/>
+        <dl id='Details' class='stack hidden'>
+            <dt>Age</dt>
+            <dd id="character.details.age" ></dd>
 
-            <label for="height" name="height">Height</label>
-            <input type="text" id="height" name="height"/>
+            <dt>Height</dt>
+            <dd id="character.details.height"></dd>
 
-            <label for="weight" name="weight">Weight</label>
-            <input type="text" id="weight" name="weight"/>
+            <dt>Weight</dt>
+        <dd id="character.details.weight"></dd>
 
-            <label for="eyecolor" name="eyecolor">Eye Color</label>
-            <input type="color" id="eyecolor" name="eyecolor"/>
+            <dt>Eye Color</dt>
+        <dd id="character.details.eyecolor"></dd>
 
-            <label for="skin" name="skin">Skin Color</label>
-            <input type="color" id="skin" name="skin"/>
+            <dt>Skin Color</dt>
+        <dd id="character.details.skin" ></dd>
 
-            <label for="hair" name="hair">Hair Color</label>
-            <input type="color" id="hair" name="hair"/>
+            <dt>Hair Color</dt>
+        <dd id="character.details.hair"></dd>
 
-            <label for="appearance" name="appearance">Appearance</label>
-            <textarea id="appearance" spellcheck="true" name="appearance"></textarea>
+            <dt>Appearance</dt>
+            <dd id="character.details.appearance" ></dd>
 
-        </div>
+        </dl>
 
         <h2>
             <button type="button" onclick="toggle($('Attributes'))" >Attributes</button>
@@ -214,63 +219,57 @@
         <h2>
             <button type="button" onclick="toggle($('Skills'))" >Skills</button>
         </h2>
-        <div id="Skills" class="stack hidden">
-            <fieldset>
-                <legend class="skill_title">Skills</legend>
-                <div id="skills_container" class="skills_grid"></div>
-            </fieldset>
-            
-        </div>
+        <dl id="Skills" class="stack hidden">
+            <dt>Skills</dt>
+            <dd id="character.skills"></dd>
+        </dl>
 
         <h2>
             <button type="Abilities" onclick="toggle($('Abilities'))" >Abilities</button>
         </h2>
-        <div id='Abilities' class='stack hidden'>
-            <label for="languages" name="languages">Languages</label>
-            <textarea id="languages" name="languages" spellcheck="true"></textarea>
-            <textarea id="backstory.languages" name="backstory.languages" spellcheck="true"></textarea>
+        <dl id='Abilities' class='stack hidden'>
+            <dd id="character.languages"></dd>
 
-            <label for="proficiencies" name="proficiencies">Proficiencies</label>
+            <dt>Proficiencies</dt>
             <div id="class.proficiencies"></div>
-            <textarea id="proficiencies" name="proficiencies" spellcheck="true"></textarea>
+            <dd id="character.proficiencies"></dd>
             
-            <label for="features" name="features">Features & Traits</label>
-            <textarea id="features" name="features" spellcheck="true"></textarea>
+            <dt>Features & Traits</dt>
+            <dd id="character.features"></dd>
             
-            <label for="personalitytraits" name="personalitytraits">Personality Traits</label>
-            <textarea id="personalitytraits" name="personalitytraits" spellcheck="true"></textarea>
+            <dt>Personality Traits</dt>
+            <dd id="character.personalitytraits"></dd>
             
-            <label for="ideals" name="ideals">Ideals</label>
-            <textarea id="ideals" name="ideals" spellcheck="true"></textarea>
+            <dt>Ideals</dt>
+            <dd id="character.ideals"></dd>
             
-            <label for="bonds" name="bonds">Bonds</label>
-            <textarea id="bonds" name="bonds" spellcheck="true"></textarea>
+            <dt>Bonds</dt>
+            <dd id="character.bonds"></dd>
             
-            <label for="flaws" name="flaws">Flaws</label>
-            <textarea id="flaws" name="flaws" spellcheck="true"></textarea>
+            <dt>Flaws</dt>
+            <dd id="character.flaws"></dd>
             
-            <label for="allies" name="allies">Allies</label>
-            <textarea id="allies" name="allies" spellcheck="true"></textarea>
-        </div>
+            <dt>Allies</dt>
+            <dd id="character.allies"></dd>
+        </dl>
  
 
         <h2>
             <button type="Inventory" onclick="toggle($('Inventory'))" >Inventory</button>
         </h2>
-        <div id='Inventory' class='stack hidden'>
-            <label for="weapons" name="weapons">Weapons</label>
-            <textarea id="weapons" name="weapons" spellcheck="true"></textarea>
+        <dl id='Inventory' class='stack hidden'>
+            <dt>Weapons</dt>
+            <dd id="character.weapons"></dd>
             
-            <label for="equipment" name="equipment">Equipment</label>
-            <textarea id="equipment" name="equipment" spellcheck="true"></textarea>
-            <textarea id="backstory.equipment" name="backstory.equipment" spellcheck="true" aria-label="Backstory Equipment"></textarea>
+            <dt>Equipment</dt>
+            <dd id="character.equipment"></dd>
             
-            <label for="treasure" name="treasure">Treasure</label>
-            <textarea id="treasure" name="treasure" spellcheck="true"></textarea>
+            <dt>Treasure</dt>
+            <dd id="character.treasure"></dd>
         
-            <label for="purse" name="purse">Purse</label>
-            <a id="purse" href="" download="" class="store"></a>
-        </div>
+            <dt>Purse</dt>
+            <a id="character.purse" href="" download="" class="store"></a>
+        </dl>
                                               
         <script>
             'use strict';
