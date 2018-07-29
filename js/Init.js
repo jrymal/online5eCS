@@ -1,32 +1,5 @@
 'use strict';
 
-const DICE = {
-    d4 : {
-        min: 1,
-        max: 4
-    },
-    d6 : {
-        min: 1,
-        max: 6
-    },
-    d8 : {
-        min: 1,
-        max: 8
-    },
-    d10 : {
-        min: 1,
-        max: 10
-    },
-    d12 : {
-        min: 1,
-        max: 12
-    },
-    d20 : {
-        min: 1,
-        max: 20
-    }
-};
-
 function findNode(jsonPath, searchObj) {
     let pathItems = jsonPath.split('.');
     let objItem = searchObj;
@@ -42,23 +15,6 @@ function findNode(jsonPath, searchObj) {
 function $(id, prefix = '') {
     return document.getElementById(isBlank(prefix) ? id : prefix+'.'+id);
 }
-
-function rollDie(die, count = 1) {
-    result = [];
-    for(let i = 0; i < count; i++) {
-        result.push(randomNumber(die.min, die.max));
-    }
-    return result;
-}
-
-function randomNumber(min, max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-function chooseFromList(list){
-    return list && list.length > 0 ? list[randomNumber(0,list.length-1)] : null;
-}
-
 
 function isBlank(stringValue) {
     return stringValue === null || stringValue === "" || !stringValue;
@@ -155,8 +111,6 @@ function init() {
       show($('install-app'), true);
     });
 
-    show($('install-app'), false);
-
     // Check for a previous state in the history on load
     if (window.history.state){
         // apply the data found in the previous state
@@ -183,7 +137,17 @@ function installApp() {
 }
 
 function generateNameHash(hash){
-    return currentCharacter.player.name+"_"+currentCharacter.character.name.first;
+    if (!currentCharacter) {
+        return null;
+    }
+
+    var playerName = currentCharacter.player.name;
+    var charName = currentCharacter.character.name.first;
+    var resp = "index.html";
+    if (playerName && charName) {
+        resp += '?' + playerName + '_' + charName;
+    }
+    return resp;
 }
 
 //
@@ -193,9 +157,7 @@ function loadFromJSON() {
     if (confirm("Loading will clear out all values. Continue?")) {
         let reader = new FileReader();
         reader.onload = function(evt) {
-            clearAllFields();
             setCurrentCharacter(JSON.parse(evt.target.result));
-            window.history.pushState(currentCharacter,"", generateNameHash(window.location.hash));
         };
         reader.onerror = function(evt) {
             console.log("Error:"+evt.target.result);
@@ -214,6 +176,8 @@ function startWizard() {
 
 let currentCharacter;
 function setCurrentCharacter(character){
+    clearAllFields();
+    
     currentCharacter = character;
     
     let dataholders = document.getElementsByClassName("stack");
@@ -239,6 +203,8 @@ function setCurrentCharacter(character){
         return data;
     }, {}); 
   
+    window.history.pushState(currentCharacter, "",
+        generateNameHash(window.location.hash));
     updateEmail();
     updatePhoneNumber();
     console.log('Result: '+currentCharacter);

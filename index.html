@@ -15,6 +15,7 @@
         <link rel="icon" href="images/icons-192.png" sizes="192x192" />
         <link rel="icon" href="images/icons-512.png" sizes="512x512" />
         
+        <script type="text/javascript" src="js/Random.js" async> </script>
         <script type="text/javascript" src="js/Races.js" async> </script>
         <script type="text/javascript" src="js/Skills.js" async> </script>
         <script type="text/javascript" src="js/Classes.js" async> </script>
@@ -39,7 +40,7 @@
             <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
             <div id="nav-div" class="hidden">
                 <ul>
-                    <li id="install-app"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
+                    <li id="install-app" class="hidden"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
                     <li><button type="button" onclick="startWizard()">Create a new Character</button></li>
                     <li><button type="button" onclick="openCharacter()">Load a character</button></li>
                     <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
@@ -228,10 +229,10 @@
             <button type="Abilities" onclick="toggle($('Abilities'))" >Abilities</button>
         </h2>
         <dl id='Abilities' class='stack hidden'>
+            <dt>Languages</dt>
             <dd id="character.languages"></dd>
 
             <dt>Proficiencies</dt>
-            <div id="class.proficiencies"></div>
             <dd id="character.proficiencies"></dd>
             
             <dt>Features & Traits</dt>
