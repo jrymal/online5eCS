@@ -56,7 +56,7 @@ function randomNumber(min, max) {
 }
 
 function chooseFromList(list){
-    return list && list.length > 0 ? list[randomNumber(0,list.length)] : null;
+    return list && list.length > 0 ? list[randomNumber(0,list.length-1)] : null;
 }
 
 
@@ -182,6 +182,9 @@ function installApp() {
     });
 }
 
+function generateNameHash(hash){
+    return currentCharacter.player.name+"_"+currentCharacter.character.name.first;
+}
 
 //
 // Loading Functionality

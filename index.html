@@ -31,7 +31,7 @@
         <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
-    <body onload="init()" onbeforeunload="beforeUnload()">
+    <body onload="init()" onbeforeunload="beforeUnload">
 
         <h1 id="primeheader">You have no Class!</h1>
  
@@ -119,7 +119,7 @@
         </h2>
         <dl id='Backstory' class='stack hidden'>
             <dt>Backstory Type</dt>
-            <dd id="icharacter.backstory.type"></dd>
+            <dd id="character.backstory.type"></dd>
             
             <dt>Backstory</dt>
             <dd id="character.backstory.story"></dd>
