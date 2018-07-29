@@ -158,63 +158,65 @@
         </h2>
         <div id='Attributes' class='stack hidden'>
 
-            <div class="attribute_grid">
-                <div></div>
-                <div>Natural</div>
-                <div>Race Modifier</div>
-                <div>Total</div>
-                <div>Saving Throw</div>
-                <div>Passive Score</div>
-
-                <label for="strength" name="strength">Strength</label>
-                <input type="number"  pattern="[0-9]*" name="strength" id="strength" class="short" onkeyup="javascript:updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.strength" class="short"></div>
-                <div id="Total.strength" class="short"></div>
-                <div id="SavingThrows.strength" class="short"></div>
-                <div id="Passive.strength" class="short"></div>
-
-                <label for="dexterity" name="dexterity">Dexterity</label>
-                <input type="number"  name="dexterity" pattern="[0-9]*" id="dexterity"
-                                                       class="short"
-                                                       onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.dexterity" class="short"></div>
-                <div id="Total.dexterity" class="short"></div>
-                <div id="SavingThrows.dexterity" class="short"></div>
-                <div id="Passive.dexterity" class="short"></div>
-
-                <label for="constitution" name="constitution">Constitution</label>
-                <input type="number" name="constitution" pattern="[0-9]*" id="constitution" class="short" onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.constitution" class="short"></div>
-                <div id="Total.constitution" class="short"></div>
-                <div id="SavingThrows.constitution" class="short"></div>
-                <div id="Passive.constitution" class="short"></div>
-            
-                <label for="intelligence" name="intelligence">Intelligence</label>
-                <input type="number" name="intelligence" pattern="[0-9]*" id="intelligence"
-                                                         class="short"
-                                                         onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.intelligence" class="short"></div>
-                <div id="Total.intelligence" class="short"></div>
-                <div id="SavingThrows.intelligence" class="short"></div>
-                <div id="Passive.intelligence" class="short"></div>
-            
-                <label for="wisdom" name="wisdom">Wisdom</label>
-                <input type="number" name="wisdom" pattern="[0-9]*" id="wisdom" class="short"
-                                                               onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.wisdom" class="short"></div>
-                <div id="Total.wisdom" class="short"></div>
-                <div id="SavingThrows.wisdom" class="short"></div>
-                <div id="Passive.wisdom" class="short"></div>
-            
-                <label for="charisma" name="charisma">Charisma</label>
-                <input type="number" name="charisma" pattern="[0-9]*" id="charisma" class="short"
-                                                                   onchange="updateAttribute(event)" min="3" max="20" />
-                <div id="RaceModifier.charisma" class="short"></div>
-                <div id="Total.charisma" class="short"></div>
-                <div id="SavingThrows.charisma" class="short"></div>
-                <div id="Passive.charisma" class="short"></div>
-            
-            </div>
+            <table>
+                <tr>
+                    <th>Attribute Name</th>
+                    <th>Natural</th>
+                    <th>Race Modifier</th>
+                    <th>Total</th>
+                    <th>Saving Throw</th>
+                    <th>Passive</th>
+                </tr>
+                <tr>
+                    <td>Strength</td>
+                    <td id="character.attribute.strength"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Dexterity</td>
+                    <td id="character.attribute.dexterity"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>  
+                <tr>
+                    <td>Constitution</td>
+                    <td id="character.attribute.constitution"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Intelligence</td>
+                    <td id="character.attribute.intelligence"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Wisdom</td>
+                    <td id="character.attribute.wisdom"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Charisma</td>
+                    <td id="character.attribute.charisma"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+              
+            </table>
         </div>
         
         <h2>

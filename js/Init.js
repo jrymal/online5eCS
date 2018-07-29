@@ -184,21 +184,7 @@ function setCurrentCharacter(character){
 
     [].reduce.call(dataholders, (data, dataholder) => {
         if (dataholder && dataholder.childNodes) {
-            for (let i = 0; i < dataholder.childNodes.length; i++) {
-                let element = dataholder.childNodes[i];
-              
-                if (element.id){
-                    let node = findNode(element.id, character);
-                    if (Array.isArray(node)){
-                        let value = "";
-                        for(let i = 0; i < node.length; i++){
-                            value += node[i]+(i<node.length+1?"<br>":"");
-                        }
-                        node = value;
-                    }
-                    element.innerHTML = node ? node : "";
-                }
-            }
+            processDataHolder(dataholder);
         }
         return data;
     }, {}); 
@@ -208,6 +194,27 @@ function setCurrentCharacter(character){
     updateEmail();
     updatePhoneNumber();
     console.log('Result: '+currentCharacter);
+}
+
+function processDataHolder(dataholder){
+    for (let i = 0; i < dataholder.childNodes.length; i++) {
+        let element = dataholder.childNodes[i];
+      
+        if (element.id){
+            let node = findNode(element.id, currentCharacter);
+            if (Array.isArray(node)){
+                let value = "";
+                for(let i = 0; i < node.length; i++){
+                    value += node[i]+(i<node.length+1?"<br>":"");
+                }
+                node = value;
+            }
+            element.innerHTML = node ? node : "";
+        }
+        if (element.childNodes && element.childNodes.length > 0) {
+            processDataHolder(element);
+        }
+    } 
 }
 
 function openCharacter() {
