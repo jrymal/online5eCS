@@ -222,7 +222,14 @@ function setCurrentCharacter(character){
               
                 if (element.id){
                     let node = findNode(element.id, character);
-                    element.innerHTML = node ? node : "";    
+                    if (Array.isArray(node)){
+                        let value = "";
+                        for(let i = 0; i < node.length; i++){
+                            value += node[i]+(i<node.length+1?"<br>":"");
+                        }
+                        node = value;
+                    }
+                    element.innerHTML = node ? node : "";
                 }
             }
         }
