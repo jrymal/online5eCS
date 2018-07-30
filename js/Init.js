@@ -137,7 +137,7 @@ function installApp() {
 }
 
 function generateNameHash(hash){
-    if (!currentCharacter) {
+    if (!currentCharacter || !currentCharacter.player) {
         return null;
     }
 
@@ -167,10 +167,11 @@ function loadFromJSON() {
 }
 
 function startWizard() {
-    showModal('createCharacter');
-    initWizard(function(result) {
-        setCurrentCharacter(result);
-        show($('modalOverlay'), false);
+    showModal('createCharacter', function() {
+        initWizard(function(result) {
+            setCurrentCharacter(result);
+            show($('modalOverlay'), false);
+        });
     });
 }
 
@@ -229,12 +230,7 @@ function viewPurse() {
     showModal('purseUpdate');
 }
 
-function showModal(modelId, title, desc){
-    let modalDiv = $('modalOverlay');
-    let modalTitleDiv = $('modal.title');
-    let modalDescDiv = $('modal.description');
-    let modalBodyDiv = $('modal.body');
-    
+function showModal(modelId, initFunc){
     // Bring in the import content.
     let link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
     
@@ -242,17 +238,41 @@ function showModal(modelId, title, desc){
         console.log("Link Mismatch: "+modelId);
     }
 
-    // Clone the <template> in the import.
-    let importDom = link.import;
+    if (link.import){
+        loadModal(link.import, initFunc);
+    } else {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                loadModal(xhttp.response, initFunc);
+            }
+        };
+        xhttp.responseType = 'document';
+        xhttp.open("GET", link.href, true);
+        xhttp.send();
+    }
+}
+
+function loadModal(importDom, initFunc){
+    let modalDiv = $('modalOverlay');
+    let modalTitleDiv = $('modal.title');
+    let modalDescDiv = $('modal.description');
+    let modalBodyDiv = $('modal.body');
+         // Clone the <template> in the import.
     let titleEle = importDom.querySelector('title');
     let descEle = importDom.querySelector('description');
 
     // need to clear out before adding the new elements
     modalBodyDiv.innerHTML="";
 
-    modalTitleDiv.innerHTML = title ? title : titleEle ? titleEle.innerHTML : "";
-    modalDescDiv.innerHTML = desc ? desc : descEle ? descEle.innerHTML : "";
-    modalBodyDiv.appendChild(document.importNode(importDom.querySelector('template').content, true));
+    modalTitleDiv.innerHTML = titleEle ? titleEle.innerHTML : "";
+    modalDescDiv.innerHTML = descEle ? descEle.innerHTML : "";
+    
+    let templateEle = importDom.querySelector('template');
+    
+    modalBodyDiv.appendChild(document.importNode(templateEle.content ? templateEle.content : templateEle.innerHTML, true));
+
+    initFunc();
 
     show(modalDiv);
 }

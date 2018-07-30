@@ -1,190 +1,192 @@
-<title>Create a new character</title>
-<description>Build your character.</description>
-<template>
-   <form class="wizardScreen">
-       <label for="createCharacter.player.name">Role Player</label>
-       <input type="text" id="createCharacter.player.name" name="player.name" required/>
+<wizard>
+    <title>Create a new character</title>
+    <description>Build your character.</description>
+    <template>
+       <form class="wizardScreen">
+           <label for="createCharacter.player.name">Role Player</label>
+           <input type="text" id="createCharacter.player.name" name="player.name" required/>
 
-       <label for="createCharacter.player.phone">Phone Number</label>
-       <input type="tel" id="createCharacter.player.phone" name="player.phone" autocomplete="tel"/>
+           <label for="createCharacter.player.phone">Phone Number</label>
+           <input type="tel" id="createCharacter.player.phone" name="player.phone" autocomplete="tel"/>
 
-       <label for="createCharacter.player.email">Email</label>
-       <input type="email" id="createCharacter.player.email" name="player.email" autocomplete="email"/> 
-   </form>
-   
-   <form class="wizardScreen">
-       <label for="createCharacter.character.race">Race</label>
-       <select id="createCharacter.character.race" name="character.race"></select>
+           <label for="createCharacter.player.email">Email</label>
+           <input type="email" id="createCharacter.player.email" name="player.email" autocomplete="email"/> 
+       </form>
        
-       <label for="createCharacter.character.pronoun">Pronoun</label>
-       <select id="createCharacter.character.pronoun" name="character.pronoun">
-           <option value="he">He</option>
-           <option value="she">She</option>
-           <option value="they">They</option>
-           <option value="ze">Ze</option>
-       </select>
-   </form>
+       <form class="wizardScreen">
+           <label for="createCharacter.character.race">Race</label>
+           <select id="createCharacter.character.race" name="character.race"></select>
+           
+           <label for="createCharacter.character.pronoun">Pronoun</label>
+           <select id="createCharacter.character.pronoun" name="character.pronoun">
+               <option value="he">He</option>
+               <option value="she">She</option>
+               <option value="they">They</option>
+               <option value="ze">Ze</option>
+           </select>
+       </form>
+           
+       <form class="wizardScreen" id="createCharacter.name">
+           <label for="createCharacter.character.name.first">First Name</label>
+           <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
+           <label for="createCharacter.character.name.family">Family Name</label>
+           <input type="text" id="createCharacter.character.name.family" name="character.name.family"/>
+           <label for="createCharacter.character.name.nickname">Nickname</label>
+           <input type="text" id="createCharacter.character.name.nickname" name="character.name.nickname"/>
+           <label for="createCharacter.character.name.child">Child Name</label>
+           <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
+       </form>
+
+       <form class="wizardScreen">
+           <ol id="createCharacter.character.multiclass" class="hidden"></ol>
+
+           <label for="createCharacter.character.class.type">Class</label>
+           <select id="createCharacter.character.class.type" name="character.class.type" ></select>
+
+           <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
+           <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
+
+           <label for="createCharacter.character.level">Level</label>
+           <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" name="character.class.level" min="1" max="40" required value="1"/>
        
-   <form class="wizardScreen" id="createCharacter.name">
-       <label for="createCharacter.character.name.first">First Name</label>
-       <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
-       <label for="createCharacter.character.name.family">Family Name</label>
-       <input type="text" id="createCharacter.character.name.family" name="character.name.family"/>
-       <label for="createCharacter.character.name.nickname">Nickname</label>
-       <input type="text" id="createCharacter.character.name.nickname" name="character.name.nickname"/>
-       <label for="createCharacter.character.name.child">Child Name</label>
-       <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
-   </form>
-
-   <form class="wizardScreen">
-       <ol id="createCharacter.character.multiclass" class="hidden"></ol>
-
-       <label for="createCharacter.character.class.type">Class</label>
-       <select id="createCharacter.character.class.type" name="character.class.type" ></select>
-
-       <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
-       <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
-
-       <label for="createCharacter.character.level">Level</label>
-       <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" name="character.class.level" min="1" max="40" required value="1"/>
-   
-       <button type="button">Add another Class</button>
-       <button type="button">Scrap the current class</button>
-   </form>
-   
-   <form class="wizardScreen" id="createCharacter.attr">
-       <!-- generation options and execution -->
-       <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
-       <select id="createCharacter.attr.chooser" value="Throwaway">
-           <option value="Manual">I'll roll and enter the vaules</option>
-           <option value="Straight">Straight 3 rolls</option>
-           <option value="Throwaway">Throwaway lowest of 4</option>
-       </select>
-       <button type="button" onclick="generateAttributes()">Generate Attributes</button>
-
-       <label for="createCharacter.character.attribute.strength">Strength</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
-       <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
-       <label for="createCharacter.character.attribute.constitution">Constitution</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
-       <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
-       <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
-       <label for="createCharacter.character.attribute.charisma">Charisma</label>
-       <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
-   </form>
-   
-   <form class="wizardScreen">
-       <label for="createCharacter.backstory.type">Backstory Type</label>
-       <select id="createCharacter.backstory.type" name="character.backstory.type" onchange="updateBackstory()"></select>
-       <label for="createCharacter.backstory.story">Backstory</label>
-       <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
-   </form>
-
-   <form class="wizardScreen">
-       <label for="createCharacter.details.age">Age</label>
-       <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="1" max="100" value="18"/>
-
-       <label for="createCharacter.details.height">Height</label>
-       <input type="text" id="createCharacter.details.height" name="character.details.height"/>
-
-       <label for="createCharacter.details.weight">Weight</label>
-       <input type="text" id="createCharacter.details.weight" name="character.details.weight"/>
-   </form>
-   
-   <form class="wizardScreen">
-       <label for="createCharacter.details.eyecolor">Eye Color</label>
-       <input type="color" id="createCharacter.details.eyecolor" name="character.details.eyecolor"/>
-
-       <label for="createCharacter.details.skin">Skin Color</label>
-       <input type="color" id="createCharacter.details.skin" name="character.details.skin"/>
-
-       <label for="createCharacter.details.hair">Hair Color</label>
-       <input type="color" id="createCharacter.details.hair" name="character.details.hair"/>
-   </form>
-   
-   <form class="wizardScreen">
-       <label for="createCharacter.details.appearance">Appearance</label>
-       <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
+           <button type="button">Add another Class</button>
+           <button type="button">Scrap the current class</button>
+       </form>
        
-       <label for="createCharacter.details.image">Image</label>
-       <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
-   </form>
+       <form class="wizardScreen" id="createCharacter.attr">
+           <!-- generation options and execution -->
+           <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
+           <select id="createCharacter.attr.chooser" value="Throwaway">
+               <option value="Manual">I'll roll and enter the vaules</option>
+               <option value="Straight">Straight 3 rolls</option>
+               <option value="Throwaway">Throwaway lowest of 4</option>
+           </select>
+           <button type="button" onclick="generateAttributes()">Generate Attributes</button>
 
-   <form class="wizardScreen">
-       <fieldset>
-           <legend class="skill_title">Skills</legend>
-           <div id="createCharacter.skills_container" class="skills_grid" name="character.skills"></div>
-       </fieldset>
-   </form>
-   
-   <form class="wizardScreen">
-       <!-- need to sure up the language editor: choose from list of languages
-           with free entry and stash.-->
-       <label for="createCharacter.languages">Languages</label>
-       <textarea id="createCharacter.languages" name="character.languages" spellcheck="true"></textarea>
+           <label for="createCharacter.character.attribute.strength">Strength</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
+           <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
+           <label for="createCharacter.character.attribute.constitution">Constitution</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
+           <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
+           <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
+           <label for="createCharacter.character.attribute.charisma">Charisma</label>
+           <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
+       </form>
+       
+       <form class="wizardScreen">
+           <label for="createCharacter.backstory.type">Backstory Type</label>
+           <select id="createCharacter.backstory.type" name="character.backstory.type" onchange="updateBackstory()"></select>
+           <label for="createCharacter.backstory.story">Backstory</label>
+           <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
+       </form>
 
-       <!-- need to sure up the proficiencies editor: choose from list of
-           Proficiencies with free entry and stash.-->
-       <label for="createCharacter.proficiencies">Proficiencies</label>
-       <textarea id="createCharacter.proficiencies" name="character.proficiencies" spellcheck="true"></textarea>
-       
-       <label for="createCharacter.features">Features & Traits</label>
-       <textarea id="createCharacter.features" name="character.features" spellcheck="true"></textarea>
-       
-       <label for="createCharacter.personalitytraits">Personality Traits</label>
-       <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
-   </form>
-   
-   <form class="wizardScreen">
-       
-       <label for="createCharacter.ideals">Ideals</label>
-       <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
-       
-       <label for="createCharacter.bonds">Bonds</label>
-       <textarea id="createCharacter.bonds" name="character.bonds" spellcheck="true"></textarea>
-       
-       <label for="createCharacter.flaws">Flaws</label>
-       <textarea id="createCharacter.flaws" name="character.flaws" spellcheck="true"></textarea>
-       
-       <label for="createCharacter.allies">Allies</label>
-       <textarea id="createCharacter.allies" name="character.allies" spellcheck="true"></textarea>
-   </form>
-   
+       <form class="wizardScreen">
+           <label for="createCharacter.details.age">Age</label>
+           <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="1" max="100" value="18"/>
 
-   <form class="wizardScreen">
-       <label for="createCharacter.weapons">Weapons</label>
-       <textarea id="createCharacter.weapons" name="character.weapons" spellcheck="true"></textarea>
+           <label for="createCharacter.details.height">Height</label>
+           <input type="text" id="createCharacter.details.height" name="character.details.height"/>
+
+           <label for="createCharacter.details.weight">Weight</label>
+           <input type="text" id="createCharacter.details.weight" name="character.details.weight"/>
+       </form>
        
-       <label for="createCharacter.equipment">Equipment</label>
-       <textarea id="createCharacter.equipment" name="character.equipment" spellcheck="true"></textarea>
+       <form class="wizardScreen">
+           <label for="createCharacter.details.eyecolor">Eye Color</label>
+           <input type="color" id="createCharacter.details.eyecolor" name="character.details.eyecolor"/>
+
+           <label for="createCharacter.details.skin">Skin Color</label>
+           <input type="color" id="createCharacter.details.skin" name="character.details.skin"/>
+
+           <label for="createCharacter.details.hair">Hair Color</label>
+           <input type="color" id="createCharacter.details.hair" name="character.details.hair"/>
+       </form>
        
-       <label for="createCharacter.treasure">Treasure</label>
-       <textarea id="createCharacter.treasure" name="character.treasure" spellcheck="true"></textarea>
-   </form>
- 
-   <!-- Circles which indicates the steps of the form: -->
-   <div class="step_wrapper">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-   </div>
- 
-   <div class="buttonbar">
-       <button type="button" onclick="cancelModal()">Cancel</button>
-       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-       <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-   </div>
-</template>
+       <form class="wizardScreen">
+           <label for="createCharacter.details.appearance">Appearance</label>
+           <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
+           
+           <label for="createCharacter.details.image">Image</label>
+           <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
+       </form>
+
+       <form class="wizardScreen">
+           <fieldset>
+               <legend class="skill_title">Skills</legend>
+               <div id="createCharacter.skills_container" class="skills_grid" name="character.skills"></div>
+           </fieldset>
+       </form>
+       
+       <form class="wizardScreen">
+           <!-- need to sure up the language editor: choose from list of languages
+               with free entry and stash.-->
+           <label for="createCharacter.languages">Languages</label>
+           <textarea id="createCharacter.languages" name="character.languages" spellcheck="true"></textarea>
+
+           <!-- need to sure up the proficiencies editor: choose from list of
+               Proficiencies with free entry and stash.-->
+           <label for="createCharacter.proficiencies">Proficiencies</label>
+           <textarea id="createCharacter.proficiencies" name="character.proficiencies" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.features">Features & Traits</label>
+           <textarea id="createCharacter.features" name="character.features" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.personalitytraits">Personality Traits</label>
+           <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
+       </form>
+       
+       <form class="wizardScreen">
+           
+           <label for="createCharacter.ideals">Ideals</label>
+           <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.bonds">Bonds</label>
+           <textarea id="createCharacter.bonds" name="character.bonds" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.flaws">Flaws</label>
+           <textarea id="createCharacter.flaws" name="character.flaws" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.allies">Allies</label>
+           <textarea id="createCharacter.allies" name="character.allies" spellcheck="true"></textarea>
+       </form>
+       
+
+       <form class="wizardScreen">
+           <label for="createCharacter.weapons">Weapons</label>
+           <textarea id="createCharacter.weapons" name="character.weapons" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.equipment">Equipment</label>
+           <textarea id="createCharacter.equipment" name="character.equipment" spellcheck="true"></textarea>
+           
+           <label for="createCharacter.treasure">Treasure</label>
+           <textarea id="createCharacter.treasure" name="character.treasure" spellcheck="true"></textarea>
+       </form>
+     
+       <!-- Circles which indicates the steps of the form: -->
+       <div class="step_wrapper">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+       </div>
+     
+       <div class="buttonbar">
+           <button type="button" onclick="cancelModal()">Cancel</button>
+           <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+           <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+       </div>
+    </template>
+</wizard>
