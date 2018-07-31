@@ -32,9 +32,8 @@
         <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
-    <body onload="init()" onbeforeunload="beforeUnload">
-
-        <h1 id="primeheader">You have no Class!</h1>
+    <body class="topContainer" onload="init()" onbeforeunload="beforeUnload">
+        <h1 id="primeHeader">You have no Class!</h1>
  
         <nav id="nav-menu" class="nav" role="navigation">
             <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
@@ -45,7 +44,7 @@
                     <li><button type="button" onclick="openCharacter()">Load a character</button></li>
                     <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
                 </ul>
-            <div>
+            </div>
         </nav>
 
         <div class="modal overlay hidden" id="modalOverlay">
@@ -56,7 +55,7 @@
             </div>
         </div>
         
-        <dl class="stack">
+        <dl id="playerInfo" class="stack">
             <dt>Role Player</dt>
             <dd id="player.name"></dd>
 
@@ -69,21 +68,18 @@
             <dd>
                 <a target="_blank" id="player.email" href="mailto:">Email missing</a>
             </dd>
-            <dt>Character Name</dt>
-            <dd id="character.name.first"></dd>
-            <dd id="character.name.family"></dd>
-            <dd id="character.name.nickname"></dd>
-            <dd id="character.name.child"></dd>
-
+        </dl>
+        <dl id="race" class="stack">
             <dt>Race</dt>
             <dd id="character.race"></dd>
-
+        </dl>
+        <dl id="class" class="stack">
             <dt>Class</dt>
             <dd id="character.class.type"></dd>
-
             <dt>Level</dt>
             <dd id="character.class.level"></dd>
-
+        </dl>
+        <dl id="stats" class="stack">
             <dt>Experience Points</dt>
             <dd id="character.experience" ></dd>
 
@@ -95,20 +91,35 @@
 
             <dt>Current Hit Points</dt>
             <dd id="character.hitPoints.current"></dd>
-
+            
+            <dt>Saving Throws</dt>
+            <dd id="character.savingThrows"></dd>
+            
+            <dt>Inspiration</dt>
+            <dd id="character.inspiration"/></dd>
+            
             <dt>Ability</dt>
             <dd id="character.ability"></dd>
 
-            <dt>Saving Throws</dt>
-            <dd id="character.savingThrows"></dd>
+            <dt>Skills</dt>
+            <dd id="character.skills"></dd>
+            
+            <dt>Languages</dt>
+            <dd id="character.languages"></dd>
 
-            <dt>Inspiration</dt>
-            <dd id="character.inspiration"/></dd>
+            <dt>Proficiencies</dt>
+            <dd id="character.proficiencies"></dd>
+            
+            <dt>Features & Traits</dt>
+            <dd id="character.features"></dd>
+         </dl>
+        <dl id="appearance" class="stack">
             <dt>Backstory Type</dt>
             <dd id="character.backstory.type"></dd>
             
             <dt>Backstory</dt>
             <dd id="character.backstory.story"></dd>
+            
             <dt>Age</dt>
             <dd id="character.details.age" ></dd>
 
@@ -129,78 +140,8 @@
 
             <dt>Appearance</dt>
             <dd id="character.details.appearance" ></dd>
-
-            <table>
-                <tr>
-                    <th>Attribute Name</th>
-                    <th>Natural</th>
-                    <th>Race Modifier</th>
-                    <th>Total</th>
-                    <th>Saving Throw</th>
-                    <th>Passive</th>
-                </tr>
-                <tr>
-                    <td>Strength</td>
-                    <td id="character.attribute.strength"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Dexterity</td>
-                    <td id="character.attribute.dexterity"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>  
-                <tr>
-                    <td>Constitution</td>
-                    <td id="character.attribute.constitution"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Intelligence</td>
-                    <td id="character.attribute.intelligence"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Wisdom</td>
-                    <td id="character.attribute.wisdom"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Charisma</td>
-                    <td id="character.attribute.charisma"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-              
-            </table>
-            <dt>Skills</dt>
-            <dd id="character.skills"></dd>
-            
-            <dt>Languages</dt>
-            <dd id="character.languages"></dd>
-
-            <dt>Proficiencies</dt>
-            <dd id="character.proficiencies"></dd>
-            
-            <dt>Features & Traits</dt>
-            <dd id="character.features"></dd>
-            
+        </dl>
+        <dl id="personality" class="stack">
             <dt>Personality Traits</dt>
             <dd id="character.personalitytraits"></dd>
             
@@ -214,7 +155,68 @@
             <dd id="character.flaws"></dd>
             
             <dt>Allies</dt>
-            <dd id="character.allies"></dd>
+            <dd id="character.allies"></dd> 
+        </dl>
+        <table id="attributes" class="stack">
+            <tr>
+                <th>Attribute Name</th>
+                <th>Natural</th>
+                <th>Race Modifier</th>
+                <th>Total</th>
+                <th>Saving Throw</th>
+                <th>Passive</th>
+            </tr>
+            <tr>
+                <td>Strength</td>
+                <td id="character.attribute.strength"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Dexterity</td>
+                <td id="character.attribute.dexterity"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>  
+            <tr>
+                <td>Constitution</td>
+                <td id="character.attribute.constitution"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Intelligence</td>
+                <td id="character.attribute.intelligence"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Wisdom</td>
+                <td id="character.attribute.wisdom"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Charisma</td>
+                <td id="character.attribute.charisma"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <dl id="equipment" class="stack">
             <dt>Weapons</dt>
             <dd id="character.weapons"></dd>
             
@@ -227,7 +229,7 @@
             <dt>Purse</dt>
             <a id="character.purse" href="" download="" class="store"></a>
         </dl>
-                                              
+
         <script>
             'use strict';
             if('serviceWorker' in navigator) {

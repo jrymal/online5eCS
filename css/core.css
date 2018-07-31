@@ -65,45 +65,7 @@ input:focus:invalid {
   outline: none;
 }
  
-/* Style the tab */
-.view .tab {
-    overflow: hidden;
-    border: .1em solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Style the buttons that are used to open the tab content */
-.view .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: .5em .5em;
-    margin: 0;
-    transition: 0.3s;
-    font-size: 1.2em;
-}
-
-/* Change background color of buttons on hover */
-.view .tab button:hover,
-.view .tab button:focus {
-    background-color: #ddd;
-    text-decoration: underline;
-}
-
-.view .tab button.active {
-    background-color: #ccc;
-    font-weight: bold;
-}
-
-/* Style the tab content */
-.view .tabcontent {
-    padding: .5em .5em;
-    border: .1em solid #ccc;
-    border-top: none;
-}
-
+/*** MODAL LAYOUT ***/
 .modal.overlay{
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -190,7 +152,51 @@ input:focus:invalid {
     margin-left: 0;
 }
 
-/* Mobile */
+/*** LAYOUT ***/
+#primeHeader{
+    grid-area: primeHeader;
+}
+
+#nav-menu{
+    grid-area: navMenu;
+}
+
+#playerInfo{
+    grid-area: playerInfo;
+}
+
+#race{
+    grid-area: race;
+}
+
+#class{
+    grid-area: class;
+}
+
+#stats{
+    grid-area: stats;
+}
+
+#appearance{
+    grid-area: appearance;
+}
+        
+#personality{
+    grid-area: personality;
+}
+        
+#attributes{
+    grid-area: attributes;
+}
+        
+#equipment{
+    grid-area: equipment;
+}
+
+.topContainer {
+}
+ 
+/*** MEDIA ***/
 @media screen and (max-width:34.2em) {
 }
 
@@ -202,7 +208,9 @@ input:focus:invalid {
      * the screen*/
 }
 
+/*** UTILITIES ***/
 .hidden{
     display: none; !important
 }
- 
+
+
