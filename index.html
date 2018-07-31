@@ -56,10 +56,7 @@
             </div>
         </div>
         
-        <h2>
-            <button type="button" onclick="toggle($('PlayerInfo'))" >Player Info</button>
-        </h2>
-        <dl id="PlayerInfo" class="stack hidden">
+        <dl class="stack">
             <dt>Role Player</dt>
             <dd id="player.name"></dd>
 
@@ -72,12 +69,6 @@
             <dd>
                 <a target="_blank" id="player.email" href="mailto:">Email missing</a>
             </dd>
-        </dl>
-
-        <h2>
-            <button type="button" onclick="toggle($('Info'))" >Character</button>
-        </h2>
-        <dl id='Info' class='stack hidden'>
             <dt>Character Name</dt>
             <dd id="character.name.first"></dd>
             <dd id="character.name.family"></dd>
@@ -113,23 +104,11 @@
 
             <dt>Inspiration</dt>
             <dd id="character.inspiration"/></dd>
-        </dl>             
-
-        <h2>
-            <button type="button" onclick="toggle($('Backstory'))" >Backstory</button>
-        </h2>
-        <dl id='Backstory' class='stack hidden'>
             <dt>Backstory Type</dt>
             <dd id="character.backstory.type"></dd>
             
             <dt>Backstory</dt>
             <dd id="character.backstory.story"></dd>
-        </dl>
-
-        <h2>
-            <button type="button" onclick="toggle($('Details'))" >Details</button>
-        </h2>
-        <dl id='Details' class='stack hidden'>
             <dt>Age</dt>
             <dd id="character.details.age" ></dd>
 
@@ -137,26 +116,19 @@
             <dd id="character.details.height"></dd>
 
             <dt>Weight</dt>
-        <dd id="character.details.weight"></dd>
+            <dd id="character.details.weight"></dd>
 
             <dt>Eye Color</dt>
-        <dd id="character.details.eyecolor"></dd>
+            <dd id="character.details.eyecolor"></dd>
 
             <dt>Skin Color</dt>
-        <dd id="character.details.skin" ></dd>
+            <dd id="character.details.skin" ></dd>
 
             <dt>Hair Color</dt>
-        <dd id="character.details.hair"></dd>
+            <dd id="character.details.hair"></dd>
 
             <dt>Appearance</dt>
             <dd id="character.details.appearance" ></dd>
-
-        </dl>
-
-        <h2>
-            <button type="button" onclick="toggle($('Attributes'))" >Attributes</button>
-        </h2>
-        <div id='Attributes' class='stack hidden'>
 
             <table>
                 <tr>
@@ -217,20 +189,9 @@
                 </tr>
               
             </table>
-        </div>
-        
-        <h2>
-            <button type="button" onclick="toggle($('Skills'))" >Skills</button>
-        </h2>
-        <dl id="Skills" class="stack hidden">
             <dt>Skills</dt>
             <dd id="character.skills"></dd>
-        </dl>
-
-        <h2>
-            <button type="Abilities" onclick="toggle($('Abilities'))" >Abilities</button>
-        </h2>
-        <dl id='Abilities' class='stack hidden'>
+            
             <dt>Languages</dt>
             <dd id="character.languages"></dd>
 
@@ -254,13 +215,6 @@
             
             <dt>Allies</dt>
             <dd id="character.allies"></dd>
-        </dl>
- 
-
-        <h2>
-            <button type="Inventory" onclick="toggle($('Inventory'))" >Inventory</button>
-        </h2>
-        <dl id='Inventory' class='stack hidden'>
             <dt>Weapons</dt>
             <dd id="character.weapons"></dd>
             

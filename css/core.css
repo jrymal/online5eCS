@@ -55,8 +55,10 @@ input:last-child {
 input.short {
     width: 3em;
 }
+
 input:invalid {
   box-shadow: 0 0 .3em .1em red;
+  background: #ff000020;
 }
 
 input:focus:invalid {

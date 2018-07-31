@@ -107,7 +107,7 @@ function validateForm() {
     let x = document.getElementsByClassName("wizardScreen");
     let currentForm = x[currentTab];
     let valid = currentForm.checkValidity(); 
-    
+
     // could use the validity object to add top level error messages....
 
     // If the valid status is true, mark the step as finished and valid:
