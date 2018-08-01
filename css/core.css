@@ -165,10 +165,6 @@ input:focus:invalid {
     grid-area: playerInfo;
 }
 
-#race{
-    grid-area: race;
-}
-
 #class{
     grid-area: class;
 }
@@ -187,6 +183,7 @@ input:focus:invalid {
         
 #attributes{
     grid-area: attributes;
+    grid-width: 3fr;
 }
         
 #equipment{
@@ -194,6 +191,13 @@ input:focus:invalid {
 }
 
 .topContainer {
+    display: grid;
+    grid-template-areas: 
+    "primeHeader navMenu playerInfo" 
+    "class stats equipment"
+    "attributes attributes attributes"
+    "appearance personality ."
+    ;
 }
  
 /*** MEDIA ***/
