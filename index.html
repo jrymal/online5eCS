@@ -33,20 +33,6 @@
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
     <body class="topContainer" onload="init()" onbeforeunload="beforeUnload">
-        <h1 id="primeHeader">You have no Class!</h1>
- 
-        <nav id="nav-menu" class="nav" role="navigation">
-            <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
-            <div id="nav-div" class="hidden">
-                <ul>
-                    <li id="install-app" class="hidden"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
-                    <li><button type="button" onclick="startWizard()">Create a new Character</button></li>
-                    <li><button type="button" onclick="openCharacter()">Load a character</button></li>
-                    <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
-                </ul>
-            </div>
-        </nav>
-
         <div class="modal overlay hidden" id="modalOverlay">
             <div class="base">
                 <h2 id="modal.title"></h2>
@@ -54,8 +40,24 @@
                 <div id="modal.body"></div>
             </div>
         </div>
-        
-        <dl id="playerInfo" class="stack">
+ 
+        <div class="header">
+            <h1 id="primeHeader">You have no Class!</h1>
+     
+            <nav class="nav nav-menu" role="navigation">
+                <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
+                <div id="nav-div" class="hidden">
+                    <ul>
+                        <li id="install-app" class="hidden"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
+                        <li><button type="button" onclick="startWizard()">Create a new Character</button></li>
+                        <li><button type="button" onclick="openCharacter()">Load a character</button></li>
+                        <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <dl class="stack playerInfo">
             <dt>Role Player</dt>
             <dd id="player.name"></dd>
 
@@ -69,15 +71,16 @@
                 <a target="_blank" id="player.email" href="mailto:">Email missing</a>
             </dd>
         </dl>
-        <dl id="class" class="stack">
+        <dl class="stack class">
             <dt>Race</dt>
             <dd id="character.race"></dd>
+            
             <dt>Class</dt>
             <dd id="character.class.type"></dd>
+           
             <dt>Level</dt>
             <dd id="character.class.level"></dd>
-        </dl>
-        <dl id="stats" class="stack">
+           
             <dt>Experience Points</dt>
             <dd id="character.experience" ></dd>
 
@@ -91,8 +94,9 @@
             <dd id="character.hitPoints.current"></dd>
             
             <dt>Saving Throws</dt>
-            <dd id="character.savingThrows"></dd>
-            
+            <dd id="character.savingThrows"></dd> 
+        </dl>
+        <dl class="stack stats">
             <dt>Inspiration</dt>
             <dd id="character.inspiration"/></dd>
             
@@ -110,14 +114,16 @@
             
             <dt>Features & Traits</dt>
             <dd id="character.features"></dd>
-         </dl>
-        <dl id="appearance" class="stack">
+        </dl>
+        <dl class="stack history">
             <dt>Backstory Type</dt>
             <dd id="character.backstory.type"></dd>
             
             <dt>Backstory</dt>
             <dd id="character.backstory.story"></dd>
             
+        </dl>
+        <dl class="stack appearance">
             <dt>Age</dt>
             <dd id="character.details.age" ></dd>
 
@@ -139,7 +145,7 @@
             <dt>Appearance</dt>
             <dd id="character.details.appearance" ></dd>
         </dl>
-        <dl id="personality" class="stack">
+        <dl class="stack personality">
             <dt>Personality Traits</dt>
             <dd id="character.personalitytraits"></dd>
             
@@ -155,7 +161,7 @@
             <dt>Allies</dt>
             <dd id="character.allies"></dd> 
         </dl>
-        <table id="attributes" class="stack">
+        <table class="stack attributes">
             <tr>
                 <th>Attribute Name</th>
                 <th>Natural</th>
@@ -214,7 +220,7 @@
             </tr>
         </table>
 
-        <dl id="equipment" class="stack">
+        <dl class="stack equipment">
             <dt>Weapons</dt>
             <dd id="character.weapons"></dd>
             

@@ -152,54 +152,66 @@ input:focus:invalid {
     margin-left: 0;
 }
 
+.topContainer .header > *{
+    align-self: center;
+}
 /*** LAYOUT ***/
-#primeHeader{
-    grid-area: primeHeader;
+.topContainer .header{
+    order: 1;
+    flex: 1 1 66.7%;
+    display: flex;
 }
 
-#nav-menu{
-    grid-area: navMenu;
+.topContainer .stack.playerInfo{
+    order: 3;
+    flex: 1 1 33.3%;
+    text-align: right;
 }
 
-#playerInfo{
-    grid-area: playerInfo;
+.topContainer .stack.class{
+    order: 4;
+    flex: 1 1 33.3%;
 }
 
-#class{
-    grid-area: class;
+.topContainer .stack.stats{
+    order: 5;
+    flex: 1 1 33.3%;
 }
 
-#stats{
-    grid-area: stats;
-}
-
-#appearance{
-    grid-area: appearance;
+.topContainer .stack.history{
+    order: 6;
+    flex: 1 1 33.3%;
 }
         
-#personality{
-    grid-area: personality;
+.topContainer .stack.appearance{
+    order: 10;
+    flex: 1 1 33.3%;
 }
         
-#attributes{
-    grid-area: attributes;
-    grid-width: 3fr;
+.topContainer .stack.personality{
+    order: 8;
+    flex: 1 1 33.3%;
 }
         
-#equipment{
-    grid-area: equipment;
+.topContainer .stack.attributes{
+    order: 7;
+    flex: 1 1 100%;
+}
+        
+.topContainer .stack.equipment{
+    order: 9;
+    flex: 1 1 33.3%;
 }
 
 .topContainer {
-    display: grid;
-    grid-template-areas: 
-    "primeHeader navMenu playerInfo" 
-    "class stats equipment"
-    "attributes attributes attributes"
-    "appearance personality ."
-    ;
+    display: flex;
+    flex-flow: row wrap;
 }
- 
+
+.topContainer > * {
+    flex: 1 1 33.3%;
+}
+
 /*** MEDIA ***/
 @media screen and (max-width:34.2em) {
 }
