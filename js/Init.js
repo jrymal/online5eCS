@@ -183,18 +183,80 @@ function setCurrentCharacter(character){
     
     let dataholders = document.getElementsByClassName("stack");
 
+    
+    window.history.pushState(cleanseForSave(currentCharacter), "",
+        generateNameHash(window.location.hash));
+    updateEmail();
+    updatePhoneNumber();
+    
+    let race = RACES[currentCharacter.character.race];
+    
+    Object.defineProperty(currentCharacter, "RACE",  {writable: true, configurable: true, enumerable: true, value:race});
+
+    let calc = {
+        attribute:{
+            strength: getAttributeObject(currentCharacter.character.attribute.strength,
+                race.attribute.strength, getSkillsForAttr('strength', character.skills)),
+            dexterity: getAttributeObject(currentCharacter.character.attribute.dexterity,
+                race.attribute.dexterity, getSkillsForAttr('dexterity', character.skills)),
+            constitution: getAttributeObject(currentCharacter.character.attribute.constitution,
+                race.attribute.constitution, getSkillsForAttr('constitution', character.skills)),
+            intelligence: getAttributeObject(currentCharacter.character.attribute.intelligence,
+                race.attribute.intelligence, getSkillsForAttr('intelligence', character.skills)),
+            wisdom: getAttributeObject(currentCharacter.character.attribute.wisdom,
+                race.attribute.intelligence, getSkillsForAttr('wisdom', character.skills)),
+            charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
+                race.attribute.charisma, getSkillsForAttr('charisma', character.skills))
+        }
+    };
+
+    Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
+    
     [].reduce.call(dataholders, (data, dataholder) => {
         if (dataholder && dataholder.childNodes) {
             processDataHolder(dataholder);
         }
         return data;
     }, {}); 
-  
-    window.history.pushState(currentCharacter, "",
-        generateNameHash(window.location.hash));
-    updateEmail();
-    updatePhoneNumber();
-    console.log('Result: '+currentCharacter);
+     
+}
+
+function getSkillsForAttr(attributeId, skillsArray) {
+    let cnt = 0;
+    for(let i = 0; skillsArray && i < skillsArray.length; i++) {
+        let skillName = skillsArray[i];
+        let skill = SKILLS[skillName];
+        if (attributeId === skill.attribute) {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+                               
+function cleanseForSave(obj) {
+    let cln = clone(obj);
+    delete cln.CALC;
+    delete cln.RACE;
+    return cln;
+}
+
+function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+function exists(obj){
+    return obj && typeof obj !== "undefined";
+}
+
+function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
+    let raceAttr = exists(raceAttribute) ? raceAttribute : 0;
+    let total = +characterAttribute + +raceAttr;
+    let saveBonus = Math.floor((total-10)/2);
+    return {
+        total: total,
+        savingThrow: saveBonus,
+        passiveSavingThrow: 10 + +saveBonus + +skillsForAttr 
+    };
 }
 
 function processDataHolder(dataholder){
@@ -307,11 +369,11 @@ function downloadToFile(link) {
 
 function beforeUnload(){
     // set last settings into history
-    window.history.pushState(currentCharacter, "",
+    window.history.pushState(cleanseForSave(currentCharacter), "",
         generateNameHash(window.location.hash));
     
     // Ask if there are changes they's like to save
-    //return "Discard changes?"; 
+    return "Discard changes?"; 
 }
 
 function updatePhoneNumber() {

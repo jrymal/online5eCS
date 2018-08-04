@@ -15,16 +15,16 @@
         <link rel="icon" href="images/icons-192.png" sizes="192x192" />
         <link rel="icon" href="images/icons-512.png" sizes="512x512" />
         
+        <script type="text/javascript" src="js/GameEngine.js" async> </script>
         <script type="text/javascript" src="js/Random.js" async> </script>
         <script type="text/javascript" src="js/Races.js" async> </script>
         <script type="text/javascript" src="js/Skills.js" async> </script>
         <script type="text/javascript" src="js/Classes.js" async> </script>
         <script type="text/javascript" src="js/Backstories.js" async> </script>
-        <script type="text/javascript" src="js/GameEngine.js" async> </script>
-        <script type="text/javascript" src="js/Init.js" async> </script>
         <script type="text/javascript" src="js/Languages.js" async> </script>
         <script type="text/javascript" src="js/Coinage.js" async> </script>
         <script type="text/javascript" src="js/CharacterWizard.js" async> </script>
+        <script type="text/javascript" src="js/Init.js" async> </script>
 
         <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
         
@@ -32,7 +32,7 @@
         <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
-    <body class="topContainer" onload="init()" onbeforeunload="beforeUnload">
+    <body class="topContainer" onload="init()" onbeforeunload="beforeUnload()">
         <div class="modal overlay hidden" id="modalOverlay">
             <div class="base">
                 <h2 id="modal.title"></h2>
@@ -101,18 +101,23 @@
             <dd id="character.inspiration"/></dd>
             
             <dt>Ability</dt>
+            <dd id="RACE.ability"></dd>
             <dd id="character.ability"></dd>
 
             <dt>Skills</dt>
+            <dd id="RACE.skills"></dd>
             <dd id="character.skills"></dd>
             
             <dt>Languages</dt>
+            <dd id="RACE.languages"></dd>
             <dd id="character.languages"></dd>
 
             <dt>Proficiencies</dt>
+            <dd id="RACE.proficiencies"></dd>
             <dd id="character.proficiencies"></dd>
             
             <dt>Features & Traits</dt>
+            <dd id="RACE.features"></dd>
             <dd id="character.features"></dd>
         </dl>
         <dl class="stack history">
@@ -164,59 +169,70 @@
         <table class="stack attributes">
             <tr>
                 <th>Attribute Name</th>
-                <th>Natural</th>
-                <th>Race Modifier</th>
+                <th>Nature (Race Modifier)</th>
                 <th>Total</th>
                 <th>Saving Throw</th>
                 <th>Passive</th>
             </tr>
             <tr>
                 <td>Strength</td>
-                <td id="character.attribute.strength"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.strength"></span>
+                    (<span id="RACE.attribute.strength"></span>)
+                </td>
+                <td id="CALC.attribute.strength.total"></td>
+                <td id="CALC.attribute.strength.savingThrow"></td>
+                <td id="CALC.attribute.strength.passiveSavingThrow"></td>
             </tr>
             <tr>
                 <td>Dexterity</td>
-                <td id="character.attribute.dexterity"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.dexterity"></span>
+                    (<span id="RACE.attribute.dexterity"></span>)
+                </td>
+                <td id="CALC.attribute.dexterity.total"></td>
+                <td id="CALC.attribute.dexterity.savingThrow"></td>
+                <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
             </tr>  
             <tr>
                 <td>Constitution</td>
-                <td id="character.attribute.constitution"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.constitution"></span>
+                    (<span id="RACE.attribute.constitution"></span>)
+                </td>
+                <td id="CALC.attribute.constitution.total"></td>
+                <td id="CALC.attribute.constitution.savingThrow"></td>
+                <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
             </tr>
             <tr>
                 <td>Intelligence</td>
-                <td id="character.attribute.intelligence"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.intelligence"></span>
+                    (<span id="RACE.attribute.intelligence"></span>)
+                </td>
+                <td id="CALC.attribute.intelligence.total"></td>
+                <td id="CALC.attribute.intelligence.savingThrow"></td>
+                <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
             </tr>
             <tr>
                 <td>Wisdom</td>
-                <td id="character.attribute.wisdom"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.wisdom"></span>
+                    (<span id="RACE.attribute.wisdom"></span>)
+                </td>
+                <td id="CALC.attribute.wisdom.total"></td>
+                <td id="CALC.attribute.wisdom.savingThrow"></td>
+                <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
             </tr>
             <tr>
                 <td>Charisma</td>
-                <td id="character.attribute.charisma"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td >
+                    <span id="character.attribute.charisma"></span>
+                    (<span id="RACE.attribute.charisma"></span>)
+                </td>
+                <td id="CALC.attribute.charisma.total"></td>
+                <td id="CALC.attribute.charisma.savingThrow"></td>
+                <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
             </tr>
         </table>
 
@@ -231,6 +247,7 @@
             <dd id="character.treasure"></dd>
         
             <dt>Purse</dt>
+            <dd id="character.purse"></dd>
             <a id="character.purse" href="" download="" class="store"></a>
         </dl>
         <script>
