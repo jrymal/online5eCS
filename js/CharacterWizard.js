@@ -9,7 +9,7 @@ function showWizardTab(n) {
     let x = document.getElementsByClassName("wizardScreen");
     x[n].style.display = "block";
 
-    selectFirstInput(x[n]);
+    console.log(selectFirstInput(x[n]));
 
     // ... and fix the Previous/Next buttons:
     document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
@@ -205,7 +205,6 @@ function populateCheckboxes(divEle, sourceObj) {
         opt.type = "checkbox";
         opt.name = "character.skills";
         opt.id =idValue;
-//        opt.setAttribute("onChange", "updateRace()");
 
         fragment.appendChild(lbl);
         fragment.appendChild(opt);

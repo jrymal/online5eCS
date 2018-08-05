@@ -28,7 +28,7 @@ const DICE = {
 };
 
 function rollDie(die, count = 1) {
-    result = [];
+    let result = [];
     for(let i = 0; i < count; i++) {
         result.push(randomNumber(die.min, die.max));
     }

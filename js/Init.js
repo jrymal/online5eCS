@@ -1,5 +1,7 @@
 'use strict';
 
+const ATTRIBUTE_ID_LIST = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+
 function findNode(jsonPath, searchObj) {
     let pathItems = jsonPath.split('.');
     let objItem = searchObj;
