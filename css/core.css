@@ -42,6 +42,14 @@ a {
     cursor: pointer;
 }
 
+dd {
+    margin-left: 1.2em;
+}
+
+dd > ul {
+    padding-left: 1.2em;
+}
+
 button {
     padding: .2em;
     margin: .2em;

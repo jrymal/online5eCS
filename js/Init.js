@@ -264,22 +264,46 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
 function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
-      
+        
         if (element.id){
+            let lookup;
+            if (element.dataset){
+                lookup = element.dataset.lookup;
+            } else {
+                lookup = element.getAttribute("data-lookup");
+            }                                             
+     
+
             let node = findNode(element.id, currentCharacter);
             if (Array.isArray(node)){
-                let value = "";
+                let value = "<ul>";
                 for(let i = 0; i < node.length; i++){
-                    value += node[i]+(i<node.length+1?"<br>":"");
+                    value += "<li>";
+    
+                    if (lookup) {
+                        value += performLookup(lookup, node[i]);
+                    } else {
+                        value += node[i];
+                    }
+                    value += "</li>";
                 }
+                value += "</ul>";
                 node = value;
+            } else if (lookup && node) {
+                let nodeValue =  performLookup(lookup, node);
+                node = nodeValue ? nodeValue : node;;
             }
             element.innerHTML = node ? node : "";
         }
+
         if (element.childNodes && element.childNodes.length > 0) {
             processDataHolder(element);
         }
     } 
+}
+
+function performLookup(lookup, node){
+    return eval(lookup+'["'+node+'"].name')
 }
 
 function openCharacter() {
