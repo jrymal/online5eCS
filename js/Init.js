@@ -198,17 +198,17 @@ function setCurrentCharacter(character){
     let calc = {
         attribute:{
             strength: getAttributeObject(currentCharacter.character.attribute.strength,
-                race.attribute.strength, getSkillsForAttr('strength', character.skills)),
+                race.attribute.strength, getSkillsForAttr('strength', character.character.skills)),
             dexterity: getAttributeObject(currentCharacter.character.attribute.dexterity,
-                race.attribute.dexterity, getSkillsForAttr('dexterity', character.skills)),
+                race.attribute.dexterity, getSkillsForAttr('dexterity', character.character.skills)),
             constitution: getAttributeObject(currentCharacter.character.attribute.constitution,
-                race.attribute.constitution, getSkillsForAttr('constitution', character.skills)),
+                race.attribute.constitution, getSkillsForAttr('constitution', character.character.skills)),
             intelligence: getAttributeObject(currentCharacter.character.attribute.intelligence,
-                race.attribute.intelligence, getSkillsForAttr('intelligence', character.skills)),
+                race.attribute.intelligence, getSkillsForAttr('intelligence', character.character.skills)),
             wisdom: getAttributeObject(currentCharacter.character.attribute.wisdom,
-                race.attribute.intelligence, getSkillsForAttr('wisdom', character.skills)),
+                race.attribute.intelligence, getSkillsForAttr('wisdom', character.character.skills)),
             charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
-                race.attribute.charisma, getSkillsForAttr('charisma', character.skills))
+                race.attribute.charisma, getSkillsForAttr('charisma', character.character.skills))
         }
     };
 
