@@ -70,110 +70,104 @@
                 <a target="_blank" id="player.email" href="mailto:">Email missing</a>
             </dd>
         </dl>
-        <dl class="stack class">
-            <dt>Race</dt>
-            <dd id="character.race" data-lookup="RACES"></dd>
-            
+        <dl class="stack fullWidth stats">
+            <div class="grouping">
+                <dt>Race</dt>
+                <dd id="character.race" data-lookup="RACES"></dd>
+            </div>
+            <div class="grouping">
             <dt>Class</dt>
             <dd id="character.class.type" data-lookup="CLASSES"></dd>
+            </div>
            
+            <div class="grouping">
             <dt>Level</dt>
             <dd id="character.class.level"></dd>
+            </div>
            
+            <div class="grouping">
             <dt>Experience Points</dt>
             <dd id="character.experience" ></dd>
+            </div>
 
+            <div class="grouping">
             <dt>Hit Die</dt>
             <dd id="character.hitDie"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Max Hit Points</dt>
             <dd id="character.hitPoints.max"></dd>
+            </div>
 
+            <div class="grouping">
             <dt>Current Hit Points</dt>
             <dd id="character.hitPoints.current"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Saving Throws</dt>
             <dd id="character.savingThrows"></dd> 
-        </dl>
-        <dl class="stack stats">
+            </div>
+            
+            <div class="grouping">
             <dt>Inspiration</dt>
             <dd id="character.inspiration"/></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Ability</dt>
             <dd id="RACE.ability"></dd>
             <dd id="character.ability"></dd>
+            </div>
 
+            <div class="grouping">
             <dt>Skills</dt>
             <dd id="RACE.proficieny_skill" data-lookup="SKILLS"></dd>
             <dd id="character.skills" data-lookup="SKILLS"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Languages</dt>
             <dd id="RACE.languages" ></dd>
             <dd id="character.languages"></dd>
+            </div>
 
+            <div class="grouping">
             <dt>Proficiencies</dt>
             <dd id="RACE.proficiency"></dd>
             <dd id="character.proficiencies"></dd>
+            </div>
             
-            <dt>Traits</dt>
+            <div class="grouping">
+            <dt>Race Traits</dt>
             <dd id="RACE.features"></dd>
+            </div>
             
-            <dt>Features</dt>
+            <div class="grouping">
+            <dt>Class Features</dt>
             <dd id="character.features"></dd>
-        </dl>
-        <dl class="stack history">
+            </div>
+            
+            <div class="grouping">
             <dt>Backstory Type</dt>
             <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Backstory</dt>
             <dd id="character.backstory.story"></dd>
+            </div>
             
         </dl>
-        <dl class="stack appearance">
-            <dt>Age</dt>
-            <dd id="character.details.age" ></dd>
 
-            <dt>Height</dt>
-            <dd id="character.details.height"></dd>
-
-            <dt>Weight</dt>
-            <dd id="character.details.weight"></dd>
-
-            <dt>Eye Color</dt>
-            <dd id="character.details.eyecolor"></dd>
-
-            <dt>Skin Color</dt>
-            <dd id="character.details.skin" ></dd>
-
-            <dt>Hair Color</dt>
-            <dd id="character.details.hair"></dd>
-
-            <dt>Appearance</dt>
-            <dd id="character.details.appearance" ></dd>
-        </dl>
-        <dl class="stack personality">
-            <dt>Personality Traits</dt>
-            <dd id="character.personalitytraits"></dd>
-            
-            <dt>Ideals</dt>
-            <dd id="character.ideals"></dd>
-            
-            <dt>Bonds</dt>
-            <dd id="character.bonds"></dd>
-            
-            <dt>Flaws</dt>
-            <dd id="character.flaws"></dd>
-            
-            <dt>Allies</dt>
-            <dd id="character.allies"></dd> 
-        </dl>
         <table class="stack attributes">
             <tr>
                 <th>Attribute Name</th>
-                <th>Nature (Race Modifier)</th>
+                <th>Natural (Race Modifier)</th>
                 <th>Total</th>
-                <th>Saving Throw</th>
-                <th>Passive</th>
+                <th>Saving Throw Modifier</th>
+                <th>Passive Saving Throw</th>
             </tr>
             <tr>
                 <td>Strength</td>
@@ -236,20 +230,87 @@
                 <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
             </tr>
         </table>
+        <dl class="stack fullWidth appearance">
+            <div class="grouping">
+            <dt>Age</dt>
+            <dd id="character.details.age" ></dd>
+            </div>
 
-        <dl class="stack equipment">
+            <div class="grouping">
+            <dt>Height</dt>
+            <dd id="character.details.height"></dd>
+            </div>
+
+            <div class="grouping">
+            <dt>Weight</dt>
+            <dd id="character.details.weight"></dd>
+            </div>
+
+            <div class="grouping">
+            <dt>Eye Color</dt>
+            <dd id="character.details.eyecolor"></dd>
+            </div>
+
+            <div class="grouping">
+            <dt>Skin Color</dt>
+            <dd id="character.details.skin" ></dd>
+            </div>
+
+            <div class="grouping">
+            <dt>Hair Color</dt>
+            <dd id="character.details.hair"></dd>
+            </div>
+
+            <div class="grouping">
+            <dt>Appearance</dt>
+            <dd id="character.details.appearance" ></dd>
+            </div>
+            
+            <div class="grouping">
+            <dt>Personality Traits</dt>
+            <dd id="character.personalitytraits"></dd>
+            </div>
+            
+            <div class="grouping">
+            <dt>Ideals</dt>
+            <dd id="character.ideals"></dd>
+            </div>
+            
+            <div class="grouping">
+            <dt>Bonds</dt>
+            <dd id="character.bonds"></dd>
+            </div>
+            
+            <div class="grouping">
+            <dt>Flaws</dt>
+            <dd id="character.flaws"></dd>
+            </div>
+            
+            <div class="grouping">
+            <dt>Allies</dt>
+            <dd id="character.allies"></dd> 
+            </div>
+            
+            <div class="grouping">
             <dt>Weapons</dt>
             <dd id="character.weapons"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Equipment</dt>
             <dd id="character.equipment"></dd>
+            </div>
             
+            <div class="grouping">
             <dt>Treasure</dt>
             <dd id="character.treasure"></dd>
+            </div>
         
+            <div class="grouping">
             <dt>Purse</dt>
             <dd id="character.purse"></dd>
             <a id="character.purse" href="" download="" class="store"></a>
+            </div>
         </dl>
         <script>
             'use strict';
