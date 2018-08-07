@@ -40,11 +40,6 @@ function isVisible(element) {
     return !hasClass(element, "hidden");
 }
 
-function getElementByXpath(path) {
-  return document.evaluate(path, document, null,
-      XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-}
-
 function stripFirst(matchChar, string){
     let index = string.indexOf(matchChar);
     if (index>=0){
@@ -261,18 +256,16 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     };
 }
 
+function getDataAttribute(element, dataName){
+     return element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                             
+}
+
 function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
         
         if (element.id){
-            let lookup;
-            if (element.dataset){
-                lookup = element.dataset.lookup;
-            } else {
-                lookup = element.getAttribute("data-lookup");
-            }                                             
-     
+            let lookup = getDataAttribute(element, "lookup");
 
             let node = findNode(element.id, currentCharacter);
             if (Array.isArray(node)){

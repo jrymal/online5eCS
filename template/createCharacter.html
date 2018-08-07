@@ -15,7 +15,7 @@
        
        <form class="wizardScreen">
            <label for="createCharacter.character.race">Race</label>
-           <select id="createCharacter.character.race" name="character.race"></select>
+           <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
            
            <label for="createCharacter.character.pronoun">Pronoun</label>
            <select id="createCharacter.character.pronoun" name="character.pronoun">
@@ -41,7 +41,7 @@
            <ol id="createCharacter.character.multiclass" class="hidden"></ol>
 
            <label for="createCharacter.character.class.type">Class</label>
-           <select id="createCharacter.character.class.type" name="character.class.type" ></select>
+           <select id="createCharacter.character.class.type" name="character.class.type" data-lookup="CLASSES"></select>
 
            <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
            <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
@@ -79,7 +79,7 @@
        
        <form class="wizardScreen">
            <label for="createCharacter.backstory.type">Backstory Type</label>
-           <select id="createCharacter.backstory.type" name="character.backstory.type" ></select>
+           <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
            <label for="createCharacter.backstory.story">Backstory</label>
            <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
        </form>
@@ -131,9 +131,6 @@
                Proficiencies with free entry and stash.-->
            <label for="createCharacter.proficiencies">Proficiencies</label>
            <textarea id="createCharacter.proficiencies" name="character.proficiencies" spellcheck="true"></textarea>
-           
-           <label for="createCharacter.features">Features & Traits</label>
-           <textarea id="createCharacter.features" name="character.features" spellcheck="true"></textarea>
            
            <label for="createCharacter.personalitytraits">Personality Traits</label>
            <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>

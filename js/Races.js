@@ -864,7 +864,7 @@ const RACES = {
         features:["Darkvision (60 ft)",
             "If brought to 0 HP but not killed outright, set your HP to 1 (Full rest to reset)",
             "On a critical hit, roll one of your weapon's hit die and add that to your damage delt"],
-        proficiency_skill:["Intimidation"],
+        proficiency_skill:["intimidation"],
         languages: ["Common","Orc"]
     },
     Tiefling:{

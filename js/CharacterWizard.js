@@ -133,12 +133,20 @@ function initWizard(callback) {
     callbackFunction = callback;
     
     // set up selects
-    populateSelect($('class.type', 'createCharacter.character'), CLASSES);
-    populateSelect($('race', 'createCharacter.character'), RACES);
-    populateSelect($('backstory.type', 'createCharacter'), BACKSTORIES);
+    populateLookups();
+    
     populateCheckboxes($('skills_container', 'createCharacter'), SKILLS);
  
     showWizardTab(0);
+}
+
+function populateLookups(){
+    let i,nodes = document.querySelectorAll("select[data-lookup]");
+    for (i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        populateSelect(node, eval(getDataAttribute(node, "lookup")))
+    }
+
 }
 
 function generateAttributes() {
