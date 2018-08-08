@@ -317,15 +317,16 @@ function showModal(modelId, initFunc){
     
     if (!link) {
         console.log("Link Mismatch: "+modelId);
+        return;
     }
 
     if (link.import){
-        loadModal(link.import, initFunc);
+        loadModal(modelId, link.import, initFunc);
     } else {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                loadModal(xhttp.response, initFunc);
+                loadModal(modelId, xhttp.response, initFunc);
             }
         };
         xhttp.responseType = 'document';
@@ -334,12 +335,13 @@ function showModal(modelId, initFunc){
     }
 }
 
-function loadModal(importDom, initFunc){
+function loadModal(modelId, importDom, initFunc){
     let modalDiv = $('modalOverlay');
     let modalTitleDiv = $('modal.title');
     let modalDescDiv = $('modal.description');
     let modalBodyDiv = $('modal.body');
-         // Clone the <template> in the import.
+    
+    // Clone the <template> in the import.
     let titleEle = importDom.querySelector('title');
     let descEle = importDom.querySelector('description');
 

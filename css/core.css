@@ -32,6 +32,10 @@ textarea {
     margin: 0 0.5em 0.5em 0;
 }
 
+table {
+    width: 100%;
+}
+
 table td,
 th {
   border: .1em solid black;
@@ -42,8 +46,13 @@ a {
     cursor: pointer;
 }
 
+dt {
+    font-weight: 550;
+}
+
 dd {
     margin-left: 1.2em;
+    font-weight: 350;
 }
 
 dd > ul {
@@ -137,7 +146,8 @@ li, dd {
     padding: 1em;
     overflow: hidden;
     border: .1em solid #ccc;
-    background-color: #f1f1f1; 
+    background-color: #f1f1f1;
+    min-height: 17em; 
 }
 
 .modal.overlay .wizardScreen.active {
@@ -223,15 +233,27 @@ li, dd {
 
 /*** MEDIA ***/
 @media screen and (max-width:34.2em) {
+    .topContainer .stack.fullWidth{
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
 }
 
-@media screen and (min-width:34.2em) {
+@media screen and (min-width:50em) and (max-width:65em) {
+    .topContainer .stack.fullWidth{
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
 }
-
-@media screen and (min-width:80em) {
-    /*It would be nice if we have the space to put the inputs in 2 columns on
-     * the screen*/
-}
+ @media screen and (min-width:65em) {
+    .topContainer .stack.fullWidth{
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+} 
 
 /*** UTILITIES ***/
 .hidden{
