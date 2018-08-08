@@ -355,9 +355,9 @@ function loadModal(modelId, importDom, initFunc){
     
     modalBodyDiv.appendChild(document.importNode(templateEle.content ? templateEle.content : templateEle.innerHTML, true));
 
-    initFunc();
-
+    //focus will not work if the panel is not displaying...
     show(modalDiv);
+    initFunc();
 }
 
 function cancelModal() {
@@ -369,7 +369,7 @@ function selectFirstInput(divEle) {
     for(let i = 0; i < divEle.childNodes.length; i++) {
         let node = divEle.childNodes[i];
         if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
-            divEle.childNodes[i].focus();
+            node.focus();
             return true;
         }
         // need to decend into elements to see if they have focusable elements

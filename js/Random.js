@@ -27,6 +27,18 @@ const DICE = {
     }
 };
 
+const FRONT_HEAVY={
+    choose:function(value1, value2) {
+        return value1;
+    }          
+}
+
+const BELL={
+    choose:function(value1, value2) {
+        return value1;
+    }          
+}
+
 function rollDie(die, count = 1) {
     let result = [];
     for(let i = 0; i < count; i++) {
@@ -42,4 +54,7 @@ function randomNumber(min, max) {
 function chooseFromList(list){
     return list && list.length > 0 ? list[randomNumber(0,list.length-1)] : null;
 }
- 
+
+function chooseWeightedRange(distributionType, value1, value2){
+    return distributionType.choose(value1, value2);
+}

@@ -9,7 +9,7 @@ function showWizardTab(n) {
     let x = document.getElementsByClassName("wizardScreen");
     x[n].style.display = "block";
 
-    console.log(selectFirstInput(x[n]));
+    selectFirstInput(x[n]);
 
     // ... and fix the Previous/Next buttons:
     document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
@@ -23,6 +23,13 @@ function showWizardTab(n) {
 
 function prepopulateValues(form){
     switch(form.id) {
+        case 'createCharacter.player':
+            if (currentCharacter) {
+                setIfExistsAndEmpty('createCharacter.player.name', currentCharacter.player.name);
+                setIfExistsAndEmpty('createCharacter.player.phone', currentCharacter.player.phone);
+                setIfExistsAndEmpty('createCharacter.player.email', currentCharacter.player.email);
+            }
+            break;
         case 'createCharacter.name':
             setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName());
             setIfExistsAndEmpty('createCharacter.character.name.family', chooseFamilyName());
@@ -31,7 +38,12 @@ function prepopulateValues(form){
             break;
         case 'createCharacter.attr':
             generateAttributes();
-            break;
+            break; 
+        case 'createCharacter.age':
+            setIfExistsAndEmpty('createCharacter.details.age', chooseAge());
+            setIfExistsAndEmpty('createCharacter.details.height', chooseHeight());
+            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight());
+            break; 
     }    
 }
 
@@ -77,6 +89,29 @@ function chooseFirstName(){
     }
     
     return chooseFromList(nameList);
+}
+
+function chooseAge(){
+    let element = $('createCharacter.details.age');
+    let age = RACES[$('createCharacter.character.race').value].age;
+    
+    element.min=age.min;
+    element.max=age.max;
+    
+    return chooseWeightedRange(FRONT_HEAVY, age.min, age.max);
+}
+function chooseHeight() {
+    let element = $('createCharacter.details.height');
+    let height = RACES[$('createCharacter.character.race').value].size.height;
+    
+    element.min=height.min;
+    element.max=height.max;
+    
+    return chooseWeightedRange(BELL, height.min, height.max);
+}
+function chooseWeight() {
+    let weight = RACES[$('createCharacter.character.race').value].size.weight;
+    return chooseWeightedRange(BELL, weight);
 }
 
 function nextPrev(n) {
@@ -255,7 +290,6 @@ function insertAtNode(jsonPath, searchObj, insertObj) {
     for(let i = 0; i < pathItems.length; i++) {
         let lastNode = i == (pathItems.length - 1);
         if (!Object.keys(objItem).includes(pathItems[i])) {
-            console.log(jsonPath + " "+insertObj);
             Object.defineProperty(objItem, pathItems[i],  {writable: true, configurable: true, enumerable: true, value:lastNode ? insertObj :{}});
         }else if (lastNode){
             Object.defineProperty(objItem, pathItems[i], {writable: true, configurable: true,value:insertObj});

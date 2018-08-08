@@ -2,7 +2,7 @@
     <title>Create a new character</title>
     <description>Build your character.</description>
     <template>
-       <form class="wizardScreen">
+       <form class="wizardScreen" id="createCharacter.player">
            <label for="createCharacter.player.name">Role Player</label>
            <input type="text" id="createCharacter.player.name" name="player.name" required/>
 
@@ -63,18 +63,20 @@
            </select>
            <button type="button" onclick="generateAttributes()">Generate Attributes</button>
 
-           <label for="createCharacter.character.attribute.strength">Strength</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
-           <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
-           <label for="createCharacter.character.attribute.constitution">Constitution</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
-           <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
-           <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
-           <label for="createCharacter.character.attribute.charisma">Charisma</label>
-           <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
+           <div class="column-2">
+               <label for="createCharacter.character.attribute.strength">Strength</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
+               <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
+               <label for="createCharacter.character.attribute.constitution">Constitution</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
+               <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
+               <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
+               <label for="createCharacter.character.attribute.charisma">Charisma</label>
+               <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
+           </div>
        </form>
        
        <form class="wizardScreen">
@@ -85,9 +87,9 @@
            <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
        </form>
 
-       <form class="wizardScreen">
+       <form class="wizardScreen" id="createCharacter.age">
            <label for="createCharacter.details.age">Age</label>
-           <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="1" max="100" value="18"/>
+           <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
 
            <label for="createCharacter.details.height">Height</label>
            <input type="text" id="createCharacter.details.height" name="character.details.height"/>
@@ -137,7 +139,7 @@
            <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
        </form>
        
-       <form class="wizardScreen">
+       <form class="wizardScreen column-2">
            
            <label for="createCharacter.ideals">Ideals</label>
            <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
