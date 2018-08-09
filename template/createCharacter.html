@@ -25,13 +25,13 @@
                <option value="ze">Ze</option>
            </select>
            <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
-           <select id="createCharacter.character.alignment.society" name="createCharacter.character.alignment.society">
+           <select id="createCharacter.character.alignment.society" name="character.alignment.society">
                <option value="Lawful">Lawful</option>
                <option value="Neutral">Neutral</option>
                <option value="Chaotic">Chaotic</option>
            </select>
            <label for="createCharacter.character.alignment.morality">Alignment (Morality)</label>
-           <select id="createCharacter.character.alignment.morality" name="createCharacter.character.alignment.imorality">
+           <select id="createCharacter.character.alignment.morality" name="character.alignment.morality">
                <option value="Good">Good</option>
                <option value="Neutral">Neutral</option>
                <option value="Evil">Evil</option>
@@ -68,10 +68,10 @@
        <form class="wizardScreen" id="createCharacter.attr">
            <!-- generation options and execution -->
            <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
-           <select id="createCharacter.attr.chooser" value="Throwaway">
-               <option value="Manual">I'll roll and enter the vaules</option>
-               <option value="Straight">Straight 3 rolls</option>
+           <select id="createCharacter.attr.chooser">
                <option value="Throwaway">Throwaway lowest of 4</option>
+               <option value="Straight">Straight 3 rolls</option>
+               <option value="Manual">I'll roll and enter the vaules</option>
            </select>
            <button type="button" onclick="generateAttributes()">Generate Attributes</button>
 
@@ -131,15 +131,15 @@
 
        <form class="wizardScreen" id="createCharacter.skills">
            <fieldset>
-               <legend class="skill_title">Skills</legend>
-               <div id="createCharacter.skills_container" class="skills_grid" name="character.skills" data-lookup="SKILLS"></div>
+               <legend>Skills</legend>
+               <div id="createCharacter.skills_container" name="character.skills" data-lookup="SKILLS"></div>
            </fieldset>
        </form>
        
        <form class="wizardScreen" id="createCharacter.language">
            <fieldset>
-               <legend class="skill_title">Languages</legend>
-               <div id="createCharacter.languages" class="skills_grid" name="character.languages" data-lookup="LANGUAGES"></div>
+               <legend>Languages</legend>
+               <div id="createCharacter.languages" name="character.languages" data-lookup="LANGUAGES"></div>
            </fieldset>
        </form>
        

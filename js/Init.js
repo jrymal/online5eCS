@@ -2,6 +2,10 @@
 
 const ATTRIBUTE_ID_LIST = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
 
+function length(array){
+    return array ? array.length : 0;
+}
+
 function findNode(jsonPath, searchObj) {
     let pathItems = jsonPath.split('.');
     let objItem = searchObj;

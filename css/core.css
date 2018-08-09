@@ -127,7 +127,7 @@ li, dd {
     margin: 1em;
 }
 
-.modal.overlay .wizardScreen .skill_title{
+.modal.overlay .wizardScreen legend {
     font-size: 1.2em;
 }
  
@@ -136,7 +136,7 @@ li, dd {
     grid-template-columns: auto auto auto auto auto auto;
 }
 
-.modal.overlay .wizardScreen .skills_grid {
+.modal.overlay .wizardScreen > fieldset > div {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }

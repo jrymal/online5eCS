@@ -45,7 +45,7 @@ const RACES = {
             join: "or",
             select: ["smith's tools","brewer's supplies","mason's tools"]
         },
-        languages: ["Common","Dwarfish"]
+        languages: ["common","dwarfish"]
     },
     MountainDwarf:{
         name: "Mountain Dwarf",
@@ -92,7 +92,7 @@ const RACES = {
             join: "or",
             select: ["smith's tools","brewer's supplies","mason's tools"]
         },
-        languages: ["Common","Dwarfish"]
+        languages: ["common","dwarfish"]
     },
     HillDwarf:{
         name: "Hill Dwarf",
@@ -142,7 +142,7 @@ const RACES = {
         levelup: {
             hitpoint: 1
         },
-        languages: ["Common","Dwarfish"]
+        languages: ["common","dwarfish"]
     },
     Elf:{
         name: "Elf",
@@ -187,8 +187,8 @@ const RACES = {
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)"],
-        proficiency_skill:["Perception"],
-        languages: ["Common","Elvish"]
+        skills:["Perception"],
+        languages: ["common","elvish"]
     },
     HighElf:{
         name: "High Elf",
@@ -233,10 +233,10 @@ const RACES = {
         },
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
-            "Cannot be put to sleep via magic means","Trance (sppel - 4hrs)"],
-        proficiency_skill:["Perception"],
+            "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)"],
+        skills:["Perception"],
         proficiency:["Longsword","Shortsword","Shortbow","Longbow"],
-        languages: ["Common","Elvish","any"],
+        languages: ["common","elvish","ANY"],
         level: {
             1 : {
                 spell: ["any - wizard"]
@@ -286,10 +286,10 @@ const RACES = {
         },
         speed: 35,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
-            "Cannot be put to sleep via magic means","Trance (sppel - 4hrs)","Mask of the wild (attempt to hide in natural phenomena)"],
-        proficiency_skill:["Perception"],
+            "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)","Mask of the wild (attempt to hide in natural phenomena)"],
+        skills:["Perception"],
         proficiency:["Longsword","Shortsword","Shortbow","Longbow"],
-        languages: ["Common","Elvish"]
+        languages: ["common","elvish"]
     },
     Drow:{
         name: "Drow",
@@ -334,10 +334,10 @@ const RACES = {
         },
         speed: 30,
         features:["Darkvision (120ft)","Advantage on saving throws on being charmed",
-            "Cannot be put to sleep via magic means","Trance (sppel - 4hrs)","Sunlight Sensitivity"],
-        proficiency_skill:["Perception"],
+            "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)","Sunlight Sensitivity"],
+        skills:["Perception"],
         proficiency:["Rapier","Shortsword","iHandcrossbows"],
-        languages: ["Common","Elvish"],
+        languages: ["common","elvish"],
         level: {
             1 : {
                 spell: ["dancing lights"]
@@ -387,7 +387,7 @@ const RACES = {
         speed: 25,
         features:["Reroll a 1 for attack, ability check, or saving throw",
             "Advantage against being frightened","Can move through spaces occupied by those larger than you"],
-        languages: ["Common","Halfling"]
+        languages: ["common","halfling"]
     },
     LightfootHalfling:{
         name: "Lightfoot Halfling",
@@ -426,7 +426,7 @@ const RACES = {
         speed: 25,
         features:["Reroll a 1 for attack, ability check, or saving throw",
             "Advantage against being frightened","Can move through spaces occupied by those larger than you","Can hide even if obsured by a creature 1 size larger then you" ],
-        languages: ["Common","Halfling"]
+        languages: ["common","halfling"]
     },
     StoutHalfling:{
         name: "Stout Halfling",
@@ -466,7 +466,7 @@ const RACES = {
         features:["Reroll a 1 for attack, ability check, or saving throw",
             "Advantage against being frightened","Can move through spaces occupied by those larger than you",
             "Resistance to poison","Bonus to savng throws against poison"],
-        languages: ["Common","Halfling"]
+        languages: ["common","halfling"]
     },
     Human:{
         name: "Human",
@@ -526,7 +526,7 @@ const RACES = {
             simple: "medium"
         },
         speed: 30,
-        languages: ["Common","any"]
+        languages: ["common","ANY"]
     },
     Dragonborn:{
         name: "Dragonborn",
@@ -625,7 +625,7 @@ const RACES = {
         },
 
         features:["Resistance to the breath type of your ansestory"],
-        languages: ["Common","Draconic"]
+        languages: ["common","draconic"]
     },
     Gnome:{
         name: "Gnome",
@@ -665,7 +665,7 @@ const RACES = {
         },
         speed: 25,
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic"],
-        languages: ["Common","Gnomish"] 
+        languages: ["common","gnomish"] 
     },
     ForestGnome:{
         name: "Forest Gnome",
@@ -711,7 +711,7 @@ const RACES = {
                 spell: ["minor illusion"]
             }
         },
-        languages: ["Common","Gnomish"]
+        languages: ["common","gnomish"]
     },
     RockGnome:{
         name: "Rock Gnome",
@@ -755,7 +755,7 @@ const RACES = {
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic",
             "Int (History) checks on magical/alchemical/technological gets 2x the proficiency",
             "Tinker: Create a AC 5 HP 1 device which lives for 24 hr unless maintained Types: Clockwork, Fire starter, Music box"],
-        languages: ["Common","Gnomish"]
+        languages: ["common","gnomish"]
     },
     HalfElf:{
         name: "Half Elf",
@@ -829,8 +829,8 @@ const RACES = {
         features:["Darkvision (60 ft)",
             "Advantage on saving throws against being charmed and magic",
             "Magic cannot put you to sleep"],
-        proficiency_skill:["any","any"],
-        languages: ["Common","Elvish","any"]
+        skills:["any","any"],
+        languages: ["common","elvish","ANY"]
     },
     HalfOrc:{
         name: "Half Orc",
@@ -864,8 +864,8 @@ const RACES = {
         features:["Darkvision (60 ft)",
             "If brought to 0 HP but not killed outright, set your HP to 1 (Full rest to reset)",
             "On a critical hit, roll one of your weapon's hit die and add that to your damage delt"],
-        proficiency_skill:["intimidation"],
-        languages: ["Common","Orc"]
+        skills:["intimidation"],
+        languages: ["common","orc"]
     },
     Tiefling:{
         name: "Tiefling",
@@ -903,7 +903,7 @@ const RACES = {
         speed: 30,
         features:["Darkvision (60 ft)",
             "Resistance to fire damage"],
-        languages: ["Common","Infernal"],
+        languages: ["common","infernal"],
         level: {
             1 : {
                 spell: ["thaumatergy"]

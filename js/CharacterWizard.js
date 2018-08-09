@@ -31,18 +31,33 @@ function prepopulateValues(form){
             }
             break;
         case 'createCharacter.name':
-            setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName());
-            setIfExistsAndEmpty('createCharacter.character.name.family', chooseFamilyName());
-            setIfExistsAndEmpty('createCharacter.character.name.nickname', chooseNickName());
-            setIfExistsAndEmpty('createCharacter.character.name.child', chooseChildName());
+            let nameObj = RACES[$('createCharacter.character.race').value].names;
+            setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName(nameObj));
+            setIfExistsAndEmpty('createCharacter.character.name.family', chooseFamilyName(nameObj));
+            setIfExistsAndEmpty('createCharacter.character.name.nickname', chooseNickName(nameObj));
+            setIfExistsAndEmpty('createCharacter.character.name.child', chooseChildName(nameObj));
             break;
         case 'createCharacter.attr':
             generateAttributes();
             break; 
-        case 'createCharacter.age':
-            setIfExistsAndEmpty('createCharacter.details.age', chooseAge());
-            setIfExistsAndEmpty('createCharacter.details.height', chooseHeight());
-            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight());
+        case 'createCharacter.age': {
+            let race = RACES[$('createCharacter.character.race').value];
+            setIfExistsAndEmpty('createCharacter.details.age', chooseAge(race));
+            setIfExistsAndEmpty('createCharacter.details.height', chooseHeight(race));
+            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight(race));
+        }
+            break; 
+        case 'createCharacter.skills': {
+            let race = RACES[$('createCharacter.character.race').value];
+            let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
+            chooseSkills(race, backstory);
+        }
+            break; 
+        case 'createCharacter.language': {
+            let race = RACES[$('createCharacter.character.race').value];
+            let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
+            chooseLanguages(race, backstory);
+        }
             break; 
     }    
 }
@@ -58,23 +73,19 @@ function setIfExistsAndEmpty(id, value){
     }
 }
 
-function chooseFamilyName(){
-    let nameObj = RACES[$('createCharacter.character.race').value].names;
+function chooseFamilyName(nameObj){
     return chooseFromList(nameObj.family);
 }
 
-function chooseNickName(){
-    let nameObj = RACES[$('createCharacter.character.race').value].names;
+function chooseNickName(nameObj){
     return chooseFromList(nameObj.nickname);
 }
 
-function chooseChildName(){
-    let nameObj = RACES[$('createCharacter.character.race').value].names;
+function chooseChildName(nameObj){
     return chooseFromList(nameObj.child);
 }
 
-function chooseFirstName(){
-    let nameObj = RACES[$('createCharacter.character.race').value].names;
+function chooseFirstName(nameObj){
     let nameList = [];
     switch($('createCharacter.character.pronoun').value) {
         case 'he':
@@ -91,27 +102,59 @@ function chooseFirstName(){
     return chooseFromList(nameList);
 }
 
-function chooseAge(){
+function chooseAge(race){
     let element = $('createCharacter.details.age');
-    let age = RACES[$('createCharacter.character.race').value].age;
+    let age = race.age;
     
     element.min=age.min;
     element.max=age.max;
     
     return chooseWeightedRange(FRONT_HEAVY, age.min, age.max);
 }
-function chooseHeight() {
+
+function chooseHeight(race) {
     let element = $('createCharacter.details.height');
-    let height = RACES[$('createCharacter.character.race').value].size.height;
+    let height = race.size.height;
     
     element.min=height.min;
     element.max=height.max;
     
     return chooseWeightedRange(BELL, height.min, height.max);
 }
-function chooseWeight() {
-    let weight = RACES[$('createCharacter.character.race').value].size.weight;
+
+function chooseWeight(race) {
+    let weight = race.size.weight;
     return chooseWeightedRange(BELL, weight);
+}
+
+function chooseSkills(race, backstory){
+    let i;
+    for(i=0; i<length(race.skills);i++){
+        let skillName = race.proficiency_skill[i];
+        $("skills."+skillName).checked = true;
+    }
+    for(i=0; i<length(backstory.skills);i++){
+        let skillName = backstory.skills[i];
+        $("skills."+skillName).checked = true;
+    }
+}
+
+function chooseLanguages(race, backstory){
+    let i;
+    for(i=0; i<length(race.languages);i++){
+        let skillName = race.languages[i];
+        if (skillName == "ANY"){}
+        else {
+            $("languages."+skillName).checked = true;
+        }
+    }
+    for(i=0; i<length(backstory.language);i++){
+        let skillName = backstory.language[i];
+        if (skillName == "ANY"){}
+        else {
+            $("languages."+skillName).checked = true;
+        }
+    }
 }
 
 function nextPrev(n) {
@@ -181,7 +224,8 @@ function populateLookups(){
     nodes = document.querySelectorAll("fieldset > div[data-lookup]");
     for (i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        populateCheckboxes(node, eval(getDataAttribute(node, "lookup")));
+        let typeName = getDataAttribute(node, "lookup");
+        populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
     }
 }
 
@@ -230,24 +274,23 @@ function populateSelect(selectEle, sourceObj) {
     selectEle.appendChild(fragment);
 }
 
-function populateCheckboxes(divEle, sourceObj) {
+function populateCheckboxes(divEle, sourceObj, typeName) {
     let fragment = document.createDocumentFragment();
     let sourceArray = Object.keys(sourceObj).sort();
 
     for (let i = 0; i < sourceArray.length; i++  ) {
         let value = sourceArray[i];
         let obj = sourceObj[value];
-        let idValue = "skills."+value;
+        let idValue = typeName+"."+value;
 
         let lbl = document.createElement('label');
         lbl.innerHTML = obj.name;
         lbl.htmlFor=idValue;
-        lbl.className="skills_item";
 
         let opt = document.createElement('input');
         opt.value = value;
         opt.type = "checkbox";
-        opt.name = "character.skills";
+        opt.name = "character."+typeName;
         opt.id =idValue;
 
         fragment.appendChild(lbl);
