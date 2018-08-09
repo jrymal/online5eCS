@@ -26,8 +26,8 @@ const RACES = {
             max: 350
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -73,8 +73,8 @@ const RACES = {
             max: 350
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -120,8 +120,8 @@ const RACES = {
             max: 350
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -173,8 +173,8 @@ const RACES = {
             max: 750
         },
         alignment:{
-            f:"chaotic",
-            f:"good",
+            society:"chaotic",
+            morality:"good",
         },
         size:{
             height:{
@@ -220,8 +220,8 @@ const RACES = {
             max: 750
         },
         alignment:{
-            f:"chaotic",
-            f:"good",
+            society:"chaotic",
+            morality:"good",
         },
         size:{
             height:{
@@ -273,8 +273,8 @@ const RACES = {
             max: 750
         },
         alignment:{
-            f:"chaotic",
-            f:"good",
+            society:"chaotic",
+            morality:"good",
         },
         size:{
             height:{
@@ -321,8 +321,8 @@ const RACES = {
             max: 750
         },
         alignment:{
-            f:"chaotic",
-            f:"evil",
+            society:"chaotic",
+            morality:"evil",
         },
         size:{
             height:{
@@ -373,8 +373,8 @@ const RACES = {
             max: 250
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -412,8 +412,8 @@ const RACES = {
             max: 250
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -451,8 +451,8 @@ const RACES = {
             max: 250
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -554,8 +554,8 @@ const RACES = {
             max: 80
         },
         alignment:{
-            f:"lawful",
-            f:"good",
+            society:"lawful",
+            morality:"good",
         },
         size:{
             height:{
@@ -653,7 +653,7 @@ const RACES = {
             max: 500
         },
         alignment:{
-            f:"good",
+            morality:"good",
         },
         size:{
             height:{
@@ -694,7 +694,7 @@ const RACES = {
             max: 500
         },
         alignment:{
-            f:"good",
+            morality:"good",
         },
         size:{
             height:{
@@ -740,7 +740,7 @@ const RACES = {
             max: 500
         },
         alignment:{
-            f:"good",
+            morality:"good",
         },
         size:{
             height:{
@@ -815,7 +815,7 @@ const RACES = {
             max: 180
         },
         alignment:{
-            f:"chaotic",
+            society:"chaotic",
         },
         size:{
             height:{
@@ -850,7 +850,7 @@ const RACES = {
             max: 75
         },
         alignment:{
-            f:"chaotic",
+            society:"chaotic",
         },
         size:{
             height:{
@@ -890,7 +890,7 @@ const RACES = {
             max: 100
         },
         alignment:{
-            f:"chaotic",
+            society:"chaotic",
         },
         size:{
             height:{

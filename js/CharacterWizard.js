@@ -167,11 +167,8 @@ function initWizard(callback) {
 
     callbackFunction = callback;
     
-    // set up selects
     populateLookups();
     
-    populateCheckboxes($('skills_container', 'createCharacter'), SKILLS);
- 
     showWizardTab(0);
 }
 
@@ -181,7 +178,11 @@ function populateLookups(){
         let node = nodes[i];
         populateSelect(node, eval(getDataAttribute(node, "lookup")))
     }
-
+    nodes = document.querySelectorAll("fieldset > div[data-lookup]");
+    for (i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        populateCheckboxes(node, eval(getDataAttribute(node, "lookup")));
+    }
 }
 
 function generateAttributes() {

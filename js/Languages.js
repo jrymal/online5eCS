@@ -1,6 +1,6 @@
 'use strict';
 
-const COMMON_LANGUAGES = {
+const LANGUAGES = {
     common: {
         name: "Common",
         script: "Common"
@@ -32,10 +32,7 @@ const COMMON_LANGUAGES = {
     orc: {
         name: "Orc",
         script: "Dwarvish"
-    }
-};
-
-const EXOTIC_LANGUAGES = {
+    },
     abyssal: {
         name: "Abyssal",
         script: "Infernal"

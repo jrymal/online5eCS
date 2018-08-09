@@ -24,6 +24,18 @@
                <option value="they">They</option>
                <option value="ze">Ze</option>
            </select>
+           <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
+           <select id="createCharacter.character.alignment.society" name="createCharacter.character.alignment.society">
+               <option value="Lawful">Lawful</option>
+               <option value="Neutral">Neutral</option>
+               <option value="Chaotic">Chaotic</option>
+           </select>
+           <label for="createCharacter.character.alignment.morality">Alignment (Morality)</label>
+           <select id="createCharacter.character.alignment.morality" name="createCharacter.character.alignment.imorality">
+               <option value="Good">Good</option>
+               <option value="Neutral">Neutral</option>
+               <option value="Evil">Evil</option>
+           </select>  
        </form>
            
        <form class="wizardScreen" id="createCharacter.name">
@@ -117,19 +129,21 @@
            <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
        </form>
 
-       <form class="wizardScreen">
+       <form class="wizardScreen" id="createCharacter.skills">
            <fieldset>
                <legend class="skill_title">Skills</legend>
-               <div id="createCharacter.skills_container" class="skills_grid" name="character.skills"></div>
+               <div id="createCharacter.skills_container" class="skills_grid" name="character.skills" data-lookup="SKILLS"></div>
+           </fieldset>
+       </form>
+       
+       <form class="wizardScreen" id="createCharacter.language">
+           <fieldset>
+               <legend class="skill_title">Languages</legend>
+               <div id="createCharacter.languages" class="skills_grid" name="character.languages" data-lookup="LANGUAGES"></div>
            </fieldset>
        </form>
        
        <form class="wizardScreen">
-           <!-- need to sure up the language editor: choose from list of languages
-               with free entry and stash.-->
-           <label for="createCharacter.languages">Languages</label>
-           <textarea id="createCharacter.languages" name="character.languages" spellcheck="true"></textarea>
-
            <!-- need to sure up the proficiencies editor: choose from list of
                Proficiencies with free entry and stash.-->
            <label for="createCharacter.proficiencies">Proficiencies</label>
@@ -168,6 +182,7 @@
      
        <!-- Circles which indicates the steps of the form: -->
        <div class="step_wrapper">
+            <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>

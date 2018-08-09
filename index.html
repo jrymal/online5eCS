@@ -44,15 +44,10 @@
             <h1 id="primeHeader">You have no Class!</h1>
      
             <nav class="nav nav-menu" role="navigation">
-                <button id="nav" class="nav-anchors" onclick="toggle($('nav-div'))">Menu</button>
-                <div id="nav-div" class="hidden">
-                    <ul>
-                        <li id="install-app" class="hidden"><button type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button></li>
-                        <li><button type="button" onclick="startWizard()">Create a new Character</button></li>
-                        <li><button type="button" onclick="openCharacter()">Load a character</button></li>
-                        <li><button type="button" onclick="saveCharacter()">Save a character</button></li>
-                    </ul>
-                </div>
+                <button id="install-app" class="hidden" type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button>
+                <button type="button" onclick="startWizard()">Create a new Character</button>
+                <button type="button" onclick="openCharacter()">Load a character</button>
+                <button type="button" onclick="saveCharacter()">Save a character</button> 
             </nav>
         </div>
 
@@ -75,6 +70,22 @@
                 <dt>Race</dt>
                 <dd id="character.race" data-lookup="RACES"></dd>
             </div>
+            
+            <div class="grouping">
+            <dt>Alignment</dt>
+            <dd><span id="character.alignment.society"/><span id="character.alignment.morality"/></dd>
+            </div>
+             
+            <div class="grouping">
+            <dt>Size</dt>
+            <dd id="RACE.size.simple"></dd>
+            </div> 
+            
+            <div class="grouping">
+            <dt>Speed</dt>
+            <dd id="RACE.speed"></dd>
+            </div>  
+            
             <div class="grouping">
             <dt>Class</dt>
             <dd id="character.class.type" data-lookup="CLASSES"></dd>
@@ -117,25 +128,21 @@
             
             <div class="grouping">
             <dt>Ability</dt>
-            <dd id="RACE.ability"></dd>
             <dd id="character.ability"></dd>
             </div>
 
             <div class="grouping">
             <dt>Skills</dt>
-            <dd id="RACE.proficieny_skill" data-lookup="SKILLS"></dd>
             <dd id="character.skills" data-lookup="SKILLS"></dd>
             </div>
             
             <div class="grouping">
             <dt>Languages</dt>
-            <dd id="RACE.languages" ></dd>
             <dd id="character.languages"></dd>
             </div>
 
             <div class="grouping">
             <dt>Proficiencies</dt>
-            <dd id="RACE.proficiency"></dd>
             <dd id="character.proficiencies"></dd>
             </div>
             
@@ -162,73 +169,78 @@
         </dl>
 
         <table class="stack attributes">
-            <tr>
-                <th>Attribute Name</th>
-                <th>Natural (Race Modifier)</th>
-                <th>Total</th>
-                <th>Saving Throw Modifier</th>
-                <th>Passive Saving Throw</th>
-            </tr>
-            <tr>
-                <td>Strength</td>
-                <td >
-                    <span id="character.attribute.strength"></span>
-                    (<span id="RACE.attribute.strength"></span>)
-                </td>
-                <td id="CALC.attribute.strength.total"></td>
-                <td id="CALC.attribute.strength.savingThrow"></td>
-                <td id="CALC.attribute.strength.passiveSavingThrow"></td>
-            </tr>
-            <tr>
-                <td>Dexterity</td>
-                <td >
-                    <span id="character.attribute.dexterity"></span>
-                    (<span id="RACE.attribute.dexterity"></span>)
-                </td>
-                <td id="CALC.attribute.dexterity.total"></td>
-                <td id="CALC.attribute.dexterity.savingThrow"></td>
-                <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
-            </tr>  
-            <tr>
-                <td>Constitution</td>
-                <td >
-                    <span id="character.attribute.constitution"></span>
-                    (<span id="RACE.attribute.constitution"></span>)
-                </td>
-                <td id="CALC.attribute.constitution.total"></td>
-                <td id="CALC.attribute.constitution.savingThrow"></td>
-                <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
-            </tr>
-            <tr>
-                <td>Intelligence</td>
-                <td >
-                    <span id="character.attribute.intelligence"></span>
-                    (<span id="RACE.attribute.intelligence"></span>)
-                </td>
-                <td id="CALC.attribute.intelligence.total"></td>
-                <td id="CALC.attribute.intelligence.savingThrow"></td>
-                <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
-            </tr>
-            <tr>
-                <td>Wisdom</td>
-                <td >
-                    <span id="character.attribute.wisdom"></span>
-                    (<span id="RACE.attribute.wisdom"></span>)
-                </td>
-                <td id="CALC.attribute.wisdom.total"></td>
-                <td id="CALC.attribute.wisdom.savingThrow"></td>
-                <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
-            </tr>
-            <tr>
-                <td>Charisma</td>
-                <td >
-                    <span id="character.attribute.charisma"></span>
-                    (<span id="RACE.attribute.charisma"></span>)
-                </td>
-                <td id="CALC.attribute.charisma.total"></td>
-                <td id="CALC.attribute.charisma.savingThrow"></td>
-                <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
-            </tr>
+            <caption>Your character's Attribute values</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Attribute Name</th>
+                    <th scope="col">Natural (Race Modifier)</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Saving Throw Modifier</th>
+                    <th scope="col">Passive Saving Throw</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Strength</th>
+                    <td >
+                        <span id="character.attribute.strength"></span>
+                        (<span id="RACE.attribute.strength"></span>)
+                    </td>
+                    <td id="CALC.attribute.strength.total"></td>
+                    <td id="CALC.attribute.strength.savingThrow"></td>
+                    <td id="CALC.attribute.strength.passiveSavingThrow"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Dexterity</th>
+                    <td >
+                        <span id="character.attribute.dexterity"></span>
+                        (<span id="RACE.attribute.dexterity"></span>)
+                    </td>
+                    <td id="CALC.attribute.dexterity.total"></td>
+                    <td id="CALC.attribute.dexterity.savingThrow"></td>
+                    <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
+                </tr>  
+                <tr>
+                    <th scope="row">Constitution</th>
+                    <td >
+                        <span id="character.attribute.constitution"></span>
+                        (<span id="RACE.attribute.constitution"></span>)
+                    </td>
+                    <td id="CALC.attribute.constitution.total"></td>
+                    <td id="CALC.attribute.constitution.savingThrow"></td>
+                    <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Intelligence</th>
+                    <td >
+                        <span id="character.attribute.intelligence"></span>
+                        (<span id="RACE.attribute.intelligence"></span>)
+                    </td>
+                    <td id="CALC.attribute.intelligence.total"></td>
+                    <td id="CALC.attribute.intelligence.savingThrow"></td>
+                    <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Wisdom</th>
+                    <td >
+                        <span id="character.attribute.wisdom"></span>
+                        (<span id="RACE.attribute.wisdom"></span>)
+                    </td>
+                    <td id="CALC.attribute.wisdom.total"></td>
+                    <td id="CALC.attribute.wisdom.savingThrow"></td>
+                    <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Charisma</th>
+                    <td >
+                        <span id="character.attribute.charisma"></span>
+                        (<span id="RACE.attribute.charisma"></span>)
+                    </td>
+                    <td id="CALC.attribute.charisma.total"></td>
+                    <td id="CALC.attribute.charisma.savingThrow"></td>
+                    <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
+                </tr>
+            </tbody>
         </table>
         <dl class="stack fullWidth appearance">
             <div class="grouping">
