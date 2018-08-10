@@ -15,7 +15,6 @@ textarea,
 a  {
     padding: 0 0 0.2em 0;
     font-size: 1.0em;
-    display: block;
 }
 
 button, 
@@ -24,6 +23,7 @@ input,
 select, 
 textarea {
     color:black;
+    display: block;
 }
 
 input, 
@@ -172,9 +172,11 @@ li, dd {
 .modal.overlay .step.finish {
   background-color: #4CAF50;
 }
+
 .modal.overlay .buttonbar {
     display: inline-flex;
 }
+
 .modal.overlay .buttonbar > *:first-child {
     margin-left: 0;
 }
@@ -182,10 +184,17 @@ li, dd {
 .topContainer .header > *{
     align-self: center;
 }
+
 /*** LAYOUT ***/
-.topContainer .header{
+.topContainer .install-app{
     order: 1;
-    flex: 1 1 66.7%;
+    flex: 1 1 100%;
+    padding: 1em;
+}
+
+.topContainer .header{
+    order: 2;
+    flex: 1 1 66.6%;
     display: flex;
 }
 
@@ -205,6 +214,13 @@ li, dd {
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
+}
+
+.topContainer p.stack.fullWidth.footer{
+    order: 99;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1; 
 }
 
 .topContainer .stack .grouping {
@@ -241,6 +257,7 @@ li, dd {
 }
 
 @media screen and (min-width:50em) and (max-width:65em) {
+    /* Table is starting to take up some space */
     .topContainer .stack.fullWidth{
         -webkit-column-count: 4;
         -moz-column-count: 4;
@@ -248,6 +265,7 @@ li, dd {
     }
 }
  @media screen and (min-width:65em) {
+    /* Table is REALLY starting to waste space */
     .topContainer .stack.fullWidth{
         -webkit-column-count: 5;
         -moz-column-count: 5;

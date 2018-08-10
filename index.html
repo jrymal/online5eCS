@@ -40,11 +40,12 @@
             </div>
         </div>
  
+        <button id="install-app" class="hidden install-app" type="button" onclick="installApp()">Install as an App for offline operation</button>
+
         <div class="header">
             <h1 id="primeHeader">You have no Class!</h1>
      
             <nav class="nav nav-menu" role="navigation">
-                <button id="install-app" class="hidden" type="button"  class="install-app" onclick="installApp()" name="Install as Application">Install as Application</button>
                 <button type="button" onclick="startWizard()">Create a new Character</button>
                 <button type="button" onclick="openCharacter()">Load a character</button>
                 <button type="button" onclick="saveCharacter()">Save a character</button> 
@@ -324,6 +325,8 @@
             <a id="character.purse" href="" download="" class="store"></a>
             </div>
         </dl>
+
+        <p class="stack fullWidth footer">I've been known to be wrong every once in a while. If you've found an Issue,<a target="_blank" href="https://github.com/jrymal/online5eCS/issues/new"> let me know!</a></p>
         <script>
             'use strict';
             if('serviceWorker' in navigator) {
