@@ -254,6 +254,7 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     let total = +characterAttribute + +raceAttr;
     let saveBonus = Math.floor((total-10)/2);
     return {
+        raceModifier: raceAttr,
         total: total,
         savingThrow: saveBonus,
         passiveSavingThrow: 10 + +saveBonus + +skillsForAttr 
@@ -288,9 +289,14 @@ function processDataHolder(dataholder){
                 node = value;
             } else if (lookup && node) {
                 let nodeValue =  performLookup(lookup, node);
-                node = nodeValue ? nodeValue : node;;
+                node = nodeValue ? nodeValue : node;
             }
+
             element.innerHTML = node ? node : "";
+        
+            if (element.tagName != "TD"){ 
+                show(element, element.innerHTML != "");
+            }
         }
 
         if (element.childNodes && element.childNodes.length > 0) {

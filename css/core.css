@@ -204,29 +204,12 @@ li, dd {
     text-align: right;
 }
 
-.topContainer .stack.stats{
+.topContainer .stack.characterName{
     order: 4;
 }
 
-.topContainer .stack.fullWidth{
-    flex: 1 1 100%;
-
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-}
-
-.topContainer p.stack.fullWidth.footer{
-    order: 99;
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1; 
-}
-
-.topContainer .stack .grouping {
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
+.topContainer .stack.stats{
+    order: 5;
 }
 
 .topContainer .stack.appearance{
@@ -235,7 +218,10 @@ li, dd {
         
 .topContainer .stack.attributes{
     order: 7;
-    flex: 1 1 100%;
+}
+
+.topContainer .stack.footer{
+    order: 99;
 }
         
 .topContainer {
@@ -247,9 +233,25 @@ li, dd {
     flex: 1 1 33.3%;
 }
 
+.topContainer .stack.fullWidth{
+    flex: 1 1 100%;
+}
+
+.topContainer .stack.fullWidth.subdivided{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+.topContainer .stack .grouping {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+ 
 /*** MEDIA ***/
 @media screen and (max-width:34.2em) {
-    .topContainer .stack.fullWidth{
+    .topContainer .stack.fullWidth.subdivided {
         -webkit-column-count: 2;
         -moz-column-count: 2;
         column-count: 2;
@@ -258,7 +260,7 @@ li, dd {
 
 @media screen and (min-width:50em) and (max-width:65em) {
     /* Table is starting to take up some space */
-    .topContainer .stack.fullWidth{
+    .topContainer .stack.fullWidth.subdivided{
         -webkit-column-count: 4;
         -moz-column-count: 4;
         column-count: 4;
@@ -266,7 +268,7 @@ li, dd {
 }
  @media screen and (min-width:65em) {
     /* Table is REALLY starting to waste space */
-    .topContainer .stack.fullWidth{
+    .topContainer .stack.fullWidth.subdivided{
         -webkit-column-count: 5;
         -moz-column-count: 5;
         column-count: 5;
@@ -284,3 +286,18 @@ li, dd {
      column-count: 2;
 } 
 
+.parens::before {
+    content:"(";
+}
+
+.parens::after{
+    content:")";
+}
+
+.quoted::before {
+    content:"\"";
+}
+
+.quoted::after{
+    content:"\"";
+}

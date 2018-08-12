@@ -1,5 +1,20 @@
 'use strict';
 
+const PRONOUNS = {
+    he:{
+        name: "He"
+    },
+    she:{
+        name: "She"
+    },
+    they: {
+        name: "They"
+    },
+    ze:{
+        name: "Ze"
+    }
+};
+
 const RACES = {
     Dwarf:{
         name: "Dwarf",
@@ -45,7 +60,7 @@ const RACES = {
             join: "or",
             select: ["smith's tools","brewer's supplies","mason's tools"]
         },
-        languages: ["common","dwarfish"]
+        languages: ["common","dwarvish"]
     },
     MountainDwarf:{
         name: "Mountain Dwarf",
@@ -92,7 +107,7 @@ const RACES = {
             join: "or",
             select: ["smith's tools","brewer's supplies","mason's tools"]
         },
-        languages: ["common","dwarfish"]
+        languages: ["common","dwarvish"]
     },
     HillDwarf:{
         name: "Hill Dwarf",
@@ -142,7 +157,7 @@ const RACES = {
         levelup: {
             hitpoint: 1
         },
-        languages: ["common","dwarfish"]
+        languages: ["common","dwarvish"]
     },
     Elf:{
         name: "Elf",

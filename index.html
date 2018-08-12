@@ -66,10 +66,23 @@
                 <a target="_blank" id="player.email" href="mailto:">Email missing</a>
             </dd>
         </dl>
-        <dl class="stack fullWidth stats">
+        
+        <div class="stack fullWidth characterName">
+            <h2>
+                <span id="character.name.first"></span>
+                <span class="quoted" id="character.name.nickname"></span>
+                <span class="parens" id="character.name.child"></span>
+                <span id="character.name.family"></span>
+            </h2>
+        </div>
+        
+        <dl class="stack fullWidth subdivided stats">
             <div class="grouping">
                 <dt>Race</dt>
-                <dd id="character.race" data-lookup="RACES"></dd>
+                <dd>
+                <span id="character.race" data-lookup="RACES"></span>
+                <span class="parens" id="character.pronoun" data-lookup="PRONOUNS"></span>
+                </dd>
             </div>
             
             <div class="grouping">
@@ -169,7 +182,7 @@
             
         </dl>
 
-        <table class="stack attributes">
+        <table class="stack fullWidth attributes">
             <caption>Your character's Attribute values</caption>
             <thead>
                 <tr>
@@ -185,7 +198,7 @@
                     <th scope="row">Strength</th>
                     <td >
                         <span id="character.attribute.strength"></span>
-                        (<span id="RACE.attribute.strength"></span>)
+                        <span class="parens" id="CALC.attribute.strength.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.strength.total"></td>
                     <td id="CALC.attribute.strength.savingThrow"></td>
@@ -195,7 +208,7 @@
                     <th scope="row">Dexterity</th>
                     <td >
                         <span id="character.attribute.dexterity"></span>
-                        (<span id="RACE.attribute.dexterity"></span>)
+                        <span class="parens"id="CALC.attribute.dexterity.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.dexterity.total"></td>
                     <td id="CALC.attribute.dexterity.savingThrow"></td>
@@ -205,7 +218,7 @@
                     <th scope="row">Constitution</th>
                     <td >
                         <span id="character.attribute.constitution"></span>
-                        (<span id="RACE.attribute.constitution"></span>)
+                        <span class="parens"id="CALC.attribute.constitution.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.constitution.total"></td>
                     <td id="CALC.attribute.constitution.savingThrow"></td>
@@ -215,7 +228,7 @@
                     <th scope="row">Intelligence</th>
                     <td >
                         <span id="character.attribute.intelligence"></span>
-                        (<span id="RACE.attribute.intelligence"></span>)
+                        <span class="parens"id="CALC.attribute.intelligence.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.intelligence.total"></td>
                     <td id="CALC.attribute.intelligence.savingThrow"></td>
@@ -225,7 +238,7 @@
                     <th scope="row">Wisdom</th>
                     <td >
                         <span id="character.attribute.wisdom"></span>
-                        (<span id="RACE.attribute.wisdom"></span>)
+                        <span class="parens"id="CALC.attribute.wisdom.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.wisdom.total"></td>
                     <td id="CALC.attribute.wisdom.savingThrow"></td>
@@ -235,7 +248,7 @@
                     <th scope="row">Charisma</th>
                     <td >
                         <span id="character.attribute.charisma"></span>
-                        (<span id="RACE.attribute.charisma"></span>)
+                        <span class="parens"id="CALC.attribute.charisma.raceModifier"></span>
                     </td>
                     <td id="CALC.attribute.charisma.total"></td>
                     <td id="CALC.attribute.charisma.savingThrow"></td>
@@ -243,7 +256,7 @@
                 </tr>
             </tbody>
         </table>
-        <dl class="stack fullWidth appearance">
+        <dl class="stack fullWidth subdivided appearance">
             <div class="grouping">
             <dt>Age</dt>
             <dd id="character.details.age" ></dd>
