@@ -211,7 +211,9 @@ function setCurrentCharacter(character){
             charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
                 race.attribute.charisma, getSkillsForAttr('charisma', character.character.skills))
         },
-        proficiency: getProficiencies(character, race, backstory, charClass)
+        proficiency: getProficiencies(character, race, backstory, charClass),
+        savingThrows: getSavingThrows(charClass),
+        hitDie: getHitDie(currentCharacter, charClass)
     };
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
@@ -226,9 +228,20 @@ function setCurrentCharacter(character){
      
 }
 
+function getSavingThrows(charClass){
+    let resp = {};
+    appendForSet(resp, charClass.savingThrowProficiency);
+    
+    return Object.keys(resp).sort();
+}                        
+
+function getHitDie(character, charClass){
+    return character.character.class.level+charClass.hitDie;
+}                        
+ 
 function getProficiencies(character, race, backstory, charClass){
     let resp = {};
-    appendForSet(resp, character.proficiency);
+    appendForSet(resp, character.character.proficiency);
     appendForSet(resp, race.proficiency);
     appendForSet(resp, backstory.proficiency);
     appendForSet(resp, charClass.proficiency);
@@ -271,6 +284,7 @@ function getSkillsForAttr(attributeId, skillsArray) {
             cnt++;
         }
     }
+
     return cnt;
 }
                                
