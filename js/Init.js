@@ -191,6 +191,8 @@ function setCurrentCharacter(character){
     updatePhoneNumber();
     
     let race = RACES[currentCharacter.character.race];
+    let charClass = CLASSES[currentCharacter.character.class.type];
+    let backstory = BACKSTORIES[currentCharacter.character.backstory.type];
     
     Object.defineProperty(currentCharacter, "RACE",  {writable: true, configurable: true, enumerable: true, value:race});
 
@@ -208,11 +210,13 @@ function setCurrentCharacter(character){
                 race.attribute.intelligence, getSkillsForAttr('wisdom', character.character.skills)),
             charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
                 race.attribute.charisma, getSkillsForAttr('charisma', character.character.skills))
-        }
+        },
+        proficiency: getProficiencies(character, race, backstory, charClass)
     };
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
     
+    // handles evaluation so make sure all data handling is done at this point
     [].reduce.call(dataholders, (data, dataholder) => {
         if (dataholder && dataholder.childNodes) {
             processDataHolder(dataholder);
@@ -220,6 +224,42 @@ function setCurrentCharacter(character){
         return data;
     }, {}); 
      
+}
+
+function getProficiencies(character, race, backstory, charClass){
+    let resp = {};
+    appendForSet(resp, character.proficiency);
+    appendForSet(resp, race.proficiency);
+    appendForSet(resp, backstory.proficiency);
+    appendForSet(resp, charClass.proficiency);
+    
+    return Object.keys(resp).sort();
+}
+
+function appendForSet(object, dataset) {
+    if (dataset) {
+        switch(typeof dataset){
+            case "object":
+            case "array":
+            case "Array":
+                dataset.forEach( function(ele){
+                    Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
+
+                });
+                break;
+            case "String":
+            case "string":
+                dataset.split("\n").forEach(function(ele){
+                    Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
+
+                });              
+                break;
+            default:
+                // ew...what to do!!!!
+                console.log("Unhandled type: "+typeof dataset);
+
+        }
+    }
 }
 
 function getSkillsForAttr(attributeId, skillsArray) {

@@ -4,8 +4,8 @@ const CLASSES = {
     Barbarian:{
         hitDie: "d12",
         primaryAbility: ["strength"],
-        savingThrowProficiencies: ["strength", "constitution"],
-        proficiencies: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
+        savingThrowProficiency: ["strength", "constitution"],
+        proficiency: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         levelBonus: {
             1: {
             }
@@ -14,8 +14,8 @@ const CLASSES = {
     Bard:{
         hitDie: "d8",
         primaryAbility: ["charisma"],
-        savingThrowProficiencies: ["dexterity", "charisma"],
-        proficiencies: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+        savingThrowProficiency: ["dexterity", "charisma"],
+        proficiency: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
         levelBonus: {
             1: {
             }
@@ -24,8 +24,8 @@ const CLASSES = {
     Cleric:{
         hitDie: "d8",
         primaryAbility: ["wisdom"],
-        savingThrowProficiencies: ["wisdom", "charisma"],
-        proficiencies: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons"],
+        savingThrowProficiency: ["wisdom", "charisma"],
+        proficiency: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons"],
         levelBonus: {
             1: {
             }
@@ -34,8 +34,8 @@ const CLASSES = {
     Druid:{
         hitDie: "d8",
         primaryAbility: ["wisdom"],
-        savingThrowProficiencies: ["wisdom", "intelligence"],
-        proficiencies: ["Light Armor (Non-metal)", "Medium Armor (Non-metal)", "Shields (Non-metal)", "Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars","Sickles", "Slings", "Spears"],
+        savingThrowProficiency: ["wisdom", "intelligence"],
+        proficiency: ["Light Armor (Non-metal)", "Medium Armor (Non-metal)", "Shields (Non-metal)", "Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars","Sickles", "Slings", "Spears"],
         levelBonus: {
             1: {
             }
@@ -45,8 +45,8 @@ const CLASSES = {
         hitDie: "d10",
         primaryAbilityJoin: "or",
         primaryAbility: ["strength", "dexterity"],
-        savingThrowProficiencies: ["strength", "constitution"],
-        proficiencies: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
+        savingThrowProficiency: ["strength", "constitution"],
+        proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         levelBonus: {
             1: {
             }
@@ -56,8 +56,8 @@ const CLASSES = {
         hitDie: "d8",
         primaryAbilityJoin: "and",
         primaryAbility: ["dexterity", "wisdom"],
-        savingThrowProficiencies: ["dexterity", "strength"],
-        proficiencies: ["Simple Weapons", "Shortswords"],
+        savingThrowProficiency: ["dexterity", "strength"],
+        proficiency: ["Simple Weapons", "Shortswords"],
         levelBonus: {
             1: {
             }
@@ -67,8 +67,8 @@ const CLASSES = {
         hitDie: "d10",
         primaryAbilityJoin: "and",
         primaryAbility: ["strength","charisma"],
-        savingThrowProficiencies: ["wisdom", "charisma"],
-        proficiencies: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
+        savingThrowProficiency: ["wisdom", "charisma"],
+        proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         levelBonus: {
             1: {
             }
@@ -78,8 +78,8 @@ const CLASSES = {
         hitDie: "d10",
         primaryAbilityJoin: "and",
         primaryAbility: ["dexterity", "wisdom"],
-        savingThrowProficiencies: ["dexterity", "strength"],
-        proficiencies: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
+        savingThrowProficiency: ["dexterity", "strength"],
+        proficiency: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         levelBonus: {
             1: {
             }
@@ -88,8 +88,8 @@ const CLASSES = {
     Rogue:{
         hitDie: "d8",
         primaryAbility: ["dexterity"],
-        savingThrowProficiencies: ["dexterity", "intelligence"],
-        proficiencies: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+        savingThrowProficiency: ["dexterity", "intelligence"],
+        proficiency: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
         levelBonus: {
             1: {
             }
@@ -98,8 +98,8 @@ const CLASSES = {
     Sorcerer:{
         hitDie: "d6",
         primaryAbility: ["charisma"],
-        savingThrowProficiencies: ["constitution", "charisma"],
-        proficiencies: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+        savingThrowProficiency: ["constitution", "charisma"],
+        proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
         levelBonus: {
             1: {
             }
@@ -108,8 +108,8 @@ const CLASSES = {
     Warlock:{
         hitDie: "d8",
         primaryAbility: ["charisma"],
-        savingThrowProficiencies: ["wisdom", "charisma"],
-        proficiencies: ["Light Armor", "Simple Weapons"],
+        savingThrowProficiency: ["wisdom", "charisma"],
+        proficiency: ["Light Armor", "Simple Weapons"],
         levelBonus: {
             1: {
             }
@@ -118,8 +118,8 @@ const CLASSES = {
     Wizard:{
         hitDie: "d6",
         primaryAbility: ["intelligence"],
-        savingThrowProficiencies: ["wisdom", "intelligence"],
-        proficiencies: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+        savingThrowProficiency: ["wisdom", "intelligence"],
+        proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
         levelBonus: {
             1: {
             }

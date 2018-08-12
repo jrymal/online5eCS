@@ -55,10 +55,10 @@ const RACES = {
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
             "Resistance to poison","Intelligence(history) checks on stone cutting are considered proficient"],
-        proficiency:["battleaxe","handaxe","throwing hammer","warhammer"],
+        proficiency:["Battleaxe","Handaxe","Throwing Hammer","Warhammer"],
         proficiency_choice:{
             join: "or",
-            select: ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["Smith's Tools","Brewer's Supplies","Mason's Tools"]
         },
         languages: ["common","dwarvish"]
     },
@@ -102,10 +102,10 @@ const RACES = {
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
             "Resistance to poison","Intelligence(history) checks on stone cutting are considered proficient"],
-        proficiency:["battleaxe","handaxe","throwing hammer","warhammer","light armor","medium armor"],
+        proficiency:["Battleaxe","Handaxe","Throwing Hammer","Warhammer","Light Armor","Medium Armor"],
         proficiency_choice:{
             join: "or",
-            select: ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["Smith's Tools","Brewer's Supplies","Mason's Tools"]
         },
         languages: ["common","dwarvish"]
     },
@@ -149,10 +149,10 @@ const RACES = {
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
             "Resistance to poison","Intelligence(history) checks on stone cutting are considered proficient"],
-        proficiency:["battleaxe","handaxe","throwing hammer","warhammer"],
+        proficiency:["Battleaxe","Handaxe","Throwing Hammer","Warhammer"],
         proficiency_choice:{
             join: "or",
-            select: ["smith's tools","brewer's supplies","mason's tools"]
+            select: ["Smith's Tools","Brewer's Supplies","Mason's Tools"]
         },
         levelup: {
             hitpoint: 1
@@ -766,7 +766,7 @@ const RACES = {
             simple: "small"
         },
         speed: 25,
-        proficiency:["tinker's tools"],
+        proficiency:["Tinker's Tools"],
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic",
             "Int (History) checks on magical/alchemical/technological gets 2x the proficiency",
             "Tinker: Create a AC 5 HP 1 device which lives for 24 hr unless maintained Types: Clockwork, Fire starter, Music box"],
