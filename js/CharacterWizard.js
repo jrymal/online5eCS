@@ -328,17 +328,5 @@ function generateDataToJSON() {
     }, {});
 }
 
-function insertAtNode(jsonPath, searchObj, insertObj) {
-    let pathItems = jsonPath.split('.');
-    let objItem = searchObj;
-    for(let i = 0; i < pathItems.length; i++) {
-        let lastNode = i == (pathItems.length - 1);
-        if (!Object.keys(objItem).includes(pathItems[i])) {
-            Object.defineProperty(objItem, pathItems[i],  {writable: true, configurable: true, enumerable: true, value:lastNode ? insertObj :{}});
-        }else if (lastNode){
-            Object.defineProperty(objItem, pathItems[i], {writable: true, configurable: true,value:insertObj});
-        }
-        objItem = objItem[pathItems[i]];
-    }
-}
+
  

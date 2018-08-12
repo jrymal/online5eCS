@@ -39,6 +39,10 @@ const BELL={
     }          
 }
 
+function getMax(die, count = 1) {
+    return count * die.max;
+}
+
 function rollDie(die, count = 1) {
     let result = [];
     for(let i = 0; i < count; i++) {

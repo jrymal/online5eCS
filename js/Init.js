@@ -17,7 +17,24 @@ function findNode(jsonPath, searchObj) {
     }
     return objItem;
 }
- 
+
+function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
+    if (findNode(jsonPath, searchObj) && !overwrite) {
+        return;
+    }
+    let pathItems = jsonPath.split('.');
+    let objItem = searchObj;
+    for(let i = 0; i < pathItems.length; i++) {
+        let lastNode = i == (pathItems.length - 1);
+        if (!Object.keys(objItem).includes(pathItems[i])) {
+            Object.defineProperty(objItem, pathItems[i],  {writable: true, configurable: true, enumerable: true, value:lastNode ? insertObj :{}});
+        }else if (lastNode){
+            Object.defineProperty(objItem, pathItems[i], {writable: true, configurable: true,value:insertObj});
+        }
+        objItem = objItem[pathItems[i]];
+    }
+}
+
 function $(id, prefix = '') {
     return document.getElementById(isBlank(prefix) ? id : prefix+'.'+id);
 }
@@ -180,19 +197,21 @@ let currentCharacter;
 function setCurrentCharacter(character){
     clearAllFields();
     
+    let race = RACES[character.character.race];
+    let charClass = CLASSES[character.character.class.type];
+    let backstory = BACKSTORIES[character.character.backstory.type];
+    
+    insertAtNode("character.experience", character, "0", false);
+    insertAtNode("character.hitPoints.max", character, getMax(DICE[charClass.hitDie]), false);
+    insertAtNode("character.hitPoints.current", character, getMax(DICE[charClass.hitDie]), false);
+    insertAtNode("character.inspiration", character, false, false);
+    
     currentCharacter = character;
-    
-    let dataholders = document.getElementsByClassName("stack");
 
-    
     window.history.pushState(cleanseForSave(currentCharacter), "",
         generateNameHash(window.location.hash));
     updateEmail();
     updatePhoneNumber();
-    
-    let race = RACES[currentCharacter.character.race];
-    let charClass = CLASSES[currentCharacter.character.class.type];
-    let backstory = BACKSTORIES[currentCharacter.character.backstory.type];
     
     Object.defineProperty(currentCharacter, "RACE",  {writable: true, configurable: true, enumerable: true, value:race});
 
@@ -218,6 +237,8 @@ function setCurrentCharacter(character){
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
     
+    let dataholders = document.getElementsByClassName("stack");
+
     // handles evaluation so make sure all data handling is done at this point
     [].reduce.call(dataholders, (data, dataholder) => {
         if (dataholder && dataholder.childNodes) {
@@ -346,10 +367,16 @@ function processDataHolder(dataholder){
                 node = nodeValue ? nodeValue : node;
             }
 
-            element.innerHTML = node ? node : "";
-        
-            if (element.tagName != "TD"){ 
-                show(element, element.innerHTML != "");
+            if (isCheckbox(element)) {
+                element.checked = node;
+            } else if (element.tagName == "INPUT"){
+                element.value = node;
+            } else {
+                element.innerHTML =  typeof node === "undefined" ||  node === null ? "" : node;
+            
+                if (element.tagName != "TD"){ 
+                    show(element, element.innerHTML != "");
+                }
             }
         }
 
