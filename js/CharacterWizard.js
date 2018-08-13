@@ -50,13 +50,13 @@ function prepopulateValues(form){
         case 'createCharacter.skills': {
             let race = RACES[$('createCharacter.character.race').value];
             let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
-            chooseSkills(race, backstory);
+            chooseCheckbox("createCharacter.skills.legend", "skills.", "skills", race, backstory);
         }
             break; 
         case 'createCharacter.language': {
             let race = RACES[$('createCharacter.character.race').value];
             let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
-            chooseLanguages(race, backstory);
+            chooseCheckbox("createCharacter.language.legend", "languages.", "languages", race, backstory);
         }
             break; 
     }    
@@ -127,34 +127,28 @@ function chooseWeight(race) {
     return chooseWeightedRange(BELL, weight);
 }
 
-function chooseSkills(race, backstory){
-    let i;
-    for(i=0; i<length(race.skills);i++){
-        let skillName = race.proficiency_skill[i];
-        $("skills."+skillName).checked = true;
-    }
-    for(i=0; i<length(backstory.skills);i++){
-        let skillName = backstory.skills[i];
-        $("skills."+skillName).checked = true;
-    }
+function chooseCheckbox(legendId, idPrefix, attribute, race, backstory){
+    let unusedSlots = 0;
+    unusedSlots += checkCheckboxes(idPrefix, race[attribute]);
+    unusedSlots += checkCheckboxes(idPrefix, backstory[attribute]);
+    
+    let legend = $(legendId);
+    legend.innerHTML = "choose "+unusedSlots+" more";
+    setDataAttribute(legend, "rulemax", unusedSlots);
 }
 
-function chooseLanguages(race, backstory){
+function checkCheckboxes(idPrefix, list){
     let i;
-    for(i=0; i<length(race.languages);i++){
-        let skillName = race.languages[i];
-        if (skillName == "ANY"){}
-        else {
-            $("languages."+skillName).checked = true;
+    let unusedSlots = 0;
+    for(i=0; i<length(list);i++){
+        let checkName = list[i];
+        if (checkName == "ANY"){
+            unusedSlots++; 
+        } else {
+            $(idPrefix+checkName).checked = true;
         }
     }
-    for(i=0; i<length(backstory.language);i++){
-        let skillName = backstory.language[i];
-        if (skillName == "ANY"){}
-        else {
-            $("languages."+skillName).checked = true;
-        }
-    }
+    return unusedSlots;
 }
 
 function nextPrev(n) {

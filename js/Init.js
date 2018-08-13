@@ -340,6 +340,14 @@ function getDataAttribute(element, dataName){
      return element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                             
 }
 
+function setDataAttribute(element, dataName, value){
+     if (element.dataset){
+         element.dataset[dataName] = value;
+     } else {
+         element.setAttribute("data-"+dataName, value);
+     }
+}
+ 
 function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];

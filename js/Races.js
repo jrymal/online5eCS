@@ -202,7 +202,7 @@ const RACES = {
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)"],
-        skills:["Perception"],
+        skills:["perception"],
         languages: ["common","elvish"]
     },
     HighElf:{
@@ -249,7 +249,7 @@ const RACES = {
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)"],
-        skills:["Perception"],
+        skills:["perception"],
         proficiency:["Longsword","Shortsword","Shortbow","Longbow"],
         languages: ["common","elvish","ANY"],
         level: {
@@ -302,7 +302,7 @@ const RACES = {
         speed: 35,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)","Mask of the wild (attempt to hide in natural phenomena)"],
-        skills:["Perception"],
+        skills:["perception"],
         proficiency:["Longsword","Shortsword","Shortbow","Longbow"],
         languages: ["common","elvish"]
     },
@@ -350,7 +350,7 @@ const RACES = {
         speed: 30,
         features:["Darkvision (120ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)","Sunlight Sensitivity"],
-        skills:["Perception"],
+        skills:["perception"],
         proficiency:["Rapier","Shortsword","iHandcrossbows"],
         languages: ["common","elvish"],
         level: {
@@ -844,7 +844,7 @@ const RACES = {
         features:["Darkvision (60 ft)",
             "Advantage on saving throws against being charmed and magic",
             "Magic cannot put you to sleep"],
-        skills:["any","any"],
+        skills:["ANY","ANY"],
         languages: ["common","elvish","ANY"]
     },
     HalfOrc:{
