@@ -56,7 +56,7 @@ function prepopulateValues(form){
         case 'createCharacter.language': {
             let race = RACES[$('createCharacter.character.race').value];
             let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
-            chooseCheckbox("createCharacter.language.legend", "languages.", "languages", race, backstory);
+            chooseCheckbox("createCharacter.languages.legend", "languages.", "languages", race, backstory);
         }
             break; 
     }    
@@ -132,8 +132,8 @@ function chooseCheckbox(legendId, idPrefix, attribute, race, backstory){
     unusedSlots += checkCheckboxes(idPrefix, race[attribute]);
     unusedSlots += checkCheckboxes(idPrefix, backstory[attribute]);
     
-    let legend = $(legendId);
-    legend.innerHTML = "choose "+unusedSlots+" more";
+    var legend = $(legendId);
+    legend.innerHTML = unusedSlots;
     setDataAttribute(legend, "rulemax", unusedSlots);
 }
 
@@ -286,6 +286,17 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
         opt.type = "checkbox";
         opt.name = "character."+typeName;
         opt.id =idValue;
+        opt.onclick = function(evt) {
+            let legendEle = $("createCharacter."+typeName+".legend");
+            let curCount = getDataAttribute(legendEle, "rulemax");
+            if (evt.currentTarget.checked){
+                curCount--;
+            } else {
+                curCount++;
+            }
+            legendEle.innerHTML = curCount;
+            setDataAttribute(legendEle, "rulemax", curCount);
+        };
 
         fragment.appendChild(lbl);
         fragment.appendChild(opt);
