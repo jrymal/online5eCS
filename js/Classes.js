@@ -1,5 +1,26 @@
 'use strict';
 
+const SAVING_THROWS= {
+    strength : {
+        name: "Strength"
+    },
+    dexterity : {
+        name: "Dexterity"
+    },
+    intelligence : {
+        name: "Intelligence"
+    },
+    wisdom : {
+        name : "Wisdom"
+    },
+    charisma : {
+        name: "Charisma"
+    },
+    constitution : {
+        name : "Constitution"
+    }
+};
+
 const CLASSES = {
     Barbarian:{
         hitDie: "d12",

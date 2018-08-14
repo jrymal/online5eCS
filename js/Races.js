@@ -50,7 +50,7 @@ const RACES = {
                 max: 5
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
@@ -97,7 +97,7 @@ const RACES = {
                 max: 5
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
@@ -144,7 +144,7 @@ const RACES = {
                 max: 5
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 25,
         features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
@@ -197,7 +197,7 @@ const RACES = {
                 max: 6
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
@@ -244,7 +244,7 @@ const RACES = {
                 max: 6
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
@@ -297,7 +297,7 @@ const RACES = {
                 max: 6
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 35,
         features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
@@ -345,7 +345,7 @@ const RACES = {
                 max: 6
             },
             weight: 150,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (120ft)","Advantage on saving throws on being charmed",
@@ -397,7 +397,7 @@ const RACES = {
                 max: 3
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
         features:["Reroll a 1 for attack, ability check, or saving throw",
@@ -436,7 +436,7 @@ const RACES = {
                 max: 3
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
         features:["Reroll a 1 for attack, ability check, or saving throw",
@@ -475,7 +475,7 @@ const RACES = {
                 max: 3
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
         features:["Reroll a 1 for attack, ability check, or saving throw",
@@ -538,7 +538,7 @@ const RACES = {
                 max: 6
             },
             weight: 170,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         languages: ["common","ANY"]
@@ -578,7 +578,7 @@ const RACES = {
                 max: 6
             },
             weight: 250,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         heritage: {
@@ -676,7 +676,7 @@ const RACES = {
                 max: 4
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic"],
@@ -717,10 +717,10 @@ const RACES = {
                 max: 4
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
-        features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic","Can communicate simple ideas to small animals/beasts"],
+        features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic","Can communicate simple ideas to Small animals/beasts"],
         level: {
             1 : {
                 spell: ["minor illusion"]
@@ -763,7 +763,7 @@ const RACES = {
                 max: 4
             },
             weight: 40,
-            simple: "small"
+            simple: "Small"
         },
         speed: 25,
         proficiency:["Tinker's Tools"],
@@ -838,7 +838,7 @@ const RACES = {
                 max: 6
             },
             weight: 170,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (60 ft)",
@@ -873,7 +873,7 @@ const RACES = {
                 max: 6
             },
             weight: 220,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (60 ft)",
@@ -913,7 +913,7 @@ const RACES = {
                 max: 6
             },
             weight: 170,
-            simple: "medium"
+            simple: "Medium"
         },
         speed: 30,
         features:["Darkvision (60 ft)",
