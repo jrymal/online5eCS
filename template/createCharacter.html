@@ -45,20 +45,34 @@
            <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
        </form>
 
-       <form class="wizardScreen">
-           <ol id="createCharacter.character.multiclass" class="hidden"></ol>
+       <form class="wizardScreen" id="createCharacter.class">
+           <div class="toThaLeft">
+               <label for="createCharacter.character.class.type">Class</label>
+               <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
 
-           <label for="createCharacter.character.class.type">Class</label>
-           <select id="createCharacter.character.class.type" name="character.class.type" data-lookup="CLASSES"></select>
+               <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
+               <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
 
-           <label for="createCharacter.character.class.primaryAbility" class="hidden">Primary Ability</label>
-           <select id="createCharacter.character.class.primaryAbility" name="character.class.primaryAbility" class="hidden"></select>
-
-           <label for="createCharacter.character.level">Level</label>
-           <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" name="character.class.level" min="1" max="40" required value="1"/>
-       
-           <button type="button">Add another Class</button>
-           <button type="button">Scrap the current class</button>
+               <label for="createCharacter.character.level">Level</label>
+               <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" name="character.class.level" min="1" max="40" required value="1"/>
+           
+               <button type="button" class="hidden multiclass" onClick="addClass()">Add Class</button>
+               <button type="button" id="multiClassEnable" onClick="toggleMultiClass()">Enable Multiclass</button>
+           </div>
+           <div class="toThaLeft multiclass hidden">
+               <table>
+                   <caption>Classes choosen</caption>
+                   <thead>
+                       <tr>
+                           <th>Class</th>
+                           <th>Level</th>
+                           <th>Remove</th>
+                       </tr>
+                   </thead>
+                   <tbody id="createCharacter.character.class.tbody" name="character.class">
+                   </tbody> 
+               </table>
+           </div>
        </form>
        
        <form class="wizardScreen" id="createCharacter.attr">

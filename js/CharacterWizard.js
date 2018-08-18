@@ -21,6 +21,56 @@ function showWizardTab(n) {
     prepopulateValues(x[n]);
 }
 
+function addClass() {
+    
+    var selectedEle = $("createCharacter.character.class.type");
+    var levelEle = $("createCharacter.character.level");
+    var tableEle = $("createCharacter.character.class.tbody");
+    var className = selectedEle.value;
+    var selIdx = selectedEle.selectedIndex;
+
+    tableEle.innerHTML += '<tr id="createCharacter.character.class.tableele.'+className+'">'
+        +"<th>"+className+"</th>"
+        +"<td>"+levelEle.value+"</td>"
+        +'<td><button type="button" onClick="removeClass(\''+className+'\')">remove</button></td>'
+        +"</tr>";              
+
+    selectedEle.remove(selIdx);
+}
+
+function removeClass(className) {
+    var tableEle = $("createCharacter.character.class.tableele."+className);
+    var selectedEle = $("createCharacter.character.class.type");
+    var selIdx = selectedEle.selectedIndex;
+    
+    var i;
+    for(i = 0; i < selectedEle.options.length; i++){
+        var compVal = className.localeCompare( selectedEle.options[i].innerHTML);
+        if (compVal < 0) {
+            break;
+        }
+    }
+        
+    let opt = document.createElement('option');
+    opt.innerHTML = className;
+    opt.value = className;
+         
+    selectedEle.add(opt, i);
+    tableEle.parentNode.removeChild(tableEle);
+}
+
+function toggleMultiClass(){
+    var multiNodes = document.getElementsByClassName("multiclass");
+    [].reduce.call(multiNodes, (data, node) => {
+        toggle(node);
+        return data;
+    },{});
+    
+    $("multiClassEnable").innerHTML = isVisible(multiNodes[0])
+    ? "Disable Multiclass"
+    : "Enable Multiclass";
+}
+
 function prepopulateValues(form){
     switch(form.id) {
         case 'createCharacter.player':

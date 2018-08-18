@@ -104,6 +104,11 @@ li, dd {
     color: var(--color-error-fgnd);
 }
 
+.toThaLeft {
+    float: left;
+    width: 50%;
+}
+
 /*** MODAL LAYOUT ***/
 .modal.overlay{
     position: fixed; /* Stay in place */
