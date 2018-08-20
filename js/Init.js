@@ -418,8 +418,9 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     };
 }
 
-function getDataAttribute(element, dataName){
-     return element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                             
+function getDataAttribute(element, dataName, defaultValue){
+     let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
+    return (value === null || typeof value === undefined) ? defaultValue : value;
 }
 
 function setDataAttribute(element, dataName, value){
@@ -466,10 +467,11 @@ function processDataHolder(dataholder){
                     element.value = node;
                 } else {
                     element.innerHTML =  ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
-                
-                    if (element.tagName != "TD"){ 
-                        show(element, element.innerHTML != "");
-                    }
+                    
+                    show(element, 
+                        !(getDataAttribute(element, 'show-0', "true") == "false"  
+                            && element.innerHTML == "0") 
+                        && element.innerHTML != "");
                 }
             }
         }
