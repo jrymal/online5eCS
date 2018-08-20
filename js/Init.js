@@ -10,10 +10,19 @@ function findNode(jsonPath, searchObj) {
     let pathItems = jsonPath.split('.');
     let objItem = searchObj;
     for(let i = 0; i < pathItems.length; i++) {
-        if (!objItem[pathItems[i]]) {
+        let pathItem = pathItems[i];
+        let brakIdx = pathItem.indexOf("[");
+        let isArray = brakIdx > -1;
+        pathItem = isArray ? pathItems[i].substr(0,brakIdx) : pathItems[i];
+        
+        if (isArray) {
+            // does not support arrays currently
+            return null;
+        } else if (!objItem[pathItem]){
+            // does not exist
             return null;
         }
-        objItem = objItem[pathItems[i]];
+        objItem = objItem[pathItem];
     }
     return objItem;
 }
@@ -25,13 +34,47 @@ function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
     let pathItems = jsonPath.split('.');
     let objItem = searchObj;
     for(let i = 0; i < pathItems.length; i++) {
+        let pathItem = pathItems[i];
+        let brakIdx = pathItem.indexOf("[]");
+        let isArray = brakIdx > -1;
         let lastNode = i == (pathItems.length - 1);
-        if (!Object.keys(objItem).includes(pathItems[i])) {
-            Object.defineProperty(objItem, pathItems[i],  {writable: true, configurable: true, enumerable: true, value:lastNode ? insertObj :{}});
+        pathItem = isArray ? pathItems[i].substr(0,brakIdx) : pathItems[i];
+
+        if (!Object.keys(objItem).includes(pathItem)) {
+            Object.defineProperty(objItem, pathItem,  {
+                writable: true, 
+                configurable: true, 
+                enumerable: true, 
+                value:lastNode ? insertObj : isArray ? [] : {}
+            });
         }else if (lastNode){
-            Object.defineProperty(objItem, pathItems[i], {writable: true, configurable: true,value:insertObj});
+            Object.defineProperty(objItem, pathItem, {
+                writable: true, 
+                configurable: true,
+                value:insertObj
+            });
         }
-        objItem = objItem[pathItems[i]];
+        
+        objItem = objItem[pathItem];
+        if (isArray){
+            let foundMissingIdx = false;
+            let j = 0;
+            if (!lastNode){
+                let nextPathItem = pathItems[i+1];
+                for(j = 0; j < objItem.length; j++) {
+                    if (!objItem[j][nextPathItem]){
+                        foundMissingIdx = true;
+                        break;
+                    }
+                }
+            }
+            if (!foundMissingIdx){
+                // returns length
+                j = objItem.push({}) - 1;
+            }
+
+            objItem = objItem[j];
+        }
     }
 }
 
@@ -70,7 +113,7 @@ function stripFirst(matchChar, string){
 }
 
 function isValidElement(element){
-  return element.id && element.value && !(element.readOnly);
+  return element.value && isVisible(element);
 };
 
 function isValidValue(element){
@@ -92,6 +135,7 @@ function getSelectValues(options) {
 }
 
 function clearAllFields() {
+    // unclear if this is doing what it needs to
   let dataholders = document.getElementsByClassName("stack");
 
   // Retrieves input data from a form and returns it as a JSON object.
@@ -103,7 +147,7 @@ function clearAllFields() {
           let element = dataholder.elements[i];
           let name = element.name;
 
-          if (isValidElement(element) && isValidValue(element)) {
+          if (element.id && isValidValue(element)) {
               if (isCheckbox(element)) {
                   element.checked = false;
               } else if (isMultiSelect(element)) {
@@ -193,18 +237,28 @@ function startWizard() {
     });
 }
 
+function getMaxHitPoints(classList) {
+    let hits=0;
+    for (let i = 0; i < classList.length; i++){
+        let charClass = CLASSES[classList[i].class];
+        hits += classList[i].level * getMax(DICE[charClass.hitDie]);
+    }
+    return hits;
+}
+
 let currentCharacter;
 function setCurrentCharacter(character){
     clearAllFields();
     
     let race = RACES[character.character.race];
-    let charClass = CLASSES[character.character.class.type];
     let backstory = BACKSTORIES[character.character.backstory.type];
     
     insertAtNode("character.experience", character, "0", false);
-    insertAtNode("character.hitPoints.max", character, getMax(DICE[charClass.hitDie]), false);
-    insertAtNode("character.hitPoints.current", character, getMax(DICE[charClass.hitDie]), false);
     insertAtNode("character.inspiration", character, false, false);
+    
+    let maxHitPoints = getMaxHitPoints(character.character.class);
+    insertAtNode("character.hitPoints.max", character, maxHitPoints, false);
+    insertAtNode("character.hitPoints.current", character, maxHitPoints, false);
     
     currentCharacter = character;
 
@@ -230,9 +284,9 @@ function setCurrentCharacter(character){
             charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
                 race.attribute.charisma, getSkillsForAttr('charisma', character.character.skills))
         },
-        proficiency: getProficiencies(character, race, backstory, charClass),
-        savingThrows: getSavingThrows(charClass),
-        hitDie: getHitDie(currentCharacter, charClass)
+        proficiency: getProficiencies(character, race, backstory, character.character.class),
+        savingThrows: getSavingThrows(character.character.class),
+        features: getClassFeatures(character.character.class)
     };
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
@@ -249,24 +303,51 @@ function setCurrentCharacter(character){
      
 }
 
-function getSavingThrows(charClass){
+function getSavingThrows(classList){
     let resp = {};
-    appendForSet(resp, charClass.savingThrowProficiency);
+
+    for (let i = 0; i < classList.length; i++){
+        let classN = classList[i].class;
+        let charClass = CLASSES[classN];
+        appendForSet(resp, charClass.savingThrowProficiency);
+    }
     
     return Object.keys(resp).sort();
 }                        
 
-function getHitDie(character, charClass){
-    return character.character.class.level+charClass.hitDie;
-}                        
+function getHitDie(classList){
+    let maxDie = 0;
+    for (let i = 0; i < classList.length; i++){
+        let classN = classList[i].class;
+        let charClass = CLASSES[classN];
+        maxDie = Math.max(maxDie, getMax(DICE[charClass.hitDie]));
+    }
+    return 'd'+maxDie;
+}        
+
+function getClassFeatures(classList){
+    let resp = {};
+    for (let i = 0; i < classList.length; i++){
+        let classN = classList[i].class;
+        let charClass = CLASSES[classN];
+        appendForSet(resp, charClass.features);
+    }
+
+    return Object.keys(resp).sort(); 
+}
  
-function getProficiencies(character, race, backstory, charClass){
+function getProficiencies(character, race, backstory, classList){
     let resp = {};
     appendForSet(resp, character.character.proficiency);
     appendForSet(resp, race.proficiency);
     appendForSet(resp, backstory.proficiency);
-    appendForSet(resp, charClass.proficiency);
     
+    for (let i = 0; i < classList.length; i++){
+        let classN = classList[i].class;
+        let charClass = CLASSES[classN];
+        appendForSet(resp, charClass.proficiency);
+    }
+
     return Object.keys(resp).sort();
 }
 
@@ -356,34 +437,38 @@ function processDataHolder(dataholder){
             let lookup = getDataAttribute(element, "lookup");
 
             let node = findNode(element.id, currentCharacter);
-            if (Array.isArray(node)){
-                let value = "<ul>";
-                for(let i = 0; i < node.length; i++){
-                    value += "<li>";
-    
-                    if (lookup) {
-                        value += performLookup(lookup, node[i]);
-                    } else {
-                        value += node[i];
+            if (!secialHandler(element.id, element, node)){
+                // alter to handle the values
+                if (Array.isArray(node)){
+                    let value = "<ul>";
+                    for(let i = 0; i < node.length; i++){
+                        value += "<li>";
+        
+                        if (lookup) {
+                            value += performLookup(lookup, node[i]);
+                        } else {
+                            value += node[i];
+                        }
+                        value += "</li>";
                     }
-                    value += "</li>";
+                    value += "</ul>";
+                    node = value;
+                } else if (lookup && node) {
+                    let nodeValue =  performLookup(lookup, node);
+                    node = nodeValue ? nodeValue : node;
                 }
-                value += "</ul>";
-                node = value;
-            } else if (lookup && node) {
-                let nodeValue =  performLookup(lookup, node);
-                node = nodeValue ? nodeValue : node;
-            }
-
-            if (isCheckbox(element)) {
-                element.checked = node;
-            } else if (element.tagName == "INPUT"){
-                element.value = node;
-            } else {
-                element.innerHTML =  typeof node === "undefined" ||  node === null ? "" : node;
-            
-                if (element.tagName != "TD"){ 
-                    show(element, element.innerHTML != "");
+                
+                // process values into understood units
+                if (isCheckbox(element)) {
+                    element.checked = node;
+                } else if (element.tagName == "INPUT"){
+                    element.value = node;
+                } else {
+                    element.innerHTML =  typeof node === "undefined" ||  node === null ? "" : node;
+                
+                    if (element.tagName != "TD"){ 
+                        show(element, element.innerHTML != "");
+                    }
                 }
             }
         }
@@ -392,6 +477,24 @@ function processDataHolder(dataholder){
             processDataHolder(element);
         }
     } 
+}
+
+function secialHandler(id, element, node){
+    switch(id){
+        case 'character.class':
+            element.innerHTML = '';
+            for( let i = 0; i < node.length; i++){
+                let classObj = CLASSES[node[i].class];
+                element.innerHTML += '<tr>'
+                    +'<th scope="row">'+node[i].class+'</th>'
+                    +'<td>'+node[i].level+'</td>'
+                    +'<td>'+classObj.hitDie+'</td>'
+                    +'</tr>';
+            }
+            return true;
+            break;
+    }
+    return false;
 }
 
 function performLookup(lookup, node){

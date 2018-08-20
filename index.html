@@ -103,7 +103,17 @@
             <div class="grouping">
             <dt>Class</dt>
             <dd>
-            <span id="character.class.type" data-lookup="CLASSES"></span> - Level <span id="character.class.level"></span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Class</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Hit Die</th>
+                        </tr>
+                    </thead>
+                    <tbody id="character.class">
+                    </tbody>
+                </table>
             </dd>
             </div>
            
@@ -112,11 +122,6 @@
             <dd id="character.experience" ></dd>
             </div>
 
-            <div class="grouping">
-            <dt>Hit Die</dt>
-            <dd id="CALC.hitDie"></dd>
-            </div>
-            
             <div class="grouping">
             <dt>Max Hit Points</dt>
             <dd id="character.hitPoints.max"></dd>
@@ -164,7 +169,7 @@
             
             <div class="grouping">
             <dt>Class Features</dt>
-            <dd id="character.features"></dd>
+            <dd id="CALC.features"></dd>
             </div>
             
             <div class="grouping">

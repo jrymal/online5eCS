@@ -12,7 +12,7 @@ function showWizardTab(n) {
     selectFirstInput(x[n]);
 
     // ... and fix the Previous/Next buttons:
-    document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
+    document.getElementById("prevBtn").disabled = n == 0;
     document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Submit" : "Next";
     
     // ... and run a function that displays the correct step indicator:
@@ -30,8 +30,8 @@ function addClass() {
     var selIdx = selectedEle.selectedIndex;
 
     tableEle.innerHTML += '<tr id="createCharacter.character.class.tableele.'+className+'">'
-        +"<th>"+className+"</th>"
-        +"<td>"+levelEle.value+"</td>"
+        +"<th>"+className+'<input type="hidden" name="character.class[].class" value="'+className+'"/></th>'
+        +"<td>"+levelEle.value+'<input type="hidden" name="character.class[].level" value="'+levelEle.value+'"/></td>'
         +'<td><button type="button" onClick="removeClass(\''+className+'\')">remove</button></td>'
         +"</tr>";              
 
@@ -71,6 +71,16 @@ function toggleMultiClass(){
     : "Enable Multiclass";
 }
 
+function postProcessStep(form){
+    switch(form.id) {
+        case 'createCharacter.class':
+            if ($('createCharacter.character.class.tbody').childElementCount == 0){
+                addClass();
+            }
+            break;
+    }
+}
+
 function prepopulateValues(form){
     switch(form.id) {
         case 'createCharacter.player':
@@ -108,6 +118,13 @@ function prepopulateValues(form){
             let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
             chooseCheckbox("createCharacter.languages.legend", "languages.", "languages", race, backstory);
         }
+            break;
+         case 'createCharacter.class':
+            let table = $('createCharacter.character.class.tbody');
+            if (table.childElementCount == 1 
+                && !isVisible(document.getElementsByClassName("multiclass")[0])){
+                table.innerHTML = "";
+            }
             break; 
     }    
 }
@@ -204,6 +221,7 @@ function checkCheckboxes(idPrefix, list){
 function nextPrev(n) {
     // This function will figure out which tab to display
     let x = document.getElementsByClassName("wizardScreen");
+    
     // Exit the function if any field in the current tab is invalid:
     if (n == 1 && !validateForm()){
         return false;
@@ -234,6 +252,7 @@ function validateForm() {
 
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
+        postProcessStep(currentForm);
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
     return valid; // return the valid status
@@ -366,8 +385,7 @@ function generateDataToJSON() {
 
             if (name === "") {
                 continue;
-            }
-            if (isValidElement(element) && isValidValue(element)) {
+            } else if (isValidElement(element) && isValidValue(element)) {
                 let dataObj; 
                 if (isCheckbox(element)) {
                     dataObj = (findNode(name, data) || []).concat(element.value);
