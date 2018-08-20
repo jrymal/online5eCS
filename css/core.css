@@ -50,6 +50,7 @@ table {
 
 table td,
 th {
+    text-align: center;
     border: .1em solid;
     border: .1em solid var(--color-primary-border);
 }

@@ -18,7 +18,8 @@ function findNode(jsonPath, searchObj) {
         if (isArray) {
             // does not support arrays currently
             return null;
-        } else if (!objItem[pathItem]){
+        
+        } else if ((typeof objItem[pathItem] === "undefined") ||  (objItem[pathItem] === NaN)){
             // does not exist
             return null;
         }
@@ -464,7 +465,7 @@ function processDataHolder(dataholder){
                 } else if (element.tagName == "INPUT"){
                     element.value = node;
                 } else {
-                    element.innerHTML =  typeof node === "undefined" ||  node === null ? "" : node;
+                    element.innerHTML =  ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
                 
                     if (element.tagName != "TD"){ 
                         show(element, element.innerHTML != "");
