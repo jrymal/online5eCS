@@ -224,29 +224,29 @@ input[required]::after{
     display: flex;
 }
 
-.topContainer .stack.playerInfo{
+.topContainer .playerInfo{
     order: 3;
     flex: 1 1 33.3%;
     text-align: right;
 }
 
-.topContainer .stack.characterName{
+.topContainer .characterName{
     order: 4;
 }
 
-.topContainer .stack.stats{
+.topContainer .stats{
     order: 5;
 }
 
-.topContainer .stack.appearance{
+.topContainer .appearance{
     order: 8;
 }
         
-.topContainer .stack.attributes{
+.topContainer .attributes{
     order: 7;
 }
 
-.topContainer .stack.footer{
+.topContainer .footer{
     order: 99;
 }
         
@@ -259,11 +259,11 @@ input[required]::after{
     flex: 1 1 33.3%;
 }
 
-.topContainer .stack.fullWidth{
+.topContainer .fullWidth{
     flex: 1 1 100%;
 }
 
-.topContainer .stack.fullWidth.subdivided{
+.topContainer .subdivided{
     -webkit-column-count: 3;
     -moz-column-count: 3;
     -ms-column-count: 3;
