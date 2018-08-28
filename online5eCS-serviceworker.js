@@ -1,3 +1,5 @@
+'use strict';
+
 const CACHE_NAME = 'online5eCS';
 
 self.addEventListener('install', function(event) {

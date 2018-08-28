@@ -301,7 +301,10 @@ function setCurrentCharacter(character){
         }
         return data;
     }, {}); 
-     
+    
+    if (currentCharacter){
+        $('rootNode').classList.remove("nocharacter");
+    }
 }
 
 function getSavingThrows(classList){

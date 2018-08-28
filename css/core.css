@@ -206,6 +206,11 @@ li, dd {
 }
 
 /*** LAYOUT ***/
+
+.topContainer.nocharacter .stack{
+    display: none;
+}
+
 .topContainer .install-app{
     order: 1;
     flex: 1 1 100%;

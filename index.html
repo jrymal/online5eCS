@@ -31,7 +31,7 @@
         <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
         <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
     </head>
-    <body class="topContainer" onload="init()" onbeforeunload="beforeUnload()">
+    <body id="rootNode" class="topContainer nocharacter" onload="init()" onbeforeunload="beforeUnload()">
         <div class="modal overlay hidden" id="modalOverlay">
             <div class="base">
                 <h2 id="modal.title"></h2>
