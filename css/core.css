@@ -307,7 +307,7 @@ input[required]::after{
 
 /*** UTILITIES ***/
 .hidden{
-    display: none; !important
+    display: none !important;
 }
 
 .column-2{
