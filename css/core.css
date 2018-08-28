@@ -56,12 +56,12 @@ th {
 }
 
 dt {
-    font-weight: 550;
+    font-weight: 500;
 }
 
 dd {
     margin-left: 1.2em;
-    font-weight: 350;
+    font-weight: 300;
 }
 
 dd > ul {
@@ -88,7 +88,7 @@ input:invalid {
 }
 
 input:focus:invalid {
-    outline: none;
+    outline: default;
 }
 
 li, dd {
@@ -96,11 +96,12 @@ li, dd {
 
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
+    -epub-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
 }
 
-[required]::after{
+input[required]::after{
     content: " *";
     color: var(--color-error-fgnd);
 }
@@ -265,6 +266,7 @@ li, dd {
 .topContainer .stack.fullWidth.subdivided{
     -webkit-column-count: 3;
     -moz-column-count: 3;
+    -ms-column-count: 3;
     column-count: 3;
 }
 
@@ -279,6 +281,7 @@ li, dd {
     .topContainer .stack.fullWidth.subdivided {
         -webkit-column-count: 2;
         -moz-column-count: 2;
+        -ms-column-count: 2;
         column-count: 2;
     }
 }
@@ -288,6 +291,7 @@ li, dd {
     .topContainer .stack.fullWidth.subdivided{
         -webkit-column-count: 4;
         -moz-column-count: 4;
+        -ms-column-count: 4;
         column-count: 4;
     }
 }
@@ -296,6 +300,7 @@ li, dd {
     .topContainer .stack.fullWidth.subdivided{
         -webkit-column-count: 5;
         -moz-column-count: 5;
+        -ms-column-count: 5;
         column-count: 5;
     }
 } 
@@ -307,8 +312,9 @@ li, dd {
 
 .column-2{
     -webkit-column-count: 2;
-     -moz-column-count: 2;
-     column-count: 2;
+    -moz-column-count: 2;
+    -ms-column-count: 2;
+    column-count: 2;
 } 
 
 .parens::before {
