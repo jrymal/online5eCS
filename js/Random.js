@@ -1,6 +1,6 @@
 'use strict';
 
-const DICE = {
+const DICE = deepFreeze({
     d4 : {
         min: 1,
         max: 4
@@ -25,19 +25,19 @@ const DICE = {
         min: 1,
         max: 20
     }
-};
+});
 
-const FRONT_HEAVY={
+const FRONT_HEAVY=deepFreeze({
     choose:function(value1, value2) {
         return value1;
     }          
-}
+})
 
-const BELL={
+const BELL=deepFreeze({
     choose:function(value1, value2) {
         return value1;
     }          
-}
+})
 
 function getMax(die, count = 1) {
     return count * die.max;

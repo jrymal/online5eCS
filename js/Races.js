@@ -1,6 +1,6 @@
 'use strict';
 
-const PRONOUNS = {
+const PRONOUNS = deepFreeze({
     he:{
         name: "He"
     },
@@ -13,9 +13,9 @@ const PRONOUNS = {
     ze:{
         name: "Ze"
     }
-};
+});
 
-const RACES = {
+const RACES = deepFreeze({
     Dwarf:{
         name: "Dwarf",
         family: "Dwarf",
@@ -351,7 +351,7 @@ const RACES = {
         features:["Darkvision (120ft)","Advantage on saving throws on being charmed",
             "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)","Sunlight Sensitivity"],
         skills:["perception"],
-        proficiency:["Rapier","Shortsword","iHandcrossbows"],
+        proficiency:["Rapier","Shortsword","Handcrossbows"],
         languages: ["common","elvish"],
         level: {
             1 : {
@@ -381,7 +381,7 @@ const RACES = {
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
                 "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
-                "Tosscobble","iUnderbough"]
+                "Tosscobble","Underbough"]
         },
         age:{
             min: 20,
@@ -420,7 +420,7 @@ const RACES = {
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
                 "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
-                "Tosscobble","iUnderbough"]
+                "Tosscobble","Underbough"]
         },
         age:{
             min: 20,
@@ -459,7 +459,7 @@ const RACES = {
                 "Seraphina","Shaena","Trym","Vani","Verna"],
             family: ["Brushgather","Goodbarrel","Greenbottle",
                 "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
-                "Tosscobble","iUnderbough"]
+                "Tosscobble","Underbough"]
         },
         age:{
             min: 20,
@@ -520,7 +520,7 @@ const RACES = {
             family: ["Basha","Dumein","Jassan","Khalid","Mostana","Pashar",
                 "Rein","Amblecrowne","Buckman","Dundragon","Evanwood",
                 "Greycastle","Tallstag","Bersk","Chernin","Dotsk","Kulenov",
-                "Marsk","Nematsk","Shemov","Starag","iBrightwood","Helder",
+                "Marsk","Nematsk","Shemov","Starag","Brightwood","Helder",
                 "Hornraven","Lackman","Stormwind","Windrivver","Ankhalab",
                 "Anskuld","Fezim","Hahpet","Nathandem","Sepret","Uuthrakt",
                 "Chergoba","Dyernina","Iltazyara","Murnyethara","Stayanoga",
@@ -893,7 +893,7 @@ const RACES = {
                 "Kairon","Leucis","Melech","Mordai","Morthos","Pelaios",
                 "Skamos","Therai"],
             she: ["Akta","Anakis","Bryseis","Criella","Damaia","Ea",
-                "Kallista","Lerissa","iMakaria","Nemeia","Orianna","Phelaia",
+                "Kallista","Lerissa","Makaria","Nemeia","Orianna","Phelaia",
                 "Reita"],
             nickname:["Art","Carrion","Chant","Creed","Despair","Excellence",
                 "Fear","Glory","Hope","Ideal","Music","Nowhere","Open","Poetry",
@@ -931,4 +931,4 @@ const RACES = {
             },
         },
     }
-};
+});

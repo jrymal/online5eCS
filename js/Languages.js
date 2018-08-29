@@ -1,6 +1,6 @@
 'use strict';
 
-const LANGUAGES = {
+const LANGUAGES = deepFreeze({
     common: {
         name: "Common",
         script: "Common"
@@ -65,4 +65,4 @@ const LANGUAGES = {
         name: "Undercommon",
         script: "Elvish"
     }
-}; 
+}); 

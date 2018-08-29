@@ -1,6 +1,6 @@
 'use strict';
 
-const SAVING_THROWS= {
+const SAVING_THROWS= deepFreeze({
     strength : {
         name: "Strength"
     },
@@ -19,9 +19,9 @@ const SAVING_THROWS= {
     constitution : {
         name : "Constitution"
     }
-};
+});
 
-const CLASSES = {
+const CLASSES = deepFreeze({
     Barbarian:{
         hitDie: "d12",
         primaryAbility: ["strength"],
@@ -146,5 +146,5 @@ const CLASSES = {
             }
         }
     }
-};
+});
  

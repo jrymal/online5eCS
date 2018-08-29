@@ -1,6 +1,6 @@
 'use strict';
 
-const SKILLS = {
+const SKILLS = deepFreeze({
     acrobatics: {
         name: "Acrobatics",
         attribute: "dexterity",
@@ -73,5 +73,5 @@ const SKILLS = {
         name: "Survival",
         attribute: "wisdom",
     }
-};
+});
   

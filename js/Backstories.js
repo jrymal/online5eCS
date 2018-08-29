@@ -1,6 +1,6 @@
 'use strict';
 
-const BACKSTORIES= {
+const BACKSTORIES= deepFreeze({
     Acolyte:{
         name:"Acolyte",
         skills: ["insight","religion"],
@@ -79,5 +79,5 @@ const BACKSTORIES= {
         languages: [],
         tools: ["Disguise Kit", "Thieves' Tools"]
     }
-};
+});
   
