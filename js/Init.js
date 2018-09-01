@@ -269,14 +269,6 @@ function cleanseForSave(obj) {
     return cln;
 }
 
-function clone(obj) {
-    return JSON.parse(JSON.stringify(obj));
-}
-
-function exists(obj){
-    return obj && typeof obj !== "undefined";
-}
-
 function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     let raceAttr = exists(raceAttribute) ? raceAttribute : 0;
     let total = +characterAttribute + +raceAttr;
@@ -289,19 +281,6 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     };
 }
 
-function getDataAttribute(element, dataName, defaultValue){
-     let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
-    return (value === null || typeof value === undefined) ? defaultValue : value;
-}
-
-function setDataAttribute(element, dataName, value){
-     if (element.dataset){
-         element.dataset[dataName] = value;
-     } else {
-         element.setAttribute("data-"+dataName, value);
-     }
-}
- 
 function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
@@ -387,6 +366,7 @@ function viewPurse() {
     showModal('purseUpdate');
 }
 
+var IMPORTS = new Map();
 function showModal(modelId, initFunc){
     // Bring in the import content.
     let link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
@@ -397,17 +377,25 @@ function showModal(modelId, initFunc){
     }
 
     if (link.import){
+        // import works...awesome no more work....
         loadModal(modelId, link.import, initFunc);
     } else {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                loadModal(modelId, xhttp.response, initFunc);
-            }
-        };
-        xhttp.responseType = 'document';
-        xhttp.open("GET", link.href, true);
-        xhttp.send();
+        // crap....
+        var dom = IMPORTS.get(modelId);
+        if (dom){
+            loadModal(modelId, dom, initFunc);
+        } else {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //IMPORTS.set(modelId, xhttp.response);
+                    loadModal(modelId, xhttp.response, initFunc);
+                }
+            };
+            xhttp.responseType = 'document';
+            xhttp.open("GET", link.href, true);
+            xhttp.send();
+        }
     }
 }
 

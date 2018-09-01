@@ -10,15 +10,23 @@ self.addEventListener('install', function(event) {
                 'index.html',
                 'fallback.html',
                 'manifest.json',
-                'js/Backstories.js',
-                'js/Classes.js',
-                'js/GameEngine.js',
-                'js/Init.js',
-                'js/Races.js',
-                'js/Skills.js',
                 'css/core.css',
                 'images/icons-192.png',
-                'images/icons-512.png'
+                'images/icons-512.png',
+                'js/Backstories.js',
+                'js/CharacterWizard.js',
+                'js/Classes.js',
+                'js/Coinage.js',
+                'js/Colors.js',
+                'js/Init.js',
+                'js/Languages.js',
+                'js/Races.js',
+                'js/Random.js',
+                'js/Skills.js',
+                'js/Util.js',
+                'template/createCharacter.html',
+                'template/importFromFile.html',
+                'template/purseUpdate.html'
             ]);
         })
     );

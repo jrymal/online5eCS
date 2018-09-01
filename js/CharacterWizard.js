@@ -279,11 +279,17 @@ function initWizard(callback) {
 }
 
 function populateLookups(){
-    let i,nodes = document.querySelectorAll("select[data-lookup]");
+    let i;
+    let nodes = document.querySelectorAll("select[data-lookup]");
+    
     for (i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        populateSelect(node, eval(getDataAttribute(node, "lookup")))
+        populateSelect(node, 
+            eval(getDataAttribute(node, "lookup")), 
+            eval(getDataAttribute(node, "sort", true)), 
+            getDataAttribute(node, "type", "String"))
     }
+    
     nodes = document.querySelectorAll("fieldset > div[data-lookup]");
     for (i = 0; i < nodes.length; i++) {
         let node = nodes[i];
@@ -318,17 +324,35 @@ function generateAttributes() {
     }
 }
 
-function populateSelect(selectEle, sourceObj) {
+function changeColor(event) {
+    let eleId = event.target.id;
+    let swatchId = event.target.id+".color";
+
+    let colorSet = eval(getDataAttribute(event.target, "lookup")); 
+    
+    $(swatchId).style.backgroundColor = colorSet[event.target.value].color;
+}
+
+function populateSelect(selectEle, sourceObj, sort, type) {
     let fragment = document.createDocumentFragment();
-    let sourceArray = Object.keys(sourceObj).sort();
+    let sourceArray = Object.keys(sourceObj);
+
+    if (sort) {
+        sourceArray = sourceObj.sort();
+    }
 
     for (let i = 0; i < sourceArray.length; i++  ) {
         let value = sourceArray[i];
         let obj = sourceObj[value];
+        let name = obj.name ? obj.name : value;
 
         // create base class
         let opt = document.createElement('option');
-        opt.innerHTML = obj.name ? obj.name : value;
+        switch(type) {
+            default:
+                opt.innerHTML = name;
+                break;
+        }
         opt.value = value;
 
         fragment.appendChild(opt);

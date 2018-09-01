@@ -107,10 +107,6 @@ input[required]::after{
     color: var(--color-error-fgnd);
 }
 
-.toThaLeft {
-    float: left;
-    width: 50%;
-}
 
 /*** MODAL LAYOUT ***/
 .modal.overlay{
@@ -309,6 +305,16 @@ input[required]::after{
 /*** UTILITIES ***/
 .hidden{
     display: none !important;
+}
+ 
+.swatch{
+    height: 1em;
+    width: 1em;
+}
+
+.toThaLeft {
+    float: left;
+    width: 50%;
 }
 
 .column-2{

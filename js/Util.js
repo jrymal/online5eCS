@@ -17,6 +17,27 @@ function deepFreeze(object) {
   return Object.freeze(object);
 }
 
+function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+function exists(obj){
+    return obj && typeof obj !== "undefined";
+}
+
+function getDataAttribute(element, dataName, defaultValue){
+     let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
+    return (value === null || typeof value === undefined) ? defaultValue : value;
+}
+
+function setDataAttribute(element, dataName, value){
+     if (element.dataset){
+         element.dataset[dataName] = value;
+     } else {
+         element.setAttribute("data-"+dataName, value);
+     }
+}
+ 
 function length(array){
     return array ? array.length : 0;
 }
@@ -149,3 +170,4 @@ function getSelectValues(options) {
         return option.selected ? values.concat(option.value) : values;
     }, []);
 }
+
