@@ -287,7 +287,7 @@ function processDataHolder(dataholder){
         
         if (element.id){
             let node = findNode(element.id, currentCharacter);
-            if (!secialHandler(element.id, element, node)){
+            if (!specialHandler(element.id, element, node)){
                 let lookup = getDataAttribute(element, "lookup");
 
                 // alter to handle the values
@@ -332,7 +332,7 @@ function processDataHolder(dataholder){
     } 
 }
 
-function secialHandler(id, element, node){
+function specialHandler(id, element, node){
     switch(id){
         case 'character.class':
             element.innerHTML = '';
@@ -350,8 +350,10 @@ function secialHandler(id, element, node){
         case "character.details.hair":
         case "character.details.skin":
             let colorObj = performObjectLookup(getDataAttribute(element, "lookup"), node); 
-            element.innerHTML = colorObj.name;
-            $(id+'.color').style.backgroundColor = colorObj.color;
+            if (colorObj){
+                element.innerHTML = colorObj.name;
+                $(id+'.color').style.backgroundColor = colorObj.color;
+            }
             return true;
         case "character.details.eyecolor.color":
         case "character.details.hair.color":
