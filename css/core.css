@@ -307,9 +307,17 @@ input[required]::after{
     display: none !important;
 }
  
+.tagAlong{
+    display: inline-block;
+    margin-right: 1em;
+}
+ 
 .swatch{
+    display: inline-block;
     height: 1em;
-    width: 1em;
+    width: 2em;
+    vertical-align: middle;
+    border: .001em solid var(--color-primary-border);
 }
 
 .toThaLeft {

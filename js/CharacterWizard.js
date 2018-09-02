@@ -121,9 +121,12 @@ function prepopulateValues(form){
             break;
          case 'createCharacter.class':
             let table = $('createCharacter.character.class.tbody');
+            let chooser = $('createCharacter.character.class.type');
             if (table.childElementCount == 1 
                 && !isVisible(document.getElementsByClassName("multiclass")[0])){
-                table.innerHTML = "";
+                let curValue = table.rows[0].cells[0].innerText;
+                removeClass(curValue);
+                chooser.value = curValue;
             }
             break; 
     }    
@@ -280,8 +283,8 @@ function initWizard(callback) {
 
 function populateLookups(){
     let i;
-    let nodes = document.querySelectorAll("select[data-lookup]");
     
+    let nodes = document.querySelectorAll("select[data-lookup]");
     for (i = 0; i < nodes.length; i++) {
         let node = nodes[i];
         populateSelect(node, 
@@ -295,6 +298,15 @@ function populateLookups(){
         let node = nodes[i];
         let typeName = getDataAttribute(node, "lookup");
         populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
+    }
+
+    nodes = document.querySelectorAll("select[data-rng]");
+    for (i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        let rng = eval(getDataAttribute(node, "rng", "false"));
+        if (rng) {
+            randomValue(node);
+        }
     }
 }
 
@@ -359,6 +371,12 @@ function populateSelect(selectEle, sourceObj, sort, type) {
     }
 
     selectEle.appendChild(fragment);
+
+    randomValue(selectEle);
+
+    if (selectEle.onchange){
+        selectEle.onchange({"target":selectEle});
+    }
 }
 
 function populateCheckboxes(divEle, sourceObj, typeName) {

@@ -27,15 +27,16 @@ const DICE = deepFreeze({
     }
 });
 
+// TODO: write code to weight arbitrary random number generation
 const FRONT_HEAVY=deepFreeze({
     choose:function(value1, value2) {
-        return value1;
+        return randomNumber(value1, value2);
     }          
 })
 
 const BELL=deepFreeze({
     choose:function(value1, value2) {
-        return value1;
+        return randomNumber(value1, value2);
     }          
 })
 
@@ -61,4 +62,12 @@ function chooseFromList(list){
 
 function chooseWeightedRange(distributionType, value1, value2){
     return distributionType.choose(value1, value2);
+}
+
+function randomValue(ele){
+    if (ele.options) {
+        ele.value = chooseFromList(ele.options).value;
+    } else if (ele.min && ele.max){
+        ele.value = randomNumber(ele.min, ele.max).value;
+    }
 }

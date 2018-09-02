@@ -21,13 +21,13 @@
            <select id="createCharacter.character.pronoun" name="character.pronoun" data-lookup="PRONOUNS"></select>
            
            <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
-           <select id="createCharacter.character.alignment.society" name="character.alignment.society">
+           <select id="createCharacter.character.alignment.society" name="character.alignment.society" data-rng="true">
                <option value="Lawful">Lawful</option>
                <option value="Neutral">Neutral</option>
                <option value="Chaotic">Chaotic</option>
            </select>
            <label for="createCharacter.character.alignment.morality">Alignment (Morality)</label>
-           <select id="createCharacter.character.alignment.morality" name="character.alignment.morality">
+           <select id="createCharacter.character.alignment.morality" name="character.alignment.morality" data-rng="true">
                <option value="Good">Good</option>
                <option value="Neutral">Neutral</option>
                <option value="Evil">Evil</option>
@@ -119,16 +119,16 @@
        
        <form class="wizardScreen">
            <label for="createCharacter.details.eyecolor">Eye Color</label>
-           <select id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-           <span id="createCharacter.details.eyecolor.color" class="swatch"></span>
+           <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+           <div id="createCharacter.details.eyecolor.color" class="swatch"></div>
 
            <label for="createCharacter.details.skin">Skin Color</label>
-           <select data-type="color" id="createCharacter.details.skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-           <span id="createCharacter.details.skin.color" class="swatch"></span>
+           <select class="tagAlong"  data-type="color" id="createCharacter.details.skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+           <div id="createCharacter.details.skin.color" class="swatch"></div>
 
            <label for="createCharacter.details.hair">Hair Color</label>
-           <select data-type="color" id="createCharacter.details.hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-           <span id="createCharacter.details.hair.color" class="swatch"></span>
+           <select class="tagAlong" data-type="color" id="createCharacter.details.hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+           <div id="createCharacter.details.hair.color" class="swatch"></div>
        </form>
        
        <form class="wizardScreen">

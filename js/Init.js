@@ -286,10 +286,10 @@ function processDataHolder(dataholder){
         let element = dataholder.childNodes[i];
         
         if (element.id){
-            let lookup = getDataAttribute(element, "lookup");
-
             let node = findNode(element.id, currentCharacter);
             if (!secialHandler(element.id, element, node)){
+                let lookup = getDataAttribute(element, "lookup");
+
                 // alter to handle the values
                 if (Array.isArray(node)){
                     let value = "<ul>";
@@ -297,7 +297,7 @@ function processDataHolder(dataholder){
                         value += "<li>";
         
                         if (lookup) {
-                            value += performLookup(lookup, node[i]);
+                            value += performNameLookup(lookup, node[i]);
                         } else {
                             value += node[i];
                         }
@@ -306,7 +306,7 @@ function processDataHolder(dataholder){
                     value += "</ul>";
                     node = value;
                 } else if (lookup && node) {
-                    let nodeValue =  performLookup(lookup, node);
+                    let nodeValue =  performNameLookup(lookup, node);
                     node = nodeValue ? nodeValue : node;
                 }
                 
@@ -346,12 +346,29 @@ function secialHandler(id, element, node){
             }
             return true;
             break;
+        case "character.details.eyecolor":
+        case "character.details.hair":
+        case "character.details.skin":
+            let colorObj = performObjectLookup(getDataAttribute(element, "lookup"), node); 
+            element.innerHTML = colorObj.name;
+            $(id+'.color').style.backgroundColor = colorObj.color;
+            return true;
+        case "character.details.eyecolor.color":
+        case "character.details.hair.color":
+        case "character.details.skin.color":
+            // we want these to show even through there is no value
+            return true;
+            break;
     }
     return false;
 }
 
-function performLookup(lookup, node){
-    return eval(lookup+'["'+node+'"].name')
+function performObjectLookup(lookup, node){
+    return eval(lookup+'["'+node+'"]')
+}
+
+function performNameLookup(lookup, node){
+    return performObjectLookup(lookup, node).name;
 }
 
 function openCharacter() {
