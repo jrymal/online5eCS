@@ -67,6 +67,8 @@ dd {
 
 dd > ul {
     padding-left: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 button {
