@@ -158,8 +158,18 @@
           
             <div class="grouping">
             <dt>Skills</dt>
-            <dd id="character.skills" data-lookup="SKILLS"></dd>
-            </div>
+            <dd>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Bonus</th>
+                        </tr>
+                    </thead>
+                    <tbody id="character.skills">
+                    </tbody>
+                </table>
+            </dd>
             
             <div class="grouping">
             <dt>Languages</dt>
@@ -300,17 +310,26 @@
             
             <div class="grouping">
             <dt>Eye Color</dt>
-            <dd><div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div><div class="swatch" id="character.details.eyecolor.color"></div></dd>
+            <dd>
+            <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
+            <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
+            </dd>
             </div>
 
             <div class="grouping">
             <dt>Skin Color</dt>
-            <dd><div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div><div class="swatch" id="character.details.skin.color"></div></dd>
+            <dd>
+            <div class="swatch tagAlong" id="character.details.skin.color"></div>
+            <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
+            </dd>
             </div>
 
             <div class="grouping">
             <dt>Hair Color</dt>
-            <dd><div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div><div class="swatch" id="character.details.hair.color"></div></dd>
+            <dd>
+            <div class="swatch tagAlong" id="character.details.hair.color"></div>
+            <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
+            </dd>
             </div>
              
             <div class="grouping">

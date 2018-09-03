@@ -363,9 +363,26 @@ function specialHandler(id, element, node){
         case 'character.details.height':
             element.innerHTML = Math.floor(node/12)+'\' '+ Math.floor(node%12) +'"';
             return true;
+        case 'character.skills':
+            for( let i = 0; i < node.length; i++){
+                let skill = SKILLS[node[i]];
+                element.innerHTML += '<tr>'
+                    +'<th scope="row">'+skill.name+'</th>'
+                    +'<td>'+calculateSkillBonus(skill.attribute)+'</td>'
+                    +'</tr>'; 
+            }
+            return true;
             break;
     }
     return false;
+}
+
+function calculateSkillBonus(attr) {
+    return eval('currentCharacter.CALC.attribute.'+attr+'.savingThrow')+classBonus(attr);
+}
+
+function classBonus(attr){
+    return 0;
 }
 
 function performObjectLookup(lookup, node){
