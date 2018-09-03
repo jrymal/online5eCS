@@ -16,52 +16,6 @@ const PRONOUNS = deepFreeze({
 });
 
 const RACES = deepFreeze({
-    Dwarf:{
-        name: "Dwarf",
-        family: "Dwarf",
-        attribute:{
-            constitution: 2
-        },
-        names:{
-            he: ["Adrik", "Alberich","Baern","Barendd","Brottor","Bruenor",
-                "Dain","Darrak","Delg","Eberk","Einkil","Fargrim","Flint",
-                "Gardain","Harbek","Kildrak","Morgran","Orsik","Oskar",
-                "Rangrim","Rurik","Taklinn","Thoradin","Tordek","Traubon",
-                "Travok","Ulfgar","Veit","Vondal"],
-            she: ["Amber","Artin","Audhild","Bardryn","Dagnal","Diesa","Eldeth",
-                "Falkrunn","Finellen","Gunnloda","Gurdis","Helja","Hlin",
-                "Kathra","Kristryd","Ilde","Liftrasa","Mardred","Riswynn",
-                "Sannl","Torbera","Torgga","Vistra"],
-            family: ["Balderk","Battlehammer","Brawnanvil","Dankil","Fireforge",
-                "Frostbeard","Gorunn","Holderhek","Ironfist","Loderr","Lutgehr",
-                "Rumnaheim","Strakeln","Torunn","Ungart"]
-        },
-        age:{
-            min: 50,
-            max: 350
-        },
-        alignment:{
-            society:"lawful",
-            morality:"good",
-        },
-        size:{
-            height:{
-                min: 4,
-                max: 5
-            },
-            weight: 150,
-            simple: "Medium"
-        },
-        speed: 25,
-        features:["Darkvision (60ft)","Speed is not reduced by heavy armor",
-            "Resistance to poison","Intelligence(history) checks on stone cutting are considered proficient"],
-        proficiency:["Battleaxe","Handaxe","Throwing Hammer","Warhammer"],
-        proficiency_choice:{
-            join: "or",
-            select: ["Smith's Tools","Brewer's Supplies","Mason's Tools"]
-        },
-        languages: ["common","dwarvish"]
-    },
     MountainDwarf:{
         name: "Mountain Dwarf",
         family: "Dwarf",
@@ -93,10 +47,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 4,
-                max: 5
+                base: 48,
+                modifier: "2d4",
+                max: 60
             },
-            weight: 150,
+            weight: {
+                base: 130,
+                modifier: "2d6"
+            },
             simple: "Medium"
         },
         speed: 25,
@@ -140,10 +98,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 4,
-                max: 5
+                base: 44,
+                modifier: "2d4",
+                max: 52
             },
-            weight: 150,
+            weight: {
+                base: 115,
+                modifier: "2d6"
+            },
             simple: "Medium"
         },
         speed: 25,
@@ -158,52 +120,6 @@ const RACES = deepFreeze({
             hitpoint: 1
         },
         languages: ["common","dwarvish"]
-    },
-    Elf:{
-        name: "Elf",
-        family: "Elf",
-        attribute:{
-            dexterity: 2,
-        },
-        names:{
-            he: ["Adran", "Aelar","Aramil","Arannis","Aust","Beiro",
-                "Berrian","Carrie","Enialis","Erdan","Erevan","Galinndan","Hadarai",
-                "Heian","Himo","Immeral","Ivellios","Laucian","Mindartis",
-                "Paelias","Peren","Quarion","Riardon","Rolen","Soveliss",
-                "Thamior","Tharivol","Theren","Varis"],
-            she: ["Adrie","Althaea","Anastrianna","Andraste","Antinua","Bethrynna","Birel",
-                "Caelynn","Drusilia","Enna","Felosial","Ielenia","Jelenneth",
-                "Keyleth","Leshanna","Lia","Meriele","Mialee","Shava",
-                "Silaqui","Theirastra","Thia","Vadania","Valanthe","Xanaphia"],
-            child:["Ara","Bryn","Del","Eryn","Faen","Innil","Lael","Mella",
-                "Maill","Naeris","Phann","Rael","Rinn","Sai","Syllin","Thia",
-                "Vall"],
-            family: ["Amakiir (Gemflower)","Amastacia (Startflower)","Galanodel (Moonwhisper)",
-                "Holimion (Diamonddew)","Ilphelkiir (Gemblossom)",
-                "Liadon (Silverfrond)","Meliamne (Oakenheel)","Nailo (Nightbreeze)",
-                "Siannodel (Moonbrook)","Xiloscient (Goldpetal)"]
-        },
-        age:{
-            min: 100,
-            max: 750
-        },
-        alignment:{
-            society:"chaotic",
-            morality:"good",
-        },
-        size:{
-            height:{
-                min: 4,
-                max: 6
-            },
-            weight: 150,
-            simple: "Medium"
-        },
-        speed: 30,
-        features:["Darkvision (60ft)","Advantage on saving throws on being charmed",
-            "Cannot be put to sleep via magic means","Trance (sleep - 4hrs)"],
-        skills:["perception"],
-        languages: ["common","elvish"]
     },
     HighElf:{
         name: "High Elf",
@@ -225,10 +141,10 @@ const RACES = deepFreeze({
             child:["Ara","Bryn","Del","Eryn","Faen","Innil","Lael","Mella",
                 "Maill","Naeris","Phann","Rael","Rinn","Sai","Syllin","Thia",
                 "Vall"],
-            family: ["Amakiir (Gemflower)","Amastacia (Startflower)","Galanodel (Moonwhisper)",
-                "Holimion (Diamonddew)","Ilphelkiir (Gemblossom)",
-                "Liadon (Silverfrond)","Meliamne (Oakenheel)","Nailo (Nightbreeze)",
-                "Siannodel (Moonbrook)","Xiloscient (Goldpetal)"]
+            family: ["Amakiir","Amastacia","Galanodel",
+                "Holimion","Ilphelkiir",
+                "Liadon","Meliamne","Nailo",
+                "Siannodel","Xiloscient"]
         },
         age:{
             min: 100,
@@ -240,10 +156,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 4,
-                max: 6
+                base: 54,
+                modifier: "2d10",
+                max: 74
             },
-            weight: 150,
+            weight: {
+                base: 90,
+                modifier: "1d4"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -278,10 +198,10 @@ const RACES = deepFreeze({
             child:["Ara","Bryn","Del","Eryn","Faen","Innil","Lael","Mella",
                 "Maill","Naeris","Phann","Rael","Rinn","Sai","Syllin","Thia",
                 "Vall"],
-            family: ["Amakiir (Gemflower)","Amastacia (Startflower)","Galanodel (Moonwhisper)",
-                "Holimion (Diamonddew)","Ilphelkiir (Gemblossom)",
-                "Liadon (Silverfrond)","Meliamne (Oakenheel)","Nailo (Nightbreeze)",
-                "Siannodel (Moonbrook)","Xiloscient (Goldpetal)"]
+            family: ["Amakiir","Amastacia","Galanodel",
+                "Holimion","Ilphelkiir",
+                "Liadon","Meliamne","Nailo",
+                "Siannodel","Xiloscient"]
         },
         age:{
             min: 100,
@@ -293,10 +213,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 4,
-                max: 6
+                base: 54,
+                modifier: "2d10",
+                max: 74
             },
-            weight: 150,
+            weight: {
+                base: 100,
+                modifier: "1d4"
+            },
             simple: "Medium"
         },
         speed: 35,
@@ -326,10 +250,10 @@ const RACES = deepFreeze({
             child:["Ara","Bryn","Del","Eryn","Faen","Innil","Lael","Mella",
                 "Maill","Naeris","Phann","Rael","Rinn","Sai","Syllin","Thia",
                 "Vall"],
-            family: ["Amakiir (Gemflower)","Amastacia (Startflower)","Galanodel (Moonwhisper)",
-                "Holimion (Diamonddew)","Ilphelkiir (Gemblossom)",
-                "Liadon (Silverfrond)","Meliamne (Oakenheel)","Nailo (Nightbreeze)",
-                "Siannodel (Moonbrook)","Xiloscient (Goldpetal)","Do'Urden"]
+            family: ["Amakiir","Amastacia","Galanodel",
+                "Holimion","Ilphelkiir",
+                "Liadon","Meliamne","Nailo",
+                "Siannodel","Xiloscient","Do'Urden"]
         },
         age:{
             min: 100,
@@ -341,10 +265,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 4,
-                max: 6
+                base: 53,
+                modifier: "2d6",
+                max: 65
             },
-            weight: 150,
+            weight: {
+                base: 75,
+                modifier: "1d6"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -365,44 +293,6 @@ const RACES = deepFreeze({
             }
         }
 
-    },
-    Halfling:{
-        name: "Halfling",
-        family: "Halfling",
-        attribute:{
-            dexterity: 2,
-        },
-        names:{
-            he: ["Alton", "Ander","Cade","Corrin","Eldon","Errich",
-                "Finnan","Garret","Lindal","Lyle","Merrie","Milo","Osborn",
-                "Perrin","Reed","Roscoe","Wellby","Regis"],
-            she: ["Andry","Bree","Callie","Cora","Euphemia","Jillian","Kithri",
-                "Lavinia","Lidda","Merla","Nedda","Paela","Portia",
-                "Seraphina","Shaena","Trym","Vani","Verna"],
-            family: ["Brushgather","Goodbarrel","Greenbottle",
-                "High-hill","Hightopple","Leagallow","Tealeaf","Thorngage",
-                "Tosscobble","Underbough"]
-        },
-        age:{
-            min: 20,
-            max: 250
-        },
-        alignment:{
-            society:"lawful",
-            morality:"good",
-        },
-        size:{
-            height:{
-                min: 3,
-                max: 3
-            },
-            weight: 40,
-            simple: "Small"
-        },
-        speed: 25,
-        features:["Reroll a 1 for attack, ability check, or saving throw",
-            "Advantage against being frightened","Can move through spaces occupied by those larger than you"],
-        languages: ["common","halfling"]
     },
     LightfootHalfling:{
         name: "Lightfoot Halfling",
@@ -432,10 +322,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 3,
-                max: 3
+                base: 31,
+                modifier: "2d4",
+                max: 39
             },
-            weight: 40,
+            weight: {
+                base: 35,
+                modifier: "1d1"
+            },
             simple: "Small"
         },
         speed: 25,
@@ -471,10 +365,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 3,
-                max: 3
+                base: 31,
+                modifier: "2d4",
+                max: 39
             },
-            weight: 40,
+            weight: {
+                base: 35,
+                modifier: "1d1"
+            },
             simple: "Small"
         },
         speed: 25,
@@ -534,10 +432,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 5,
-                max: 6
+                base: 56,
+                modifier: "2d10",
+                max: 76
             },
-            weight: 170,
+            weight: {
+                base: 110,
+                modifier: "2d4"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -574,10 +476,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 6,
-                max: 6
+                base: 66,
+                modifier: "2d8",
+                max: 82
             },
-            weight: 250,
+            weight: {
+                base: 175,
+                modifier: "2d6"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -642,46 +548,6 @@ const RACES = deepFreeze({
         features:["Resistance to the breath type of your ansestory"],
         languages: ["common","draconic"]
     },
-    Gnome:{
-        name: "Gnome",
-        family: "Gnome",
-        attribute:{
-            intelligence: 2
-        },                               
-        names:{
-            he: ["Alston","Alvyn","Boddynock","Brocc","Bergell","Dimble",
-                "Eldon","Erky","Fonkin","Frug","Gerbo","Gimble","Glim",
-                "Jebeddo","Kellen","Namfoodle","Orryn","Roondar","Seebo",
-                "Sindri","Warryn","Wrenn","Zook"],
-            she: ["Bimpnottin","Breena","Caramip","Carlin","Donelia","Duvamil",
-                "Ella","Ellyjobell","Ellywick","Lilli","Loopmottin","Lorilla",
-                "Mardnab","Nissa","Nyx","Oda","Oria","Orla","Roywyn","Shamil",
-                "Tana","Waywocket","Zanna"],
-            nickname:["Aleslosh","Ashhearth","Badger","Cloak","Doublelock",
-                "Filchbatter","Fnipper","Ku","Nim","Oneshoe","Pock",
-                "Sparklegem","Stumbleduck"],
-            family: ["Beren","Daergel","Folkor","Garrick","Nackle","Murnig",
-                "Ningel","Raulnor","Scheppen","Timbers","Turen"]
-        },
-        age:{
-            min: 15,
-            max: 500
-        },
-        alignment:{
-            morality:"good",
-        },
-        size:{
-            height:{
-                min: 3,
-                max: 4
-            },
-            weight: 40,
-            simple: "Small"
-        },
-        speed: 25,
-        features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic"],
-        languages: ["common","gnomish"] 
-    },
     ForestGnome:{
         name: "Forest Gnome",
         family: "Gnome",
@@ -713,10 +579,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 3,
-                max: 4
+                base: 35,
+                modifier: "2d4",
+                max: 43
             },
-            weight: 40,
+            weight: {
+                base: 35,
+                modifier: "1d1"
+            },
             simple: "Small"
         },
         speed: 25,
@@ -759,10 +629,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 3,
-                max: 4
+                base: 35,
+                modifier: "2d4",
+                max: 43
             },
-            weight: 40,
+            weight: {
+                base: 35,
+                modifier: "1d1"
+            },
             simple: "Small"
         },
         speed: 25,
@@ -834,10 +708,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 5,
-                max: 6
+                base: 57,
+                modifier: "2d8",
+                max: 73
             },
-            weight: 170,
+            weight: {
+                base: 110,
+                modifier: "2d4"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -869,10 +747,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 5,
-                max: 6
+                base: 58,
+                modifier: "2d10",
+                max: 78
             },
-            weight: 220,
+            weight: {
+                base: 140,
+                modifier: "2d6"
+            },
             simple: "Medium"
         },
         speed: 30,
@@ -909,10 +791,14 @@ const RACES = deepFreeze({
         },
         size:{
             height:{
-                min: 5,
-                max: 6
+                base: 57,
+                modifier: "2d8",
+                max: 73
             },
-            weight: 170,
+            weight: {
+                base: 110,
+                modifier: "2d4"
+            },
             simple: "Medium"
         },
         speed: 30,

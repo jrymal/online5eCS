@@ -102,9 +102,10 @@ function prepopulateValues(form){
             break; 
         case 'createCharacter.age': {
             let race = RACES[$('createCharacter.character.race').value];
+            let heightObj = chooseHeight(race);
             setIfExistsAndEmpty('createCharacter.details.age', chooseAge(race));
-            setIfExistsAndEmpty('createCharacter.details.height', chooseHeight(race));
-            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight(race));
+            setIfExistsAndEmpty('createCharacter.details.height', heightObj.total);
+            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight(race, heightObj.mod));
         }
             break; 
         case 'createCharacter.skills': {
@@ -185,16 +186,22 @@ function chooseAge(race){
 function chooseHeight(race) {
     let element = $('createCharacter.details.height');
     let height = race.size.height;
-    
-    element.min=height.min;
+    element.min=height.base;
     element.max=height.max;
     
-    return chooseWeightedRange(BELL, height.min, height.max);
+    let roll = rollDieFromString(height.modifier);
+    return {
+    "mod": roll,
+    "total": height.base + roll
+    };
 }
 
-function chooseWeight(race) {
+function chooseWeight(race, heightMod) {
+    let element = $('createCharacter.details.weight');
     let weight = race.size.weight;
-    return chooseWeightedRange(BELL, weight);
+    
+    return weight.base + (heightMod * rollDieFromString(weight.modifier));    
+
 }
 
 function chooseCheckbox(legendId, idPrefix, attribute, race, backstory){

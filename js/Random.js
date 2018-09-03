@@ -1,6 +1,11 @@
 'use strict';
 
 const DICE = deepFreeze({
+    // special die to resolve to a 1
+    d1 : {
+        min: 1,
+        max: 1
+    },
     d4 : {
         min: 1,
         max: 4
@@ -42,6 +47,16 @@ const BELL=deepFreeze({
 
 function getMax(die, count = 1) {
     return count * die.max;
+}
+
+function rollDieFromString(dieString) {
+    let splited = dieString.split('d');
+    let count = splited[0];
+    let die = eval("DICE.d"+splited[1]);
+    
+    return rollDie(die, count).reduce(function(total, value){
+        return total + value;
+    });
 }
 
 function rollDie(die, count = 1) {
