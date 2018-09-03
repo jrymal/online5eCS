@@ -360,6 +360,9 @@ function specialHandler(id, element, node){
         case "character.details.skin.color":
             // we want these to show even through there is no value
             return true;
+        case 'character.details.height':
+            element.innerHTML = Math.floor(node/12)+'\' '+ Math.floor(node%12) +'"';
+            return true;
             break;
     }
     return false;
