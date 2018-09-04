@@ -1,11 +1,6 @@
 'use strict';
 
 const DICE = deepFreeze({
-    // special die to resolve to a 1
-    d1 : {
-        min: 1,
-        max: 1
-    },
     d4 : {
         min: 1,
         max: 4
@@ -51,6 +46,11 @@ function getMax(die, count = 1) {
 
 function rollDieFromString(dieString) {
     let splited = dieString.split('d');
+    
+    if (splited.length == 1) {
+        return splited[0];
+    }
+
     let count = splited[0];
     let die = eval("DICE.d"+splited[1]);
     

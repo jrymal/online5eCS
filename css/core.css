@@ -207,6 +207,14 @@ input[required]::after{
 
 /*** LAYOUT ***/
 
+.spell-req {
+    display:none;
+}
+
+.spellcaster .spell-req{
+    display: block;
+}
+
 .topContainer.nocharacter .stack{
     display: none;
 }

@@ -107,19 +107,24 @@ function startWizard() {
 }
 
 function getMaxHitPoints(classList) {
-    let hits=0;
-    for (let i = 0; i < classList.length; i++){
-        let charClass = CLASSES[classList[i].class];
-        hits += classList[i].level * getMax(DICE[charClass.hitDie]);
-    }
-    return hits;
+    let val = classList.reduce( (hits, curClass) => {
+        return +hits + (+curClass.level * getMax(DICE[CLASSES[curClass.class].hitDie]));
+    }, 0);
+    return val;
 }
+
+function getCurrentLevel(classList) {
+    let val = classList.reduce( ( count, curClass) => {
+        return count += +curClass.level;
+}, 0);
+    return val;
+} 
 
 let currentCharacter;
 function setCurrentCharacter(character){
     clearAllFields();
     
-    let race = RACES[character.character.race];
+    let race = clone(RACES[character.character.race]);
     let backstory = BACKSTORIES[character.character.backstory.type];
     
     insertAtNode("character.experience", character, "0", false);
@@ -130,6 +135,8 @@ function setCurrentCharacter(character){
     insertAtNode("character.hitPoints.current", character, maxHitPoints, false);
     
     currentCharacter = character;
+    
+    applyLevelBasedRaceFeatures(character, race);
 
     window.history.pushState(cleanseForSave(currentCharacter), "",
         generateNameHash(window.location.hash));
@@ -173,6 +180,44 @@ function setCurrentCharacter(character){
     if (currentCharacter){
         $('rootNode').classList.remove("nocharacter");
     }
+}
+
+function applyLevelBasedRaceFeatures(character, race){
+    let levelObj = race.level;
+    if (levelObj){
+        let curLevel = getCurrentLevel(character.character.class);
+    
+        for (let level in levelObj){
+            if (level <= curLevel){
+                for (let type in levelObj[level]){
+                    switch(type){
+                        case 'spells':
+                            addSpell(character, levelObj[level].spells);
+                            break;
+                        case 'feature':
+                            race.features = race.features.concat(levelObj[level].feature);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+function addSpell( character, spellNames ) {
+    $('rootNode').classList.add("spellcaster");
+    
+    // ensures that the path exists
+    insertAtNode("character.spells", character, []);
+    
+    if (Array.isArray(spellNames)){
+        for(let spell in spellNames){
+            character.character.spells.push(spellNames[spell]);
+        }
+    } else {
+        character.character.spells.push(spellNames);
+    }
+    
 }
 
 function getSavingThrows(classList){

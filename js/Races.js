@@ -174,7 +174,7 @@ const RACES = deepFreeze({
         languages: ["common","elvish","ANY"],
         level: {
             1 : {
-                spell: ["any - wizard"]
+                spells: ["any - wizard"]
             }
         },
     },
@@ -283,13 +283,13 @@ const RACES = deepFreeze({
         languages: ["common","elvish"],
         level: {
             1 : {
-                spell: ["dancing lights"]
+                spells: ["dancing lights"]
             },
             3 : {
-                spell: ["Faerie fire"]
+                spells: ["Faerie fire"]
             },
             5: {
-                spell: ["Darkness"]
+                spells: ["Darkness"]
             }
         }
 
@@ -328,7 +328,7 @@ const RACES = deepFreeze({
             },
             weight: {
                 base: 35,
-                modifier: "1d1"
+                modifier: "1"
             },
             simple: "Small"
         },
@@ -371,7 +371,7 @@ const RACES = deepFreeze({
             },
             weight: {
                 base: 35,
-                modifier: "1d1"
+                modifier: "1"
             },
             simple: "Small"
         },
@@ -585,7 +585,7 @@ const RACES = deepFreeze({
             },
             weight: {
                 base: 35,
-                modifier: "1d1"
+                modifier: "1"
             },
             simple: "Small"
         },
@@ -593,7 +593,7 @@ const RACES = deepFreeze({
         features:["Darkvision (60 ft)","Advantage on Int, Wis, Cha checks against magic","Can communicate simple ideas to Small animals/beasts"],
         level: {
             1 : {
-                spell: ["minor illusion"]
+                spells: ["minor illusion"]
             }
         },
         languages: ["common","gnomish"]
@@ -635,7 +635,7 @@ const RACES = deepFreeze({
             },
             weight: {
                 base: 35,
-                modifier: "1d1"
+                modifier: "1"
             },
             simple: "Small"
         },
@@ -807,13 +807,13 @@ const RACES = deepFreeze({
         languages: ["common","infernal"],
         level: {
             1 : {
-                spell: ["thaumatergy"]
+                spells: ["thaumatergy"]
             },
             3 : {
-                spell: ["hellish rebuke"]
+                spells: ["hellish rebuke"]
             },
             5 : {
-                spell: ["darkness"]
+                spells: ["darkness"]
             },
         },
     }
