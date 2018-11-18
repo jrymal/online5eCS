@@ -6,6 +6,7 @@
     --color-primary-text: #101010;
     --color-primary-border: #000000;
     --color-primary-background: #ffffff;
+    --color-alt-row-background: #eeeeee;
     --color-wizard-background: #f1f1f1;
     --color-wizard-border: #ccc;
 }
@@ -54,6 +55,11 @@ table td,
 th {
     border: .1em solid;
     border: .1em solid var(--color-primary-border);
+}
+
+thead tr,
+tbody tr:nth-child(even) {
+    background-color: var(--color-alt-row-background);
 }
 
 dt {
@@ -316,7 +322,11 @@ input[required]::after{
 .hidden{
     display: none !important;
 }
- 
+
+.marginless {
+    margin: 0;
+}
+
 .tagAlong{
     display: inline-block;
     margin-right: 1em;

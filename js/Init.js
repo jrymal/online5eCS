@@ -1,8 +1,5 @@
 'use strict';
 
-const ATTRIBUTE_ID_LIST = deepFreeze(["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]);
-
-
 function clearAllFields() {
     // unclear if this is doing what it needs to
   let dataholders = document.getElementsByClassName("stack");
@@ -442,10 +439,12 @@ function openCharacter() {
     showModal('importFromFile');
 }
 
+// unused
 function viewCurrentCharacter() {
     showModal('createCharacter');
 }
 
+// unused
 function viewPurse() {
     showModal('purseUpdate');
 }

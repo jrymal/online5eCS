@@ -174,7 +174,11 @@ const RACES = deepFreeze({
         languages: ["common","elvish","ANY"],
         level: {
             1 : {
-                spells: ["any - wizard"]
+                spells: {
+                    total: 1,
+                    type: "wizard",
+                    0 : 1
+                }
             }
         },
     },

@@ -337,8 +337,9 @@ function generateAttributes() {
             };
             break;
     }
-    for(let i = 0; i < ATTRIBUTE_ID_LIST.length; i++) {
-        $('createCharacter.character.attribute.'+ATTRIBUTE_ID_LIST[i]).value = 
+    
+    for(let attr in ATTRIBUTES) {
+        $('createCharacter.character.attribute.'+attr).value = 
             generateMethod(); 
     }
 }
