@@ -7,14 +7,14 @@
         <meta name="description" content="An online only Dungeons and Dragons 5th Edition character record sheet editor."/>
         <meta name="author" content="jrymal"/>
         <meta name="theme-color" content="#3367D6"/>
-        
+
         <title>You have no Class!</title>
-        
+
         <link rel="manifest" href="manifest.json">
-        
+
         <link rel="icon" href="images/icons-192.png" sizes="192x192" />
         <link rel="icon" href="images/icons-512.png" sizes="512x512" />
-        
+
         <!-- All static objects rely on deep freeze in Util -->
         <script type="text/javascript" src="js/Util.js"> </script>
         <script type="text/javascript" src="js/Random.js" async> </script>
@@ -29,30 +29,276 @@
         <script type="text/javascript" src="js/Colors.js" async> </script>
 
         <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
-        
-        <link rel="import" id="importFromFile" href="./template/importFromFile.html" async/>
-        <link rel="import" id="purseUpdate" href="./template/purseUpdate.html" async/>
-        <link rel="import" id="createCharacter" href="./template/createCharacter.html" async/>
+
     </head>
     <body onload="init()" onbeforeunload="beforeUnload()">
         <div id="rootNode" class="topContainer nocharacter">
+
             <div class="modal overlay hidden" id="modalOverlay">
-                <div class="base">
-                    <h2 id="modal.title"></h2>
-                    <div class="description" id="modal.description"></div>
-                    <div id="modal.body"></div>
+                <div class="base" id="importFile">
+                    <h2>Load from File</h2>
+                    <div class="description">Load your character</div>
+                    <div>
+                        <label for="importFile">Import file</label>
+                        <input type="file" id="importFile" name="importFile" onChange="loadFromJSON()"/>
+                        <button type="button" onclick="cancelModal()">Cancel</button>
+                    </div>
+                </div>
+                <div class="base" id="purseUpdate">
+                    <h2>I assume you are buying or accumulating your wealth....otherwise, why are you here?</h2>
+                    <div class="description">Load your character</div>
+                    <div>
+                        <label for="purse.pp" name="purse.pp">Purse (PP)</label>
+                        <input type="number" name="purse.pp" pattern="[0-9]*" id="purse.pp" class="short" min="0" />
+                        <label for="purse.gp" name="purse.gp">Purse (GP)</label>
+                        <input type="number" name="purse.gp" pattern="[0-9]*" id="purse.gp" class="short"
+                                                                                            min="0" />
+
+                        <label for="purse.ep" name="purse.ep">Purse (EP)</label>
+                        <input type="number" name="purse.ep" pattern="[0-9]*" id="purse.ep" class="short"
+                                                                                            min="0" />
+                        <label for="purse.sp" name="purse.sp">Purse (SP)</label>
+                        <input type="number" name="purse.sp" pattern="[0-9]*" id="purse.sp" class="short"
+                                                                                            min="0" />
+
+                        <label for="purse.cp" name="purse.cp">Purse (CP)</label>
+                        <input type="number" name="purse.cp" pattern="[0-9]*" id="purse.cp" class="short"
+                                                                                            min="0" />
+                        <label for="purse.description" name="purse.description">Purchase Description</label>
+                        <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
+                        <button onclick="usePurse('-')">Spend</button>
+                        <button onclick="usePurse('+')">Gain</button> 
+                    </div>
+                </div>
+                <div class="base" id="createCharacter">
+                    <h2>Create a new character</h2>
+                    <div class="description">Load your character</div>
+                    <div>
+                        <form class="wizardScreen" id="createCharacter.player">
+                            <label for="createCharacter.player.name">Role Player</label>
+                            <input type="text" id="createCharacter.player.name" name="player.name" required/>
+
+                            <label for="createCharacter.player.phone">Phone Number</label>
+                            <input type="tel" id="createCharacter.player.phone" name="player.phone" autocomplete="tel"/>
+
+                            <label for="createCharacter.player.email">Email</label>
+                            <input type="email" id="createCharacter.player.email" name="player.email" autocomplete="email"/> 
+                        </form>
+
+                        <form class="wizardScreen">
+                            <label for="createCharacter.character.race">Race</label>
+                            <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
+
+                            <label for="createCharacter.character.pronoun">Pronoun</label>
+                            <select id="createCharacter.character.pronoun" name="character.pronoun" data-lookup="PRONOUNS"></select>
+
+                            <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
+                            <select id="createCharacter.character.alignment.society" name="character.alignment.society" data-rng="true">
+                                <option value="Lawful">Lawful</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Chaotic">Chaotic</option>
+                            </select>
+                            <label for="createCharacter.character.alignment.morality">Alignment (Morality)</label>
+                            <select id="createCharacter.character.alignment.morality" name="character.alignment.morality" data-rng="true">
+                                <option value="Good">Good</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Evil">Evil</option>
+                            </select>  
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.name">
+                            <label for="createCharacter.character.name.first">First Name</label>
+                            <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
+                            <label for="createCharacter.character.name.family">Family Name</label>
+                            <input type="text" id="createCharacter.character.name.family" name="character.name.family"/>
+                            <label for="createCharacter.character.name.nickname">Nickname</label>
+                            <input type="text" id="createCharacter.character.name.nickname" name="character.name.nickname"/>
+                            <label for="createCharacter.character.name.child">Child Name</label>
+                            <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.class">
+                            <div class="toThaLeft">
+                                <label for="createCharacter.character.class.type">Class</label>
+                                <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
+
+                                <label for="createCharacter.character.level">Level</label>
+                                <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
+
+                                <button type="button" class="hidden multiclass" onClick="addClass()">Add Class</button>
+                                <button type="button" id="multiClassEnable" onClick="toggleMultiClass()">Enable Multiclass</button>
+                            </div>
+                            <div class="toThaLeft multiclass hidden">
+                                <table>
+                                    <caption>Classes choosen</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Level</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="createCharacter.character.class.tbody">
+                                    </tbody> 
+                                </table>
+                            </div>
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.attr">
+                            <!-- generation options and execution -->
+                            <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
+                            <select id="createCharacter.attr.chooser">
+                                <option value="Throwaway">Throwaway lowest of 4</option>
+                                <option value="Straight">Straight 3 rolls</option>
+                                <option value="Manual">I'll roll and enter the vaules</option>
+                            </select>
+                            <button type="button" onclick="generateAttributes()">Generate Attributes</button>
+
+                            <div class="column-2">
+                                <label for="createCharacter.character.attribute.strength">Strength</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
+                                <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
+                                <label for="createCharacter.character.attribute.constitution">Constitution</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
+                                <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
+                                <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
+                                <label for="createCharacter.character.attribute.charisma">Charisma</label>
+                                <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
+                            </div>
+                        </form>
+
+                        <form class="wizardScreen">
+                            <label for="createCharacter.backstory.type">Backstory Type</label>
+                            <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
+
+                            <label for="createCharacter.backstory.story">Backstory</label>
+                            <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.age">
+                            <label for="createCharacter.details.age">Age (in years)</label>
+                            <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
+
+                            <label for="createCharacter.details.height">Height (in inches)</label>
+                            <input type="text" id="createCharacter.details.height" name="character.details.height"/>
+
+                            <label for="createCharacter.details.weight">Weight (in pounds)</label>
+                            <input type="text" id="createCharacter.details.weight" name="character.details.weight"/>
+                        </form>
+
+                        <form class="wizardScreen">
+                            <label for="createCharacter.details.eyecolor">Eye Color</label>
+                            <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <div id="createCharacter.details.eyecolor.color" class="swatch"></div>
+
+                            <label for="createCharacter.details.skin">Skin Color</label>
+                            <select class="tagAlong"  data-type="color" id="createCharacter.details.skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <div id="createCharacter.details.skin.color" class="swatch"></div>
+
+                            <label for="createCharacter.details.hair">Hair Color</label>
+                            <select class="tagAlong" data-type="color" id="createCharacter.details.hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <div id="createCharacter.details.hair.color" class="swatch"></div>
+                        </form>
+
+                        <form class="wizardScreen">
+                            <label for="createCharacter.details.appearance">Appearance</label>
+                            <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
+
+                            <label for="createCharacter.details.image">Image</label>
+                            <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.skills">
+                            <fieldset>
+                                <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
+                                <div name="character.skills" data-lookup="SKILLS"></div>
+                            </fieldset>
+                        </form>
+
+                        <form class="wizardScreen" id="createCharacter.language">
+                            <fieldset>
+                                <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
+                                <div name="character.languages" data-lookup="LANGUAGES"></div>
+                            </fieldset>
+                        </form>
+
+                        <form class="wizardScreen">
+                            <!-- need to sure up the proficiencies editor: choose from list of
+                                Proficiencies with free entry and stash.-->
+                                <label for="createCharacter.proficiency">Proficiencies</label>
+                                <textarea id="createCharacter.proficiency" name="character.proficiency" spellcheck="true"></textarea>
+
+                                <label for="createCharacter.personalitytraits">Personality Traits</label>
+                                <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
+                        </form>
+
+                        <form class="wizardScreen column-2">
+
+                            <label for="createCharacter.ideals">Ideals</label>
+                            <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
+
+                            <label for="createCharacter.bonds">Bonds</label>
+                            <textarea id="createCharacter.bonds" name="character.bonds" spellcheck="true"></textarea>
+
+                            <label for="createCharacter.flaws">Flaws</label>
+                            <textarea id="createCharacter.flaws" name="character.flaws" spellcheck="true"></textarea>
+
+                            <label for="createCharacter.allies">Allies</label>
+                            <textarea id="createCharacter.allies" name="character.allies" spellcheck="true"></textarea>
+                        </form>
+
+
+                        <form class="wizardScreen">
+                            <label for="createCharacter.weapons">Weapons</label>
+                            <textarea id="createCharacter.weapons" name="character.weapons" spellcheck="true"></textarea>
+
+                            <label for="createCharacter.equipment">Equipment</label>
+                            <textarea id="createCharacter.equipment" name="character.equipment" spellcheck="true"></textarea>
+
+                            <label for="createCharacter.treasure">Treasure</label>
+                            <textarea id="createCharacter.treasure" name="character.treasure" spellcheck="true"></textarea>
+                        </form>
+
+                        <!-- Circles which indicates the steps of the form: -->
+                        <div class="step_wrapper">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                        </div>
+
+                        <div class="buttonbar">
+                            <button type="button" onclick="cancelModal()">Cancel</button>
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-     
+
             <button id="install-app" class="hidden install-app" type="button" onclick="installApp()">Install as an App for offline operation</button>
 
             <div class="header">
                 <h1 id="primeHeader">You have no Class!</h1>
-         
+
                 <nav class="nav nav-menu" role="navigation">
                     <button type="button" onclick="startWizard()">Create a new Character</button>
                     <button type="button" onclick="openCharacter()">Load a character</button>
                     <button type="button" onclick="saveCharacter()">Save a character</button> 
+                    <button type="button" onclick="viewPurse()">Save a character</button> 
                 </nav>
             </div>
 
@@ -62,15 +308,15 @@
 
                 <dt>Phone Number</dt>
                 <dd >
-                    <a target="_blank" id="player.phone" href="tel:+" >Phone number missing</a>
+                <a target="_blank" id="player.phone" href="tel:+" >Phone number missing</a>
                 </dd>
-                
+
                 <dt>Email</dt>
                 <dd>
-                    <a target="_blank" id="player.email" href="mailto:">Email missing</a>
+                <a target="_blank" id="player.email" href="mailto:">Email missing</a>
                 </dd>
             </dl>
-            
+
             <div class="stack fullWidth characterName">
                 <h2>
                     <span id="character.name.first"></span>
@@ -79,7 +325,7 @@
                     <span id="character.name.family"></span>
                 </h2>
             </div>
-            
+
             <dl class="stack fullWidth subdivided stats">
                 <div class="grouping">
                     <dt>Race</dt>
@@ -88,26 +334,26 @@
                     <span class="parens" id="character.pronoun" data-lookup="PRONOUNS"></span>
                     </dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Alignment</dt>
-                <dd>Society: <span id="character.alignment.society"></span></dd>
-                <dd>Morality: <span id="character.alignment.morality"></span></dd>
+                    <dt>Alignment</dt>
+                    <dd>Society: <span id="character.alignment.society"></span></dd>
+                    <dd>Morality: <span id="character.alignment.morality"></span></dd>
                 </div>
-                 
+
                 <div class="grouping">
-                <dt>Size</dt>
-                <dd id="RACE.size.simple"></dd>
+                    <dt>Size</dt>
+                    <dd id="RACE.size.simple"></dd>
                 </div> 
-                
+
                 <div class="grouping">
-                <dt>Speed</dt>
-                <dd id="RACE.speed"></dd>
+                    <dt>Speed</dt>
+                    <dd id="RACE.speed"></dd>
                 </div>  
-                
+
                 <div class="grouping">
-                <dt>Class</dt>
-                <dd class="marginless">
+                    <dt>Class</dt>
+                    <dd class="marginless">
                     <table>
                         <thead>
                             <tr>
@@ -119,52 +365,52 @@
                         <tbody id="character.class">
                         </tbody>
                     </table>
-                </dd>
-                </div>
-               
-                <div class="grouping">
-                <dt>Experience Points</dt>
-                <dd id="character.experience" ></dd>
+                    </dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Max Hit Points</dt>
-                <dd id="character.hitPoints.max"></dd>
+                    <dt>Experience Points</dt>
+                    <dd id="character.experience" ></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Current Hit Points</dt>
-                <dd id="character.hitPoints.current"></dd>
+                    <dt>Max Hit Points</dt>
+                    <dd id="character.hitPoints.max"></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Race Traits</dt>
-                <dd id="RACE.features"></dd>
+                    <dt>Current Hit Points</dt>
+                    <dd id="character.hitPoints.current"></dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Class Features</dt>
-                <dd id="CALC.features"></dd>
+                    <dt>Race Traits</dt>
+                    <dd id="RACE.features"></dd>
                 </div>
-                
+
+                <div class="grouping">
+                    <dt>Class Features</dt>
+                    <dd id="CALC.features"></dd>
+                </div>
+
                 <div class="grouping spell-req">
-                <dt>Spells</dt>
-                <dd id="character.spells"></dd>
+                    <dt>Spells</dt>
+                    <dd id="character.spells"></dd>
                 </div> 
-                
+
                 <div class="grouping">
-                <dt>Saving Throw Proficiencies</dt>
-                <dd id="CALC.savingThrows" data-lookup="ATTRIBUTES"></dd> 
+                    <dt>Saving Throw Proficiencies</dt>
+                    <dd id="CALC.savingThrows" data-lookup="ATTRIBUTES"></dd> 
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Proficiencies</dt>
-                <dd id="CALC.proficiency"></dd>
+                    <dt>Proficiencies</dt>
+                    <dd id="CALC.proficiency"></dd>
                 </div>
-              
+
                 <div class="grouping">
-                <dt>Skills</dt>
-                <dd class="marginless">
+                    <dt>Skills</dt>
+                    <dd class="marginless">
                     <table>
                         <thead>
                             <tr>
@@ -175,16 +421,16 @@
                         <tbody id="character.skills">
                         </tbody>
                     </table>
-                </dd>
-                
+                    </dd>
+                </div>
                 <div class="grouping">
-                <dt>Languages</dt>
-                <dd id="character.languages" data-lookup="LANGUAGES"></dd>
+                    <dt>Languages</dt>
+                    <dd id="character.languages" data-lookup="LANGUAGES"></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Inspiration</dt>
-                <dd><input type="checkbox" id="character.inspiration" disabled="disabled"/></dd>
+                    <dt>Inspiration</dt>
+                    <dd><input type="checkbox" id="character.inspiration" disabled="disabled"/></dd>
                 </div>
             </dl>
 
@@ -264,118 +510,118 @@
             </table>
             <dl class="stack fullWidth subdivided appearance">
                 <div class="grouping">
-                <dt>Age</dt>
-                <dd id="character.details.age" ></dd>
+                    <dt>Age</dt>
+                    <dd id="character.details.age" ></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Height</dt>
-                <dd id="character.details.height"></dd>
+                    <dt>Height</dt>
+                    <dd id="character.details.height"></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Weight (in lbs)</dt>
-                <dd id="character.details.weight"></dd>
+                    <dt>Weight (in lbs)</dt>
+                    <dd id="character.details.weight"></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Purse</dt>
-                <dd id="character.purse"></dd>
-                <a id="character.purse.open" href="" download="" class="store"></a>
-                </div>
-                
-                <div class="grouping">
-                <dt>Weapons</dt>
-                <dd id="character.weapons"></dd>
-                </div>
-                
-                <div class="grouping">
-                <dt>Equipment</dt>
-                <dd id="character.equipment"></dd>
-                </div>
-                
-                <div class="grouping">
-                <dt>Treasure</dt>
-                <dd id="character.treasure"></dd>
-                </div>
-             
-                <div class="grouping">
-                <dt>Backstory Type</dt>
-                <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
-                </div>
-                
-                <div class="grouping">
-                <dt>Backstory</dt>
-                <dd id="character.backstory.story"></dd>
-                </div>
-                
-                <div class="grouping">
-                <dt>Appearance</dt>
-                <dd id="character.details.appearance" ></dd>
-                </div>
-                
-                <div class="grouping">
-                <dt>Eye Color</dt>
-                <dd>
-                <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
-                <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
-                </dd>
+                    <dt>Purse</dt>
+                    <dd id="character.purse"></dd>
+                    <a id="character.purse.open" href="" download="" class="store"></a>
                 </div>
 
                 <div class="grouping">
-                <dt>Skin Color</dt>
-                <dd>
-                <div class="swatch tagAlong" id="character.details.skin.color"></div>
-                <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
-                </dd>
+                    <dt>Weapons</dt>
+                    <dd id="character.weapons"></dd>
                 </div>
 
                 <div class="grouping">
-                <dt>Hair Color</dt>
-                <dd>
-                <div class="swatch tagAlong" id="character.details.hair.color"></div>
-                <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
-                </dd>
+                    <dt>Equipment</dt>
+                    <dd id="character.equipment"></dd>
                 </div>
-                 
+
                 <div class="grouping">
-                <dt>Personality Traits</dt>
-                <dd id="character.personalitytraits"></dd>
+                    <dt>Treasure</dt>
+                    <dd id="character.treasure"></dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Ideals</dt>
-                <dd id="character.ideals"></dd>
+                    <dt>Backstory Type</dt>
+                    <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Bonds</dt>
-                <dd id="character.bonds"></dd>
+                    <dt>Backstory</dt>
+                    <dd id="character.backstory.story"></dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Flaws</dt>
-                <dd id="character.flaws"></dd>
+                    <dt>Appearance</dt>
+                    <dd id="character.details.appearance" ></dd>
                 </div>
-                
+
                 <div class="grouping">
-                <dt>Allies</dt>
-                <dd id="character.allies"></dd> 
+                    <dt>Eye Color</dt>
+                    <dd>
+                    <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
+                    <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
+                    </dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Skin Color</dt>
+                    <dd>
+                    <div class="swatch tagAlong" id="character.details.skin.color"></div>
+                    <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
+                    </dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Hair Color</dt>
+                    <dd>
+                    <div class="swatch tagAlong" id="character.details.hair.color"></div>
+                    <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
+                    </dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Personality Traits</dt>
+                    <dd id="character.personalitytraits"></dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Ideals</dt>
+                    <dd id="character.ideals"></dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Bonds</dt>
+                    <dd id="character.bonds"></dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Flaws</dt>
+                    <dd id="character.flaws"></dd>
+                </div>
+
+                <div class="grouping">
+                    <dt>Allies</dt>
+                    <dd id="character.allies"></dd> 
                 </div>
             </dl>
 
             <p class="fullWidth footer">I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/online5eCS/issues/new">let me know!</a></p>
         </div>
-        
+
         <script>
             'use strict';
             if('serviceWorker' in navigator) {
-              navigator.serviceWorker
+                navigator.serviceWorker
                     .register('online5eCS-serviceworker.js')
-                       .then(function() { console.log("Service Worker Registered"); })
-                       .catch(function(error) {console.log('Registration failed with ' + error);});
+                    .then(function() { console.log("Service Worker Registered"); })
+                    .catch(function(error) {console.log('Registration failed with ' + error);});
             }
         </script>
-    
+
     </body>
 </html>

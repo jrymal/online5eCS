@@ -95,7 +95,7 @@ function loadFromJSON() {
 }
 
 function startWizard() {
-    showModal('createCharacter', function() {
+    loadModal('createCharacter', function() {
         initWizard(function(result) {
             setCurrentCharacter(result);
             show($('modalOverlay'), false);
@@ -436,74 +436,17 @@ function performNameLookup(lookup, node){
 }
 
 function openCharacter() {
-    showModal('importFromFile');
-}
-
-// unused
-function viewCurrentCharacter() {
-    showModal('createCharacter');
+    loadModal('importFromFile');
 }
 
 // unused
 function viewPurse() {
-    showModal('purseUpdate');
+    loadModal('purseUpdate');
 }
 
-var IMPORTS = new Map();
-function showModal(modelId, initFunc){
-    // Bring in the import content.
-    let link = document.querySelector('link[rel="import"][id="'+modelId+'"]');
-    
-    if (!link) {
-        console.log("Link Mismatch: "+modelId);
-        return;
-    }
-
-    if (link.import){
-        // import works...awesome no more work....
-        loadModal(modelId, link.import, initFunc);
-    } else {
-        // crap....
-        var dom = IMPORTS.get(modelId);
-        if (dom){
-            loadModal(modelId, dom, initFunc);
-        } else {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //IMPORTS.set(modelId, xhttp.response);
-                    loadModal(modelId, xhttp.response, initFunc);
-                }
-            };
-            xhttp.responseType = 'document';
-            xhttp.open("GET", link.href, true);
-            xhttp.send();
-        }
-    }
-}
-
-function loadModal(modelId, importDom, initFunc){
-    let modalDiv = $('modalOverlay');
-    let modalTitleDiv = $('modal.title');
-    let modalDescDiv = $('modal.description');
-    let modalBodyDiv = $('modal.body');
-    
-    // Clone the <template> in the import.
-    let titleEle = importDom.querySelector('title');
-    let descEle = importDom.querySelector('description');
-
-    // need to clear out before adding the new elements
-    modalBodyDiv.innerHTML="";
-
-    modalTitleDiv.innerHTML = titleEle ? titleEle.innerHTML : "";
-    modalDescDiv.innerHTML = descEle ? descEle.innerHTML : "";
-    
-    let templateEle = importDom.querySelector('template');
-    
-    modalBodyDiv.appendChild(document.importNode(templateEle.content ? templateEle.content : templateEle.innerHTML, true));
-
+function loadModal(modelId, initFunc){
     //focus will not work if the panel is not displaying...
-    show(modalDiv);
+    show($(modalId));
     initFunc();
 }
 

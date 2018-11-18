@@ -24,9 +24,6 @@ self.addEventListener('install', function(event) {
                 'js/Random.js',
                 'js/Skills.js',
                 'js/Util.js',
-                'template/createCharacter.html',
-                'template/importFromFile.html',
-                'template/purseUpdate.html'
             ]);
         })
     );
