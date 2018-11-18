@@ -444,7 +444,7 @@ function viewPurse() {
     loadModal('purseUpdate');
 }
 
-function loadModal(modelId, initFunc){
+function loadModal(modalId, initFunc){
     //focus will not work if the panel is not displaying...
     show($(modalId));
     initFunc();
