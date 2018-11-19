@@ -44,6 +44,13 @@ function init() {
         // apply the data found in the previous state
         setCurrentCharacter(window.history.state);
     }
+    populateLookups();
+}
+
+function hashChange(){
+    var locationHash = stripFirst("#",location.hash);
+    selectFirstInput($(locationHash));
+    prepopulateValues(locationHash);
 }
 
 function installApp() {
@@ -95,11 +102,10 @@ function loadFromJSON() {
 }
 
 function startWizard() {
-    loadModal('createCharacter', function() {
-        initWizard(function(result) {
-            setCurrentCharacter(result);
-            show($('modalOverlay'), false);
-        });
+    show($('createCharacter'));
+    initWizard(function(result) {
+        setCurrentCharacter(result);
+        show($('modalOverlay'), false);
     });
 }
 
@@ -177,6 +183,8 @@ function setCurrentCharacter(character){
     if (currentCharacter){
         $('rootNode').classList.remove("nocharacter");
     }
+
+    return true;
 }
 
 function applyLevelBasedRaceFeatures(character, race){
@@ -308,6 +316,8 @@ function cleanseForSave(obj) {
     let cln = clone(obj);
     delete cln.CALC;
     delete cln.RACE;
+    console.log("called with:"+cln);
+    downloadToFile($('downloadCharacter'), cln);
     return cln;
 }
 
@@ -436,18 +446,12 @@ function performNameLookup(lookup, node){
 }
 
 function openCharacter() {
-    loadModal('importFromFile');
+    show($('importFromFile'));
 }
 
 // unused
 function viewPurse() {
-    loadModal('purseUpdate');
-}
-
-function loadModal(modalId, initFunc){
-    //focus will not work if the panel is not displaying...
-    show($(modalId));
-    initFunc();
+    show($('purseUpdate'));
 }
 
 function cancelModal() {
@@ -456,26 +460,28 @@ function cancelModal() {
 
 const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA'];
 function selectFirstInput(divEle) {
-    for(let i = 0; i < divEle.childNodes.length; i++) {
-        let node = divEle.childNodes[i];
-        if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
-            node.focus();
-            return true;
-        }
-        // need to decend into elements to see if they have focusable elements
-        // as well
-        if(node.childNodes && node.childNodes.length > 0 && selectFirstInput(node)){
-            return true;
+    if (divEle){
+        for(let i = 0; i < divEle.childNodes.length; i++) {
+            let node = divEle.childNodes[i];
+            if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
+                node.focus();
+                return true;
+            }
+            // need to decend into elements to see if they have focusable elements
+            // as well
+            if(node.childNodes && node.childNodes.length > 0 && selectFirstInput(node)){
+                return true;
+            }
         }
     }
     return false;
 }
 
-function downloadToFile(link) {
+function downloadToFile(link, character) {
     link.href = 'data:text/javascript;charset=utf-8,'
-        + encodeURIComponent(JSON.stringify(currentCharacter));
-    link.download = encodeURIComponent(currentCharacter.name)
-        + '_'+currentCharacter.level+'.json' 
+        + encodeURIComponent(JSON.stringify(character));
+    link.download = encodeURIComponent(character.character.name.first)
+        + '_'+character.character.class[0].level+'.json' 
 }
 
 function beforeUnload(){

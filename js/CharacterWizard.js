@@ -18,7 +18,7 @@ function showWizardTab(n) {
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
 
-    prepopulateValues(x[n]);
+    prepopulateValues(x[n].id);
 }
 
 function addClass() {
@@ -72,17 +72,20 @@ function toggleMultiClass(){
 }
 
 function postProcessStep(form){
-    switch(form.id) {
-        case 'createCharacter.class':
-            if ($('createCharacter.character.class.tbody').childElementCount == 0){
-                addClass();
-            }
-            break;
+    if (form.checkValidity()){ 
+        switch(form.id) {
+            case 'createCharacter.class.form':
+                if ($('createCharacter.character.class.tbody').childElementCount == 0){
+                    addClass();
+                }
+                break;
+        }
     }
+    return form.checkValidity();
 }
 
-function prepopulateValues(form){
-    switch(form.id) {
+function prepopulateValues(formName){
+    switch(formName) {
         case 'createCharacter.player':
             if (currentCharacter) {
                 setIfExistsAndEmpty('createCharacter.player.name', currentCharacter.player.name);
@@ -425,6 +428,7 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
 }
 
 function generateDataToJSON() {
+    console.log("generating");
     let dataholders = document.getElementsByClassName("wizardScreen");
 
     // Retrieves input data from a form and returns it as a JSON object.

@@ -91,6 +91,14 @@ input.short {
     width: 3em;
 }
 
+.no-action,
+form:invalid .next{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+
 input:invalid {
     box-shadow: 0 0 .3em .1em var(--color-error);
     background: var(--color-error);
@@ -117,7 +125,7 @@ input[required]::after{
 
 
 /*** MODAL LAYOUT ***/
-.modal.overlay{
+.modal{
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -127,9 +135,10 @@ input[required]::after{
     overflow: auto; /* Enable scroll if needed */
     background-color: black;
     background-color: var(--color-smoke);
+    display: none;
 }
 
-.modal.overlay .base {
+.modal .base {
     background: white;
     background: var(--color-primary-background);
     margin: 1em;
@@ -140,35 +149,38 @@ input[required]::after{
     border-radius: .8em;
 }
 
-.modal.overlay .base h2 {
+.modal:target {
+    display: block;
+}
+
+.modal .base h2 {
     margin: 0;
 }
 
-.modal.overlay .description {
+.modal .description {
     margin: .8em 0;
 }
 
-.modal.overlay .step_wrapper {
+.modal .step_wrapper {
     text-align: center;
     margin: 1em;
 }
 
-.modal.overlay .wizardScreen legend {
+.modal .wizardScreen legend {
     font-size: 1.2em;
 }
  
-.modal.overlay .wizardScreen .attribute_grid {
+.modal .wizardScreen .attribute_grid {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
 }
 
-.modal.overlay .wizardScreen > fieldset > div {
+.modal .wizardScreen > fieldset > div {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }
   
-.modal.overlay .wizardScreen{
-    display: none;
+.modal .wizardScreen{
     padding: 1em;
     overflow: hidden;
     border: .1em solid var(--color-wizard-border);
@@ -176,11 +188,11 @@ input[required]::after{
     min-height: 17em; 
 }
 
-.modal.overlay .wizardScreen.active {
+.modal .wizardScreen.active {
   display: block;
 }
 
-.modal.overlay .step {
+.modal .step {
   height: 1em;
   width: 1em;
   margin: 0 .1em;
@@ -191,20 +203,24 @@ input[required]::after{
   opacity: 0.5;
 }
 
-.modal.overlay .step.active {
+.modal .step.active {
   opacity: 1;
 }
 
-.modal.overlay .step.finish {
+.modal .step.finish {
   background-color: var(--color-active);
 }
 
-.modal.overlay .buttonbar {
+.modal .buttonbar {
     display: inline-flex;
 }
 
-.modal.overlay .buttonbar > *:first-child {
+.modal .buttonbar > *:first-child {
     margin-left: 0;
+}
+
+.modal .buttonbar > * {
+    margin-left: 1em;
 }
 
 .topContainer .header > *{
