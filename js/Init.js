@@ -49,8 +49,10 @@ function init() {
 
 function hashChange(){
     var locationHash = stripFirst("#",location.hash);
-    selectFirstInput($(locationHash));
-    prepopulateValues(locationHash);
+    if(!isBlank(locationHash)){
+        selectFirstInput($(locationHash));
+        prepopulateValues(locationHash);
+    }
 }
 
 function installApp() {
