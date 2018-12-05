@@ -30,6 +30,9 @@ function clearAllFields() {
 let installPromptEvent;
 
 function init() {
+
+    initDb();
+
     window.addEventListener('beforeinstallprompt', (event) => {
       // Prevent Chrome <= 67 from automatically showing the prompt
       event.preventDefault();
@@ -39,12 +42,29 @@ function init() {
       show($('install-app'), true);
     });
 
+    loadCharacter();
+
+    populateLookups();
+}
+
+function loadCharacter() {
     // Check for a previous state in the history on load
-    if (window.history.state){
+    /*if (window.history.state){
         // apply the data found in the previous state
         setCurrentCharacter(window.history.state);
-    }
-    populateLookups();
+    }*/
+    getCharacter(getQueryVariable("name"), function(event){
+        setCurrentCharacter(event.target.result);
+    });
+}
+
+function saveCharacter() {
+    putCharacter(
+        generateName(), cleanseForSave(currentCharacter), function(){});
+    
+    window.history.pushState(null, "",
+        generateNameHash(window.location.hash));
+
 }
 
 function hashChange(){
@@ -53,6 +73,18 @@ function hashChange(){
         selectFirstInput($(locationHash));
         prepopulateValues(locationHash);
     }
+}
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
 }
 
 function installApp() {
@@ -74,17 +106,29 @@ function installApp() {
 }
 
 function generateNameHash(hash){
+    var resp = "index.html";
+    var generatedName = generateName();
+    if (generatedName) {
+        resp += '?name=' + encodeURIComponent(generatedName);
+    }
+    return resp;
+}
+
+function generateName() {
+    
     if (!currentCharacter || !currentCharacter.player) {
         return null;
     }
 
     var playerName = currentCharacter.player.name;
     var charName = currentCharacter.character.name.first;
-    var resp = "index.html";
-    if (playerName && charName) {
-        resp += '?' + playerName + '_' + charName;
+    if (currentCharacter.character.name.last){
+        charName += '_'+currentCharacter.character.name.last;
     }
-    return resp;
+    if (playerName && charName) {
+        return playerName + '_' + charName;
+    }
+    return null;
 }
 
 //
@@ -143,8 +187,8 @@ function setCurrentCharacter(character){
     
     applyLevelBasedRaceFeatures(character, race);
 
-    window.history.pushState(cleanseForSave(currentCharacter), "",
-        generateNameHash(window.location.hash));
+    saveCharacter();
+    
     updateEmail();
     updatePhoneNumber();
     
@@ -488,11 +532,12 @@ function downloadToFile(link, character) {
 
 function beforeUnload(){
     // set last settings into history
-    window.history.pushState(cleanseForSave(currentCharacter), "",
-        generateNameHash(window.location.hash));
-    
-    // Ask if there are changes they's like to save
-    return "Discard changes?"; 
+    if (currentCharacter){
+        saveCharacter();
+        
+        // Ask if there are changes they's like to save
+        return "Discard changes?";
+    }
 }
 
 function updatePhoneNumber() {
