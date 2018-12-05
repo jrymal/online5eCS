@@ -122,8 +122,8 @@ function generateName() {
 
     var playerName = currentCharacter.player.name;
     var charName = currentCharacter.character.name.first;
-    if (currentCharacter.character.name.last){
-        charName += '_'+currentCharacter.character.name.last;
+    if (currentCharacter.character.name.family){
+        charName += '_'+currentCharacter.character.name.family;
     }
     if (playerName && charName) {
         return playerName + '_' + charName;
@@ -143,7 +143,7 @@ function loadFromJSON() {
         reader.onerror = function(evt) {
             console.log("Error:"+evt.target.result);
         };
-        reader.readAsText($('importFile').files[0]);
+        reader.readAsText($('importFile.importFile').files[0]);
     }
 }
 
