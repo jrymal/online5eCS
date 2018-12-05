@@ -1,25 +1,6 @@
 'use strict';
 
-let currentTab = 0; // Current tab is set to be the first tab (0)
 let callbackFunction = null;
-
-function showWizardTab(n) {
-
-    // This function will display the specified tab of the form ...
-    let x = document.getElementsByClassName("wizardScreen");
-    x[n].style.display = "block";
-
-    selectFirstInput(x[n]);
-
-    // ... and fix the Previous/Next buttons:
-    document.getElementById("prevBtn").disabled = n == 0;
-    document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Submit" : "Next";
-    
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
-
-    prepopulateValues(x[n].id);
-}
 
 function addClass() {
     
@@ -57,18 +38,6 @@ function removeClass(className) {
          
     selectedEle.add(opt, i);
     tableEle.parentNode.removeChild(tableEle);
-}
-
-function toggleMultiClass(){
-    var multiNodes = document.getElementsByClassName("multiclass");
-    [].reduce.call(multiNodes, (data, node) => {
-        toggle(node);
-        return data;
-    },{});
-    
-    $("multiClassEnable").innerHTML = isVisible(multiNodes[0])
-    ? "Disable Multiclass"
-    : "Enable Multiclass";
 }
 
 function postProcessStep(form){
@@ -231,66 +200,6 @@ function checkCheckboxes(idPrefix, list){
     return unusedSlots;
 }
 
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    let x = document.getElementsByClassName("wizardScreen");
-    
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()){
-        return false;
-    }
-    
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-        // .. generate the json object
-        callbackFunction(generateDataToJSON());
-    } else {
-        // Otherwise, display the correct tab:
-        showWizardTab(currentTab);
-    }
-}
-
-function validateForm() {
-    let x = document.getElementsByClassName("wizardScreen");
-    let currentForm = x[currentTab];
-    let valid = currentForm.checkValidity(); 
-
-    // could use the validity object to add top level error messages....
-
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        postProcessStep(currentForm);
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
-}
-
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    let i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-}
-
-function initWizard(callback) {
-    currentTab = 0;
-
-    callbackFunction = callback;
-    
-    populateLookups();
-    
-    showWizardTab(0);
-}
-
 function populateLookups(){
     let i;
     
@@ -428,7 +337,6 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
 }
 
 function generateDataToJSON() {
-    console.log("generating");
     let dataholders = document.getElementsByClassName("wizardScreen");
 
     // Retrieves input data from a form and returns it as a JSON object.

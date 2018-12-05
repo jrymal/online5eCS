@@ -15,7 +15,9 @@ function initDb(callbackFunc){
         console.log("IndexDB is not supported");
         return false;
     } else if (__DB__){
-        callbackFunc(__DB__);
+        if (callbackFunc){
+            callbackFunc(__DB__);
+        }
         return true;
     }
 
@@ -26,7 +28,9 @@ function initDb(callbackFunc){
     request.onsuccess = function(event) {
         console.log('[onsuccess]', request.result);
         __DB__ = event.target.result; // === request.result
-        callbackFunc(__DB__);
+        if (callbackFunc){
+            callbackFunc(__DB__);
+        }
     };
     request.onerror = function(event) {
         console.log('[onerror]', request.error);

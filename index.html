@@ -17,7 +17,7 @@
 
         <!-- All static objects rely on deep freeze in Util -->
         <script type="text/javascript" src="js/Util.js"> </script>
-        <script type="text/javascript" src="js/DB.js"> </script>
+        <script type="text/javascript" src="js/DB.js" async> </script>
         <script type="text/javascript" src="js/Random.js" async> </script>
         <script type="text/javascript" src="js/Races.js" async> </script>
         <script type="text/javascript" src="js/Skills.js" async> </script>
@@ -39,9 +39,29 @@
                 <div class="base" >
                     <h2>Load from File</h2>
                     <div class="description">Load your character</div>
-                    <label for="importFile.importFile">Import file</label>
-                    <input type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
+                    <input type="radio" name="importType" id="importFile.radio.file" value="file">
+                    <label for="importFile.radio.file">Import file</label>
+                    <div class="hidden-unselected">
+                       <input type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
+                    </div>
+                    <input type="radio" name="importType" id="importFile.radio.db" value="db">
+                    <label for="importFile.radio.db">Import from DB</label>
+                    <div class="hidden-unselected">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Select</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="DB.character">
+                            </tbody>
+                        </table>
+                    </div>
+
                     <a href="#">Cancel</a>
+                    <a href="#">Ok</a>
                 </div>
             </div>
             <div class="modal" id="purseUpdate">
@@ -83,12 +103,12 @@
 
                         <label for="createCharacter.player.email">Email</label>
                         <input type="email" id="createCharacter.player.email" name="player.email" autocomplete="email"/> 
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#" class="no-action">Previous</a>
-                            <a href="#createCharacter.race" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="no-action">Previous</a>
+                        <a href="#createCharacter.race" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.race">
@@ -114,12 +134,12 @@
                             <option value="Neutral">Neutral</option>
                             <option value="Evil">Evil</option>
                         </select>  
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.player" >Previous</a>
-                            <a href="#createCharacter.name" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.player" >Previous</a>
+                        <a href="#createCharacter.name" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.name">
@@ -135,12 +155,12 @@
                         <input type="text" id="createCharacter.character.name.nickname" name="character.name.nickname"/>
                         <label for="createCharacter.character.name.child">Child Name</label>
                         <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.race" >Previous</a>
-                            <a href="#createCharacter.class" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.race" >Previous</a>
+                        <a href="#createCharacter.class" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.class">
@@ -148,37 +168,34 @@
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
                     <form class="wizardScreen" id="createCharacter.class.form">
-                        <div class="toThaLeft">
+                        <div>
                             <label for="createCharacter.character.class.type">Class</label>
                             <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
 
                             <label for="createCharacter.character.level">Level</label>
                             <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
 
-                            <button type="button" class="hidden multiclass" onClick="addClass()">Add Class</button>
-                            <button type="button" id="multiClassEnable" onClick="toggleMultiClass()">Enable Multiclass</button>
+                            <button type="button" class="multiclass" onClick="addClass()">Add Class</button>
                         </div>
-                        <div class="toThaLeft multiclass hidden">
-                            <table>
-                                <caption>Classes choosen</caption>
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Level</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="createCharacter.character.class.tbody">
-                                </tbody> 
-                            </table>
-                        </div>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.name" >Previous</a>
-                            <a href="#createCharacter.attr" class="next"
-                                                            onClick="postProcessStep($('createCharacter.class.form'))">Next</a>
-                        </div>
+                        <table>
+                            <caption>Classes choosen</caption>
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Level</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="createCharacter.character.class.tbody">
+                            </tbody> 
+                        </table>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.name" >Previous</a>
+                        <a href="#createCharacter.attr" class="next"
+                            onclick="return postProcessStep($('createCharacter.class.form'))">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.attr">
@@ -209,12 +226,12 @@
                             <label for="createCharacter.character.attribute.charisma">Charisma</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
                         </div>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.class" >Previous</a>
-                            <a href="#createCharacter.backstory" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.class" >Previous</a>
+                        <a href="#createCharacter.backstory" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.backstory">
@@ -227,12 +244,12 @@
 
                         <label for="createCharacter.backstory.story">Backstory</label>
                         <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.attr" >Previous</a>
-                            <a href="#createCharacter.age" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.attr" >Previous</a>
+                        <a href="#createCharacter.age" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.age">
@@ -248,12 +265,12 @@
 
                         <label for="createCharacter.details.weight">Weight (in pounds)</label>
                         <input type="text" id="createCharacter.details.weight" name="character.details.weight"/>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.backstory" >Previous</a>
-                            <a href="#createCharacter.colors" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.backstory" >Previous</a>
+                        <a href="#createCharacter.colors" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.colors">
@@ -272,12 +289,12 @@
                         <label for="createCharacter.details.hair">Hair Color</label>
                         <select class="tagAlong" data-type="color" id="createCharacter.details.hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
                         <div id="createCharacter.details.hair.color" class="swatch"></div>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.age" >Previous</a>
-                            <a href="#createCharacter.appearance" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.age" >Previous</a>
+                        <a href="#createCharacter.appearance" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.appearance">
@@ -290,12 +307,12 @@
 
                         <label for="createCharacter.details.image">Image</label>
                         <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.colors" >Previous</a>
-                            <a href="#createCharacter.skills" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.colors" >Previous</a>
+                        <a href="#createCharacter.skills" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.skills">
@@ -307,12 +324,12 @@
                             <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.skills" data-lookup="SKILLS"></div>
                         </fieldset>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.appearance" >Previous</a>
-                            <a href="#createCharacter.language" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.appearance" >Previous</a>
+                        <a href="#createCharacter.language" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.language">
@@ -324,12 +341,12 @@
                             <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.languages" data-lookup="LANGUAGES"></div>
                         </fieldset>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.skills" >Previous</a>
-                            <a href="#createCharacter.traits" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.skills" >Previous</a>
+                        <a href="#createCharacter.traits" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.traits">
@@ -344,12 +361,12 @@
 
                         <label for="createCharacter.personalitytraits">Personality Traits</label>
                         <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.language" >Previous</a>
-                            <a href="#createCharacter.ideals" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.language" >Previous</a>
+                        <a href="#createCharacter.ideals" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.ideals">
@@ -369,12 +386,12 @@
 
                         <label for="createCharacter.allies">Allies</label>
                         <textarea id="createCharacter.allies" name="character.allies" spellcheck="true"></textarea>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.traits" >Previous</a>
-                            <a href="#createCharacter.weapons" class="next">Next</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.traits" >Previous</a>
+                        <a href="#createCharacter.weapons" class="next">Next</a>
+                    </div>
                 </div>
             </div>
             <div class="modal" id="createCharacter.weapons">
@@ -390,12 +407,12 @@
 
                         <label for="createCharacter.treasure">Treasure</label>
                         <textarea id="createCharacter.treasure" name="character.treasure" spellcheck="true"></textarea>
-                        <div class="buttonbar">
-                            <a href="#">Cancel</a>
-                            <a href="#createCharacter.ideals">Previous</a>
-                            <a href="#" class="next" onClick="setCurrentCharacter(generateDataToJSON())">Complete</a>
-                        </div>
                     </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.ideals">Previous</a>
+                        <a href="#" class="next" onClick="setCurrentCharacter(generateDataToJSON())">Complete</a>
+                    </div>
                 </div>
             </div>
 
@@ -408,7 +425,6 @@
                     <a href="#createCharacter.player">Create a new Character</a>
                     <a href="#importFile">Load a character</a>
                     <a href="#" id="downloadCharacter">Download Character</a> 
-                    <a href="#purseUpdate">View Purse</a> 
                 </nav>
             </div>
 
@@ -637,7 +653,7 @@
                 <div class="grouping">
                     <dt>Purse</dt>
                     <dd id="character.purse"></dd>
-                    <a id="character.purse.open" href="#" download="" class="store"></a>
+                    <a href="#purseUpdate">View Purse</a> 
                 </div>
 
                 <div class="grouping">

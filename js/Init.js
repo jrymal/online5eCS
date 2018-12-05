@@ -42,20 +42,14 @@ function init() {
       show($('install-app'), true);
     });
 
-    loadCharacter();
+    var urlNameValue = getQueryVariable("name");
+    if (urlNameValue){
+        getCharacter(urlNameValue, function(event){
+            setCurrentCharacter(event.target.result);
+        });
+    }
 
     populateLookups();
-}
-
-function loadCharacter() {
-    // Check for a previous state in the history on load
-    /*if (window.history.state){
-        // apply the data found in the previous state
-        setCurrentCharacter(window.history.state);
-    }*/
-    getCharacter(getQueryVariable("name"), function(event){
-        setCurrentCharacter(event.target.result);
-    });
 }
 
 function saveCharacter() {
@@ -362,7 +356,6 @@ function cleanseForSave(obj) {
     let cln = clone(obj);
     delete cln.CALC;
     delete cln.RACE;
-    console.log("called with:"+cln);
     downloadToFile($('downloadCharacter'), cln);
     return cln;
 }
