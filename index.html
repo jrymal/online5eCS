@@ -37,31 +37,27 @@
 
             <div class="modal" id="importFile">
                 <div class="base" >
-                    <h2>Load from File</h2>
+                    <h2>Load Character</h2>
                     <div class="description">Load your character</div>
-                    <input type="radio" name="importType" id="importFile.radio.file" value="file">
-                    <label for="importFile.radio.file">Import file</label>
-                    <div class="hidden-unselected">
-                       <input type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
+                    <div>
+                        <label class="tagAlong"><input type="radio" name="importType" id="importFile.radio.file" value="file" checked/>Import file</label>
+                        <input class="tagAlong" type="file" id="importFile.importFile" name="importFile" />
                     </div>
-                    <input type="radio" name="importType" id="importFile.radio.db" value="db">
-                    <label for="importFile.radio.db">Import from DB</label>
-                    <div class="hidden-unselected">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Select</th>
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody id="DB.character">
-                            </tbody>
-                        </table>
-                    </div>
+                    <br>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Select</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="DB.character">
+                        </tbody>
+                    </table>
 
                     <a href="#">Cancel</a>
-                    <a href="#">Ok</a>
+                    <a href="#" onClick="return loadFromJSON()" >Ok</a>
                 </div>
             </div>
             <div class="modal" id="purseUpdate">

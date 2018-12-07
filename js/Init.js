@@ -117,10 +117,10 @@ function generateName() {
     var playerName = currentCharacter.player.name;
     var charName = currentCharacter.character.name.first;
     if (currentCharacter.character.name.family){
-        charName += '_'+currentCharacter.character.name.family;
+        charName += ' '+currentCharacter.character.name.family;
     }
     if (playerName && charName) {
-        return playerName + '_' + charName;
+        return playerName + '-' + charName;
     }
     return null;
 }
@@ -130,23 +130,24 @@ function generateName() {
 //
 function loadFromJSON() {
     if (confirm("Loading will clear out all values. Continue?")) {
-        let reader = new FileReader();
-        reader.onload = function(evt) {
-            setCurrentCharacter(JSON.parse(evt.target.result));
-        };
-        reader.onerror = function(evt) {
-            console.log("Error:"+evt.target.result);
-        };
-        reader.readAsText($('importFile.importFile').files[0]);
+        if ($("importFile.radio.file").checked){
+            // load from file
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                setCurrentCharacter(JSON.parse(evt.target.result));
+            };
+            reader.onerror = function(evt) {
+                console.log("Error:"+evt.target.result);
+            };
+            reader.readAsText($('importFile.importFile').files[0]);
+        } else {
+            // : load from db
+            let keyToLoad = document.querySelector("input[name=importType]:checked").value;
+            getCharacter(keyToLoad, function(event){
+                setCurrentCharacter(event.target.result);
+            });
+        }
     }
-}
-
-function startWizard() {
-    show($('createCharacter'));
-    initWizard(function(result) {
-        setCurrentCharacter(result);
-        show($('modalOverlay'), false);
-    });
 }
 
 function getMaxHitPoints(classList) {

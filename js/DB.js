@@ -45,44 +45,45 @@ function initDb(callbackFunc){
     return true;
 }
 
+function getObjectStore(db, table, mode){
+    var transaction = db.transaction(table, mode);
+
+    // add success event handleer for transaction
+    // you should also add onerror, onabort event handlers
+    transaction.onsuccess = function(event) {
+        console.log('[Transaction] ALL DONE!');
+    };
+    
+    transaction.onerror = function(event) {
+        console.log('[Transaction] ERROR!');
+    };
+    transaction.onabort = function(event) {
+        console.log('[Transaction] ABORTED!');
+    };
+
+    return transaction.objectStore(table);
+}
+
 function getCharacter(characterName, callbackFunc){
     initDb(function(db){
-        var transaction = __DB__.transaction(STORE_CHARACTER, MODE_RO);
-
-        // add success event handleer for transaction
-        // you should also add onerror, onabort event handlers
-        transaction.onsuccess = function(event) {
-            console.log('[Transaction] ALL DONE!');
-        };
-        
-        transaction.onerror = function(event) {
-            console.log('[Transaction] ERROR!');
-        };
-        transaction.onabort = function(event) {
-            console.log('[Transaction] ABORTED!');
-        };
-
-        transaction.objectStore(STORE_CHARACTER).get(characterName).onsuccess = callbackFunc;
+        getObjectStore(db, STORE_CHARACTER, MODE_RO).get(characterName).onsuccess = callbackFunc;
     });
 }
 
 function putCharacter(characterName, character, callbackFunc){
     initDb(function(db){
-        var transaction = __DB__.transaction(STORE_CHARACTER, MODE_RW);
+        getObjectStore(db, STORE_CHARACTER, MODE_RW).put(character, characterName).onsuccess = callbackFunc;
+    });
+}
 
-        // add success event handleer for transaction
-        // you should also add onerror, onabort event handlers
-        transaction.onsuccess = function(event) {
-            console.log('[Transaction] ALL DONE!');
-        };
-        
-        transaction.onerror = function(event) {
-            console.log('[Transaction] ERROR!');
-        };
-        transaction.onabort = function(event) {
-            console.log('[Transaction] ABORTED!');
-        };
+function getAllCharacters(callbackFunc){
+    initDb(function(db){
+        getObjectStore(db, STORE_CHARACTER, MODE_RO).openCursor().onsuccess = callbackFunc;
+    });
+}
 
-        transaction.objectStore(STORE_CHARACTER).put(character, characterName).onsuccess = callbackFunc;
+function deleteCharacter(characterKey, callbackFunc){
+    initDb(function(db){
+        getObjectStore(db, STORE_CHARACTER, MODE_RW).delete(characterKey).onsuccess = callbackFunc;
     });
 }

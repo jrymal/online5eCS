@@ -13,7 +13,7 @@ function addClass() {
     tableEle.innerHTML += '<tr id="createCharacter.character.class.tableele.'+className+'">'
         +"<th>"+className+'<input type="hidden" name="character.class[].class" value="'+className+'"/></th>'
         +"<td>"+levelEle.value+'<input type="hidden" name="character.class[].level" value="'+levelEle.value+'"/></td>'
-        +'<td><button type="button" onClick="removeClass(\''+className+'\')">remove</button></td>'
+        +'<td><button type="button" onClick="removeClass(\''+className+'\')">Remove</button></td>'
         +"</tr>";              
 
     selectedEle.remove(selIdx);
@@ -92,7 +92,7 @@ function prepopulateValues(formName){
             chooseCheckbox("createCharacter.languages.legend", "languages.", "languages", race, backstory);
         }
             break;
-         case 'createCharacter.class':
+        case 'createCharacter.class':
             let table = $('createCharacter.character.class.tbody');
             let chooser = $('createCharacter.character.class.type');
             if (table.childElementCount == 1 
@@ -101,8 +101,42 @@ function prepopulateValues(formName){
                 removeClass(curValue);
                 chooser.value = curValue;
             }
-            break; 
+            break;
+        case 'importFile':
+            let tableBody = $('DB.character');
+            tableBody.innerHTML = "";
+            let currentKey = generateName();
+            getAllCharacters(function(event){
+
+                let cursor = event.target.result;
+                if (cursor) {
+                    let key = cursor.primaryKey;
+                    let character = cursor.value;
+                    if (key !== currentKey){
+                        tableBody.innerHTML += '<tr id="importFile.DBLoad.'+key+'">'
+                    +'<td><input type="radio" name="importType" id="importFile.DBLoad.select.'+key+'" value="'+key+'"/></td>'
+                    +'<td><label for="importFile.DBLoad.select.'+key+'">'+generateDbLabel(character)+'</label></td>'
+                    +'<td><button type="button" onClick="deleteCharacterLoad(\''+key+'\')">Remove</button></td>'
+                    +"</tr>";
+                    }
+                    cursor.continue();
+                }
+            });
+            break;
     }    
+}
+
+function deleteCharacterLoad(key){
+    deleteCharacter(key, function(){
+        // delete the value from the UI
+        let tableEle = $('importFile.DBLoad.'+key);
+        tableEle.parentNode.removeChild(tableEle);
+    });
+}
+
+function generateDbLabel(character){
+    return character.player.name+"<br>"
+        +character.character.name.first+" "+character.character.name.family;
 }
 
 function setIfExists(id, value){
