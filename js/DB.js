@@ -66,13 +66,31 @@ function getObjectStore(db, table, mode){
 
 function getCharacter(characterName, callbackFunc){
     initDb(function(db){
-        getObjectStore(db, STORE_CHARACTER, MODE_RO).get(characterName).onsuccess = callbackFunc;
+        getObjectStore(db, STORE_CHARACTER, MODE_RO).get(characterName).onsuccess = function(event){
+            if (event.target.result) {
+                callbackFunc(event);
+            }
+        };
     });
 }
 
 function putCharacter(characterName, character, callbackFunc){
     initDb(function(db){
-        getObjectStore(db, STORE_CHARACTER, MODE_RW).put(character, characterName).onsuccess = callbackFunc;
+        getObjectStore(db, STORE_CHARACTER, MODE_RW).put(character, characterName).onsuccess = function(event){
+            if (event.target.result) {
+                callbackFunc(event);
+            }
+        };
+    });
+}
+
+function deleteCharacter(characterKey, callbackFunc){
+    initDb(function(db){
+        getObjectStore(db, STORE_CHARACTER, MODE_RW).delete(characterKey).onsuccess = function(event){
+            if (event.target.result) {
+                callbackFunc(event);
+            }
+        };
     });
 }
 
@@ -82,8 +100,3 @@ function getAllCharacters(callbackFunc){
     });
 }
 
-function deleteCharacter(characterKey, callbackFunc){
-    initDb(function(db){
-        getObjectStore(db, STORE_CHARACTER, MODE_RW).delete(characterKey).onsuccess = callbackFunc;
-    });
-}

@@ -64,7 +64,7 @@ function saveCharacter() {
 function hashChange(){
     var locationHash = stripFirst("#",location.hash);
     if(!isBlank(locationHash)){
-        selectFirstInput($(locationHash));
+        //selectFirstInput($(locationHash));
         prepopulateValues(locationHash);
     }
 }
@@ -377,7 +377,8 @@ function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
         
-        if (element.id){
+        // only follow elements with ids that are not anchors
+        if (element.id && element.tagName != "A"){
             let node = findNode(element.id, currentCharacter);
             if (!specialHandler(element.id, element, node)){
                 let lookup = getDataAttribute(element, "lookup");
@@ -409,7 +410,7 @@ function processDataHolder(dataholder){
                     element.value = node;
                 } else {
                     element.innerHTML =  ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
-                    
+                    // prevent showing a literal value of 0 in some circumstances
                     show(element, 
                         !(getDataAttribute(element, 'show-0', "true") == "false"  
                             && element.innerHTML == "0") 

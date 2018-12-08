@@ -40,7 +40,8 @@ textarea {
     display: block;
 }
 
-label > input[type=radio]{
+label > input[type=radio],
+label > input[type=checkbox]{
     display: inline;
     margin-right: .6em;
 }
@@ -305,7 +306,7 @@ input[required]::after{
     column-count: 3;
 }
 
-.topContainer .stack .grouping {
+.topContainer .stack dd {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
