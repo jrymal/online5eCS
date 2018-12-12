@@ -61,11 +61,116 @@ function saveCharacter() {
 
 }
 
+let isMidFocusChange = false;
+let lastFocus;
+let trapFocus = function (event) {
+    if (currentDialog && !isMidFocusChange) {
+        isMidFocusChange = true;
+        if (currentDialogDiv.contains(event.target)) {
+            lastFocus = event.target;
+        } else {
+            selectFirstInput(currentDialogDiv);
+            if(lastFocus == document.activeElement){
+                selectLastInput(currentDialogDiv);
+            }
+            lastFocus = document.activeElement;
+        }
+        isMidFocusChange = false;
+        return true;
+    }
+    return false;
+};
+
+const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA','A'];
+function selectFirstInput(divEle) {
+    if (divEle && length(divEle.childNodes) > 0){
+        for(let i = 0; i <= divEle.childNodes.length-1; i++) {
+            let node = divEle.childNodes[i];
+            if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
+                node.focus();
+                return true;
+            }
+            // need to decend into elements to see if they have focusable elements
+            // as well
+            if(node.childNodes && node.childNodes.length > 0 && selectFirstInput(node)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function selectLastInput(divEle) {
+    if (divEle && length(divEle.childNodes) > 0){
+        for(let i = divEle.childNodes.length-1; i >= 0; i--) {
+            let node = divEle.childNodes[i];
+            if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
+                node.focus();
+                return true;
+            }
+            // need to decend into elements to see if they have focusable elements
+            // as well
+            if(node.childNodes && node.childNodes.length > 0 && selectLastInput(node)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+let closeCurrentDialog = function () {
+    if (currentDialog) {
+        cleanUpDialog();
+        window.location.href = '#'
+        return true;
+    }
+    return false;
+  };
+
+const ESC = 27
+let handleEscape = function (event) {
+    var key = event.which || event.keyCode;
+
+    if (key === ESC && closeCurrentDialog()) {
+      event.stopPropagation();
+    }
+  };
+
+let currentDialog;
+let currentDialogDiv;
+let preNode;
+let postNode;
 function hashChange(){
-    var locationHash = stripFirst("#",location.hash);
-    if(!isBlank(locationHash)){
-        //selectFirstInput($(locationHash));
-        prepopulateValues(locationHash);
+    var locationId = stripFirst("#",location.hash);
+    cleanUpDialog();
+    if(!isBlank(locationId)){
+        prepopulateValues(locationId);
+
+        currentDialog = $(locationId);
+        // TODO ew...fix me better
+        currentDialogDiv = currentDialog.childNodes[1];
+
+        var preDiv = document.createElement('div');
+        preNode = currentDialog.insertBefore(preDiv, currentDialog.firstChild);
+        preNode.tabIndex = 0;
+        var postDiv = document.createElement('div');
+        postNode = currentDialog.insertBefore(postDiv, currentDialog.lastChild);
+        postNode.tabIndex = 0;
+        
+        document.addEventListener('focus', trapFocus, true);
+        document.addEventListener('keyup', handleEscape);   
+        
+        selectFirstInput(currentDialogDiv);
+    }
+}
+
+function cleanUpDialog(){
+    if (currentDialog){
+        currentDialog.removeChild(preNode);
+        currentDialog.removeChild(postNode);
+        document.removeEventListener('focus', trapFocus);
+        document.removeEventListener('keyup', handleEscape);   
+        currentDialog = null;
+        currentDialogDiv = null;
     }
 }
 
@@ -497,25 +602,6 @@ function viewPurse() {
 
 function cancelModal() {
     show($('modalOverlay'), false);
-}
-
-const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA'];
-function selectFirstInput(divEle) {
-    if (divEle){
-        for(let i = 0; i < divEle.childNodes.length; i++) {
-            let node = divEle.childNodes[i];
-            if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
-                node.focus();
-                return true;
-            }
-            // need to decend into elements to see if they have focusable elements
-            // as well
-            if(node.childNodes && node.childNodes.length > 0 && selectFirstInput(node)){
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 function downloadToFile(link, character) {
