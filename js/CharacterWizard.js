@@ -114,9 +114,12 @@ function prepopulateValues(formName){
                     let character = cursor.value;
                     if (key !== currentKey){
                         tableBody.innerHTML += '<tr id="importFile.DBLoad.'+key+'">'
-                    +'<td><input type="radio" name="importType" id="importFile.DBLoad.select.'+key+'" value="'+key+'"/></td>'
-                    +'<td><label for="importFile.DBLoad.select.'+key+'">'+generateDbLabel(character)+'</label></td>'
-                    +'<td><button type="button" onClick="deleteCharacterLoad(\''+key+'\')">Remove</button></td>'
+                    +'<td><input type="radio" name="importType" id="importFile.DBLoad.select.'
+                            +key+'" value="'+key+'"/></td>'
+                    +'<td><label class="multiline-cell" for="importFile.DBLoad.select.'+key+'">'
+                            +generateDbLabel(character)+'</label></td>'
+                    +'<td><button type="button" onClick="deleteCharacterLoad(\''
+                            +key+'\')">Remove</button></td>'
                     +"</tr>";
                     }
                     cursor.continue();
@@ -135,8 +138,21 @@ function deleteCharacterLoad(key){
 }
 
 function generateDbLabel(character){
-    return character.player.name+"<br>"
-        +character.character.name.first+" "+character.character.name.family;
+    return "<b>Player:</b> "+character.player.name+"<br>"
+        +"<b>Character:</b> "+character.character.name.first+" "+character.character.name.family+"<br>"
+        +"<b>Class:</b> "+joinClassName(character.character.class);
+}
+
+function joinClassName(classList){
+    let resp = "";
+    for (let i = 0; i < classList.length; i++){
+        let classN = classList[i].class;
+        if (resp != ""){
+            resp += ", ";
+        }
+        resp += classN + "(level "+classList[i].level+")";
+    }
+    return resp;
 }
 
 function setIfExists(id, value){
@@ -144,6 +160,7 @@ function setIfExists(id, value){
         $(id).value = value; 
     }
 }
+
 function setIfExistsAndEmpty(id, value){
     if (value && !$(id).value){
         $(id).value = value; 

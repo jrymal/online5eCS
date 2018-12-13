@@ -15,6 +15,7 @@ body {
     font-family:sans-serif;
     font-size: 16px;
     line-height: 1.5;
+    margin: 0;
 }
 
 form {
@@ -67,6 +68,11 @@ th {
 thead tr,
 tbody tr:nth-child(even) {
     background-color: var(--color-alt-row-background);
+}
+
+td > input,
+td > button {
+    display: inline-block;
 }
 
 dt {
@@ -133,9 +139,6 @@ input[required]::after{
 
 /*** MODAL LAYOUT ***/
 .modal{
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
@@ -143,6 +146,8 @@ input[required]::after{
     background-color: black;
     background-color: var(--color-smoke);
     display: none;
+    margin: 0;
+    position: fixed;
 }
 
 .modal .base {
@@ -154,6 +159,8 @@ input[required]::after{
     border-style: solid;
     border-color: var(--color-primary-border);
     border-radius: .8em;
+    width: 80%;
+    position: absolute;
 }
 
 .modal:target {
@@ -289,6 +296,7 @@ input[required]::after{
 .topContainer {
     display: flex;
     flex-flow: row wrap;
+    padding: 1em;
 }
 
 .topContainer > * {
@@ -389,4 +397,9 @@ input[required]::after{
 
 .quoted::after{
     content:"\"";
+}
+
+.multiline-cell {
+    text-align: left;
+    padding: .4em;
 }

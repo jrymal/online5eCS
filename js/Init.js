@@ -70,15 +70,14 @@ let trapFocus = function (event) {
             lastFocus = event.target;
         } else {
             selectFirstInput(currentDialogDiv);
-            if(lastFocus == document.activeElement){
+            if(lastFocus === document.activeElement){
                 selectLastInput(currentDialogDiv);
             }
             lastFocus = document.activeElement;
         }
         isMidFocusChange = false;
-        return true;
     }
-    return false;
+    return true;
 };
 
 const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA','A'];
@@ -88,7 +87,7 @@ function selectFirstInput(divEle) {
             let node = divEle.childNodes[i];
             if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
                 node.focus();
-                return true;
+                return document.activeElement === node;
             }
             // need to decend into elements to see if they have focusable elements
             // as well
@@ -106,7 +105,7 @@ function selectLastInput(divEle) {
             let node = divEle.childNodes[i];
             if(node.tagName && SELECTABLE_TAGS.includes(node.tagName.toUpperCase())){
                 node.focus();
-                return true;
+                return document.activeElement === node;
             }
             // need to decend into elements to see if they have focusable elements
             // as well
