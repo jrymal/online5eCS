@@ -10,11 +10,11 @@ function addClass() {
     var className = selectedEle.value;
     var selIdx = selectedEle.selectedIndex;
 
-    tableEle.innerHTML += '<tr id="createCharacter.character.class.tableele.'+className+'">'
-        +"<th>"+className+'<input type="hidden" name="character.class[].class" value="'+className+'"/></th>'
-        +"<td>"+levelEle.value+'<input type="hidden" name="character.class[].level" value="'+levelEle.value+'"/></td>'
-        +'<td><button type="button" onClick="removeClass(\''+className+'\')">Remove</button></td>'
-        +"</tr>";              
+    tableEle.innerHTML += `<tr id="createCharacter.character.class.tableele.${className}">
+        <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
+        <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
+        <td><button type="button" onClick="removeClass(${className})">Remove</button></td>
+    </tr>`;              
 
     selectedEle.remove(selIdx);
 }
@@ -113,14 +113,12 @@ function prepopulateValues(formName){
                     let key = cursor.primaryKey;
                     let character = cursor.value;
                     if (key !== currentKey){
-                        tableBody.innerHTML += '<tr id="importFile.DBLoad.'+key+'">'
-                    +'<td><input type="radio" name="importType" id="importFile.DBLoad.select.'
-                            +key+'" value="'+key+'"/></td>'
-                    +'<td><label class="multiline-cell" for="importFile.DBLoad.select.'+key+'">'
-                            +generateDbLabel(character)+'</label></td>'
-                    +'<td><button type="button" onClick="deleteCharacterLoad(\''
-                            +key+'\')">Remove</button></td>'
-                    +"</tr>";
+                        tableBody.innerHTML += `<tr id="importFile.DBLoad.${key}">
+                    <td><input type="radio" name="importType" id="importFile.DBLoad.select.${key} value="${key}"/></td>
+                    <td><label class="multiline-cell" for="importFile.DBLoad.select.${key}">
+                            ${generateDbLabel(character)}</label></td>
+                    <td><button type="button" onClick="deleteCharacterLoad('${key}')">Remove</button></td>
+                    </tr>`;
                     }
                     cursor.continue();
                 }
@@ -138,9 +136,9 @@ function deleteCharacterLoad(key){
 }
 
 function generateDbLabel(character){
-    return "<b>Player:</b> "+character.player.name+"<br>"
-        +"<b>Character:</b> "+character.character.name.first+" "+character.character.name.family+"<br>"
-        +"<b>Class:</b> "+joinClassName(character.character.class);
+    return `<b>Player:</b> ${character.player.name}<br>
+        <b>Character:</b> ${character.character.name.first} ${character.character.name.family}<br>
+        <b>Class:</b> ${joinClassName(character.character.class)}`;
 }
 
 function joinClassName(classList){

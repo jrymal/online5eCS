@@ -477,6 +477,16 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
     };
 }
 
+function renderLiNode(element){
+    return `<li>${element}</li>`;
+}
+
+function renderUlArray(values) {
+    return  `<ul>
+        ${values.map(renderLiNode).join("")}
+    </ul>`;
+}
+
 function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
@@ -489,19 +499,7 @@ function processDataHolder(dataholder){
 
                 // alter to handle the values
                 if (Array.isArray(node)){
-                    let value = "<ul>";
-                    for(let i = 0; i < node.length; i++){
-                        value += "<li>";
-        
-                        if (lookup) {
-                            value += performNameLookup(lookup, node[i]);
-                        } else {
-                            value += node[i];
-                        }
-                        value += "</li>";
-                    }
-                    value += "</ul>";
-                    node = value;
+                    node = renderUlArray(lookup ? performNameLookups(lookup, node) : node);
                 } else if (lookup && node) {
                     let nodeValue =  performNameLookup(lookup, node);
                     node = nodeValue ? nodeValue : node;
@@ -529,20 +527,28 @@ function processDataHolder(dataholder){
     } 
 }
 
+function renderTrForClass(classInfo){
+    let classObj = CLASSES[classInfo.class];
+    return `<tr>
+        <th scope="row"> ${classInfo.class}</th>
+        <td>${classInfo.level}</td>
+        <td>${classObj.hitDie}</td>
+    </tr>`
+}
+
+function renderTrForSkill(node){
+    let skill = SKILLS[node];
+    return `<tr>
+        <th scope="row">${skill.name}</th>
+        <td>${calculateSkillBonus(skill.attribute)}</td>
+    </tr>`; 
+}
+
 function specialHandler(id, element, node){
     switch(id){
         case 'character.class':
-            element.innerHTML = '';
-            for( let i = 0; i < node.length; i++){
-                let classObj = CLASSES[node[i].class];
-                element.innerHTML += '<tr>'
-                    +'<th scope="row">'+node[i].class+'</th>'
-                    +'<td>'+node[i].level+'</td>'
-                    +'<td>'+classObj.hitDie+'</td>'
-                    +'</tr>';
-            }
+            element.innerHTML = node.map(renderTrForClass).join("");
             return true;
-            break;
         case "character.details.eyecolor":
         case "character.details.hair":
         case "character.details.skin":
@@ -561,15 +567,8 @@ function specialHandler(id, element, node){
             element.innerHTML = Math.floor(node/12)+'\' '+ Math.floor(node%12) +'"';
             return true;
         case 'character.skills':
-            for( let i = 0; i < node.length; i++){
-                let skill = SKILLS[node[i]];
-                element.innerHTML += '<tr>'
-                    +'<th scope="row">'+skill.name+'</th>'
-                    +'<td>'+calculateSkillBonus(skill.attribute)+'</td>'
-                    +'</tr>'; 
-            }
+            element.innerHTML = node.map(renderTrForSkill).join("");
             return true;
-            break;
     }
     return false;
 }
@@ -584,6 +583,12 @@ function classBonus(attr){
 
 function performObjectLookup(lookup, node){
     return eval(lookup+'["'+node+'"]')
+}
+
+function performNameLookups(lookup, node){
+    return node.map(function(item){
+        return performNameLookup(lookup,item);
+    });
 }
 
 function performNameLookup(lookup, node){
