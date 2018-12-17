@@ -819,7 +819,7 @@ const CLASSES = deepFreeze({
         level: {
             1: {
                 proficiencyBonus: 2,
-                features: ["Divine Sense", "Lay on HandsDruidic"],
+                features: ["Divine Sense", "Lay on Hands"],
             },
             2: {
                 features:["Fighting Style", "Divine Smite"],

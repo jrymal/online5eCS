@@ -395,12 +395,44 @@ function getHitDie(classList){
 function getClassFeatures(classList){
     let resp = {};
     for (let i = 0; i < classList.length; i++){
-        let classN = classList[i].class;
-        let charClass = CLASSES[classN];
-        appendForSet(resp, charClass.features);
+        let className = classList[i].class;
+        let classLevel = classList[i].level;
+        let charClass = CLASSES[className];
+        appendForSet(resp, getCumulativeClassForLevel(charClass, classLevel).features);
     }
 
     return Object.keys(resp).sort(); 
+}
+
+function getCumulativeClassForLevel(curClass, level){
+    let modClass = clone(curClass);
+    
+    delete modClass.level;
+
+    for(var i = 1; i <= level; i++){
+        var specs = curClass.level[i];
+  
+        for (let name of Object.getOwnPropertyNames(specs)) {
+            let dataValue = clone(specs[name]);
+
+            if (modClass[name]){
+                switch(typeof dataset){
+                    case "array":
+                    case "Array":
+                        addAll(modClass.dataValue);
+                        break;
+                    case "object":
+                    case "String":
+                    case "string":
+                    default:
+                        console.log("Unhandled type: "+typeof dataset);
+                }
+            } else {
+                Object.defineProperty(modClass, name,  {writable: true, configurable: true, enumerable: true, value:dataValue});
+            }
+        }
+    }
+    return deepFreeze(modClass);
 }
  
 function getProficiencies(character, race, backstory, classList){

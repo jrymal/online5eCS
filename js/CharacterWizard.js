@@ -13,7 +13,7 @@ function addClass() {
     tableEle.innerHTML += `<tr id="createCharacter.character.class.tableele.${className}">
         <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
         <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
-        <td><button type="button" onClick="removeClass(${className})">Remove</button></td>
+        <td><button type="button" onClick="removeClass("${className}")">Remove</button></td>
     </tr>`;              
 
     selectedEle.remove(selIdx);
@@ -105,19 +105,20 @@ function prepopulateValues(formName){
         case 'importFile':
             let tableBody = $('DB.character');
             tableBody.innerHTML = "";
-            let currentKey = generateName();
+            let currentKey = encodeURIComponent(generateName());
             getAllCharacters(function(event){
 
                 let cursor = event.target.result;
                 if (cursor) {
-                    let key = cursor.primaryKey;
+                    let value = cursor.primaryKey;
+                    let key = encodeURIComponent(cursor.primaryKey);
                     let character = cursor.value;
                     if (key !== currentKey){
                         tableBody.innerHTML += `<tr id="importFile.DBLoad.${key}">
-                    <td><input type="radio" name="importType" id="importFile.DBLoad.select.${key} value="${key}"/></td>
+                    <td><input type="radio" name="importType" id="importFile.DBLoad.select.${key}" value="${value}"/></td>
                     <td><label class="multiline-cell" for="importFile.DBLoad.select.${key}">
                             ${generateDbLabel(character)}</label></td>
-                    <td><button type="button" onClick="deleteCharacterLoad('${key}')">Remove</button></td>
+                    <td><button type="button" onClick="deleteCharacterLoad('${key}','${value}')">Remove</button></td>
                     </tr>`;
                     }
                     cursor.continue();
@@ -127,8 +128,8 @@ function prepopulateValues(formName){
     }    
 }
 
-function deleteCharacterLoad(key){
-    deleteCharacter(key, function(){
+function deleteCharacterLoad(key, value){
+    deleteCharacter(value, function(){
         // delete the value from the UI
         let tableEle = $('importFile.DBLoad.'+key);
         tableEle.parentNode.removeChild(tableEle);

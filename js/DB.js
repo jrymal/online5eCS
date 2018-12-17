@@ -87,9 +87,7 @@ function putCharacter(characterName, character, callbackFunc){
 function deleteCharacter(characterKey, callbackFunc){
     initDb(function(db){
         getObjectStore(db, STORE_CHARACTER, MODE_RW).delete(characterKey).onsuccess = function(event){
-            if (event.target.result) {
-                callbackFunc(event);
-            }
+            callbackFunc(event);
         };
     });
 }

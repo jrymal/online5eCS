@@ -171,3 +171,6 @@ function getSelectValues(options) {
     }, []);
 }
 
+function addAll(priList, listToAdd){
+    Array.push.apply(priList, listToAdd);
+}
