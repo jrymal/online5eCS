@@ -62,6 +62,13 @@ function prepopulateValues(formName){
                 setIfExistsAndEmpty('createCharacter.player.email', currentCharacter.player.email);
             }
             break;
+        case 'createCharacter.race':
+            setIfExistsAndEmpty('createCharacter.character.race', chooseFromList(Object.keys(RACES)));
+            setIfExistsAndEmpty('createCharacter.character.pronoun', chooseFromList(Object.keys(PRONOUNS)));
+            setIfExistsAndEmpty('createCharacter.character.alignment.society', chooseFromList(ALIGNMENT_SOCIETY));
+            setIfExistsAndEmpty('createCharacter.character.alignment.morality', chooseFromList(ALIGNMENT_MORALITY));
+            
+            break;
         case 'createCharacter.name':
             let nameObj = RACES[$('createCharacter.character.race').value].names;
             setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName(nameObj));

@@ -1,5 +1,8 @@
 'use strict';
 
+const ALIGNMENT_SOCIETY = ["Lawful","Neutral","Chaotic"];
+const ALIGNMENT_MORALITY = ["Good","Neutral","Evil"];
+
 const PRONOUNS = deepFreeze({
     he:{
         name: "He"

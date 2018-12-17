@@ -1,11 +1,8 @@
 'use strict';
 
-function clearAllFields() {
-    // unclear if this is doing what it needs to
-  let dataholders = document.getElementsByClassName("stack");
-
+function clearAllFields(dataholders) {
   // Retrieves input data from a form and returns it as a JSON object.
-  return  [].reduce.call(dataholders, (data, dataholder) => {
+  [].reduce.call(dataholders, (data, dataholder) => {
       if (!dataholder.elements) {
           return data;
       }
@@ -18,6 +15,7 @@ function clearAllFields() {
                   element.checked = false;
               } else if (isMultiSelect(element)) {
                   console.log("Identified a MultiSelect elment to clear: "+name);
+                  element.value = null;
               } else {
                   element.value = null;
               }
@@ -25,6 +23,7 @@ function clearAllFields() {
       }
       return data;
   }, {});
+    return true;
 }
  
 let installPromptEvent;
@@ -270,7 +269,7 @@ function getCurrentLevel(classList) {
 
 let currentCharacter;
 function setCurrentCharacter(character){
-    clearAllFields();
+    clearAllFields(document.getElementsByClassName("stack"));
     
     let race = clone(RACES[character.character.race]);
     let backstory = BACKSTORIES[character.character.backstory.type];

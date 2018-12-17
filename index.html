@@ -48,7 +48,7 @@
                 </h1>
                 <nav class="nav nav-menu" role="navigation">
                     <ul>
-                        <li><a href="#createCharacter.player">Create a new Character</a></li>
+                        <li><a href="#createCharacter.player" onclick="return clearAllFields(document.getElementsByClassName('createCharacter'));">Create a new Character</a></li>
                         <li><a href="#importFile">Load a character</a></li>
                         <li><a href="#" id="downloadCharacter">Download Character</a></li>
                     </ul>
@@ -344,7 +344,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.player.name">Role Player</label>
                         <input type="text" id="createCharacter.player.name" name="player.name" required/>
 
@@ -365,7 +365,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.character.race">Race</label>
                         <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
 
@@ -396,7 +396,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.character.name.first">First Name</label>
                         <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
                         <label for="createCharacter.character.name.family">Family Name</label>
@@ -418,7 +418,7 @@
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
                     <form class="wizardScreen" id="createCharacter.class.form">
-                        <div>
+                        <div class="createCharacter">
                             <label for="createCharacter.character.class.type">Class</label>
                             <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
 
@@ -462,7 +462,7 @@
                         </select>
                         <button type="button" onClick="generateAttributes()">Generate Attributes</button>
 
-                        <div class="column-2">
+                        <div class="column-2 createCharacter">
                             <label for="createCharacter.character.attribute.strength">Strength</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
@@ -488,7 +488,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.backstory.type">Backstory Type</label>
                         <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
 
@@ -506,7 +506,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.age">Age (in years)</label>
                         <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
 
@@ -527,7 +527,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.eyecolor">Eye Color</label>
                         <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
                         <div id="createCharacter.details.eyecolor.color" class="swatch"></div>
@@ -551,7 +551,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.appearance">Appearance</label>
                         <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
 
@@ -569,7 +569,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <fieldset>
                             <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.skills" data-lookup="SKILLS"></div>
@@ -586,7 +586,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen" >
+                    <form class="wizardScreen createCharacter" >
                         <fieldset>
                             <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.languages" data-lookup="LANGUAGES"></div>
@@ -603,7 +603,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                     <!-- need to sure up the proficiencies editor: choose from list of
                         Proficiencies with free entry and stash.-->
                         <label for="createCharacter.proficiency">Proficiencies</label>
@@ -623,7 +623,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen column-2">
+                    <form class="wizardScreen column-2 createCharacter">
 
                         <label for="createCharacter.ideals">Ideals</label>
                         <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
@@ -648,7 +648,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
-                    <form class="wizardScreen">
+                    <form class="wizardScreen createCharacter">
                         <label for="createCharacter.weapons">Weapons</label>
                         <textarea id="createCharacter.weapons" name="character.weapons" spellcheck="true"></textarea>
 
