@@ -202,6 +202,14 @@ function installApp() {
     });
 }
 
+function generateCharacterName(character){
+    var charName = character.character.name.first;
+    if (character.character.name.family){
+        charName += ' '+character.character.name.family;
+    }
+    return charName;
+}
+
 function generateNameHash(hash){
     var resp = "index.html";
     var generatedName = generateName();
@@ -218,10 +226,7 @@ function generateName() {
     }
 
     var playerName = currentCharacter.player.name;
-    var charName = currentCharacter.character.name.first;
-    if (currentCharacter.character.name.family){
-        charName += ' '+currentCharacter.character.name.family;
-    }
+    var charName = generateCharacterName(currentCharacter);
     if (playerName && charName) {
         return playerName + '-' + charName;
     }
@@ -232,24 +237,22 @@ function generateName() {
 // Loading Functionality
 //
 function loadFromJSON() {
-    if (confirm("Loading will clear out all values. Continue?")) {
-        if ($("importFile.radio.file").checked){
-            // load from file
-            let reader = new FileReader();
-            reader.onload = function(evt) {
-                setCurrentCharacter(JSON.parse(evt.target.result));
-            };
-            reader.onerror = function(evt) {
-                console.log("Error:"+evt.target.result);
-            };
-            reader.readAsText($('importFile.importFile').files[0]);
-        } else {
-            // : load from db
-            let keyToLoad = document.querySelector("input[name=importType]:checked").value;
-            getCharacter(keyToLoad, function(event){
-                setCurrentCharacter(event.target.result);
-            });
-        }
+    if ($("importFile.radio.file").checked){
+        // load from file
+        let reader = new FileReader();
+        reader.onload = function(evt) {
+            setCurrentCharacter(JSON.parse(evt.target.result));
+        };
+        reader.onerror = function(evt) {
+            console.log("Error:"+evt.target.result);
+        };
+        reader.readAsText($('importFile.importFile').files[0]);
+    } else {
+        // : load from db
+        let keyToLoad = document.querySelector("input[name=importType]:checked").value;
+        getCharacter(keyToLoad, function(event){
+            setCurrentCharacter(event.target.result);
+        });
     }
 }
 

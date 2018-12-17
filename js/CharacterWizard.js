@@ -145,7 +145,7 @@ function deleteCharacterLoad(key, value){
 
 function generateDbLabel(character){
     return `<b>Player:</b> ${character.player.name}<br>
-        <b>Character:</b> ${character.character.name.first} ${character.character.name.family}<br>
+        <b>Character:</b> ${generateCharacterName(character)}<br>
         <b>Class:</b> ${joinClassName(character.character.class)}`;
 }
 
