@@ -40,6 +40,11 @@ function removeClass(className) {
     tableEle.parentNode.removeChild(tableEle);
 }
 
+function removeAllClasses(){
+    var tableEle = $("createCharacter.character.class.tbody");
+    tableEle.innerHTML = "";
+}
+
 function postProcessStep(form){
     if (form.checkValidity()){ 
         switch(form.id) {
@@ -69,6 +74,7 @@ function prepopulateValues(formName){
             setIfExistsAndEmpty('createCharacter.character.alignment.morality', chooseFromList(ALIGNMENT_MORALITY));
             
             break;
+ 
         case 'createCharacter.name':
             let nameObj = RACES[$('createCharacter.character.race').value].names;
             setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName(nameObj));
@@ -275,15 +281,20 @@ function populateLookups(){
         let typeName = getDataAttribute(node, "lookup");
         populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
     }
+}
 
-    nodes = document.querySelectorAll("select[data-rng]");
-    for (i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
-        let rng = eval(getDataAttribute(node, "rng", "false"));
+function randomizeDataRNG(){
+    document.querySelectorAll("select[data-lookup]").forEach(function(element){
+        randomValue(element);
+    });
+    
+    document.querySelectorAll("select[data-rng]").forEach(function(element){
+        let rng = eval(getDataAttribute(element, "rng", "false"));
         if (rng) {
-            randomValue(node);
+            randomValue(element);
         }
-    }
+    });;
+    return true;
 }
 
 function generateAttributes() {

@@ -1,28 +1,31 @@
 'use strict';
 
 function clearAllFields(dataholders) {
-  // Retrieves input data from a form and returns it as a JSON object.
-  [].reduce.call(dataholders, (data, dataholder) => {
-      if (!dataholder.elements) {
-          return data;
-      }
-      for (let i = 0; i < dataholder.elements.length; i++) {
-          let element = dataholder.elements[i];
-          let name = element.name;
+    // Retrieves input data from a form and returns it as a JSON object.
+    [].reduce.call(dataholders, (data, dataholder) => {
+        if (!dataholder.elements) {
+            return data;
+        }
+        for (let i = 0; i < dataholder.elements.length; i++) {
+            let element = dataholder.elements[i];
+            let name = element.name;
 
-          if (element.id && isValidValue(element)) {
-              if (isCheckbox(element)) {
-                  element.checked = false;
-              } else if (isMultiSelect(element)) {
-                  console.log("Identified a MultiSelect elment to clear: "+name);
-                  element.value = null;
-              } else {
-                  element.value = null;
-              }
-          }
-      }
-      return data;
-  }, {});
+            if (element.id && isValidValue(element)) {
+                if (isCheckbox(element)) {
+                    element.checked = false;
+                } else if (isMultiSelect(element)) {
+                    console.log("Identified a MultiSelect elment to clear: "+name);
+                    element.value = null;
+                } else {
+                    element.value = null;
+                }
+            }
+        }
+        return data;
+    }, {});
+
+    removeAllClasses();
+
     return true;
 }
  
