@@ -118,20 +118,20 @@ function prepopulateValues(formName){
         case 'importFile':
             let tableBody = $('DB.character');
             tableBody.innerHTML = "";
-            let currentKey = encodeURIComponent(generateName());
+            let currentEncKey = encodeURIComponent(generateName());
             getAllCharacters(function(event){
 
                 let cursor = event.target.result;
                 if (cursor) {
-                    let value = cursor.primaryKey;
-                    let key = encodeURIComponent(cursor.primaryKey);
+                    let key = cursor.primaryKey;
+                    let encKey = encodeURIComponent(cursor.primaryKey);
                     let character = cursor.value;
-                    if (key !== currentKey){
-                        tableBody.innerHTML += `<tr id="importFile.DBLoad.${key}">
-                    <td><input type="radio" name="importType" id="importFile.DBLoad.select.${key}" value="${value}"/></td>
-                    <td><label class="multiline-cell" for="importFile.DBLoad.select.${key}">
-                            ${generateDbLabel(character)}</label></td>
-                    <td><button type="button" onClick="deleteCharacterLoad('${key}','${value}')">Remove</button></td>
+                    if (encKey !== currentEncKey){
+                        tableBody.innerHTML += `<tr id="importFile.DBLoad.${encKey}">
+                            <td><label class="multiline-cell" >${generateDbLabel(character)}</label></td>
+                    <td>
+                    <button type="button" onClick="loadByKey('${key}')">Load</button>
+                    <button type="button" onClick="deleteCharacterLoad('${encKey}','${key}')">Delete</button></td>
                     </tr>`;
                     }
                     cursor.continue();
@@ -152,6 +152,7 @@ function deleteCharacterLoad(key, value){
 function generateDbLabel(character){
     return `<b>Player:</b> ${character.player.name}<br>
         <b>Character:</b> ${generateCharacterName(character)}<br>
+        <b>Race:</b> ${RACES[character.character.race].name}<br>
         <b>Class:</b> ${joinClassName(character.character.class)}`;
 }
 

@@ -239,24 +239,26 @@ function generateName() {
 //
 // Loading Functionality
 //
+function loadByKey(keyToLoad){
+    // : load from db
+    getCharacter(keyToLoad, function(event){
+        setCurrentCharacter(event.target.result);
+        closeCurrentDialog();
+    });
+
+}
+
 function loadFromJSON() {
-    if ($("importFile.radio.file").checked){
-        // load from file
-        let reader = new FileReader();
-        reader.onload = function(evt) {
-            setCurrentCharacter(JSON.parse(evt.target.result));
-        };
-        reader.onerror = function(evt) {
-            console.log("Error:"+evt.target.result);
-        };
-        reader.readAsText($('importFile.importFile').files[0]);
-    } else {
-        // : load from db
-        let keyToLoad = document.querySelector("input[name=importType]:checked").value;
-        getCharacter(keyToLoad, function(event){
-            setCurrentCharacter(event.target.result);
-        });
-    }
+    // load from file
+    let reader = new FileReader();
+    reader.onload = function(evt) {
+        setCurrentCharacter(JSON.parse(evt.target.result));
+        closeCurrentDialog();
+    };
+    reader.onerror = function(evt) {
+        console.log("Error:"+evt.target.result);
+    };
+    reader.readAsText($('importFile.importFile').files[0]);
 }
 
 function getMaxHitPoints(classList) {
@@ -268,7 +270,7 @@ function getMaxHitPoints(classList) {
 
 function getCurrentLevel(classList) {
     let val = classList.reduce( ( count, curClass) => {
-        return count += +curClass.level;
+        return +count + +curClass.level;
 }, 0);
     return val;
 } 
@@ -278,6 +280,9 @@ function setCurrentCharacter(character){
     clearAllFields(document.getElementsByClassName("stack"));
     
     let race = clone(RACES[character.character.race]);
+    // remove fluff
+    delete race.names;
+    
     let backstory = BACKSTORIES[character.character.backstory.type];
     
     insertAtNode("character.experience", character, "0", false);
@@ -298,6 +303,14 @@ function setCurrentCharacter(character){
     
     Object.defineProperty(currentCharacter, "RACE",  {writable: true, configurable: true, enumerable: true, value:race});
 
+    let summedClass = {};
+    character.character.class.forEach(function(classItem){
+        let className = classItem.class;
+        let classLevel = classItem.level;
+        let charClass = CLASSES[className];
+        getCumulativeClassForLevel(charClass, classLevel, summedClass);
+    });
+
     let calc = {
         attribute:{
             strength: getAttributeObject(currentCharacter.character.attribute.strength,
@@ -315,7 +328,7 @@ function setCurrentCharacter(character){
         },
         proficiency: getProficiencies(character, race, backstory, character.character.class),
         savingThrows: getSavingThrows(character.character.class),
-        features: getClassFeatures(character.character.class)
+        class: summedClass
     };
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
@@ -342,16 +355,19 @@ function applyLevelBasedRaceFeatures(character, race){
     if (levelObj){
         let curLevel = getCurrentLevel(character.character.class);
     
-        for (let level in levelObj){
-            if (level <= curLevel){
+        for (let level = 0; level <= curLevel; level++){
+            if (levelObj[level]){
                 for (let type in levelObj[level]){
                     switch(type){
                         case 'spells':
-                            addSpell(character, levelObj[level].spells);
+                            addSpell(race, levelObj[level].spells);
                             break;
                         case 'feature':
                             race.features = race.features.concat(levelObj[level].feature);
                             break;
+                        default:
+                            console.log("Unhandled type: "+type);
+
                     }
                 }
             }
@@ -359,20 +375,15 @@ function applyLevelBasedRaceFeatures(character, race){
     }
 }
 
-function addSpell( character, spellNames ) {
+function addSpell( typeObj, spellNames ) {
     $('rootNode').classList.add("spellcaster");
     
     // ensures that the path exists
-    insertAtNode("character.spells", character, []);
-    
-    if (Array.isArray(spellNames)){
-        for(let spell in spellNames){
-            character.character.spells.push(spellNames[spell]);
-        }
-    } else {
-        character.character.spells.push(spellNames);
+    if (!exists(typeObj.spells)){
+        insertAtNode("spells", typeObj, new Array());
     }
-    
+
+    appendForSet(typeObj.spells, spellNames);
 }
 
 function getSavingThrows(classList){
@@ -397,47 +408,50 @@ function getHitDie(classList){
     return 'd'+maxDie;
 }        
 
-function getClassFeatures(classList){
-    let resp = {};
-    for (let i = 0; i < classList.length; i++){
-        let className = classList[i].class;
-        let classLevel = classList[i].level;
-        let charClass = CLASSES[className];
-        appendForSet(resp, getCumulativeClassForLevel(charClass, classLevel).features);
-    }
-
-    return Object.keys(resp).sort(); 
-}
-
-function getCumulativeClassForLevel(curClass, level){
-    let modClass = clone(curClass);
+function getCumulativeClassForLevel(curClass, level, modClass = {}){
     
-    delete modClass.level;
-
     for(var i = 1; i <= level; i++){
+        // use the working data....again frozen!
         var specs = curClass.level[i];
   
         for (let name of Object.getOwnPropertyNames(specs)) {
-            let dataValue = clone(specs[name]);
+            let dataValue = specs[name];
 
             if (modClass[name]){
-                switch(typeof dataset){
-                    case "array":
+                switch(typeof dataValue){
                     case "Array":
-                        addAll(modClass.dataValue);
+                    case "array":
+                        addAll(modClass[name],dataValue);
                         break;
+                    case "Number":
+                    case "number":
+                        modClass[name] += dataValue;
+                        break;
+                    case "Object":
                     case "object":
+                        if (Array.isArray(dataValue)){
+                            addAll(modClass[name], dataValue);
+                        } else {
+                            for (let objName of Object.getOwnPropertyNames(dataValue)) {
+                                insertAtNode(objName, modClass[name], clone(dataValue), true);
+                            }
+                        }
+                        break;
                     case "String":
                     case "string":
                     default:
-                        console.log("Unhandled type: "+typeof dataset);
+                        console.log("Unhandled type: "+typeof dataValue+" name:"+name+" value:"+dataValue);
                 }
             } else {
-                Object.defineProperty(modClass, name,  {writable: true, configurable: true, enumerable: true, value:dataValue});
+                insertAtNode(name, modClass, clone(dataValue));
             }
         }
     }
-    return deepFreeze(modClass);
+    
+    // removed useless level information
+    delete modClass.level;
+    
+    return modClass;
 }
  
 function getProficiencies(character, race, backstory, classList){
@@ -458,20 +472,22 @@ function getProficiencies(character, race, backstory, classList){
 function appendForSet(object, dataset) {
     if (dataset) {
         switch(typeof dataset){
+            case "String":
+            case "string":
+                dataset = dataset.split("\n");
+                // normalize with intentional fallthrough
             case "object":
             case "array":
             case "Array":
                 dataset.forEach( function(ele){
-                    Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
-
+                    if (Array.isArray(object)){
+                        if (!object.includes(ele)){
+                            object.push(ele);
+                        }
+                    } else {
+                        Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
+                    }
                 });
-                break;
-            case "String":
-            case "string":
-                dataset.split("\n").forEach(function(ele){
-                    Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
-
-                });              
                 break;
             default:
                 // ew...what to do!!!!
@@ -519,6 +535,7 @@ function renderLiNode(element){
 }
 
 function renderUlArray(values) {
+    values.sort();
     return  `<ul>
         ${values.map(renderLiNode).join("")}
     </ul>`;

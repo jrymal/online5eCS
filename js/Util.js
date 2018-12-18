@@ -172,5 +172,7 @@ function getSelectValues(options) {
 }
 
 function addAll(priList, listToAdd){
-    Array.push.apply(priList, listToAdd);
+    listToAdd.forEach(function(item){
+        priList.push(item);
+    });
 }

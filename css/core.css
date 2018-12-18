@@ -160,7 +160,11 @@ input[required]::after{
     border-color: var(--color-primary-border);
     border-radius: .8em;
     width: 80%;
+    height: 80%;
     position: absolute;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .modal:target {
@@ -199,7 +203,7 @@ input[required]::after{
     overflow: hidden;
     border: .1em solid var(--color-wizard-border);
     background-color: var(--color-wizard-background);
-    min-height: 17em; 
+    height: 100%;
 }
 
 .modal .wizardScreen.active {
@@ -402,4 +406,8 @@ input[required]::after{
 .multiline-cell {
     text-align: left;
     padding: .4em;
+}
+
+.scrollable{
+    overflow: scroll;
 }

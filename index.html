@@ -115,10 +115,11 @@
                 <dd id="RACE.features"></dd>
 
                 <dt>Class Features</dt>
-                <dd id="CALC.features"></dd>
+                <dd id="CALC.class.features"></dd>
 
-                <dt>Spells</dt>
-                <dd id="character.spells"></dd>
+                <dt class="spell-req">Spells</dt>
+                <dd class="spell-req" id="RACE.spells"></dd>
+                <dd class="spell-req" id="character.spells"></dd>
 
                 <dt>Saving Throw Proficiencies</dt>
                 <dd id="CALC.savingThrows" data-lookup="ATTRIBUTES"></dd> 
@@ -294,23 +295,24 @@
                 <div class="base" >
                     <h2>Load Character</h2>
                     <div class="description">Load your character</div>
-                    <label class="tagAlong"><input type="radio" name="importType" id="importFile.radio.file" value="file" checked/>Import file</label>
-                    <input class="tagAlong" type="file" id="importFile.importFile" name="importFile" />
+                    <div class="scrollable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Character Data</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="DB.character">
+                            </tbody>
+                        </table>
+                    </div>
                     <br>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th scope="col">Select</th>
-                                <th scope="col">Data</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody id="DB.character">
-                        </tbody>
-                    </table>
-
+                    <div>
+                    <label class="tagAlong">Import file</label>
+                    <input class="tagAlong" type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
+                    </div>
                     <a href="#">Cancel</a>
-                    <a href="#" onClick="return loadFromJSON()" >Ok</a>
                 </div>
             </dialog>
             <dialog class="modal" id="purseUpdate">
@@ -431,9 +433,9 @@
                             <caption>Classes choosen</caption>
                             <thead>
                                 <tr>
-                                    <th>Class</th>
-                                    <th>Level</th>
-                                    <th>Remove</th>
+                                    <th scope=col'>Class</th>
+                                    <th scope=col'>Level</th>
+                                    <th scope=col'>Remove</th>
                                 </tr>
                             </thead>
                             <tbody id="createCharacter.character.class.tbody">
