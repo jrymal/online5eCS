@@ -127,14 +127,21 @@ function prepopulateValues(formName){
                     let encKey = encodeURIComponent(cursor.primaryKey);
                     let character = cursor.value;
                     if (encKey !== currentEncKey){
-                        tableBody.innerHTML += `<tr id="importFile.DBLoad.${encKey}">
-                            <td><label class="multiline-cell" >${generateDbLabel(character)}</label></td>
-                    <td>
-                    <button type="button" onClick="loadByKey('${key}')">Load</button>
-                    <button type="button" onClick="deleteCharacterLoad('${encKey}','${key}')">Delete</button></td>
-                    </tr>`;
+                        tableBody.innerHTML += 
+                        `<tr id="importFile.DBLoad.${encKey}">
+                            <td>${character.player.name}</td>
+                            <td>${generateCharacterName(character)}</td>
+                            <td>${RACES[character.character.race].name}</td>
+                            <td>${joinClassName(character.character.class)}</td>
+                            <td>
+                                <button type="button" onClick="loadByKey('${key}')">Load</button>
+                                <button type="button" onClick="deleteCharacterLoad('${encKey}','${key}')">Delete</button>
+                            </td>
+                        </tr>`;
                     }
                     cursor.continue();
+                } else {
+                    selectFirstInput(currentDialogDiv);
                 }
             });
             break;
@@ -147,13 +154,6 @@ function deleteCharacterLoad(key, value){
         let tableEle = $('importFile.DBLoad.'+key);
         tableEle.parentNode.removeChild(tableEle);
     });
-}
-
-function generateDbLabel(character){
-    return `<b>Player:</b> ${character.player.name}<br>
-        <b>Character:</b> ${generateCharacterName(character)}<br>
-        <b>Race:</b> ${RACES[character.character.race].name}<br>
-        <b>Class:</b> ${joinClassName(character.character.class)}`;
 }
 
 function joinClassName(classList){

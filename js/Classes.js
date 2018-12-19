@@ -21,6 +21,89 @@ const ATTRIBUTES = deepFreeze({
     }
 });
 
+const LEVEL = deepFreeze({
+    1: {
+        xp: 0,
+        proficiencyBonus: 2
+    },
+    2: {
+        xp: 300,
+        proficiencyBonus: 2
+    },
+    3: {
+        xp: 900,
+        proficiencyBonus: 2
+    },
+    4: {
+        xp: 2700,
+        proficiencyBonus: 2
+    },
+    5: {
+        xp: 6500,
+        proficiencyBonus: 3
+    },
+    6: {
+        xp: 14000,
+        proficiencyBonus: 3
+    },
+    7: {
+        xp: 23000,
+        proficiencyBonus: 3
+    },
+    8: {
+        xp: 34000,
+        proficiencyBonus: 3
+    },
+    9: {
+        xp: 48000,
+        proficiencyBonus: 4
+    },
+    10: {
+        xp: 64000,
+        proficiencyBonus: 4
+    },
+    11: {
+        xp: 85000,
+        proficiencyBonus: 4
+    },
+    12: {
+        xp: 100000,
+        proficiencyBonus: 4
+    },
+    13: {
+        xp: 120000,
+        proficiencyBonus: 5
+    },
+    14: {
+        xp: 140000,
+        proficiencyBonus: 5
+    },
+    15: {
+        xp: 165000,
+        proficiencyBonus: 5
+    },
+    16: {
+        xp: 195000,
+        proficiencyBonus: 5
+    },
+    17: {
+        xp: 225000,
+        proficiencyBonus: 6
+    },
+    18: {
+        xp: 265000,
+        proficiencyBonus: 6
+    },
+    19: {
+        xp: 305000,
+        proficiencyBonus: 6
+    },
+    20: {
+        xp: 355000,
+        proficiencyBonus: 6
+    },
+});
+
 const CLASSES = deepFreeze({
     Barbarian:{
         hitDie: "d12",
@@ -39,7 +122,6 @@ const CLASSES = deepFreeze({
         ],
         level: {
             1: {
-                proficiencyBonus : 2,
                 features: ["Rage", "Unarmored Defence"],
                 special: {
                     "Rages" : 2,
@@ -59,7 +141,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             5: {
-                proficiencyBonus : 1,
                 features: ["Extra Attack", "Fast Movement"],
             },
             6: {
@@ -75,7 +156,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             9: {
-                proficiencyBonus : 1,
                 features: ["Brutal Critical(1 Die)"],
                 special: {
                     "Rage Damage" : 1
@@ -94,7 +174,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             13: {
-                proficiencyBonus : 1,
                 features: ["Brutal Critical(2 Dice)"],
             }, 
             14: {
@@ -110,7 +189,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             17: {
-                proficiencyBonus : 1,
                 features: ["Brutal Critical(3 Dice)"],
                 special: {
                     "Rages" : 1
@@ -148,7 +226,6 @@ const CLASSES = deepFreeze({
         specialName: "Rage",
         level: {
             1: {
-                proficiencyBonus : 2,
                 features: ["Inspiration (d6)"],
                 spells: {
                     type: "bard",
@@ -181,7 +258,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             5: {
-                proficiencyBonus : 1,
                 features: ["Bardic Inspiration (d8)","Font of Inspiration" ],
                 spells: {
                     total : 1, 
@@ -209,7 +285,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             9: {
-                proficiencyBonus : 1,
                 features: ["Song of rest (d8)"],
                 spells: {
                     total : 1, 
@@ -235,7 +310,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             13: {
-                proficiencyBonus : 1,
                 features: ["Song of Rest (d10)"],
                 spells: {
                     total : 1, 
@@ -260,7 +334,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             17: {
-                proficiencyBonus : 1,
                 features: ["Song od Rest (d12)"],
                 spells: {
                     total : 1, 
@@ -307,7 +380,6 @@ const CLASSES = deepFreeze({
         ],
         level: {
             1: {
-                proficiencyBonus: 2,
                 features:["Divine Domain"],
                 spells:{
                     type: "cleric",
@@ -340,7 +412,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             5: {
-                proficiencyBonus : 1,
                 features: ["Destroy Undead (CR 1/2)"],
                 spells: {
                     total : 1, 
@@ -369,7 +440,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             9: {
-                proficiencyBonus : 1,
                 features: ["Song of rest (d8)"],
                 spells: {
                     total : 1, 
@@ -396,7 +466,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             13: {
-                proficiencyBonus : 1,
                 features: ["Song of Rest (d10)"],
                 spells: {
                     total : 1, 
@@ -420,7 +489,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             17: {
-                proficiencyBonus : 1,
                 features: ["Destroy Undead (CR 4)", "Divine Domain feature"],
                 spells: {
                     total : 1, 
@@ -456,7 +524,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor (Non-metal)", "Medium Armor (Non-metal)", "Shields (Non-metal)", "Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars","Sickles", "Slings", "Spears"],
         level: {
             1: {
-                proficiencyBonus: 2,
                 features: ["Druidic", "Spellcasting"],
                 spells:{
                     type: "druid",
@@ -489,7 +556,6 @@ const CLASSES = deepFreeze({
                 }
             },
             5: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     3 : 2
@@ -517,7 +583,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             9: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     4 : 1,
@@ -542,7 +607,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             13: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     7 : 1
@@ -565,7 +629,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             17: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     9 : 1
@@ -601,7 +664,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
             1: {
-                proficiencyBonus: 2,
                 features: ["Fighting Style", "Second Wind"],
             },
             2: {
@@ -614,7 +676,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             5: {
-                proficiencyBonus: 1,
                 features: ["Extra Attack (x1)"]
             },
             6: {
@@ -628,7 +689,6 @@ const CLASSES = deepFreeze({
             }, 
             9: {
                 features: ["Indomitable (x1)"],
-                proficiencyBonus : 1,
             }, 
             10: {
                 features: ["Martial Archetype Feature"],
@@ -640,7 +700,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             13: {
-                proficiencyBonus : 1,
                 features: ["Indomitable (x2)"]
             }, 
             14: {
@@ -654,7 +713,6 @@ const CLASSES = deepFreeze({
             }, 
             17: {
                 features: ["Action Surge (x2)","Indominable (x3)"],
-                proficiencyBonus : 1,
             }, 
             18: {
                 features: ["Martial Archetype Improvement"],
@@ -675,7 +733,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Simple Weapons", "Shortswords"],
         level: {
             1: {
-                proficiencyBonus: 2,
                 features: ["Unarmored Defense", "Martial Arts"],
                 special : {
                     "Martial Arts": "1d4"
@@ -702,7 +759,6 @@ const CLASSES = deepFreeze({
                 }
             },
             5: {
-                proficiencyBonus: 1,
                 features: ["Extra Attack", "Stunning Strike"],
                 special : {
                     "Ki Points": "5",
@@ -730,7 +786,6 @@ const CLASSES = deepFreeze({
             }, 
             9: {
                 features: ["Unarmored Movement improvement"],
-                proficiencyBonus : 1,
                 special : {
                     "Ki Points": "9",
                 }
@@ -756,7 +811,6 @@ const CLASSES = deepFreeze({
                 }
             }, 
             13: {
-                proficiencyBonus : 1,
                 features: ["Tongue of the Sun and Moon"],
                 special : {
                     "Ki Points": "13",
@@ -787,7 +841,6 @@ const CLASSES = deepFreeze({
                     "Martial Arts": "1d10"
                 },
                 features: ["Monastic Tradition feature"],
-                proficiencyBonus : 1,
             }, 
             18: {
                 special : {
@@ -818,7 +871,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
             1: {
-                proficiencyBonus: 2,
                 features: ["Divine Sense", "Lay on Hands"],
             },
             2: {
@@ -843,7 +895,6 @@ const CLASSES = deepFreeze({
             },
             5: {
                 features:["Extra Attack"],
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     1 : 1,
@@ -867,7 +918,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             9: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     3 : 2,
@@ -890,7 +940,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             }, 
             13: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     4 : 1
@@ -913,7 +962,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             17: {
-                proficiencyBonus : 1,
                 spells: {
                     total : 1, 
                     5 : 1
@@ -944,7 +992,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
             1:{
-                proficiencyBonus: 2,
                 features: ["Favored Enemy", "Natural Explorer"],
             },
             2:{
@@ -966,7 +1013,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1,
             },
             5:{
-                proficiencyBonus : 1,
                 features: ["Extra Attack"],
                 spells:{
                     total: 1,
@@ -990,7 +1036,6 @@ const CLASSES = deepFreeze({
                 features: ["Land's Stride"],
             },
             9:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     3: 2,
@@ -1010,7 +1055,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1,
             },
             13:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     4: 1,
@@ -1030,7 +1074,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1,
             },
             17:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     4: 1,
@@ -1059,7 +1102,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
         level: {
             1:{
-                proficiencyBonus : 2,
                 features: ["Expertise", "Sneak Attack", "Thieves' Cant"],
                 special:{
                     "Sneak Attack": "1d6"
@@ -1078,7 +1120,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             5:{
-                proficiencyBonus : 1,
                 features: ["Uncanny Dodge"],
                 special:{
                     "Sneak Attack": "3d6"
@@ -1097,7 +1138,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             9:{
-                proficiencyBonus : 1,
                 features: ["Roguish Archetype Feature"],
                 special:{
                     "Sneak Attack": "5d6"
@@ -1116,7 +1156,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             13:{
-                proficiencyBonus : 1,
                 features: ["Roguish Archetype Feature"],
                 special:{
                     "Sneak Attack": "7d6"
@@ -1135,7 +1174,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             17:{
-                proficiencyBonus : 1,
                 features: ["Roguish Archetype Feature"],
                 special:{
                     "Sneak Attack": "9d6"
@@ -1162,7 +1200,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
         level: {
             1:{
-                proficiencyBonus : 2,
                 features: ["Sorcerous Origin"],
                 spells:{
                     type: "sourcerer",
@@ -1204,7 +1241,6 @@ const CLASSES = deepFreeze({
                 }
             },
             5:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     3: 2
@@ -1243,7 +1279,6 @@ const CLASSES = deepFreeze({
                 }
             },
             9:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     4: 1,
@@ -1280,7 +1315,6 @@ const CLASSES = deepFreeze({
                 }
             },
             13:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     7: 1
@@ -1315,7 +1349,6 @@ const CLASSES = deepFreeze({
                     total: 1,
                     9: 1
                 },
-                proficiencyBonus : 1,
                 features: ["Metamagic"],
                 special:{
                     "Sorcery Points" : 17
@@ -1348,7 +1381,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Light Armor", "Simple Weapons"],
         level: {
             1:{
-                proficiencyBonus : 2,
                 features: ["Otherworldly Patron", "Pact Magic"],
                 spells:{
                     type: "warlock",
@@ -1383,7 +1415,6 @@ const CLASSES = deepFreeze({
                 },
             },
             5:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     2: -2,
@@ -1416,7 +1447,6 @@ const CLASSES = deepFreeze({
                 },
             },
             9:{
-                proficiencyBonus : 1,
                 spells:{
                     total: 1,
                     4: -2,
@@ -1446,7 +1476,6 @@ const CLASSES = deepFreeze({
                 }
             },
             13:{
-                proficiencyBonus : 1,
                 features: ["Mystic Arcanum (7th level)"],
                 spells:{
                     total: 1,
@@ -1468,7 +1497,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             17:{
-                proficiencyBonus : 1,
               features: ["Mystic Arcanum (9th level)"],
                 spells:{
                     total: 1,
@@ -1495,7 +1523,6 @@ const CLASSES = deepFreeze({
         proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
         level: {
             1:{
-                proficiencyBonus : 2,
                 features: ["Arcane Recovery"],
                 spells:{
                     type: "wizard",
@@ -1524,7 +1551,6 @@ const CLASSES = deepFreeze({
                 },
             },
             5:{
-                proficiencyBonus : 1,
                 spells:{
                     3: 2
                 },
@@ -1547,7 +1573,6 @@ const CLASSES = deepFreeze({
                 },
             },
             9:{
-                proficiencyBonus : 1,
                 spells:{
                     4: 1,
                     5: 1
@@ -1569,7 +1594,6 @@ const CLASSES = deepFreeze({
                 abilityScore: 1, 
             },
             13:{
-                proficiencyBonus : 1,
                 spells:{
                     7: 1
                 },
@@ -1589,7 +1613,6 @@ const CLASSES = deepFreeze({
                 spells:{
                     9: 1
                 },
-                proficiencyBonus : 1,
             },
             18:{
                 spells:{

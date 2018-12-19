@@ -131,7 +131,7 @@ li, dd {
     hyphens: auto;
 }
 
-input[required]::after{
+label.required::after{
     content: " *";
     color: var(--color-error-fgnd);
 }
@@ -410,4 +410,8 @@ input[required]::after{
 
 .scrollable{
     overflow: scroll;
+}
+
+.height100{
+    height: 100%;
 }

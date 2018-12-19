@@ -90,6 +90,7 @@
                 <dt>Class</dt>
                 <dd class="marginless">
                 <table>
+                    <caption>List of classes and levels for the character.</caption>
                     <thead>
                         <tr>
                             <th scope="col">Class</th>
@@ -122,7 +123,7 @@
                 <dd class="spell-req" id="character.spells"></dd>
 
                 <dt>Saving Throw Proficiencies</dt>
-                <dd id="CALC.savingThrows" data-lookup="ATTRIBUTES"></dd> 
+                <dd id="CALC.savingThrows"></dd> 
 
                 <dt>Proficiencies</dt>
                 <dd id="CALC.proficiency"></dd>
@@ -130,6 +131,7 @@
                 <dt>Skills</dt>
                 <dd class="marginless">
                 <table>
+                    <caption>List of skills for the character.</caption>
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -167,7 +169,10 @@
                             <span class="parens" id="CALC.attribute.strength.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.strength.total"></td>
-                        <td id="CALC.attribute.strength.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.strength.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.strength.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.strength.passiveSavingThrow"></td>
                     </tr>
                     <tr>
@@ -177,7 +182,10 @@
                             <span class="parens"id="CALC.attribute.dexterity.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.dexterity.total"></td>
-                        <td id="CALC.attribute.dexterity.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.dexterity.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.dexterity.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
                     </tr>  
                     <tr>
@@ -187,7 +195,10 @@
                             <span class="parens"id="CALC.attribute.constitution.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.constitution.total"></td>
-                        <td id="CALC.attribute.constitution.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.constitution.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.constitution.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
                     </tr>
                     <tr>
@@ -197,7 +208,10 @@
                             <span class="parens"id="CALC.attribute.intelligence.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.intelligence.total"></td>
-                        <td id="CALC.attribute.intelligence.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.intelligence.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.intelligence.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
                     </tr>
                     <tr>
@@ -207,7 +221,10 @@
                             <span class="parens"id="CALC.attribute.wisdom.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.wisdom.total"></td>
-                        <td id="CALC.attribute.wisdom.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.wisdom.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.wisdom.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
                     </tr>
                     <tr>
@@ -217,7 +234,10 @@
                             <span class="parens"id="CALC.attribute.charisma.raceModifier" data-show-0="false"></span>
                         </td>
                         <td id="CALC.attribute.charisma.total"></td>
-                        <td id="CALC.attribute.charisma.savingThrow"></td>
+                        <td>
+                            <span id="CALC.attribute.charisma.savingThrow"></span>
+                            <span class="parens" id="CALC.attribute.charisma.proficiencySavingThrow" data-show-0="false"></span>
+                        </td>
                         <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
                     </tr>
                 </tbody>
@@ -295,11 +315,15 @@
                 <div class="base" >
                     <h2>Load Character</h2>
                     <div class="description">Load your character</div>
-                    <div class="scrollable">
+                    <div class="height100 scrollable">
                         <table>
+                            <caption>Listing of Characters to load or delete</caption>
                             <thead>
                                 <tr>
-                                    <th scope="col">Character Data</th>
+                                    <th scope="col">Player</th>
+                                    <th scope="col">Character</th>
+                                    <th scope="col">Race</th>
+                                    <th scope="col">Class</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -347,7 +371,7 @@
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
                     <form class="wizardScreen createCharacter">
-                        <label for="createCharacter.player.name">Role Player</label>
+                        <label for="createCharacter.player.name" class="required">Role Player</label>
                         <input type="text" id="createCharacter.player.name" name="player.name" required/>
 
                         <label for="createCharacter.player.phone">Phone Number</label>
@@ -399,7 +423,7 @@
                     <h2>Create a new character</h2>
                     <div class="description">Load your character</div>
                     <form class="wizardScreen createCharacter">
-                        <label for="createCharacter.character.name.first">First Name</label>
+                        <label for="createCharacter.character.name.first" class="required">First Name</label>
                         <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
                         <label for="createCharacter.character.name.family">Family Name</label>
                         <input type="text" id="createCharacter.character.name.family" name="character.name.family"/>
@@ -424,7 +448,7 @@
                             <label for="createCharacter.character.class.type">Class</label>
                             <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
 
-                            <label for="createCharacter.character.level">Level</label>
+                            <label for="createCharacter.character.level" class="required">Level</label>
                             <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
 
                             <button type="button" class="multiclass" onClick="addClass()">Add Class</button>
@@ -465,17 +489,17 @@
                         <button type="button" onClick="generateAttributes()">Generate Attributes</button>
 
                         <div class="column-2 createCharacter">
-                            <label for="createCharacter.character.attribute.strength">Strength</label>
+                            <label for="createCharacter.character.attribute.strength" class="required">Strength</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
-                            <label for="createCharacter.character.attribute.dexterity">Dexterity</label>
+                            <label for="createCharacter.character.attribute.dexterity" class="required">Dexterity</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
-                            <label for="createCharacter.character.attribute.constitution">Constitution</label>
+                            <label for="createCharacter.character.attribute.constitution" class="required">Constitution</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
-                            <label for="createCharacter.character.attribute.intelligence">Intelligence</label>
+                            <label for="createCharacter.character.attribute.intelligence" class="required">Intelligence</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
-                            <label for="createCharacter.character.attribute.wisdom">Wisdom</label>
+                            <label for="createCharacter.character.attribute.wisdom" class="required">Wisdom</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
-                            <label for="createCharacter.character.attribute.charisma">Charisma</label>
+                            <label for="createCharacter.character.attribute.charisma" class="required">Charisma</label>
                             <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
                         </div>
                     </form>
@@ -667,6 +691,23 @@
                     </div>
                 </div>
             </dialog>
+            <dialog class="modal" id="levelUp">
+                <div class="base">
+                    <h2>Level Up</h2>
+                    <div class="description">Raise your character's leve lby one</div>
+                    <form class="wizardScreen">
+                        <div id="levelUp.attribute">
+                            <label for="levelUp.attribute.attr">Ability to Improve</label>
+                            <select id="levelUp.attribute.attr" data-lookup="ATTRIBUTES"></select>
+                        </div>
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="next" onClick="return levelUp()">Complete</a>
+                    </div>
+                </div>
+            </dialog>
+
         </div>
         
         <script>

@@ -82,7 +82,7 @@ let trapFocus = function (event) {
     return true;
 };
 
-const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA','A'];
+const SELECTABLE_TAGS = ['INPUT', 'SELECT','TEXTAREA','A','BUTTON'];
 function selectFirstInput(divEle) {
     if (divEle && length(divEle.childNodes) > 0){
         for(let i = 0; i <= divEle.childNodes.length-1; i++) {
@@ -283,6 +283,7 @@ function setCurrentCharacter(character){
     // remove fluff
     delete race.names;
     
+    let totalLevel = getCurrentLevel(character.character.class);
     let backstory = BACKSTORIES[character.character.backstory.type];
     
     insertAtNode("character.experience", character, "0", false);
@@ -294,7 +295,7 @@ function setCurrentCharacter(character){
     
     currentCharacter = character;
     
-    applyLevelBasedRaceFeatures(character, race);
+    applyLevelBasedRaceFeatures(character, race, totalLevel);
 
     saveCharacter();
     
@@ -311,23 +312,27 @@ function setCurrentCharacter(character){
         getCumulativeClassForLevel(charClass, classLevel, summedClass);
     });
 
+    let attr = {};
+
+    Object.getOwnPropertyNames(ATTRIBUTES).forEach(function(attrName){
+        Object.defineProperty(attr, attrName,  
+            {
+                writable: true, 
+                configurable: true, 
+                enumerable: true, 
+                value:getAttributeObject(
+                    currentCharacter.character.attribute[attrName],
+                    race.attribute[attrName], 
+                    getSkillsForAttr(attrName, character.character.skills),
+                    getClassProfForAttr(attrName, character.character.class, totalLevel)
+                ),
+            });
+    });
+
     let calc = {
-        attribute:{
-            strength: getAttributeObject(currentCharacter.character.attribute.strength,
-                race.attribute.strength, getSkillsForAttr('strength', character.character.skills)),
-            dexterity: getAttributeObject(currentCharacter.character.attribute.dexterity,
-                race.attribute.dexterity, getSkillsForAttr('dexterity', character.character.skills)),
-            constitution: getAttributeObject(currentCharacter.character.attribute.constitution,
-                race.attribute.constitution, getSkillsForAttr('constitution', character.character.skills)),
-            intelligence: getAttributeObject(currentCharacter.character.attribute.intelligence,
-                race.attribute.intelligence, getSkillsForAttr('intelligence', character.character.skills)),
-            wisdom: getAttributeObject(currentCharacter.character.attribute.wisdom,
-                race.attribute.intelligence, getSkillsForAttr('wisdom', character.character.skills)),
-            charisma: getAttributeObject(currentCharacter.character.attribute.charisma,
-                race.attribute.charisma, getSkillsForAttr('charisma', character.character.skills))
-        },
+        attribute:attr,
         proficiency: getProficiencies(character, race, backstory, character.character.class),
-        savingThrows: getSavingThrows(character.character.class),
+        savingThrows: getSavingThrows(character.character.class, totalLevel),
         class: summedClass
     };
 
@@ -350,12 +355,11 @@ function setCurrentCharacter(character){
     return true;
 }
 
-function applyLevelBasedRaceFeatures(character, race){
+function applyLevelBasedRaceFeatures(character, race, totalLevel){
     let levelObj = race.level;
     if (levelObj){
-        let curLevel = getCurrentLevel(character.character.class);
     
-        for (let level = 0; level <= curLevel; level++){
+        for (let level = 0; level <= totalLevel; level++){
             if (levelObj[level]){
                 for (let type in levelObj[level]){
                     switch(type){
@@ -386,15 +390,17 @@ function addSpell( typeObj, spellNames ) {
     appendForSet(typeObj.spells, spellNames);
 }
 
-function getSavingThrows(classList){
+function getSavingThrows(classList, totalLevel){
     let resp = {};
+    let profBonus = LEVEL[totalLevel].proficiencyBonus;
 
-    for (let i = 0; i < classList.length; i++){
-        let classN = classList[i].class;
-        let charClass = CLASSES[classN];
-        appendForSet(resp, charClass.savingThrowProficiency);
-    }
-    
+    classList.forEach(function(classItem){
+        let classN = classItem.class;
+        CLASSES[classN].savingThrowProficiency.forEach(function(attrItem){
+            appendForSet(resp, performNameLookup("ATTRIBUTES",attrItem) + " (+"+profBonus+")");
+        });
+    });
+
     return Object.keys(resp).sort();
 }                        
 
@@ -499,15 +505,30 @@ function appendForSet(object, dataset) {
 
 function getSkillsForAttr(attributeId, skillsArray) {
     let cnt = 0;
-    for(let i = 0; skillsArray && i < skillsArray.length; i++) {
-        let skillName = skillsArray[i];
+
+    skillsArray.forEach(function(skillName){
         let skill = SKILLS[skillName];
         if (attributeId === skill.attribute) {
             cnt++;
         }
-    }
+    });
 
     return cnt;
+}
+
+function getClassProfForAttr(attrName, classList, totalLevel){
+
+    let value = 0;;
+    let profBonus = LEVEL[totalLevel].proficiencyBonus;
+
+    classList.forEach(function(classItem){
+        let classN = classItem.class;
+        if (CLASSES[classN].savingThrowProficiency.includes(attrName)){
+            value = profBonus;
+        }
+    });
+
+    return value;;
 }
                                
 function cleanseForSave(obj) {
@@ -518,7 +539,7 @@ function cleanseForSave(obj) {
     return cln;
 }
 
-function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
+function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr, proficiencyST) {
     let raceAttr = exists(raceAttribute) ? raceAttribute : 0;
     let total = +characterAttribute + +raceAttr;
     let saveBonus = Math.floor((total-10)/2);
@@ -526,7 +547,8 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr) {
         raceModifier: raceAttr,
         total: total,
         savingThrow: saveBonus,
-        passiveSavingThrow: 10 + +saveBonus + +skillsForAttr 
+        passiveSavingThrow: 10 + +saveBonus + +skillsForAttr + +proficiencyST, 
+        proficiencySavingThrow: proficiencyST
     };
 }
 
@@ -585,7 +607,7 @@ function renderTrForClass(classInfo){
     let classObj = CLASSES[classInfo.class];
     return `<tr>
         <th scope="row"> ${classInfo.class}</th>
-        <td>${classInfo.level}</td>
+        <td>${classInfo.level} <a href="#levelUp">raise</a></td>
         <td>${classObj.hitDie}</td>
     </tr>`
 }
@@ -646,20 +668,11 @@ function performNameLookups(lookup, node){
 }
 
 function performNameLookup(lookup, node){
-    return performObjectLookup(lookup, node).name;
-}
-
-function openCharacter() {
-    show($('importFromFile'));
-}
-
-// unused
-function viewPurse() {
-    show($('purseUpdate'));
-}
-
-function cancelModal() {
-    show($('modalOverlay'), false);
+    let objLookup = performObjectLookup(lookup, node);
+    if(objLookup){
+        return objLookup.name;
+    }
+    return "";
 }
 
 function downloadToFile(link, character) {
