@@ -223,7 +223,6 @@ const CLASSES = deepFreeze({
             "leather armor",
             "dagger"
         ],
-        specialName: "Rage",
         level: {
             1: {
                 features: ["Inspiration (d6)"],

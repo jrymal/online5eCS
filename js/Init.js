@@ -36,12 +36,12 @@ function init() {
     initDb();
 
     window.addEventListener('beforeinstallprompt', (event) => {
-      // Prevent Chrome <= 67 from automatically showing the prompt
-      event.preventDefault();
-      // Stash the event so it can be triggered later.
-      installPromptEvent = event;
+        // Prevent Chrome <= 67 from automatically showing the prompt
+        event.preventDefault();
+        // Stash the event so it can be triggered later.
+        installPromptEvent = event;
 
-      show($('install-app'), true);
+        show($('install-app'), true);
     });
 
     var urlNameValue = getQueryVariable("name");
@@ -576,6 +576,10 @@ function processDataHolder(dataholder){
                 // alter to handle the values
                 if (Array.isArray(node)){
                     node = renderUlArray(lookup ? performNameLookups(lookup, node) : node);
+                } else if (node && typeof node === 'object') {
+                    node = renderUlArray(Object.keys(node).map(function(key){
+                       return key+": "+node[key]; 
+                    }));
                 } else if (lookup && node) {
                     let nodeValue =  performNameLookup(lookup, node);
                     node = nodeValue ? nodeValue : node;

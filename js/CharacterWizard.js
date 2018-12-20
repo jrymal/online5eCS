@@ -145,6 +145,9 @@ function prepopulateValues(formName){
                 }
             });
             break;
+        case 'levelUp':
+            // need to decide what to show
+            break;
     }    
 }
 
