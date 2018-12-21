@@ -89,18 +89,19 @@
 
                 <dt>Class</dt>
                 <dd class="marginless">
-                <table>
-                    <caption>List of classes and levels.</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Class</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Hit Die</th>
-                        </tr>
-                    </thead>
-                    <tbody id="character.class">
-                    </tbody>
-                </table>
+                    <table>
+                        <caption>List of classes and levels.</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Class</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Hit Die</th>
+                            </tr>
+                        </thead>
+                        <tbody id="character.class">
+                        </tbody>
+                    </table>
+                    <a href="#multiClass">Add new class</a>
                 </dd>
 
                 <dt>Experience Points</dt>
@@ -713,6 +714,20 @@
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#" class="next" onClick="return levelUp()">Level Up</a>
+                    </div>
+                </div>
+            </dialog>
+            <dialog class="modal multiClass" id="multiClass">
+                <div class="base">
+                    <h2>Level Up</h2>
+                    <div class="description">Choose a new class to add to this character.</div>
+                    <form class="wizardScreen">
+                        <label for="multiClass.class">New class to add</label>
+                        <select id="multiClass.class" data-lookup="CLASSES"></select>
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="next" onClick="return levelUpMultiClass()">Level Up</a>
                     </div>
                 </div>
             </dialog>

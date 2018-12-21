@@ -148,6 +148,22 @@ label.required::after{
     display: block;
 }
 
+/* This will temporaily remove the current class without inspection*/
+.multiClass.Barbarian option[value='Barbarian'],
+.multiClass.Bard option[value='Bard'],
+.multiClass.Cleric option[value='Cleric'],
+.multiClass.Druid option[value='Druid'],
+.multiClass.Fighter option[value='Fighter'],
+.multiClass.Monk option[value='Monk'],
+.multiClass.Paladin option[value='Paladin'],
+.multiClass.Ranger option[value='Ranger'],
+.multiClass.Rogue option[value='Rogue'],
+.multiClass.Sorcerer option[value='Sorcerer'],
+.multiClass.Warlock option[value='Warlock'],
+.multiClass.Wizard option[value='Wizard']{
+    display: none;
+}
+
 /*** MODAL LAYOUT ***/
 .modal{
     top: 0;

@@ -60,7 +60,7 @@ function levelUp(){
     // add to the selected level
     let classObj = getClass(currentCharacter.character.class, UPGRADE_CLASS);
     classObj.level = +classObj.level + 1;
-    currentCharacter.character.hitPoints.current += getMax(CLASSES[UPGRADE_CLASS].hitDie);
+    currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[UPGRADE_CLASS].hitDie);
    
     // add tp he select ability score
     if ($('levelUp').classList.contains("abilityScore")){
@@ -68,6 +68,18 @@ function levelUp(){
         currentCharacter.character.attribute[attr] = +currentCharacter.character.attribute[attr] + +1;
     }
     
+    setCurrentCharacter(currentCharacter);
+}
+
+function levelUpMultiClass(){
+    let newClass = $('multiClass.class').value;
+    
+    currentCharacter.character.class.push({
+        class : newClass,
+        level : 1
+    });
+    currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[newClass].hitDie);
+   
     setCurrentCharacter(currentCharacter);
 }
 

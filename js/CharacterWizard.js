@@ -189,7 +189,20 @@ function prepopulateValues(formName){
             
         }
             break;
-    }    
+        case 'multiClass':{
+            // remove any classes
+            Object.keys(CLASSES).forEach(function(className){
+                $('multiClass').classList.remove(className);
+            });
+
+            currentCharacter.character.class.forEach(function(className){
+                $('multiClass').classList.add(className.class);
+            });
+
+        
+        }    
+            break;
+    }
 }
 
 function getClass(classList, className){
