@@ -692,21 +692,27 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal" id="levelUp">
+            <dialog class="modal levelUp" id="levelUp">
                 <div class="base">
                     <h2>Level Up</h2>
                     <div class="description">Raise your character's leve lby one</div>
                     <form class="wizardScreen">
-                        <div id="levelUp.attribute">
-                            <label for="levelUp.attribute.attr">Ability to Improve</label>
-                            <select id="levelUp.attribute.attr" data-lookup="ATTRIBUTES"></select>
-                        </div>
-                        <div id="levelUp.whatsnew">
-                        </div>
+                        <dl>
+                            <dt class="feature-req special-req">New Features</dt>
+                            <dd class="feature-req" id="levelUp.feature"/>
+                            <dd class="special-req" id="levelUp.special"/>
+                            <dt class="spell-req">New Spells</dt>
+                            <dd class="spell-req" id="levelUp.spell"/>
+                            <dt class="ability-req">Ability Score Up</dt>
+                            <dd class="ability-req">
+                                <label for="levelUp.attribute">Ability to Improve</label>
+                                <select id="levelUp.attribute" data-lookup="ATTRIBUTES"></select>
+                            </dd>
+                        </dl>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
-                        <a href="#" class="next" onClick="return levelUp()">Complete</a>
+                        <a href="#" class="next" onClick="return levelUp()">Level Up</a>
                     </div>
                 </div>
             </dialog>

@@ -1,5 +1,7 @@
 'use strict';
 
+var UPGRADE_CLASS;
+
 function clearAllFields(dataholders) {
     // Retrieves input data from a form and returns it as a JSON object.
     [].reduce.call(dataholders, (data, dataholder) => {
@@ -52,6 +54,21 @@ function init() {
     }
 
     populateLookups();
+}
+
+function levelUp(){
+    // add to the selected level
+    let classObj = getClass(currentCharacter.character.class, UPGRADE_CLASS);
+    classObj.level = +classObj.level + 1;
+    currentCharacter.character.hitPoints.current += getMax(CLASSES[UPGRADE_CLASS].hitDie);
+   
+    // add tp he select ability score
+    if ($('levelUp').classList.contains("abilityScore")){
+        let attr = $('levelUp.attribute').value;
+        currentCharacter.character.attribute[attr] = +currentCharacter.character.attribute[attr] + +1;
+    }
+    
+    setCurrentCharacter(currentCharacter);
 }
 
 function saveCharacter() {
@@ -224,15 +241,14 @@ function generateNameHash(hash){
 
 function generateName() {
     
-    if (!currentCharacter || !currentCharacter.player) {
-        return null;
+    if (currentCharacter && currentCharacter.player) {
+        var playerName = currentCharacter.player.name;
+        var charName = generateCharacterName(currentCharacter);
+        if (playerName && charName) {
+            return playerName + '-' + charName;
+        }
     }
 
-    var playerName = currentCharacter.player.name;
-    var charName = generateCharacterName(currentCharacter);
-    if (playerName && charName) {
-        return playerName + '-' + charName;
-    }
     return null;
 }
 
@@ -290,7 +306,7 @@ function setCurrentCharacter(character){
     insertAtNode("character.inspiration", character, false, false);
     
     let maxHitPoints = getMaxHitPoints(character.character.class);
-    insertAtNode("character.hitPoints.max", character, maxHitPoints, false);
+    insertAtNode("character.hitPoints.max", character, maxHitPoints, true);
     insertAtNode("character.hitPoints.current", character, maxHitPoints, false);
     
     currentCharacter = character;
@@ -420,7 +436,7 @@ function getCumulativeClassForLevel(curClass, level, modClass = {}){
         // use the working data....again frozen!
         var specs = curClass.level[i];
   
-        for (let name of Object.getOwnPropertyNames(specs)) {
+        Object.getOwnPropertyNames(specs).forEach(function(name) {
             let dataValue = specs[name];
 
             if (modClass[name]){
@@ -438,9 +454,9 @@ function getCumulativeClassForLevel(curClass, level, modClass = {}){
                         if (Array.isArray(dataValue)){
                             addAll(modClass[name], dataValue);
                         } else {
-                            for (let objName of Object.getOwnPropertyNames(dataValue)) {
-                                insertAtNode(objName, modClass[name], clone(dataValue), true);
-                            }
+                            Object.getOwnPropertyNames(dataValue).forEach(function(objName){
+                                insertAtNode(objName, modClass[name], clone(dataValue[objName]), true);
+                            });
                         }
                         break;
                     case "String":
@@ -451,7 +467,7 @@ function getCumulativeClassForLevel(curClass, level, modClass = {}){
             } else {
                 insertAtNode(name, modClass, clone(dataValue));
             }
-        }
+        });
     }
     
     // removed useless level information
@@ -552,14 +568,10 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr, pr
     };
 }
 
-function renderLiNode(element){
-    return `<li>${element}</li>`;
-}
-
 function renderUlArray(values) {
     values.sort();
     return  `<ul>
-        ${values.map(renderLiNode).join("")}
+        ${values.map((ele) => `<li>${ele}</li>`).join("")}
     </ul>`;
 }
 
@@ -611,7 +623,7 @@ function renderTrForClass(classInfo){
     let classObj = CLASSES[classInfo.class];
     return `<tr>
         <th scope="row"> ${classInfo.class}</th>
-        <td>${classInfo.level} <a href="#levelUp">raise</a></td>
+        <td>${classInfo.level} <a href="#levelUp" onClick="UPGRADE_CLASS='${classInfo.class}';return true;">raise</a></td>
         <td>${classObj.hitDie}</td>
     </tr>`
 }

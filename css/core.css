@@ -136,6 +136,17 @@ label.required::after{
     color: var(--color-error-fgnd);
 }
 
+.levelUp dt,
+.levelUp dd{
+    display: none;
+}
+
+.levelUp.feature .feature-req,
+.levelUp.special .special-req,
+.levelUp.abilityScore .ability-req,
+.levelUp.spells .spell-req {
+    display: block;
+}
 
 /*** MODAL LAYOUT ***/
 .modal{

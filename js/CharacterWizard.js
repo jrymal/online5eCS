@@ -145,10 +145,60 @@ function prepopulateValues(formName){
                 }
             });
             break;
-        case 'levelUp':
+        case 'levelUp':{
             // need to decide what to show
+            $('levelUp').classList.remove("feature");
+            $('levelUp').classList.remove("special");
+            $('levelUp').classList.remove("abilityScore");
+            $('levelUp').classList.remove("spells");
+            
+            if (!exists(UPGRADE_CLASS)){
+                console.log("Upgrade class is not set.");
+                return;
+            }
+
+            let currentLevel = getClass(currentCharacter.character.class, UPGRADE_CLASS).level;
+           
+            let nextLevel = +currentLevel + 1;
+            let classObj = CLASSES[UPGRADE_CLASS];
+            let nextLevelObj = classObj.level[nextLevel];
+       
+            if (exists(nextLevelObj.features)){
+                $('levelUp').classList.add("feature");
+                $('levelUp.feature').innerHTML = renderUlArray(nextLevelObj.features);
+            }
+            if (exists(nextLevelObj.special)){
+                $('levelUp').classList.add("special");
+                $('levelUp.special').innerHTML = renderUlArray(Object.keys(nextLevelObj.special).map(function(key){
+                    return key+": "+nextLevelObj.special[key]; 
+                }));
+            }
+            if (exists(nextLevelObj.abilityScore)){
+                $('levelUp').classList.add("abilityScore");
+            }
+            if (exists(nextLevelObj.spells)){
+                $('levelUp').classList.add("spells");
+                $('levelUp.spell').innerHTML = 
+                    (nextLevelObj.spells.total ? "Total spells increased by "+nextLevelObj.spells.total+"<br>" : "");
+                Object.getOwnPropertyNames(nextLevelObj.spells).forEach(function(objName){
+                    if (objName !== "total"){
+                        $('levelUp.spell').innerHTML += nextLevelObj.spells[objName]+ " new level "+objName+" spells available";
+                    }
+                });
+            }
+            
+        }
             break;
     }    
+}
+
+function getClass(classList, className){
+    for(let i = 0; i <= classList.length; i++){
+        if (classList[i].class === className){
+            return classList[i];
+        }
+    }
+    return null;
 }
 
 function deleteCharacterLoad(key, value){

@@ -333,7 +333,7 @@ const CLASSES = deepFreeze({
                 abilityScore: 1 
             }, 
             17: {
-                features: ["Song od Rest (d12)"],
+                features: ["Song of Rest (d12)"],
                 spells: {
                     total : 1, 
                     9 : 1
