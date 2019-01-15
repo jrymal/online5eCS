@@ -520,6 +520,13 @@ const CLASSES = deepFreeze({
         hitDie: "d8",
         primaryAbility: ["wisdom"],
         savingThrowProficiency: ["wisdom", "intelligence"],
+        equipment: [
+            ["iwooden sheild", "simple weapon"],
+            [ "scimitar", "simple melee weapon"],
+            "leather armor",
+            "explorer's pack",
+            "druidic focus"
+        ],
         proficiency: ["Light Armor (Non-metal)", "Medium Armor (Non-metal)", "Shields (Non-metal)", "Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars","Sickles", "Slings", "Spears"],
         level: {
             1: {
@@ -659,6 +666,12 @@ const CLASSES = deepFreeze({
         hitDie: "d10",
         primaryAbilityJoin: "or",
         primaryAbility: ["strength", "dexterity"],
+        equipment: [
+            ["chain mail", ["leather armor", "longbow", {name: "arrows", count: 20}]],
+            [ ["martial weapon", "sheild"], {name:"martial weapon", count: 2}],
+            [["light crossbow", {name: "bolt", count: 20}], {name:"handax", count: 2}],
+            ["dungeoner's pack","explorer's pack"],
+        ],
         savingThrowProficiency: ["strength", "constitution"],
         proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
@@ -729,6 +742,11 @@ const CLASSES = deepFreeze({
         primaryAbilityJoin: "and",
         primaryAbility: ["dexterity", "wisdom"],
         savingThrowProficiency: ["dexterity", "strength"],
+        equipment: [
+            ["short sword", "simple melee weapon"],
+            ["dungeoner's pack","explorer's pack"],
+            {name:"darts", count: 10}
+        ],
         proficiency: ["Simple Weapons", "Shortswords"],
         level: {
             1: {
@@ -866,6 +884,13 @@ const CLASSES = deepFreeze({
         hitDie: "d10",
         primaryAbilityJoin: "and",
         primaryAbility: ["strength","charisma"],
+        equipment: [
+            [["martial weapon","sheild"],{name:"martial weapon", count: 2} ],
+            [{name:"javelin", count: 5},"simple melee weapon" ],
+            ["priest's pack","explorer's pack"],
+            "chain mail",
+            "holy symbol"
+        ],
         savingThrowProficiency: ["wisdom", "charisma"],
         proficiency: ["Light Armor", "Medium Armor", "Heavy Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
@@ -988,6 +1013,14 @@ const CLASSES = deepFreeze({
         primaryAbilityJoin: "and",
         primaryAbility: ["dexterity", "wisdom"],
         savingThrowProficiency: ["dexterity", "strength"],
+        equipment: [
+            ["scale mail", "leather aromour" ],
+            [{name:"short sword", count: 2},{name:"simple melee weapon", count: 2} ],
+            ["dungeoner's pack","explorer's pack"],
+            "longbow",
+            "quiver",
+            {name:"arrows", count: 20}
+        ],
         proficiency: ["Light Armor", "Medium Armor", "Shields", "Simple Weapons", "Martial Weapons"],
         level: {
             1:{
@@ -1099,6 +1132,14 @@ const CLASSES = deepFreeze({
         primaryAbility: ["dexterity"],
         savingThrowProficiency: ["dexterity", "intelligence"],
         proficiency: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+        equipment: [
+            ["rapier", "shortsword" ],
+            [["shortbow",{name:"arrow", count: 20}],"shortsword" ],
+            ["burgaler's pack","dungeoner's pack","explorer's pack"],
+            "leather armor",
+            "theive's tools",
+            {name:"daggers", count: 2}
+        ],
         level: {
             1:{
                 features: ["Expertise", "Sneak Attack", "Thieves' Cant"],
@@ -1197,6 +1238,12 @@ const CLASSES = deepFreeze({
         primaryAbility: ["charisma"],
         savingThrowProficiency: ["constitution", "charisma"],
         proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+        equipment: [
+            ["component pouch", "arcaine focus" ],
+            [["light crossbow",{name:"bolt", count: 20}],"simple weapon" ],
+            ["dungeoner's pack","explorer's pack"],
+            {name:"daggers", count: 2}
+        ],
         level: {
             1:{
                 features: ["Sorcerous Origin"],
@@ -1378,6 +1425,14 @@ const CLASSES = deepFreeze({
         primaryAbility: ["charisma"],
         savingThrowProficiency: ["wisdom", "charisma"],
         proficiency: ["Light Armor", "Simple Weapons"],
+        equipment: [
+            ["component pouch", "arcaine focus" ],
+            [["light crossbow",{name:"bolt", count: 20}],"simple weapon" ],
+            ["scholar's pack","dungeoner's pack"],
+            "leather armor",
+            "simple weapon",
+            {name:"daggers", count: 2}
+        ],
         level: {
             1:{
                 features: ["Otherworldly Patron", "Pact Magic"],
@@ -1520,6 +1575,12 @@ const CLASSES = deepFreeze({
         primaryAbility: ["intelligence"],
         savingThrowProficiency: ["wisdom", "intelligence"],
         proficiency: ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+        equipment: [
+            ["quarter staff", "dagger" ],
+            ["component pouch", "arcaine focus" ],
+            ["scholar's pack","dungeoner's pack"],
+            "spellbook",
+        ],
         level: {
             1:{
                 features: ["Arcane Recovery"],

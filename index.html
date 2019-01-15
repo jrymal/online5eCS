@@ -316,7 +316,7 @@
             <dialog class="modal" id="importFile">
                 <div class="base" >
                     <h2>Load Character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <div class="height100 scrollable">
                         <table>
                             <caption>Listing of Characters to load or delete</caption>
@@ -335,7 +335,7 @@
                     </div>
                     <br>
                     <div>
-                    <label class="tagAlong">Import file</label>
+                    <label class="tagAlong" for="importFile.importFile">Import file</label>
                     <input class="tagAlong" type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
                     </div>
                     <a href="#">Cancel</a>
@@ -343,35 +343,76 @@
             </dialog>
             <dialog class="modal" id="purseUpdate">
                 <div class="base">
-                    <h2>I assume you are buying or accumulating your wealth....otherwise, why are you here?</h2>
-                    <div class="description">Load your character</div>
-                    <label for="purse.pp" name="purse.pp">Purse (PP)</label>
-                    <input type="number" name="purse.pp" pattern="[0-9]*" id="purse.pp" class="short" min="0" />
-                    <label for="purse.gp" name="purse.gp">Purse (GP)</label>
-                    <input type="number" name="purse.gp" pattern="[0-9]*" id="purse.gp" class="short"
-                                                                                        min="0" />
+                    <h2>Purse</h2>
+                    <p class="description">I assume you are buying or accumulating your wealth....otherwise, why are you
+                    here?</p>
+                    <div class="height100 scrollable">
+                    
+                        <p>Current Purse: <div id="purse.current"></div></p>
 
-                    <label for="purse.ep" name="purse.ep">Purse (EP)</label>
-                    <input type="number" name="purse.ep" pattern="[0-9]*" id="purse.ep" class="short"
-                                                                                        min="0" />
-                    <label for="purse.sp" name="purse.sp">Purse (SP)</label>
-                    <input type="number" name="purse.sp" pattern="[0-9]*" id="purse.sp" class="short"
-                                                                                        min="0" />
+                        <label for="purse.value">Amount</label>
+                        <input class="tagAlong" ype="number" name="purse.value" pattern="[0-9]*" id="purse.value" class="short" min="0" />
+                        <select class="tagAlong" id="ipurse.type" name="purse.type" >
+                            <option value="PLATINUM">Platinum</option>
+                            <option value="GOLD">Gold</option>
+                            <option value="ELECTRUM">Electrum</option>
+                            <option value="SILVER">Silver</option>
+                            <option value="COPPER">Copper</option>
+                        </select>
 
-                    <label for="purse.cp" name="purse.cp">Purse (CP)</label>
-                    <input type="number" name="purse.cp" pattern="[0-9]*" id="purse.cp" class="short"
-                                                                                        min="0" />
-                    <label for="purse.description" name="purse.description">Purchase Description</label>
-                    <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
-                    <button onClick="usePurse('-')">Spend</button>
-                    <button onClick="usePurse('+')">Gain</button> 
-                    <a href="#">Done</a>
+                        <label for="purse.description" name="purse.description">Purchase Description</label>
+                        <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
+                        <table>
+                            <caption>Exchange Listing</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Coin</th>
+                                        <th scope="col">Abbreviation</th>
+                                        <th scope="col">Exchange</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Platinum</th>
+                                        <td>PP</td>
+                                        <td>1 PP = 100 SP</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gold</th>
+                                        <td>GP</td>
+                                        <td>1 GP = 10 SP</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Electrum</th>
+                                        <td>EP</td>
+                                        <td>1 EP = 5 SP</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Silver</th>
+                                        <td>SP</td>
+                                        <td>1 SP = ~1/2 day of labor</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Copper</th>
+                                        <td>CP</td>
+                                        <td>10 CP = 1 SP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                    </div>
+                    <div class="buttonbar">
+                        <button onClick="usePurse('-')">Spend</button>
+                        <button onClick="usePurse('+')">Gain</button> 
+                        <a href="#">Done</a>
+                    </div>
                 </div>
             </dialog>
             <dialog class="modal" id="createCharacter.player">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.player.name" class="required">Role Player</label>
                         <input type="text" id="createCharacter.player.name" name="player.name" required/>
@@ -392,7 +433,7 @@
             <dialog class="modal" id="createCharacter.race">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.character.race">Race</label>
                         <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
@@ -423,7 +464,7 @@
             <dialog class="modal" id="createCharacter.name">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.character.name.first" class="required">First Name</label>
                         <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
@@ -444,7 +485,7 @@
             <dialog class="modal" id="createCharacter.class">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen" id="createCharacter.class.form">
                         <div class="createCharacter">
                             <label for="createCharacter.character.class.type">Class</label>
@@ -479,7 +520,7 @@
             <dialog class="modal" id="createCharacter.attr">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen">
                         <!-- generation options and execution -->
                         <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
@@ -515,7 +556,7 @@
             <dialog class="modal" id="createCharacter.backstory">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.backstory.type">Backstory Type</label>
                         <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
@@ -533,7 +574,7 @@
             <dialog class="modal" id="createCharacter.age">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.age">Age (in years)</label>
                         <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
@@ -554,7 +595,7 @@
             <dialog class="modal" id="createCharacter.colors">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.eyecolor">Eye Color</label>
                         <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
@@ -578,7 +619,7 @@
             <dialog class="modal" id="createCharacter.appearance">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <label for="createCharacter.details.appearance">Appearance</label>
                         <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
@@ -596,7 +637,7 @@
             <dialog class="modal" id="createCharacter.skills">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                         <fieldset>
                             <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
@@ -613,7 +654,7 @@
             <dialog class="modal" id="createCharacter.language">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter" >
                         <fieldset>
                             <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
@@ -630,7 +671,7 @@
             <dialog class="modal" id="createCharacter.traits">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
+                    <p class="description">Load your character</p>
                     <form class="wizardScreen createCharacter">
                     <!-- need to sure up the proficiencies editor: choose from list of
                         Proficiencies with free entry and stash.-->
@@ -650,8 +691,8 @@
             <dialog class="modal" id="createCharacter.embellishments">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
-                    <form class="wizardScreen column-2 createCharacter">
+                    <p class="description">Load your character</p>
+                    <form class="wizardScreen createCharacter">
 
                         <label for="createCharacter.ideals">Ideals</label>
                         <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
@@ -668,23 +709,15 @@
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter.traits" >Previous</a>
-                        <a href="#createCharacter.items" class="next">Next</a>
+                        <a href="#createCharacter.equipment" class="next">Next</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal" id="createCharacter.items">
+            <dialog class="modal" id="createCharacter.equipment">
                 <div class="base">
                     <h2>Create a new character</h2>
-                    <div class="description">Load your character</div>
-                    <form class="wizardScreen createCharacter">
-                        <label for="createCharacter.weapons">Weapons</label>
-                        <textarea id="createCharacter.weapons" name="character.weapons" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.equipment">Equipment</label>
-                        <textarea id="createCharacter.equipment" name="character.equipment" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.treasure">Treasure</label>
-                        <textarea id="createCharacter.treasure" name="character.treasure" spellcheck="true"></textarea>
+                    <p class="description">Load your character</p>
+                    <form class="wizardScreen createCharacter" id="createCharacter.equipment.equipment">
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -693,10 +726,11 @@
                     </div>
                 </div>
             </dialog>
+
             <dialog class="modal levelUp" id="levelUp">
                 <div class="base">
                     <h2>Level Up</h2>
-                    <div class="description">Raise your character's leve lby one</div>
+                    <p class="description">Raise your character's level by one</p>
                     <form class="wizardScreen">
                         <dl>
                             <dt class="feature-req special-req">New Features</dt>
@@ -720,7 +754,21 @@
             <dialog class="modal multiClass" id="multiClass">
                 <div class="base">
                     <h2>Level Up</h2>
-                    <div class="description">Choose a new class to add to this character.</div>
+                    <p class="description">Choose a new class to add to this character.</p>
+                    <form class="wizardScreen">
+                        <label for="multiClass.class">New class to add</label>
+                        <select id="multiClass.class" data-lookup="CLASSES"></select>
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="next" onClick="return levelUpMultiClass()">Level Up</a>
+                    </div>
+                </div>
+            </dialog>
+            <dialog class="modal multiClass" id="multiClass">
+                <div class="base">
+                    <h2>Level Up</h2>
+                    <p class="description">Choose a new class to add to this character.</p>
                     <form class="wizardScreen">
                         <label for="multiClass.class">New class to add</label>
                         <select id="multiClass.class" data-lookup="CLASSES"></select>

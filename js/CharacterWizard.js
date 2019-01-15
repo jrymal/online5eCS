@@ -115,6 +115,38 @@ function prepopulateValues(formName){
                 chooser.value = curValue;
             }
             break;
+        case 'createCharacter.equipment':
+            let cnt = 0;
+            [].slice.call(document
+                .querySelectorAll("input[name='character.class[].class']"))
+                .map((classEle) => classEle.value)
+                .sort()
+                .forEach(function(className){
+                    let curClass = CLASSES[className];
+                    curClass.equipment
+                        .forEach(function(itemSel){
+                            cnt++;
+                            let inputId = "createCharacter.equipment."+cnt;
+                            let inputName = "character.equipment[]";
+                            if (Array.isArray(itemSel)){
+                               $('createCharacter.equipment.equipment').innerHTML += 
+                               `<label for="${inputId}">Choose an item</label>
+                                <select id="${inputId}" name="${inputName}">
+                                    ${itemSel.map((item) => "<option value='"+item+"'>"+item+"</option>" )}
+                                </select>`;
+                            } else {
+                               $('createCharacter.equipment.equipment').innerHTML += `<label for="${inputId}"></label>
+                       <input type="text" id="${inputId}" name="${inputName}" value="${itemSel}"/>`
+                            
+                            }
+                        });
+                });
+            ;
+            
+
+
+            break;
+
         case 'importFile':
             let tableBody = $('DB.character');
             tableBody.innerHTML = "";
@@ -331,23 +363,17 @@ function checkCheckboxes(idPrefix, list){
 }
 
 function populateLookups(){
-    let i;
-    
-    let nodes = document.querySelectorAll("select[data-lookup]");
-    for (i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
+    document.querySelectorAll("select[data-lookup]").forEach(function(node){
         populateSelect(node, 
             eval(getDataAttribute(node, "lookup")), 
             eval(getDataAttribute(node, "sort", true)), 
             getDataAttribute(node, "type", "String"))
-    }
+    });
     
-    nodes = document.querySelectorAll("fieldset > div[data-lookup]");
-    for (i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
+    document.querySelectorAll("fieldset > div[data-lookup]").forEach(function(node){
         let typeName = getDataAttribute(node, "lookup");
         populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
-    }
+    });
 }
 
 function randomizeDataRNG(){
