@@ -580,10 +580,22 @@ function getAttributeObject(characterAttribute, raceAttribute, skillsForAttr, pr
     };
 }
 
+function stringifyNameCountObj(value)
+{
+    let name = value["name"] ? value["name"] : value;
+    let count = value["count"] ? value["count"] : "";
+    if (isBlank(count)){
+        return name;
+    }
+    return name + "[" + count + "]";
+}
+
 function renderUlArray(values) {
-    values.sort();
     return  `<ul>
-        ${values.map((ele) => `<li>${ele}</li>`).join("")}
+        ${values
+            .map(stringifyNameCountObj)
+            .sort()
+            .map((ele) => `<li>${ele}</li>`).join("")}
     </ul>`;
 }
 
@@ -651,7 +663,7 @@ function renderTrForSkill(node){
 function specialHandler(id, element, node){
     switch(id){
         case 'character.class':
-            element.innerHTML = node.map(renderTrForClass).join("");
+            element.innerHTML = node ? node.map(renderTrForClass).join("") : "";
             return true;
         case "character.details.eyecolor":
         case "character.details.hair":
@@ -671,7 +683,7 @@ function specialHandler(id, element, node){
             element.innerHTML = Math.floor(node/12)+'\' '+ Math.floor(node%12) +'"';
             return true;
         case 'character.skills':
-            element.innerHTML = node.map(renderTrForSkill).join("");
+            element.innerHTML = node ? node.map(renderTrForSkill).join("") : "";
             return true;
     }
     return false;

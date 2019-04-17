@@ -117,30 +117,33 @@ function prepopulateValues(formName){
             break;
         case 'createCharacter.equipment':
             let cnt = 0;
-            [].slice.call(document
-                .querySelectorAll("input[name='character.class[].class']"))
-                .map((classEle) => classEle.value)
-                .sort()
-                .forEach(function(className){
-                    let curClass = CLASSES[className];
-                    curClass.equipment
-                        .forEach(function(itemSel){
-                            cnt++;
-                            let inputId = "createCharacter.equipment."+cnt;
-                            let inputName = "character.equipment[]";
-                            if (Array.isArray(itemSel)){
-                               $('createCharacter.equipment.equipment').innerHTML += 
-                               `<label for="${inputId}">Choose an item</label>
-                                <select id="${inputId}" name="${inputName}">
-                                    ${itemSel.map((item) => "<option value='"+item+"'>"+item+"</option>" )}
-                                </select>`;
-                            } else {
-                               $('createCharacter.equipment.equipment').innerHTML += `<label for="${inputId}"></label>
-                       <input type="text" id="${inputId}" name="${inputName}" value="${itemSel}"/>`
-                            
-                            }
-                        });
-                });
+            let equipmentEle = $('createCharacter.equipment.equipment');
+            if (equipmentEle.childElementCount == 0 ){ 
+                [].slice.call(document
+                    .querySelectorAll("input[name='character.class[].class']"))
+                    .map((classEle) => classEle.value)
+                    .sort()
+                    .forEach(function(className){
+                        let curClass = CLASSES[className];
+                        curClass.equipment
+                            .forEach(function(itemSel){
+                                cnt++;
+                                let inputId = "createCharacter.equipment."+cnt;
+                                let inputName = "character.equipment[].name";
+                                if (Array.isArray(itemSel)){
+                                   equipmentEle.innerHTML += 
+                                   `<label for="${inputId}">Choose an item</label>
+                                    <select id="${inputId}" name="${inputName}">
+                                        ${itemSel.map((item) => "<option value='"+item+"'>"+item+"</option>" )}
+                                    </select>`;
+                                } else {
+                                   equipmentEle.innerHTML += `<label for="${inputId}">Item</label>
+                           <input type="text" id="${inputId}" name="${inputName}" value="${itemSel}"/>`
+                                
+                                }
+                            });
+                    });
+            }
             ;
             
 

@@ -521,7 +521,7 @@ const CLASSES = deepFreeze({
         primaryAbility: ["wisdom"],
         savingThrowProficiency: ["wisdom", "intelligence"],
         equipment: [
-            ["iwooden sheild", "simple weapon"],
+            ["wooden sheild", "simple weapon"],
             [ "scimitar", "simple melee weapon"],
             "leather armor",
             "explorer's pack",

@@ -18,6 +18,44 @@ const PRONOUNS = deepFreeze({
     }
 });
 
+const BIOLOGICAL_SEX = deepFreeze({
+    female:{
+        name: "Female"
+    },
+    intersex:{
+        name: "Intersex"
+    },
+    male: {
+        name: "Male"
+    }
+});
+
+const SEXUAL_ORIENTATION = deepFreeze({
+    heterosexual:{
+        name: "Heterosexual"
+    },
+    bisexual:{
+        name: "Bisexual"
+    },
+    homosexual: {
+        name: "Homosexual"
+    },
+    pansexual: {
+        name: "Pansexual"
+    },
+    polysexual: {
+        name: "Polysexual"
+    },
+    asexual: {
+        name: "Asexual"
+    },
+    aromantic: {
+        name: "Aromantic"
+    }
+});
+
+
+
 const RACES = deepFreeze({
     MountainDwarf:{
         name: "Mountain Dwarf",

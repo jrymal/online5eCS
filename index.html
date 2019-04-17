@@ -74,7 +74,13 @@
                 <dt>Race</dt>
                 <dd>
                 <span id="character.race" data-lookup="RACES"></span>
-                <span class="parens" id="character.pronoun" data-lookup="PRONOUNS"></span>
+                </dd>
+
+                <dt>Sexuality</dt>
+                <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
+                <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
+                                                        data-lookup="BIOLOGICAL_SEX"></span></dd>
+                <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
                 </dd>
 
                 <dt>Alignment</dt>
@@ -439,7 +445,15 @@
                         <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
 
                         <label for="createCharacter.character.pronoun">Pronoun</label>
-                        <select id="createCharacter.character.pronoun" name="character.pronoun" data-lookup="PRONOUNS"></select>
+                        <select id="createCharacter.character.pronoun" name="character.sexuality.pronoun" data-lookup="PRONOUNS"></select>
+                        
+                        <label for="createCharacter.character.biologicalsex">Biological Sex</label>
+                        <select id="createCharacter.character.biologicalsex" name="character.sexuality.biologicalsex"
+                            data-lookup="BIOLOGICAL_SEX"></select>
+
+                        <label for="createCharacter.character.sexualorientation">Sexual Orientation</label>
+                        <select id="createCharacter.character.sexualorientation" name="character.sexuality.sexualorientation"
+                            data-lookup="SEXUAL_ORIENTATION"></select>
 
                         <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
                         <select id="createCharacter.character.alignment.society" name="character.alignment.society" data-rng="true">
@@ -717,8 +731,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter" id="createCharacter.equipment.equipment">
-                    </form>
+                    <form class="wizardScreen createCharacter" id="createCharacter.equipment.equipment"></form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter.embellishments">Previous</a>

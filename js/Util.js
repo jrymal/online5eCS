@@ -82,9 +82,9 @@ function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
                 writable: true, 
                 configurable: true, 
                 enumerable: true, 
-                value:lastNode ? insertObj : isArray ? [] : {}
+                value:lastNode ? insertObj : ( isArray ? [] : {} )
             });
-        }else if (lastNode){
+        }else if (lastNode && !Array.isArray(objItem)){
             Object.defineProperty(objItem, pathItem, {
                 writable: true, 
                 configurable: true,
