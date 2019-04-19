@@ -26,7 +26,7 @@ function clearAllFields(dataholders) {
         return data;
     }, {});
 
-    removeAllClasses();
+    cleanUpCreateWizard();
 
     return true;
 }

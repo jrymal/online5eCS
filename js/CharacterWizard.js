@@ -40,9 +40,9 @@ function removeClass(className) {
     tableEle.parentNode.removeChild(tableEle);
 }
 
-function removeAllClasses(){
-    var tableEle = $("createCharacter.character.class.tbody");
-    tableEle.innerHTML = "";
+function cleanUpCreateWizard(){
+    $("createCharacter.character.class.tbody").innerHTML = "";
+    $('createCharacter.equipment.equipment').innerHTML = "";
 }
 
 function postProcessStep(form){
@@ -134,7 +134,7 @@ function prepopulateValues(formName){
                                    equipmentEle.innerHTML += 
                                    `<label for="${inputId}">Choose an item</label>
                                     <select id="${inputId}" name="${inputName}">
-                                        ${itemSel.map((item) => "<option value='"+item+"'>"+item+"</option>" )}
+                                        ${itemSel.map(optionifyItem)}
                                     </select>`;
                                 } else {
                                    equipmentEle.innerHTML += `<label for="${inputId}">Item</label>
@@ -144,10 +144,6 @@ function prepopulateValues(formName){
                             });
                     });
             }
-            ;
-            
-
-
             break;
 
         case 'importFile':
@@ -238,6 +234,17 @@ function prepopulateValues(formName){
         }    
             break;
     }
+}
+
+function optionifyItem(item){
+    let itemStr = item;
+    let itemData = item;
+    if (exists(item["name"])){
+        itemStr = item["name"];
+        itemData = JSON.stringify(item);
+    }
+
+    return `<option value="${itemStr}" data-jsonvalue="${itemData}">${itemStr}</option>`;
 }
 
 function getClass(classList, className){
@@ -430,11 +437,17 @@ function changeColor(event) {
 }
 
 function populateSelect(selectEle, sourceObj, sort, type) {
+    if (!exists(sourceObj)){
+        return;
+    }
+
     let fragment = document.createDocumentFragment();
     let sourceArray = Object.keys(sourceObj);
 
     if (sort) {
-        sourceArray = sourceObj.sort();
+        console.log(selectEle);
+        console.log(sourceObj);
+        sourceArray = sourceArray.sort();
     }
 
     for (let i = 0; i < sourceArray.length; i++  ) {
@@ -518,7 +531,7 @@ function generateDataToJSON() {
                 } else if (isMultiSelect(element)) {
                     dataObj = getSelectValues(element);
                 } else {
-                    dataObj = element.value;
+                    dataObj = getDataAttribute(element, "jsonvalue", element.value);
                 }
                 insertAtNode(name, data, dataObj);
             }

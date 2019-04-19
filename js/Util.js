@@ -26,8 +26,8 @@ function exists(obj){
 }
 
 function getDataAttribute(element, dataName, defaultValue){
-     let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
-    return (value === null || typeof value === undefined) ? defaultValue : value;
+    let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
+    return !exists(value) ? defaultValue : value;
 }
 
 function setDataAttribute(element, dataName, value){
@@ -166,9 +166,7 @@ function isMultiSelect(element) {
 }
 
 function getSelectValues(options) {
-    return [].reduce.call(options, (values, option) => {
-        return option.selected ? values.concat(option.value) : values;
-    }, []);
+    return options.filter((option) => option.selected);
 }
 
 function addAll(priList, listToAdd){
