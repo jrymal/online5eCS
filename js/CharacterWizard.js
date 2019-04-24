@@ -13,7 +13,7 @@ function addClass() {
     tableEle.innerHTML += `<tr id="createCharacter.character.class.tableele.${className}">
         <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
         <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
-        <td><button type="button" onClick="removeClass("${className}")">Remove</button></td>
+        <td><button type="button" onClick="removeClass('${className}')">Remove</button></td>
     </tr>`;              
 
     selectedEle.remove(selIdx);
@@ -129,7 +129,7 @@ function prepopulateValues(formName){
                             .forEach(function(itemSel){
                                 cnt++;
                                 let inputId = "createCharacter.equipment."+cnt;
-                                let inputName = "character.equipment[].name";
+                                let inputName = "character.equipment[]";
                                 if (Array.isArray(itemSel)){
                                    equipmentEle.innerHTML += 
                                    `<label for="${inputId}">Choose an item</label>
@@ -138,7 +138,7 @@ function prepopulateValues(formName){
                                     </select>`;
                                 } else {
                                    equipmentEle.innerHTML += `<label for="${inputId}">Item</label>
-                           <input type="text" id="${inputId}" name="${inputName}" value="${itemSel}"/>`
+                           <input type="text" id="${inputId}" name="${inputName}" value="${stringifyNameCountObj(itemSel)}"/>`
                                 
                                 }
                             });
@@ -237,10 +237,15 @@ function prepopulateValues(formName){
 }
 
 function optionifyItem(item){
+    
     let itemStr = item;
     let itemData = item;
-    if (exists(item["name"])){
-        itemStr = item["name"];
+    
+    if (Array.isArray(item)){
+        itemStr = item.map((i) => stringifyNameCountObj(i));
+        itemData = JSON.stringify(item);
+    } else if (exists(item["name"])){
+        itemStr = stringifyNameCountObj(item);
         itemData = JSON.stringify(item);
     }
 
@@ -445,8 +450,6 @@ function populateSelect(selectEle, sourceObj, sort, type) {
     let sourceArray = Object.keys(sourceObj);
 
     if (sort) {
-        console.log(selectEle);
-        console.log(sourceObj);
         sourceArray = sourceArray.sort();
     }
 
@@ -492,7 +495,7 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
         let opt = document.createElement('input');
         opt.value = value;
         opt.type = "checkbox";
-        opt.name = "character."+typeName;
+        opt.name = "character."+typeName+"[]";
         opt.id =idValue;
         opt.onclick = function(evt) {
             let legendEle = $("createCharacter."+typeName+".legend");
@@ -533,7 +536,11 @@ function generateDataToJSON() {
                 } else {
                     dataObj = getDataAttribute(element, "jsonvalue", element.value);
                 }
-                insertAtNode(name, data, dataObj);
+                if (Array.isArray(dataObj)){
+                    dataObj.forEach((obj) => insertAtNode(name, data, obj));
+                } else {
+                    insertAtNode(name, data, dataObj);
+                }
             }
         }
         return data;

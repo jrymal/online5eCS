@@ -587,7 +587,7 @@ function stringifyNameCountObj(value)
     if (isBlank(count)){
         return name;
     }
-    return name + "[" + count + "]";
+    return name + " (" + count + ")";
 }
 
 function renderUlArray(values) {

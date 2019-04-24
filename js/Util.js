@@ -47,7 +47,7 @@ function findNode(jsonPath, searchObj) {
     let objItem = searchObj;
     for(let i = 0; i < pathItems.length; i++) {
         let pathItem = pathItems[i];
-        let brakIdx = pathItem.indexOf("[");
+        let brakIdx = pathItem.indexOf("[]");
         let isArray = brakIdx > -1;
         pathItem = isArray ? pathItems[i].substr(0,brakIdx) : pathItems[i];
         
@@ -65,7 +65,7 @@ function findNode(jsonPath, searchObj) {
 }
 
 function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
-    if (findNode(jsonPath, searchObj) && !overwrite) {
+    if (!overwrite && findNode(jsonPath, searchObj)) {
         return;
     }
     let pathItems = jsonPath.split('.');
@@ -78,20 +78,28 @@ function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
         pathItem = isArray ? pathItems[i].substr(0,brakIdx) : pathItems[i];
 
         if (!Object.keys(objItem).includes(pathItem)) {
+            let objValue = isArray ? [] : {};
+            if (lastNode){
+                if (isArray) {
+                    objValue.push(insertObj);
+                } else  {
+                    objValue = insertObj;
+                }
+            }
             Object.defineProperty(objItem, pathItem,  {
                 writable: true, 
                 configurable: true, 
                 enumerable: true, 
-                value:lastNode ? insertObj : ( isArray ? [] : {} )
+                value:  objValue
             });
-        }else if (lastNode && !Array.isArray(objItem)){
-            Object.defineProperty(objItem, pathItem, {
-                writable: true, 
-                configurable: true,
-                value:insertObj
-            });
+        } else if (lastNode && isArray) {
+            objItem[pathItem].push(insertObj);
         }
-        
+
+        if (lastNode) {
+            return;
+        }
+
         objItem = objItem[pathItem];
         if (isArray){
             let foundMissingIdx = false;
@@ -107,7 +115,7 @@ function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
             }
             if (!foundMissingIdx){
                 // returns length
-                j = objItem.push({}) - 1;
+                j = objItem.push({}) - 1;;
             }
 
             objItem = objItem[j];
