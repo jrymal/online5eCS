@@ -361,7 +361,8 @@ function setCurrentCharacter(character){
         attribute:attr,
         proficiency: getProficiencies(character, race, backstory, character.character.class),
         savingThrows: getSavingThrows(character.character.class, totalLevel),
-        class: summedClass
+        class: summedClass,
+        classes: character.character.class.map((classItem) => classItem.class)
     };
 
     Object.defineProperty(currentCharacter, "CALC",  {writable: true, configurable: true, enumerable: true, value:calc});
@@ -647,7 +648,7 @@ function renderTrForClass(classInfo){
     let classObj = CLASSES[classInfo.class];
     return `<tr>
         <th scope="row"> ${classInfo.class}</th>
-        <td>${classInfo.level} <a href="#levelUp" onClick="UPGRADE_CLASS='${classInfo.class}';return true;">raise</a></td>
+        <td>${classInfo.level}</td>
         <td>${classObj.hitDie}</td>
     </tr>`
 }

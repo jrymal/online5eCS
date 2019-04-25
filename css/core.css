@@ -136,6 +136,29 @@ label.required::after{
     color: var(--color-error-fgnd);
 }
 
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav li {
+  float: left;
+  border-right: 2px solid var(--color-primary-text);
+}
+
+.nav li a {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  padding: .5rem 1rem;
+}
+
+.nav li:last-child{
+  border: 0;
+}
+
 .levelUp dt,
 .levelUp dd{
     display: none;
@@ -268,6 +291,10 @@ label.required::after{
     margin-left: 1em;
 }
 
+.topContainer .nav {
+    flex: unset;
+}
+
 .topContainer .header > *{
     align-self: center;
 }
@@ -284,12 +311,6 @@ label.required::after{
 
 .topContainer.nocharacter .stack{
     display: none;
-}
-
-.topContainer .install-app{
-    order: 1;
-    flex: 1 1 100%;
-    padding: 1em;
 }
 
 .topContainer .header{
@@ -379,6 +400,16 @@ label.required::after{
         column-count: 5;
     }
 } 
+
+.reveal-if-checked {
+    display: none;
+}
+
+input[type="radio"]:checked ~ .reveal-if-checked,
+input[type="checkbox"]:checked ~ .reveal-if-checked{
+    display: block;
+}
+
 
 /*** UTILITIES ***/
 .hidden{

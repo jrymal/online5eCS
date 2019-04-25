@@ -37,7 +37,15 @@
 
             
 
-            <button id="install-app" class="hidden install-app" type="button" onClick="installApp()">Install as an App for offline operation</button>
+            <nav class="nav nav-menu" role="navigation">
+                <ul>
+                    <li><a href="#createCharacter.player" onclick="return clearAllFields(document.getElementsByClassName('createCharacter')) && randomizeDataRNG();">Create a new Character</a></li>
+                    <li><a href="#importFile">Load a character</a></li>
+                    <li><a href="#" id="downloadCharacter">Download Character</a></li>
+                    <li id="install-app" class="hidden"><a href="#" onClick="installApp()">Install as an App</a></li>
+                </ul>
+            </nav>
+
 
             <section class="stack header">
                 <h1>
@@ -47,16 +55,6 @@
                     <span id="character.name.family"></span>
                 </h1>
             </section>
-            <section class="header navigation">
-                <nav class="nav nav-menu" role="navigation">
-                    <ul>
-                        <li><a href="#createCharacter.player" onclick="return clearAllFields(document.getElementsByClassName('createCharacter')) && randomizeDataRNG();">Create a new Character</a></li>
-                        <li><a href="#importFile">Load a character</a></li>
-                        <li><a href="#" id="downloadCharacter">Download Character</a></li>
-                    </ul>
-                </nav>
-            </section>
-
             <dl class="stack playerInfo">
                 <dt>Role Player</dt>
                 <dd id="player.name"></dd>
@@ -109,17 +107,14 @@
                         <tbody id="character.class">
                         </tbody>
                     </table>
-                    <a href="#multiClass">Add new class</a>
+                    <a href="#levelUp">Level Up</a>
                 </dd>
 
                 <dt>Experience Points</dt>
                 <dd id="character.experience" ></dd>
 
-                <dt>Max Hit Points</dt>
-                <dd id="character.hitPoints.max"></dd>
-
-                <dt>Current Hit Points</dt>
-                <dd id="character.hitPoints.current"></dd>
+                <dt>Hit Points</dt>
+                <dd> <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span></dd>
 
                 <dt>Race Traits</dt>
                 <dd id="RACE.features"></dd>
@@ -267,9 +262,6 @@
                     <a href="#purseUpdate">View Purse</a> 
                 </dd>
                 
-                <dt>Weapons</dt>
-                <dd id="character.weapons"></dd>
-
                 <dt>Equipment</dt>
                 <dd id="character.equipment"></dd>
 
@@ -745,6 +737,28 @@
             <dialog class="modal levelUp" id="levelUp">
                 <div class="base">
                     <h2>Level Up</h2>
+                    <p class="description">Raise your character's level</p>
+                    <form class="wizardScreen">
+                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUpClass" value="levelUpClass" checked/>
+                        <label for="levelUpClass" class="tagAlong" >Raise a current class</label>
+                        <div class="reveal-if-checked">
+                            <label for="levelUp.class">Class to level up</label>
+                            <select id="levelUp.class" data-lookup="character.CALC.classes"></select>
+                        </div>
+                        <!-- Stupid tagAlong doesn't know when to break -->
+                        <div></div>
+                        <input type="radio" class="tagAlong" name="levelUpType" id="newClass" value="newClass"/>
+                        <label for="newClass" class="tagAlong" >Add a new class</label>
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="next">Next</a>
+                    </div>
+                </div>
+            </dialog>
+            <dialog class="modal levelUp" id="levelUpClass">
+                <div class="base">
+                    <h2>Level Up</h2>
                     <p class="description">Raise your character's level by one</p>
                     <form class="wizardScreen">
                         <dl>
@@ -762,11 +776,12 @@
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
+                        <a href="#levelUp">Previous</a>
                         <a href="#" class="next" onClick="return levelUp()">Level Up</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal multiClass" id="multiClass">
+            <dialog class="modal multiClass" id="newClass">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Choose a new class to add to this character.</p>
@@ -776,25 +791,11 @@
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
+                        <a href="#levelUp">Previous</a>
                         <a href="#" class="next" onClick="return levelUpMultiClass()">Level Up</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal multiClass" id="multiClass">
-                <div class="base">
-                    <h2>Level Up</h2>
-                    <p class="description">Choose a new class to add to this character.</p>
-                    <form class="wizardScreen">
-                        <label for="multiClass.class">New class to add</label>
-                        <select id="multiClass.class" data-lookup="CLASSES"></select>
-                    </form>
-                    <div class="buttonbar">
-                        <a href="#">Cancel</a>
-                        <a href="#" class="next" onClick="return levelUpMultiClass()">Level Up</a>
-                    </div>
-                </div>
-            </dialog>
-
         </div>
         
         <script>
