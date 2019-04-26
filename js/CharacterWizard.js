@@ -176,39 +176,43 @@ function prepopulateValues(formName){
                 }
             });
             break;
-        case 'levelUp':{
+        case 'levelUp.oldClass':{
+            let levelUpEle = $(formName);
+
             // need to decide what to show
-            $('levelUp').classList.remove("feature");
-            $('levelUp').classList.remove("special");
-            $('levelUp').classList.remove("abilityScore");
-            $('levelUp').classList.remove("spells");
+            levelUpEle.classList.remove("feature");
+            levelUpEle.classList.remove("special");
+            levelUpEle.classList.remove("abilityScore");
+            levelUpEle.classList.remove("spells");
             
-            if (!exists(UPGRADE_CLASS)){
+            let upgradeClass = $('levelUp.class').value;
+
+            if (!exists(upgradeClass)){
                 console.log("Upgrade class is not set.");
                 return;
             }
 
-            let currentLevel = getClass(currentCharacter.character.class, UPGRADE_CLASS).level;
+            let currentLevel = getClass(currentCharacter.character.class, upgradeClass).level;
            
             let nextLevel = +currentLevel + 1;
-            let classObj = CLASSES[UPGRADE_CLASS];
+            let classObj = CLASSES[upgradeClass];
             let nextLevelObj = classObj.level[nextLevel];
        
             if (exists(nextLevelObj.features)){
-                $('levelUp').classList.add("feature");
+                levelUpEle.classList.add("feature");
                 $('levelUp.feature').innerHTML = renderUlArray(nextLevelObj.features);
             }
             if (exists(nextLevelObj.special)){
-                $('levelUp').classList.add("special");
+                levelUpEle.classList.add("special");
                 $('levelUp.special').innerHTML = renderUlArray(Object.keys(nextLevelObj.special).map(function(key){
                     return key+": "+nextLevelObj.special[key]; 
                 }));
             }
             if (exists(nextLevelObj.abilityScore)){
-                $('levelUp').classList.add("abilityScore");
+                levelUpEle.classList.add("abilityScore");
             }
             if (exists(nextLevelObj.spells)){
-                $('levelUp').classList.add("spells");
+                levelUpEle.classList.add("spells");
                 $('levelUp.spell').innerHTML = 
                     (nextLevelObj.spells.total ? "Total spells increased by "+nextLevelObj.spells.total+"<br>" : "");
                 Object.getOwnPropertyNames(nextLevelObj.spells).forEach(function(objName){
@@ -220,18 +224,17 @@ function prepopulateValues(formName){
             
         }
             break;
-        case 'multiClass':{
+        case 'levelUp':
+            populateSelect($('levelUp.class'));
             // remove any classes
             Object.keys(CLASSES).forEach(function(className){
-                $('multiClass').classList.remove(className);
+                $('levelUp.newClass').classList.remove(className);
             });
 
             currentCharacter.character.class.forEach(function(className){
-                $('multiClass').classList.add(className.class);
+                $('levelUp.newClass').classList.add(className.class);
             });
-
         
-        }    
             break;
     }
 }
@@ -378,17 +381,20 @@ function checkCheckboxes(idPrefix, list){
 }
 
 function populateLookups(){
-    document.querySelectorAll("select[data-lookup]").forEach(function(node){
-        populateSelect(node, 
-            eval(getDataAttribute(node, "lookup")), 
-            eval(getDataAttribute(node, "sort", true)), 
-            getDataAttribute(node, "type", "String"))
-    });
+    document
+        .querySelectorAll("select[data-lookup]")
+        .forEach(function(node){
+            if (!hasClass(node, 'reveal-if-checked')){
+                populateSelect(node);
+            }
+        });
     
-    document.querySelectorAll("fieldset > div[data-lookup]").forEach(function(node){
-        let typeName = getDataAttribute(node, "lookup");
-        populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
-    });
+    document
+        .querySelectorAll("fieldset > div[data-lookup]")
+        .forEach(function(node){
+            let typeName = getDataAttribute(node, "lookup");
+            populateCheckboxes(node, eval(typeName), typeName.toLowerCase());
+        });
 }
 
 function randomizeDataRNG(){
@@ -441,13 +447,19 @@ function changeColor(event) {
     $(swatchId).style.backgroundColor = colorSet[event.target.value].color;
 }
 
-function populateSelect(selectEle, sourceObj, sort, type) {
+function populateSelect(selectEle) {
+    
+    let sourceObj = eval(getDataAttribute(selectEle, "lookup")); 
+    let sort =  eval(getDataAttribute(selectEle, "sort", true));
+    let type =  getDataAttribute(selectEle, "type", "String");
+
     if (!exists(sourceObj)){
         return;
     }
 
+
     let fragment = document.createDocumentFragment();
-    let sourceArray = Object.keys(sourceObj);
+    let sourceArray = Array.isArray(sourceObj) ? sourceObj : Object.keys(sourceObj);
 
     if (sort) {
         sourceArray = sourceArray.sort();
@@ -456,7 +468,7 @@ function populateSelect(selectEle, sourceObj, sort, type) {
     for (let i = 0; i < sourceArray.length; i++  ) {
         let value = sourceArray[i];
         let obj = sourceObj[value];
-        let name = obj.name ? obj.name : value;
+        let name = (exists(obj) && exists(obj['name'])) ? obj.name : value;
 
         // create base class
         let opt = document.createElement('option');
@@ -470,6 +482,10 @@ function populateSelect(selectEle, sourceObj, sort, type) {
         fragment.appendChild(opt);
     }
 
+    let opt;
+    for ( opt in selectEle.options){
+        selectEle.options.remove(opt);
+    }
     selectEle.appendChild(fragment);
 
     randomValue(selectEle);

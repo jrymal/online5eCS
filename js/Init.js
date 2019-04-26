@@ -1,7 +1,5 @@
 'use strict';
 
-var UPGRADE_CLASS;
-
 function clearAllFields(dataholders) {
     // Retrieves input data from a form and returns it as a JSON object.
     [].reduce.call(dataholders, (data, dataholder) => {
@@ -56,11 +54,11 @@ function init() {
     populateLookups();
 }
 
-function levelUp(){
+function levelUp(upgradeClass){
     // add to the selected level
-    let classObj = getClass(currentCharacter.character.class, UPGRADE_CLASS);
+    let classObj = getClass(currentCharacter.character.class, upgradeClass);
     classObj.level = +classObj.level + 1;
-    currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[UPGRADE_CLASS].hitDie);
+    currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[upgradeClass].hitDie);
    
     // add tp he select ability score
     if ($('levelUp').classList.contains("abilityScore")){
@@ -302,6 +300,10 @@ function getCurrentLevel(classList) {
 }, 0);
     return val;
 } 
+
+function setHref(linkId, href){
+    $(linkId).href = href;
+}
 
 let currentCharacter;
 function setCurrentCharacter(character){

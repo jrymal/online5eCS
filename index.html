@@ -33,6 +33,10 @@
 
     </head>
     <body onload="init()" onbeforeunload="beforeUnload()" onhashchange="hashChange()">
+        <noscript>
+            <h1>This sight requires Javascript</h1>
+            <p>This site is a pure Javascript implementation of the Dungeons and Dragons 5th Edition Character generation. There are no plans to make it non-Javascript based at this time.</p>
+        </noscript>
         <div id="rootNode" class="topContainer nocharacter">
 
             
@@ -114,7 +118,10 @@
                 <dd id="character.experience" ></dd>
 
                 <dt>Hit Points</dt>
-                <dd> <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span></dd>
+                <dd>
+                    <!-- meter might be a better tag for this--> 
+                    <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span>
+                </dd>
 
                 <dt>Race Traits</dt>
                 <dd id="RACE.features"></dd>
@@ -739,24 +746,22 @@
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level</p>
                     <form class="wizardScreen">
-                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUpClass" value="levelUpClass" checked/>
-                        <label for="levelUpClass" class="tagAlong" >Raise a current class</label>
-                        <div class="reveal-if-checked">
-                            <label for="levelUp.class">Class to level up</label>
-                            <select id="levelUp.class" data-lookup="character.CALC.classes"></select>
-                        </div>
+                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.oldClass" value="levelUp.oldClass" onChange="setHref('levelUp.next','#levelUp.oldClass')" checked/>
+                        <label for="levelUp.input.oldClass" class="tagAlong" >Raise a current class</label>
+                        <label class="reveal-if-checked" for="levelUp.class">Class to level up</label>
+                        <select class="reveal-if-checked" id="levelUp.class" data-lookup="currentCharacter.CALC.classes"></select>
                         <!-- Stupid tagAlong doesn't know when to break -->
                         <div></div>
-                        <input type="radio" class="tagAlong" name="levelUpType" id="newClass" value="newClass"/>
-                        <label for="newClass" class="tagAlong" >Add a new class</label>
+                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.newClass" value="levelUp.newClass" data-hrefid="levelUp.next"  onChange="setHref('levelUp.next','#levelUp.newClass')"/>
+                        <label for="levelUp.input.newClass" class="tagAlong" >Add a new class</label>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
-                        <a href="#" class="next">Next</a>
+                        <a href="#levelUp.oldClass" class="next" id="levelUp.next">Next</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal levelUp" id="levelUpClass">
+            <dialog class="modal levelUp" id="levelUp.oldClass">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level by one</p>
@@ -777,11 +782,11 @@
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#levelUp">Previous</a>
-                        <a href="#" class="next" onClick="return levelUp()">Level Up</a>
+                        <a href="#" class="next" onClick="return levelUp($('levelUp.class').value)">Level Up</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal multiClass" id="newClass">
+            <dialog class="modal multiClass" id="levelUp.newClass">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Choose a new class to add to this character.</p>
