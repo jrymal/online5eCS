@@ -40,8 +40,8 @@ const BELL=deepFreeze({
     }          
 })
 
-function getMax(die, count = 1) {
-    return count * die.max;
+function getMax(dieStr, count = 1) {
+    return count * DICE[dieStr].max;
 }
 
 function rollDieFromString(dieString) {

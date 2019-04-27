@@ -94,6 +94,8 @@ function insertAtNode(jsonPath, searchObj, insertObj, overwrite = true) {
             });
         } else if (lastNode && isArray) {
             objItem[pathItem].push(insertObj);
+        } else if (lastNode && overwrite) {
+            objItem[pathItem] = insertObj;
         }
 
         if (lastNode) {

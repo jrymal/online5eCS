@@ -61,7 +61,7 @@ function levelUp(upgradeClass){
     currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[upgradeClass].hitDie);
    
     // add tp he select ability score
-    if ($('levelUp').classList.contains("abilityScore")){
+    if ($('levelUp.newClass').classList.contains("abilityScore")){
         let attr = $('levelUp.attribute').value;
         currentCharacter.character.attribute[attr] = +currentCharacter.character.attribute[attr] + +1;
     }
@@ -289,7 +289,7 @@ function loadFromJSON() {
 
 function getMaxHitPoints(classList) {
     let val = classList.reduce( (hits, curClass) => {
-        return +hits + (+curClass.level * getMax(DICE[CLASSES[curClass.class].hitDie]));
+        return +hits + (+curClass.level * getMax(CLASSES[curClass.class].hitDie));
     }, 0);
     return val;
 }
@@ -440,7 +440,7 @@ function getHitDie(classList){
     for (let i = 0; i < classList.length; i++){
         let classN = classList[i].class;
         let charClass = CLASSES[classN];
-        maxDie = Math.max(maxDie, getMax(DICE[charClass.hitDie]));
+        maxDie = Math.max(maxDie, getMax(charClass.hitDie));
     }
     return 'd'+maxDie;
 }        
