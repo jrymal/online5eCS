@@ -22,7 +22,6 @@ function addClass() {
 function removeClass(className) {
     var tableEle = $("createCharacter.character.class.tableele."+className);
     var selectedEle = $("createCharacter.character.class.type");
-    var selIdx = selectedEle.selectedIndex;
     
     var i;
     for(i = 0; i < selectedEle.options.length; i++){
@@ -118,6 +117,7 @@ function prepopulateValues(formName){
         case 'createCharacter.equipment':
             let cnt = 0;
             let equipmentEle = $('createCharacter.equipment.equipment');
+            EQUIP_COUNT = 0;
             if (equipmentEle.childElementCount == 0 ){ 
                 [].slice.call(document
                     .querySelectorAll("input[name='character.class[].class']"))
@@ -129,23 +129,29 @@ function prepopulateValues(formName){
                             .forEach(function(itemSel){
                                 cnt++;
                                 let inputId = "createCharacter.equipment."+cnt;
-                                let inputName = "character.equipment[]";
                                 if (Array.isArray(itemSel)){
                                    equipmentEle.innerHTML += 
                                    `<label for="${inputId}">Choose an item</label>
-                                    <select id="${inputId}" name="${inputName}">
+                                    <select id="${inputId}" >
                                         ${itemSel.map(optionifyItem)}
-                                    </select>`;
+                                    </select><hr>`;
                                 } else {
-                                   equipmentEle.innerHTML += `<label for="${inputId}">Item</label>
-                           <input type="text" id="${inputId}" name="${inputName}" value="${stringifyNameCountObj(itemSel)}"/>`
-                                
+                                   equipmentEle.innerHTML += buildEquipmentRow('createCharacter.equipment.equipment',itemSel);
                                 }
                             });
                     });
             }
             break;
+        case 'equipment':{
+                let equipEle = $('equipment.list');
+                equipEle.innerHTML = '';
+                EQUIP_COUNT = 0;
 
+                currentCharacter.character.equipment.forEach((equipItem) =>
+                    equipEle.innerHTML += buildEquipmentRow('equipment.list', equipItem));
+            }
+            break;
+           
         case 'importFile':
             let tableBody = $('DB.character');
             tableBody.innerHTML = "";
@@ -239,6 +245,44 @@ function prepopulateValues(formName){
     }
 }
 
+function addEquipmentRow(id){
+    $(id).innerHTML += buildEquipmentRow(id);
+}
+
+let EQUIP_COUNT = 0;
+function buildEquipmentRow(id, item){
+    let itemName = "";
+    let itemCount = 1;
+    let itemDesc = "";
+
+    if (exists(item)){
+        itemName = item;
+        if (exists(item["name"])){
+            itemName = item["name"];
+        }
+        if (exists(item["count"])){
+            itemCount = item["count"];
+        }
+        if (exists(item["description"])){
+            itemDesc = item["description"];
+        }
+    }
+    
+    let inputId = id+"."+EQUIP_COUNT;
+
+    return `<div id="${inputId}">
+                <label for="${inputId}.name">Name</label>
+                <input type="text" id="${inputId}.name" value="${itemName}"/>
+                <label for="${inputId}.count">Count</label>
+                <input type="number" pattern="[0-9]*" id="${inputId}.count" value="${itemCount}"/>
+                <label for="${inputId}.desc">Description</label>
+                <textarea id="${inputId}.desc" value="${itemDesc}"></textarea>
+                <button id="${inputId}.delete">Remove</button>
+                <hr>
+            </div>
+        `;
+}
+
 function optionifyItem(item){
     
     let itemStr = item;
@@ -253,6 +297,69 @@ function optionifyItem(item){
     }
 
     return `<option value="${itemStr}" data-jsonvalue="${itemData}">${itemStr}</option>`;
+}
+
+function updateEquipment(equipId, data){
+    let equipEle = $(equipId);
+    let name = "character.equipment[]";
+
+    // clear equipment array
+    if (exists(findNode("character.equipment", data))) {
+        data.character.equipment = [];
+    }
+
+    for (let i = 0; i < equipEle.childNodes.length; i++) {
+        let child = equipEle.childNodes[i];
+        switch (child.nodeName){
+            case "SELECT": {
+                let dataObj = getDataAttribute(getSelectValues(child.options), "jsonvalue");
+                if (Array.isArray(dataObj)){
+                    dataObj.forEach((obj) => insertAtNode(name, data, obj));
+                } else {
+                    insertAtNode(name, data, dataObj);
+                }
+            }
+                break;
+            case 'DIV':{
+                let divEle = child;
+                let subChild;
+                let equipName;
+                let equipCount = 1;
+                let equipDesc;
+                for (let j = 0; j < child.childNodes.length; j++) {
+                    let subChild = child.childNodes[j];
+                    switch (subChild.nodeName){
+                        case "INPUT": 
+                        case "TEXTAREA": {
+                            let id = subChild.id;
+                            let value = id.substring(id.lastIndexOf(".")+1);
+                            switch(value){
+                                case "name":
+                                    equipName = subChild.value;
+                                    break;
+                                case "desc":
+                                    equipDesc = subChild.value;
+                                    break;
+                                case "count":
+                                    equipCount = subChild.value;
+                                    break;
+                            }
+                        }
+                        default:
+                    }
+                }
+                insertAtNode(name, data, {name: equipName, count: equipCount, description: equipDesc});
+                            
+
+            }
+                break;
+
+            default:
+                //don't care
+        }
+    }
+
+    return data;
 }
 
 function getClass(classList, className){
@@ -536,7 +643,7 @@ function generateDataToJSON() {
     let dataholders = document.getElementsByClassName("wizardScreen");
 
     // Retrieves input data from a form and returns it as a JSON object.
-    return  [].reduce.call(dataholders, (data, dataholder) => {
+    let response = [].reduce.call(dataholders, (data, dataholder) => {
         for (let i = 0; i < dataholder.elements.length; i++) {
             let element = dataholder.elements[i];
             let name = element.name;
@@ -561,6 +668,8 @@ function generateDataToJSON() {
         }
         return data;
     }, {});
+    
+    return updateEquipment('createCharacter.equipment.equipment', response);
 }
 
 

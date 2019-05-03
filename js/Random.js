@@ -81,7 +81,7 @@ function chooseWeightedRange(distributionType, value1, value2){
 
 function randomValue(ele){
     if (ele.options) {
-        ele.value = chooseFromList(ele.options).value;
+        ele.value = ele.options.length > 0 ? chooseFromList(ele.options).value : "";
     } else if (ele.min && ele.max){
         ele.value = randomNumber(ele.min, ele.max).value;
     }

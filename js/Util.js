@@ -176,6 +176,9 @@ function isMultiSelect(element) {
 }
 
 function getSelectValues(options) {
+    if (options["length"]) {
+        return options[options.selectedIndex]
+    }
     return options.filter((option) => option.selected);
 }
 

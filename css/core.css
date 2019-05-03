@@ -80,7 +80,7 @@ dt {
 }
 
 dd {
-    margin-left: 1.2em;
+    margin-left: .5em;
     font-weight: 200;
 }
 
@@ -250,7 +250,7 @@ label.required::after{
   
 .modal .wizardScreen{
     padding: 1em;
-    overflow: hidden;
+    overflow: auto;
     border: .1em solid var(--color-wizard-border);
     background-color: var(--color-wizard-background);
     height: 100%;

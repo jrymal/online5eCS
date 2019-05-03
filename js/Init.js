@@ -508,31 +508,34 @@ function getProficiencies(character, race, backstory, classList){
 
 function appendForSet(object, dataset) {
     if (dataset) {
-        switch(typeof dataset){
-            case "String":
-            case "string":
+        // break strings into an array then handle the array
+        if (typeof dataSet === "string"){
                 dataset = dataset.split("\n");
-                // normalize with intentional fallthrough
-            case "object":
-            case "array":
-            case "Array":
-                dataset.forEach( function(ele){
-                    if (Array.isArray(object)){
-                        if (!object.includes(ele)){
-                            object.push(ele);
-                        }
-                    } else {
-                        Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
-                    }
-                });
-                break;
-            default:
-                // ew...what to do!!!!
-                console.log("Unhandled type: "+typeof dataset);
-
+        }
+        
+        if (Array.isArray(dataset)){
+            dataset.forEach( (ele) =>  addObject(object, ele));
+        }else if (typeof dataSet === "object"){
+            // single object
+            addObject(object, dataSet);
+        } else {
+            // ew...what to do!!!!
+            console.log("Unhandled type: "+typeof dataset);
         }
     }
 }
+
+function addObject(object, ele){
+    if (Array.isArray(object)){
+        if (!object.includes(ele)){
+            object.push(ele);
+        }
+    } else {
+        /// BAD????
+        Object.defineProperty(object, ele,  {writable: true, configurable: true, enumerable: true, value:true});
+    }
+}
+
 
 function getSkillsForAttr(attributeId, skillsArray) {
     let cnt = 0;

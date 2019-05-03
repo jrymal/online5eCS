@@ -264,43 +264,34 @@
                 <dt>Weight (in lbs)</dt>
                 <dd id="character.details.weight"></dd>
 
-                <dt>Purse</dt>
-                <dd>
-                    <a href="#purseUpdate">View Purse</a> 
-                </dd>
+                <dt><a href="#purseUpdate">Purse</a></dt>
+                <dd id="character.purse"></dd>
                 
-                <dt>Equipment</dt>
+                <dt><a href="#equipment">Equipment</a></dt>
                 <dd id="character.equipment"></dd>
 
                 <dt>Treasure</dt>
                 <dd id="character.treasure"></dd>
 
-                <dt>Backstory Type</dt>
-                <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
-
                 <dt>Backstory</dt>
+                <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
                 <dd id="character.backstory.story"></dd>
 
                 <dt>Appearance</dt>
-                <dd id="character.details.appearance" ></dd>
-
-                <dt>Eye Color</dt>
-                <dd>
+                <dd>Eye:
                     <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
                     <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
                 </dd>
-
-                <dt>Skin Color</dt>
-                <dd>
+                <dd>Hair:
+                    <div class="swatch tagAlong" id="character.details.hair.color"></div>
+                    <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
+                </dd>
+                <dd>Skin:
                     <div class="swatch tagAlong" id="character.details.skin.color"></div>
                     <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
                 </dd>
 
-                <dt>Hair Color</dt>
-                <dd>
-                    <div class="swatch tagAlong" id="character.details.hair.color"></div>
-                    <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
-                </dd>
+                <dd id="character.details.appearance" ></dd>
 
                 <dt>Personality Traits</dt>
                 <dd id="character.personalitytraits"></dd>
@@ -801,6 +792,23 @@
                     </div>
                 </div>
             </dialog>
+            <dialog class="modal" id="equipment">
+                <div class="base">
+                    <h2>Equipment</h2>
+                    <p class="description">Add or Use equipment in your pack</p>
+                    <form class="wizardScreen" >
+                        <div id="equipment.list">
+                        </div>
+                        <button type="button" onClick="addEquipmentRow('equipment.list')">Add Item</button>
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#" class="next" onClick="setCurrentCharacter(updateEquipment('equipment.list', currentCharacter))">Complete</a>
+                    </div>
+                </div>
+            </dialog>
+
+        <!-- Root Node Closing -->
         </div>
         
         <script>
