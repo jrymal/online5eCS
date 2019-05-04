@@ -666,6 +666,19 @@ function renderTrForSkill(node){
     </tr>`; 
 }
 
+function usePurse( addDec ) {
+    insertAtNode("purse", currentCharacter.character, 0, false);
+    let newValueInCp = getAsCoin($("purse.value").value, getSelectValues($("purse.type")).value);
+
+    if (addDec === '+'){
+        currentCharacter.character.purse += newValueInCp;
+    } else {
+        currentCharacter.character.purse -= newValueInCp;
+    }
+    
+    setCurrentCharacter(currentCharacter);
+}
+
 function specialHandler(id, element, node){
     switch(id){
         case 'character.class':
@@ -690,6 +703,9 @@ function specialHandler(id, element, node){
             return true;
         case 'character.skills':
             element.innerHTML = node ? node.map(renderTrForSkill).join("") : "";
+            return true;
+        case 'character.purse':
+            element.innerHTML = renderCoin(node);
             return true;
     }
     return false;
