@@ -50,6 +50,10 @@
                 </ul>
             </nav>
 
+            <div class="blankState">
+                <h1>Online DnD Character Sheet</h2>
+                <p>Please click on one of the links to begin creating your character.</p>
+            </div>
 
             <section class="stack header">
                 <h1>
@@ -344,20 +348,19 @@
             <dialog class="modal" id="purseUpdate">
                 <div class="base">
                     <h2>Purse</h2>
-                    <p class="description">I assume you are buying or accumulating your wealth....otherwise, why are you
-                    here?</p>
+                    <p class="description">I assume you are buying or accumulating your wealth....otherwise, why are you here?</p>
                     <div class="height100 scrollable">
                     
-                        <p>Current Purse: <div id="purse.current"></div></p>
+                        <p class="stack">Current Purse: <span id="character.purse"></span></p>
 
                         <label for="purse.value">Amount</label>
-                        <input class="tagAlong" ype="number" name="purse.value" pattern="[0-9]*" id="purse.value" class="short" min="0" />
-                        <select class="tagAlong" id="purse.type" name="purse.type" >
-                            <option value="PLATINUM">Platinum</option>
-                            <option value="GOLD">Gold</option>
-                            <option value="ELECTRUM">Electrum</option>
-                            <option value="SILVER">Silver</option>
+                        <input class="tagAlong short" type="number" name="purse.value" pattern="[0-9]*" id="purse.value" min="0" value="0"/>
+                        <select class="tagAlong" id="purse.type" name="purse.type" aria-label="Coin type for amount">
                             <option value="COPPER">Copper</option>
+                            <option value="SILVER">Silver</option>
+                            <option value="ELECTRUM">Electrum</option>
+                            <option value="GOLD">Gold</option>
+                            <option value="PLATINUM">Platinum</option>
                         </select>
 
                         <label for="purse.description" name="purse.description">Purchase Description</label>

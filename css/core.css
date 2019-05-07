@@ -145,7 +145,7 @@ label.required::after{
 
 .nav li {
   float: left;
-  border-right: 2px solid var(--color-primary-text);
+  border-left: 2px solid var(--color-primary-text);
 }
 
 .nav li a {
@@ -155,7 +155,7 @@ label.required::after{
   padding: .5rem 1rem;
 }
 
-.nav li:last-child{
+.nav li:first-child{
   border: 0;
 }
 
@@ -309,6 +309,14 @@ label.required::after{
     display: block;
 }
 
+.topContainer .blankState{
+    display: none;
+}
+.topContainer.nocharacter .blankState{
+    display: block;
+    flex: unset;
+}
+
 .topContainer.nocharacter .stack{
     display: none;
 }
@@ -343,6 +351,7 @@ label.required::after{
 
 .topContainer .footer{
     order: 99;
+    flex: unset;
 }
         
 .topContainer {

@@ -254,6 +254,7 @@ function buildEquipmentRow(id, item){
     let itemName = "";
     let itemCount = 1;
     let itemDesc = "";
+    let itemCost= "0";
 
     if (exists(item)){
         itemName = item;
@@ -270,17 +271,31 @@ function buildEquipmentRow(id, item){
     
     let inputId = id+"."+EQUIP_COUNT;
 
-    return `<div id="${inputId}">
+    let element =`<div id="${inputId}">
                 <label for="${inputId}.name">Name</label>
                 <input type="text" id="${inputId}.name" value="${itemName}"/>
                 <label for="${inputId}.count">Count</label>
-                <input type="number" pattern="[0-9]*" id="${inputId}.count" value="${itemCount}"/>
-                <label for="${inputId}.desc">Description</label>
+                <input type="number" pattern="[0-9]*" id="${inputId}.count" value="${itemCount}"/>`;
+    if (!exists(item)){
+        element += `<label for="${inputId}.cost">Cost per item</label>
+                    <input type="number" pattern="[0-9]*" class="short tagAlong" id="${inputId}.cost" value="${itemCost}" min="0" />
+                    <select class="tagAlong" id="${inputId}.costtype" aria-label="Coin type for cost">
+                        <option value="COPPER">Copper</option>
+                        <option value="SILVER">Silver</option>
+                        <option value="ELECTRUM">Electrum</option>
+                        <option value="GOLD">Gold</option>
+                        <option value="PLATINUM">Platinum</option>
+                    </select>
+                </fieldset>`;
+    }
+    element += `<label for="${inputId}.desc">Description</label>
                 <textarea id="${inputId}.desc" value="${itemDesc}"></textarea>
                 <button id="${inputId}.delete">Remove</button>
                 <hr>
             </div>
         `;
+
+    return element;
 }
 
 function optionifyItem(item){
@@ -326,10 +341,13 @@ function updateEquipment(equipId, data){
                 let equipName;
                 let equipCount = 1;
                 let equipDesc;
+                let equipCost;
+                let equipCostType;
                 for (let j = 0; j < child.childNodes.length; j++) {
                     let subChild = child.childNodes[j];
                     switch (subChild.nodeName){
                         case "INPUT": 
+                        case "SELECT": 
                         case "TEXTAREA": {
                             let id = subChild.id;
                             let value = id.substring(id.lastIndexOf(".")+1);
@@ -343,11 +361,22 @@ function updateEquipment(equipId, data){
                                 case "count":
                                     equipCount = subChild.value;
                                     break;
+                                case "cost":
+                                    equipCost = subChild.value;
+                                    break;
+                                case "costtype":
+                                    equipCostType = getSelectedValues(subChild).value;
+                                    break;
                             }
                         }
                         default:
                     }
                 }
+
+                if (equipCost){
+                    data.character.purse -= (count * getAsCoin(equipCost, equipCostType));
+                }
+
                 insertAtNode(name, data, {name: equipName, count: equipCount, description: equipDesc});
                             
 
