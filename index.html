@@ -50,10 +50,10 @@
                 </ul>
             </nav>
 
-            <div class="blankState">
+            <section class="blankState">
                 <h1>Online DnD Character Sheet</h2>
                 <p>Please click on one of the links to begin creating your character.</p>
-            </div>
+            </section>
 
             <section class="stack header">
                 <h1>
@@ -822,7 +822,7 @@
                 navigator.serviceWorker
                     .register('online5eCS-serviceworker.js')
                     .then(function() { console.log("Service Worker Registered"); })
-                    .catch(function(error) {console.log('Registration failed with ' + error);});
+                    .catch(function(error) {console.warn('Registration failed with ' + error);});
             }
         </script>
 

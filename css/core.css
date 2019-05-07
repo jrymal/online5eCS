@@ -292,7 +292,7 @@ label.required::after{
 }
 
 .topContainer .nav {
-    flex: unset;
+    flex: 1 1 100%;
 }
 
 .topContainer .header > *{
@@ -314,7 +314,7 @@ label.required::after{
 }
 .topContainer.nocharacter .blankState{
     display: block;
-    flex: unset;
+    flex: 1 1 100%;
 }
 
 .topContainer.nocharacter .stack{
@@ -351,7 +351,7 @@ label.required::after{
 
 .topContainer .footer{
     order: 99;
-    flex: unset;
+    flex: 1 1 100%;
 }
         
 .topContainer {

@@ -1,11 +1,11 @@
 'use strict';
 
 const COINAGE = deepFreeze({
-    PLATINUM : {shortName:"P", value: 1000},
-    GOLD : {shortName:"G", value: 100},
-    ELECTRUM : {shortName: "E", value: 50},
-    SILVER : {shortName:"S", value: 10},
-    COPPER : {shortName:"C", value: 1}
+    PLATINUM : {shortName:"PP", value: 1000},
+    GOLD : {shortName:"GP", value: 100},
+    ELECTRUM : {shortName: "EP", value: 50},
+    SILVER : {shortName:"SP", value: 10},
+    COPPER : {shortName:"CP", value: 1}
 });
 
 const COIN_BY_VALUE = deepFreeze(["PLATINUM", "GOLD", "ELECTRUM", "SILVER", "COPPER"]);

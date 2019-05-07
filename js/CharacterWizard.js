@@ -194,7 +194,7 @@ function prepopulateValues(formName){
             let upgradeClass = $('levelUp.class').value;
 
             if (!exists(upgradeClass)){
-                console.log("Upgrade class is not set.");
+                console.error("Upgrade class is not set.");
                 return;
             }
 

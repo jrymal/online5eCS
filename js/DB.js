@@ -12,7 +12,7 @@ var __DB__;
 
 function initDb(callbackFunc){
     if (!('indexedDB' in window)) {
-        console.log("IndexDB is not supported");
+        console.error("IndexDB is not supported");
         return false;
     } else if (__DB__){
         if (callbackFunc){
@@ -26,14 +26,14 @@ function initDb(callbackFunc){
 
     var request = window.indexedDB.open(DB_NAME, DB_VERSION);
     request.onsuccess = function(event) {
-        console.log('[onsuccess]', request.result);
+        console.debug('[onsuccess]', request.result);
         __DB__ = event.target.result; // === request.result
         if (callbackFunc){
             callbackFunc(__DB__);
         }
     };
     request.onerror = function(event) {
-        console.log('[onerror]', request.error);
+        console.error('[onerror]', request.error);
     };
     request.onupgradeneeded = function(event) {
         console.log('[onupgrade]', request.result);
@@ -51,14 +51,14 @@ function getObjectStore(db, table, mode){
     // add success event handleer for transaction
     // you should also add onerror, onabort event handlers
     transaction.onsuccess = function(event) {
-        console.log('[Transaction] ALL DONE!');
+        console.debug('[Transaction] ALL DONE!');
     };
     
     transaction.onerror = function(event) {
-        console.log('[Transaction] ERROR!');
+        console.error('[Transaction] ERROR!');
     };
     transaction.onabort = function(event) {
-        console.log('[Transaction] ABORTED!');
+        console.error('[Transaction] ABORTED!');
     };
 
     return transaction.objectStore(table);

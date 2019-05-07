@@ -14,7 +14,7 @@ function clearAllFields(dataholders) {
                 if (isCheckbox(element)) {
                     element.checked = false;
                 } else if (isMultiSelect(element)) {
-                    console.log("Identified a MultiSelect elment to clear: "+name);
+                    console.error("Identified a MultiSelect elment to clear: "+name);
                     element.value = null;
                 } else {
                     element.value = null;
@@ -223,9 +223,9 @@ function installApp() {
     // Wait for the user to respond to the prompt
     installPromptEvent.userChoice.then((choice) => {
         if (choice.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
+          console.debug('User accepted the A2HS prompt');
         } else {
-          console.log('User dismissed the A2HS prompt');
+          console.debug('User dismissed the A2HS prompt');
         }
         // Clear the saved prompt since it can't be used again
         installPromptEvent = null;
@@ -282,7 +282,7 @@ function loadFromJSON() {
         closeCurrentDialog();
     };
     reader.onerror = function(evt) {
-        console.log("Error:"+evt.target.result);
+        console.error("Error:"+evt.target.result);
     };
     reader.readAsText($('importFile.importFile').files[0]);
 }
@@ -401,7 +401,7 @@ function applyLevelBasedRaceFeatures(character, race, totalLevel){
                             race.features = race.features.concat(levelObj[level].feature);
                             break;
                         default:
-                            console.log("Unhandled type: "+type);
+                            console.error("Unhandled type: "+type);
 
                     }
                 }
@@ -477,7 +477,7 @@ function getCumulativeClassForLevel(curClass, level, modClass = {}){
                     case "String":
                     case "string":
                     default:
-                        console.log("Unhandled type: "+typeof dataValue+" name:"+name+" value:"+dataValue);
+                        console.error("Unhandled type: "+typeof dataValue+" name:"+name+" value:"+dataValue);
                 }
             } else {
                 insertAtNode(name, modClass, clone(dataValue));
@@ -509,18 +509,18 @@ function getProficiencies(character, race, backstory, classList){
 function appendForSet(object, dataset) {
     if (dataset) {
         // break strings into an array then handle the array
-        if (typeof dataSet === "string"){
-                dataset = dataset.split("\n");
+        if ((typeof dataset) === "string"){
+            dataset = dataset.split("\n");
         }
         
         if (Array.isArray(dataset)){
             dataset.forEach( (ele) =>  addObject(object, ele));
-        }else if (typeof dataSet === "object"){
+        }else if ((typeof dataset) === "object"){
             // single object
-            addObject(object, dataSet);
+            addObject(object, dataset);
         } else {
             // ew...what to do!!!!
-            console.log("Unhandled type: "+typeof dataset);
+            console.error("Unhandled type: "+(typeof dataset));
         }
     }
 }
