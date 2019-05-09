@@ -188,6 +188,10 @@ label.required::after{
 }
 
 /*** MODAL LAYOUT ***/
+.modal .noshow {
+    display: none;
+}
+
 .modal{
     top: 0;
     width: 100%; /* Full width */
@@ -195,7 +199,6 @@ label.required::after{
     overflow: auto; /* Enable scroll if needed */
     background-color: black;
     background-color: var(--color-smoke);
-    display: none;
     margin: 0;
     position: fixed;
 }

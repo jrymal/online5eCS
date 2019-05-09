@@ -187,3 +187,13 @@ function addAll(priList, listToAdd){
         priList.push(item);
     });
 }
+
+function showEditor( infoId ) {
+    let dialog = $( "editor" );
+    if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+    } else {
+        alert("The dialog API is not supported by this browser");
+    }
+}
+

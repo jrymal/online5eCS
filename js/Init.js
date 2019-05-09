@@ -66,7 +66,7 @@ function levelUp(upgradeClass){
         currentCharacter.character.attribute[attr] = +currentCharacter.character.attribute[attr] + +1;
     }
     
-    setCurrentCharacter(currentCharacter);
+    return currentCharacter;
 }
 
 function levelUpMultiClass(){
@@ -78,7 +78,7 @@ function levelUpMultiClass(){
     });
     currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[newClass].hitDie);
    
-    setCurrentCharacter(currentCharacter);
+    return currentCharacter;
 }
 
 function saveCharacter() {
