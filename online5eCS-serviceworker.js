@@ -6,28 +6,31 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
-                '',
                 'index.html',
                 'fallback.html',
                 'manifest.json',
+                'package.json',
                 'online5eCS-serviceworker.js',
+                
                 'css/core.css',
+                
                 'images/icons-192.png',
                 'images/icons-512.png',
+                
                 'js/Backstories.js',
                 'js/CharacterWizard.js',
                 'js/Classes.js',
                 'js/Coinage.js',
                 'js/Colors.js',
                 'js/DB.js',
+                'js/Dialogs.js',
                 'js/Init.js',
                 'js/Languages.js',
                 'js/Races.js',
                 'js/Random.js',
                 'js/Skills.js',
-                'js/Util.js',
                 'js/StaticUtil.js',
-                'js/Dialogs.js',
+                'js/Util.js',
             ]);
         })
     );
