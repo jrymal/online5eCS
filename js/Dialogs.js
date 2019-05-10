@@ -45,7 +45,7 @@ function showEditor( infoId ) {
 
     $("editor.textarea").value = exists( curValue ) ? curValue : ""; 
 
-    if ( typeof dialog.showModal === "function" ) {
+    if ( hasMethod( dialog.showModal ) ) {
         dialog.showModal();
     } else {
         alert( "The dialog API is not supported by this browser" );

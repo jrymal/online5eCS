@@ -9,8 +9,12 @@ function exists(obj){
 }
 
 function getDataAttribute(element, dataName, defaultValue){
-    let value = element.dataset ? element.dataset[dataName] : element.getAttribute("data-"+dataName);                                            
+    let value = element.dataset ? element.dataset[dataName] : ( hasMethod(element.getAttribute) ? element.getAttribute("data-"+dataName) : "" );                                            
     return !exists(value) ? defaultValue : value;
+}
+
+function hasMethod( objMethod ) {
+    return typeof objMethod === "function";
 }
 
 function setDataAttribute(element, dataName, value){

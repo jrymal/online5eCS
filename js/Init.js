@@ -609,10 +609,12 @@ function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
         
+        let loadValueFrom = getDataAttribute(element, 'from', element.id);
+
         // only follow elements with ids that are not anchors
-        if (element.id && element.tagName != "A"){
-            let node = findNode(element.id, currentCharacter);
-            if (!specialHandler(element.id, element, node)){
+        if (loadValueFrom && element.tagName != "A"){
+            let node = findNode(loadValueFrom, currentCharacter);
+            if (!specialHandler(loadValueFrom, element, node)){
                 let lookup = getDataAttribute(element, "lookup");
 
                 // alter to handle the values
