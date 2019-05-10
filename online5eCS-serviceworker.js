@@ -26,6 +26,8 @@ self.addEventListener('install', function(event) {
                 'js/Random.js',
                 'js/Skills.js',
                 'js/Util.js',
+                'js/StaticUtil.js',
+                'js/Dialogs.js',
             ]);
         })
     );

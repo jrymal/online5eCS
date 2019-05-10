@@ -188,10 +188,6 @@ label.required::after{
 }
 
 /*** MODAL LAYOUT ***/
-.modal .noshow {
-    display: none;
-}
-
 .modal{
     top: 0;
     width: 100%; /* Full width */

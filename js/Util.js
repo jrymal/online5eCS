@@ -1,22 +1,5 @@
 'use strict';
 
-function deepFreeze(object) {
-
-  // Retrieve the property names defined on object
-  var propNames = Object.getOwnPropertyNames(object);
-
-  // Freeze properties before freezing self
-  
-  for (let name of propNames) {
-    let value = object[name];
-
-    object[name] = value && typeof value === "object" ? 
-      deepFreeze(value) : value;
-  }
-
-  return Object.freeze(object);
-}
-
 function clone(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
@@ -186,14 +169,5 @@ function addAll(priList, listToAdd){
     listToAdd.forEach(function(item){
         priList.push(item);
     });
-}
-
-function showEditor( infoId ) {
-    let dialog = $( "editor" );
-    if (typeof dialog.showModal === "function") {
-        dialog.showModal();
-    } else {
-        alert("The dialog API is not supported by this browser");
-    }
 }
 

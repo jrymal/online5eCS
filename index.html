@@ -15,8 +15,8 @@
         <link rel="icon" href="images/icons-192.png" sizes="192x192" />
         <link rel="icon" href="images/icons-512.png" sizes="512x512" />
 
-        <!-- All static objects rely on deep freeze in Util -->
-        <script type="text/javascript" src="js/Util.js"> </script>
+        <script type="text/javascript" src="js/StaticUtil.js"> </script>
+        <script type="text/javascript" src="js/Util.js" async> </script>
         <script type="text/javascript" src="js/DB.js" async> </script>
         <script type="text/javascript" src="js/Random.js" async> </script>
         <script type="text/javascript" src="js/Races.js" async> </script>
@@ -28,13 +28,14 @@
         <script type="text/javascript" src="js/CharacterWizard.js" async> </script>
         <script type="text/javascript" src="js/Init.js" async> </script>
         <script type="text/javascript" src="js/Colors.js" async> </script>
+        <script type="text/javascript" src="js/Dialogs.js" async> </script>
 
         <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
 
     </head>
     <body onload="init()" onbeforeunload="beforeUnload()" onhashchange="hashChange()">
         <noscript>
-            <h1>This sight requires Javascript</h1>
+            <h1>This site requires Javascript</h1>
             <p>This site is a pure Javascript implementation of the Dungeons and Dragons 5th Edition Character generation. There are no plans to make it non-Javascript based at this time.</p>
         </noscript>
         <div id="rootNode" class="topContainer nocharacter">
@@ -274,7 +275,7 @@
                 <dt><a href="#equipment">Equipment</a></dt>
                 <dd id="character.equipment"></dd>
 
-                <dt><a href="#" onclick="showEditor('character.treasue')" >Treasure</a></dt>
+                <dt><a href="#" onclick="showEditor('character.treasure')" >Treasure</a></dt>
                 <dd id="character.treasure"></dd>
 
                 <dt>Backstory Type</dt>
@@ -320,7 +321,7 @@
                 <p class="fullWidth footer"><i>I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/online5eCS/issues/new">let me know!</a></i></p>
             </footer>
 
-            <dialog class="noshow modal" id="importFile">
+            <dialog class=" modal" id="importFile">
                 <div class="base" >
                     <h2>Load Character</h2>
                     <p class="description">Load your character</p>
@@ -348,7 +349,7 @@
                     <a href="#">Cancel</a>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="purseUpdate">
+            <dialog class=" modal" id="purseUpdate">
                 <div class="base">
                     <h2>Purse</h2>
                     <p class="description">I assume you are buying or accumulating your wealth....otherwise, why are you here?</p>
@@ -415,7 +416,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.player">
+            <dialog class=" modal" id="createCharacter.player">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -436,7 +437,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.race">
+            <dialog class=" modal" id="createCharacter.race">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -475,7 +476,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.name">
+            <dialog class=" modal" id="createCharacter.name">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -496,7 +497,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.class">
+            <dialog class=" modal" id="createCharacter.class">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -531,7 +532,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.attr">
+            <dialog class=" modal" id="createCharacter.attr">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -567,7 +568,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.backstory">
+            <dialog class=" modal" id="createCharacter.backstory">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -585,7 +586,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.age">
+            <dialog class=" modal" id="createCharacter.age">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -606,7 +607,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.colors">
+            <dialog class=" modal" id="createCharacter.colors">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -630,7 +631,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.appearance">
+            <dialog class=" modal" id="createCharacter.appearance">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -648,7 +649,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.skills">
+            <dialog class=" modal" id="createCharacter.skills">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -665,7 +666,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.language">
+            <dialog class=" modal" id="createCharacter.language">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -682,7 +683,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.traits">
+            <dialog class=" modal" id="createCharacter.traits">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -702,7 +703,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="noshow modal" id="createCharacter.embellishments">
+            <dialog class=" modal" id="createCharacter.embellishments">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -727,7 +728,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal noshow " id="createCharacter.equipment">
+            <dialog class="modal" id="createCharacter.equipment">
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -740,7 +741,7 @@
                 </div>
             </dialog>
 
-            <dialog class="modal noshow levelUp" id="levelUp">
+            <dialog class="modal levelUp" id="levelUp">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level</p>
@@ -760,7 +761,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal noshow levelUp" id="levelUp.oldClass">
+            <dialog class="modal levelUp" id="levelUp.oldClass">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level by one</p>
@@ -785,7 +786,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal noshow multiClass" id="levelUp.newClass">
+            <dialog class="modal multiClass" id="levelUp.newClass">
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Choose a new class to add to this character.</p>
@@ -800,7 +801,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal noshow" id="equipment">
+            <dialog class="modal " id="equipment">
                 <div class="base">
                     <h2>Equipment</h2>
                     <p class="description">Add or Use equipment in your pack</p>
@@ -820,7 +821,7 @@
                     <h2 id="editor.title">Editor</h2>
                     <p class="description" id="editor.description">Edit your stuff</p>
                     <div class="wizardScreen" >
-                        <label  id="editor.field" for="editor.textarea">Edit field</label>
+                        <label id="editor.field" for="editor.textarea">Edit field</label>
                         <textarea id="editor.textarea" spellcheck="true"></textarea>
                     </div>
                     <menu class="buttonbar">
