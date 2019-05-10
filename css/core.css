@@ -233,30 +233,26 @@ label.required::after{
     margin: 1em;
 }
 
-.modal .wizardScreen legend {
+.modal .entryPanel legend {
     font-size: 1.2em;
 }
  
-.modal .wizardScreen .attribute_grid {
+.modal .entryPanel .attribute_grid {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
 }
 
-.modal .wizardScreen > fieldset > div {
+.modal .entryPanel > fieldset > div {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }
   
-.modal .wizardScreen{
+.modal .entryPanel{
     padding: 1em;
     overflow: auto;
     border: .1em solid var(--color-wizard-border);
     background-color: var(--color-wizard-background);
     height: 100%;
-}
-
-.modal .wizardScreen.active {
-  display: block;
 }
 
 .modal .step {

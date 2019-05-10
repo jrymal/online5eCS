@@ -420,7 +420,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.player.name" class="required">Role Player</label>
                         <input type="text" id="createCharacter.player.name" name="player.name" required/>
 
@@ -441,7 +441,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.race">Race</label>
                         <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
 
@@ -480,7 +480,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.name.first" class="required">First Name</label>
                         <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
                         <label for="createCharacter.character.name.family">Family Name</label>
@@ -501,7 +501,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen" id="createCharacter.class.form">
+                    <form class="data-createCharacter entryPanel" id="createCharacter.class.form">
                         <div class="createCharacter">
                             <label for="createCharacter.character.class.type">Class</label>
                             <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
@@ -536,7 +536,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen">
+                    <form class="data-createCharacter entryPanel">
                         <!-- generation options and execution -->
                         <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
                         <select id="createCharacter.attr.chooser">
@@ -572,7 +572,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.backstory.type">Backstory Type</label>
                         <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
 
@@ -590,7 +590,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.age">Age (in years)</label>
                         <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
 
@@ -611,7 +611,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.eyecolor">Eye Color</label>
                         <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
                         <div id="createCharacter.details.eyecolor.color" class="swatch"></div>
@@ -635,7 +635,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.appearance">Appearance</label>
                         <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
 
@@ -653,7 +653,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <fieldset>
                             <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.skills" data-lookup="SKILLS"></div>
@@ -670,7 +670,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter" >
+                    <form class="data-createCharacter entryPanel createCharacter" >
                         <fieldset>
                             <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
                             <div name="character.languages" data-lookup="LANGUAGES"></div>
@@ -687,7 +687,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
                     <!-- need to sure up the proficiencies editor: choose from list of
                         Proficiencies with free entry and stash.-->
                         <label for="createCharacter.proficiency">Proficiencies</label>
@@ -707,7 +707,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter">
+                    <form class="data-createCharacter entryPanel createCharacter">
 
                         <label for="createCharacter.ideals">Ideals</label>
                         <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
@@ -732,7 +732,7 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="wizardScreen createCharacter" id="createCharacter.equipment.equipment"></form>
+                    <form class="data-createCharacter entryPanel createCharacter" id="createCharacter.equipment.equipment"></form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter.embellishments">Previous</a>
@@ -745,7 +745,7 @@
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level</p>
-                    <form class="wizardScreen">
+                    <form class="entryPanel">
                         <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.oldClass" value="levelUp.oldClass" onChange="setHref('levelUp.next','#levelUp.oldClass')" checked/>
                         <label for="levelUp.input.oldClass" class="tagAlong" >Raise a current class</label>
                         <label class="reveal-if-checked" for="levelUp.class">Class to level up</label>
@@ -765,7 +765,7 @@
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level by one</p>
-                    <form class="wizardScreen">
+                    <form class="entryPanel">
                         <dl>
                             <dt class="feature-req special-req">New Features</dt>
                             <dd class="feature-req" id="levelUp.feature"/>
@@ -790,7 +790,7 @@
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Choose a new class to add to this character.</p>
-                    <form class="wizardScreen">
+                    <form class="entryPanel">
                         <label for="multiClass.class">New class to add</label>
                         <select id="multiClass.class" data-lookup="CLASSES"></select>
                     </form>
@@ -805,7 +805,7 @@
                 <div class="base">
                     <h2>Equipment</h2>
                     <p class="description">Add or Use equipment in your pack</p>
-                    <form class="wizardScreen" >
+                    <form class="entryPanel" >
                         <div id="equipment.list">
                         </div>
                         <button type="button" onClick="addEquipmentRow('equipment.list')">Add Item</button>
@@ -820,7 +820,7 @@
                 <form method="dialog" class="base">
                     <h2 id="editor.title">Editor</h2>
                     <p class="description" id="editor.description">Edit your stuff</p>
-                    <div class="wizardScreen" >
+                    <div class="entryPanel" >
                         <label id="editor.field" for="editor.textarea">Edit field</label>
                         <textarea id="editor.textarea" spellcheck="true"></textarea>
                     </div>

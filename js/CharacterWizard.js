@@ -669,11 +669,11 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
 }
 
 function generateDataToJSON() {
-    let dataholders = document.getElementsByClassName("wizardScreen");
+    let dataholders = document.getElementsByClassName("data-createCharacter");
 
     // Retrieves input data from a form and returns it as a JSON object.
     let response = [].reduce.call(dataholders, (data, dataholder) => {
-        for (let i = 0; i < dataholder.elements.length; i++) {
+        for (let i = 0; i < length(dataholder.elements); i++) {
             let element = dataholder.elements[i];
             let name = element.name;
 
