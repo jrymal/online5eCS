@@ -247,6 +247,15 @@ label.required::after{
     grid-template-columns: auto auto auto auto;
 }
   
+.modal .entryPanel.columned{
+    display: flex;
+    flex-flow: column;
+}
+
+.modal .entryPanel.columned textarea{
+    flex: auto;
+}
+
 .modal .entryPanel{
     padding: 1em;
     overflow: auto;
