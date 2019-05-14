@@ -13,13 +13,13 @@ function addClass() {
     tableEle.innerHTML += `<tr id="createCharacter.character.class.tableele.${className}">
         <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
         <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
-        <td><button type="button" onClick="removeClass('${className}')">Remove</button></td>
+        <td><button type="button" onClick="removeCharacterClass('${className}')">Remove</button></td>
     </tr>`;              
 
     selectedEle.remove(selIdx);
 }
 
-function removeClass(className) {
+function removeCharacterClass(className) {
     var tableEle = $("createCharacter.character.class.tableele."+className);
     var selectedEle = $("createCharacter.character.class.type");
     
@@ -110,7 +110,7 @@ function prepopulateValues(formName){
             if (table.childElementCount == 1 
                 && !isVisible(document.getElementsByClassName("multiclass")[0])){
                 let curValue = table.rows[0].cells[0].innerText;
-                removeClass(curValue);
+                removeCharacterClass(curValue);
                 chooser.value = curValue;
             }
             break;

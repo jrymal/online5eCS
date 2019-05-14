@@ -40,8 +40,6 @@
         </noscript>
         <div id="rootNode" class="topContainer nocharacter">
 
-            
-
             <nav class="nav nav-menu" role="navigation">
                 <ul>
                     <li><a href="#createCharacter.player" onclick="return clearAllFields(document.getElementsByClassName('createCharacter')) && randomizeDataRNG();">Create a new Character</a></li>
@@ -456,6 +454,19 @@
                         <select id="createCharacter.character.sexualorientation" name="character.sexuality.sexualorientation"
                             data-lookup="SEXUAL_ORIENTATION"></select>
 
+                    </form>
+                    <div class="buttonbar">
+                        <a href="#">Cancel</a>
+                        <a href="#createCharacter.player" >Previous</a>
+                        <a href="#createCharacter.alignment" class="next">Next</a>
+                    </div>
+                </div>
+            </dialog>
+            <dialog class=" modal" id="createCharacter.alignment">
+                <div class="base">
+                    <h2>Create a new character</h2>
+                    <p class="description">Load your character</p>
+                    <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
                         <select id="createCharacter.character.alignment.society" name="character.alignment.society" data-rng="true">
                             <option value="Lawful">Lawful</option>
@@ -471,7 +482,7 @@
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
-                        <a href="#createCharacter.player" >Previous</a>
+                        <a href="#createCharacter.race" >Previous</a>
                         <a href="#createCharacter.name" class="next">Next</a>
                     </div>
                 </div>
@@ -825,7 +836,7 @@
                         <textarea id="editor.textarea" spellcheck="true"></textarea>
                     </div>
                     <menu class="buttonbar">
-                        <button>Cancel</button>
+                        <button onClick="closeDialog()">Cancel</button>
                         <button class="next" onClick="setCurrentCharacter(updateFromEditor(currentCharacter))">Complete</button>
                     </menu>
                 </form>

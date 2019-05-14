@@ -46,6 +46,7 @@ function showEditor( infoId ) {
     $("editor.textarea").value = exists( curValue ) ? curValue : ""; 
 
     if ( hasMethod( dialog.showModal ) ) {
+        document.body.classList.add("noScroll");
         dialog.showModal();
     } else {
         alert( "The dialog API is not supported by this browser" );
@@ -55,7 +56,12 @@ function showEditor( infoId ) {
 function updateFromEditor( character) {
     insertAtNode(CURRENT_EDITOR_ID, character, $("editor.textarea").value);
 
-    return character;
+    closeDialog();
 
+    return character;
+}
+
+function closeDialog(){
+    document.body.classList.remove("noScroll");
 }
 

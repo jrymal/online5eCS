@@ -12,7 +12,7 @@
 }
 
 body {
-    font-family:sans-serif;
+    font-family: Helvetica Neue, Helvetica, Arial;
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
@@ -481,6 +481,10 @@ input[type="checkbox"]:checked ~ .reveal-if-checked{
 
 .scrollable{
     overflow: scroll;
+}
+
+.noScroll {
+    overflow: hidden;
 }
 
 .height100{
