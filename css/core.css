@@ -82,7 +82,6 @@ dt {
 
 dd {
     margin-left: .5em;
-    font-weight: 200;
 }
 
 dd > ul {
@@ -291,6 +290,7 @@ label.required::after{
 
 .modal .buttonbar {
     display: inline-flex;
+    padding-inline-start: 0;
 }
 
 .modal .buttonbar > *:first-child {
