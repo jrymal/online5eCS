@@ -1,6 +1,7 @@
 :root {
     --color-smoke: #00000070;
-    --color-error: #ff000020;
+    --color-error-fgnd: #cf0000;
+    --color-error-bkgnd: #ff000020;
     --color-inactive: #bbbbbb;
     --color-active: #4CAF50;
     --color-primary-text: #101010;
@@ -113,8 +114,8 @@ form:invalid .next{
 }
 
 input:invalid {
-    box-shadow: 0 0 .3em .1em var(--color-error);
-    background: var(--color-error);
+    box-shadow: 0 0 .3em .1em var(--color-error-bkgnd);
+    background: var(--color-error-bkgnd);
 }
 
 input:focus:invalid {
@@ -226,6 +227,11 @@ label.required::after{
 
 .modal .description {
     margin: .8em 0;
+}
+
+.modal .description.notice {
+    margin-top: 0;
+    font-style: italic;
 }
 
 .modal .step_wrapper {
