@@ -163,6 +163,46 @@ let handleEscape = function (event) {
     }
   };
 
+// Find all editable content and apply some standard events.
+[].forEach.call(document.querySelectorAll("[contenteditable=true]"), function (content) {
+    // When you click on item, record into `data-initialtext` content of this item.
+    content.addEventListener("focus", function () {
+        setDataAttribute(content,"initialtext", content.innerHTML);
+        
+    });
+
+    // Exit the editing and revert
+    content.addEventListener("keyup", function(event){
+        var key = event.which || event.keyCode;
+        if (key === ESC) {
+            event.stopPropagation();
+            let initialtext = getDataAttribute(content, "initialtext")
+            if (initialtext  !== content.innerHTML) {
+                content.innerHTML = initialtext; 
+            }
+        }
+    });
+
+    // When you leave an item...
+    content.addEventListener("blur", function () {
+        // ...if content is different...
+        if (getDataAttribute(content, "initialtext") !== content.innerHTML) {
+
+            let contentId = getDataAttribute(content, "from");
+            if (!exists(contentId)){
+                contentId = content.id;
+            }
+
+            insertAtNode(contentId, currentCharacter, content.innerHTML);
+           
+            // data is "correct" just save and update the changable parts
+            saveCharacter();
+            updateEmail();
+            updatePhoneNumber();
+        }
+    });
+});
+
 let currentDialog;
 let currentDialogDiv;
 let preNode;
@@ -329,9 +369,6 @@ function setCurrentCharacter(character){
 
     saveCharacter();
     
-    updateEmail();
-    updatePhoneNumber();
-    
     Object.defineProperty(currentCharacter, "RACE",  {writable: true, configurable: true, enumerable: true, value:race});
 
     let summedClass = {};
@@ -383,6 +420,9 @@ function setCurrentCharacter(character){
         $('rootNode').classList.remove("nocharacter");
     }
 
+    updateEmail();
+    updatePhoneNumber();
+    
     return true;
 }
 
@@ -636,11 +676,14 @@ function processDataHolder(dataholder){
                     element.value = node;
                 } else {
                     element.innerHTML =  ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
+                 
                     // prevent showing a literal value of 0 in some circumstances
-                    show(element, 
-                        !(getDataAttribute(element, 'show-0', "true") == "false"  
-                            && element.innerHTML == "0") 
-                        && element.innerHTML != "");
+                    let showEle = (getDataAttribute(element, "show-always", "false") == "true") 
+                        || (!((getDataAttribute(element, 'show-0', "true") == "false")  
+                            && (element.innerHTML == "0")) 
+                        && (element.innerHTML != ""));
+                    
+                    show(element, showEle);
                 }
             }
         }
@@ -757,20 +800,26 @@ function beforeUnload(){
 }
 
 function updatePhoneNumber() {
-    updateLink(currentCharacter.player.phone, 'player.phone', 'tel:+', 'Call ');
+    updateLink(currentCharacter.player.phone, 'player.phone.link', 'tel:+', 'Call', "player.phone.display", "Phone number missing");
 }
 
 function updateEmail() {
-    updateLink(currentCharacter.player.email, 'player.email', 'mailto:', 'Send email to ');
+    updateLink(currentCharacter.player.email, 'player.email.link', 'mailto:', 'Send email', "player.email.display", "Email missing");
 }
 
-function updateLink(value, linkId, hrefPrefix, innerHtmlPrefix) {
+function updateLink(value, linkId, hrefPrefix, linkText, spanId, missingMessage) {
     let valueLink = $(linkId);
+    let valueSpan = $(spanId);
     let isblank = isBlank(value);
     show(valueLink, !isblank);
+    show(valueSpan, true);
 
     if (!isblank) {
-        $(linkId).href = hrefPrefix+value;
-        $(linkId).innerHTML = innerHtmlPrefix+value;
+        valueLink.href = hrefPrefix+value;
+        valueLink.innerHTML = linkText;
+        valueSpan.innerHTML = value;
+    } else {
+        valueLink.href = "";
+        valueSpan.innerHTML = missingMessage;
     }
 }

@@ -64,16 +64,18 @@
             </section>
             <dl class="stack playerInfo">
                 <dt>Role Player</dt>
-                <dd id="player.name"></dd>
+                <dd data-from="player.name" contentEditable="true"></dd>
 
                 <dt>Phone Number</dt>
-                <dd >
-                <a target="_blank" id="player.phone" href="tel:+" >Phone number missing</a>
+                <dd>
+                <span data-from="player.phone" id="player.phone.display" contentEditable="true" data-show-always="true"></span>
+                <a target="_blank" id="player.phone.link" href="tel:+" data-show-always="true"></a>
                 </dd>
 
                 <dt>Email</dt>
                 <dd>
-                <a target="_blank" id="player.email" href="mailto:">Email missing</a>
+                <span data-from="player.email" id="player.email.display" contentEditable="true" data-show-always="true"></span>
+                <a target="_blank" id="player.email.link" href="mailto:" data-show-always="true"></a>
                 </dd>
             </dl>
 
@@ -81,13 +83,6 @@
                 <dt>Race</dt>
                 <dd>
                 <span id="character.race" data-lookup="RACES"></span>
-                </dd>
-
-                <dt>Sexuality</dt>
-                <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
-                <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
-                                                        data-lookup="BIOLOGICAL_SEX"></span></dd>
-                <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
                 </dd>
 
                 <dt>Alignment</dt>
@@ -258,6 +253,14 @@
                 </tbody>
             </table>
             <dl class="stack fullWidth subdivided appearance">
+                <dt>Sexuality</dt>
+                <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
+                <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
+                                                        data-lookup="BIOLOGICAL_SEX"></span></dd>
+                <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
+                </dd>
+
+
                 <dt>Age</dt>
                 <dd id="character.details.age" ></dd>
 
@@ -704,38 +707,10 @@
                         Proficiencies with free entry and stash.-->
                         <label for="createCharacter.proficiency">Proficiencies</label>
                         <textarea id="createCharacter.proficiency" name="character.proficiency" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.personalitytraits">Personality Traits</label>
-                        <textarea id="createCharacter.personalitytraits" name="character.personalitytraits" spellcheck="true"></textarea>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter.language" >Previous</a>
-                        <a href="#createCharacter.embellishments" class="next">Next</a>
-                    </div>
-                </div>
-            </dialog>
-            <dialog class=" modal" id="createCharacter.embellishments">
-                <div class="base">
-                    <h2>Create a new character</h2>
-                    <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-
-                        <label for="createCharacter.ideals">Ideals</label>
-                        <textarea id="createCharacter.ideals" name="character.ideals" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.bonds">Bonds</label>
-                        <textarea id="createCharacter.bonds" name="character.bonds" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.flaws">Flaws</label>
-                        <textarea id="createCharacter.flaws" name="character.flaws" spellcheck="true"></textarea>
-
-                        <label for="createCharacter.allies">Allies</label>
-                        <textarea id="createCharacter.allies" name="character.allies" spellcheck="true"></textarea>
-                    </form>
-                    <div class="buttonbar">
-                        <a href="#">Cancel</a>
-                        <a href="#createCharacter.traits" >Previous</a>
                         <a href="#createCharacter.equipment" class="next">Next</a>
                     </div>
                 </div>

@@ -33,6 +33,11 @@ a  {
     font-size: 1.0em;
 }
 
+a {
+    min-width: 48px;
+    min-height: 48px;
+}
+
 button, 
 label, 
 input, 
@@ -153,6 +158,8 @@ label.required::after{
   text-align: center;
   text-decoration: none;
   padding: .5rem 1rem;
+  min-width: 16px;
+  min-height: 32px;
 }
 
 .nav li:first-child{
