@@ -40,6 +40,11 @@
         </noscript>
         <div id="rootNode" class="topContainer nocharacter">
 
+            <section class="blankState">
+                <h1>Online DnD Character Sheet</h2>
+                <p>Please click on one of the links to begin creating your character.</p>
+            </section>
+
             <nav class="nav nav-menu" role="navigation">
                 <ul>
                     <li><a href="#createCharacter.player" onclick="return clearAllFields(document.getElementsByClassName('createCharacter')) && randomizeDataRNG();">Create a new Character</a></li>
@@ -49,274 +54,277 @@
                 </ul>
             </nav>
 
-            <section class="blankState">
-                <h1>Online DnD Character Sheet</h2>
-                <p>Please click on one of the links to begin creating your character.</p>
-            </section>
+                <section class="stack header">
+                    <h1>
+                        <span id="character.name.first"></span>
+                        <span class="quoted" id="character.name.nickname"></span>
+                        <span class="parens" id="character.name.child"></span>
+                        <span id="character.name.family"></span>
+                    </h1>
+                </section>
+                <details class="stack playerInfo">
+                    <summary><span data-from="player.name"></span></summary>
+                    <dl>
+                        <dt>Role Player</dt>
+                        <dd><span data-from="player.name" contentEditable="true" data-placeholder="None specified"></span></dd>
 
-            <section class="stack header">
-                <h1>
-                    <span id="character.name.first"></span>
-                    <span class="quoted" id="character.name.nickname"></span>
-                    <span class="parens" id="character.name.child"></span>
-                    <span id="character.name.family"></span>
-                </h1>
-            </section>
-            <dl class="stack playerInfo">
-                <dt>Role Player</dt>
-                <dd data-from="player.name" contentEditable="true"></dd>
+                        <dt>Phone Number</dt>
+                        <dd>
+                        <span data-from="player.phone" id="player.phone.display" contentEditable="true" data-placeholder="None specified"></span>
+                        <a target="_blank" id="player.phone.link" href="tel:+" data-show-always="true"></a>
+                        </dd>
 
-                <dt>Phone Number</dt>
-                <dd>
-                <span data-from="player.phone" id="player.phone.display" contentEditable="true" data-show-always="true"></span>
-                <a target="_blank" id="player.phone.link" href="tel:+" data-show-always="true"></a>
-                </dd>
+                        <dt>Email</dt>
+                        <dd>
+                        <span data-from="player.email" id="player.email.display" contentEditable="true" data-placeholder="None specified"></span>
+                        <a target="_blank" id="player.email.link" href="mailto:" data-show-always="true"></a>
+                        </dd>
+                    </dl>
+                </details>
+                <dl class="stack fullWidth subdivided stats">
+                    <dt>Race</dt>
+                    <dd>
+                    <span id="character.race" data-lookup="RACES"></span>
+                    </dd>
 
-                <dt>Email</dt>
-                <dd>
-                <span data-from="player.email" id="player.email.display" contentEditable="true" data-show-always="true"></span>
-                <a target="_blank" id="player.email.link" href="mailto:" data-show-always="true"></a>
-                </dd>
-            </dl>
+                    <dt>Alignment</dt>
+                    <dd>Society: <span id="character.alignment.society"></span></dd>
+                    <dd>Morality: <span id="character.alignment.morality"></span></dd>
+                
+                    <dt>Size</dt>
+                    <dd id="RACE.size.simple"></dd>
 
-            <dl class="stack fullWidth subdivided stats">
-                <dt>Race</dt>
-                <dd>
-                <span id="character.race" data-lookup="RACES"></span>
-                </dd>
+                    <dt>Speed</dt>
+                    <dd id="RACE.speed"></dd>
 
-                <dt>Alignment</dt>
-                <dd>Society: <span id="character.alignment.society"></span></dd>
-                <dd>Morality: <span id="character.alignment.morality"></span></dd>
-            
-                <dt>Size</dt>
-                <dd id="RACE.size.simple"></dd>
+                    <dt>Class</dt>
+                    <dd class="marginless">
+                        <table>
+                            <caption>List of classes and levels</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Level</th>
+                                    <th scope="col">Hit Die</th>
+                                </tr>
+                            </thead>
+                            <tbody id="character.class">
+                            </tbody>
+                        </table>
+                        <a href="#levelUp">Level Up</a>
+                    </dd>
 
-                <dt>Speed</dt>
-                <dd id="RACE.speed"></dd>
+                    <dt>Experience Points</dt>
+                    <dd id="character.experience" ></dd>
 
-                <dt>Class</dt>
-                <dd class="marginless">
+                    <dt>Hit Points</dt>
+                    <dd>
+                        <!-- meter might be a better tag for this--> 
+                        <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span>
+                    </dd>
+
+                    <dt>Race Traits</dt>
+                    <dd id="RACE.features"></dd>
+
+                    <dt>Class Features</dt>
+                    <dd id="CALC.class.features"></dd>
+                    <dd id="CALC.class.special"></dd>
+
+                    <dt class="spell-req">Spells</dt>
+                    <dd class="spell-req" id="RACE.spells"></dd>
+                    <dd class="spell-req" id="character.spells"></dd>
+
+                    <dt>Saving Throw Bonus</dt>
+                    <dd id="CALC.savingThrows"></dd> 
+
+                    <dt>Proficiencies</dt>
+                    <dd id="CALC.proficiency"></dd>
+
+                    <dt>Skills</dt>
+                    <dd class="marginless">
                     <table>
-                        <caption>List of classes and levels</caption>
+                        <caption>List of skills</caption>
                         <thead>
                             <tr>
-                                <th scope="col">Class</th>
-                                <th scope="col">Level</th>
-                                <th scope="col">Hit Die</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Bonus</th>
                             </tr>
                         </thead>
-                        <tbody id="character.class">
+                        <tbody id="character.skills">
                         </tbody>
                     </table>
-                    <a href="#levelUp">Level Up</a>
-                </dd>
+                    </dd>
+                
+                    <dt>Languages</dt>
+                    <dd id="character.languages" data-lookup="LANGUAGES"></dd>
 
-                <dt>Experience Points</dt>
-                <dd id="character.experience" ></dd>
+                    <dt>Inspiration</dt>
+                    <dd><label><input type="checkbox" id="character.inspiration" disabled="disabled"/>Inspiration</label</dd>
+                </dl>
 
-                <dt>Hit Points</dt>
-                <dd>
-                    <!-- meter might be a better tag for this--> 
-                    <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span>
-                </dd>
-
-                <dt>Race Traits</dt>
-                <dd id="RACE.features"></dd>
-
-                <dt>Class Features</dt>
-                <dd id="CALC.class.features"></dd>
-                <dd id="CALC.class.special"></dd>
-
-                <dt class="spell-req">Spells</dt>
-                <dd class="spell-req" id="RACE.spells"></dd>
-                <dd class="spell-req" id="character.spells"></dd>
-
-                <dt>Saving Throw Bonus</dt>
-                <dd id="CALC.savingThrows"></dd> 
-
-                <dt>Proficiencies</dt>
-                <dd id="CALC.proficiency"></dd>
-
-                <dt>Skills</dt>
-                <dd class="marginless">
-                <table>
-                    <caption>List of skills</caption>
+                <table class="stack fullWidth attributes">
+                    <caption>Your character's Attribute values</caption>
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Bonus</th>
+                            <th scope="col">Attribute Name</th>
+                            <th scope="col">Natural (Race Modifier)</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Saving Throw Modifier</th>
+                            <th scope="col">Passive Saving Throw</th>
                         </tr>
                     </thead>
-                    <tbody id="character.skills">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Strength</th>
+                            <td >
+                                <span id="character.attribute.strength"></span>
+                                <span class="parens" id="CALC.attribute.strength.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.strength.total"></td>
+                            <td>
+                                <span id="CALC.attribute.strength.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.strength.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.strength.passiveSavingThrow"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dexterity</th>
+                            <td >
+                                <span id="character.attribute.dexterity"></span>
+                                <span class="parens"id="CALC.attribute.dexterity.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.dexterity.total"></td>
+                            <td>
+                                <span id="CALC.attribute.dexterity.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.dexterity.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
+                        </tr>  
+                        <tr>
+                            <th scope="row">Constitution</th>
+                            <td >
+                                <span id="character.attribute.constitution"></span>
+                                <span class="parens"id="CALC.attribute.constitution.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.constitution.total"></td>
+                            <td>
+                                <span id="CALC.attribute.constitution.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.constitution.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Intelligence</th>
+                            <td >
+                                <span id="character.attribute.intelligence"></span>
+                                <span class="parens"id="CALC.attribute.intelligence.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.intelligence.total"></td>
+                            <td>
+                                <span id="CALC.attribute.intelligence.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.intelligence.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wisdom</th>
+                            <td >
+                                <span id="character.attribute.wisdom"></span>
+                                <span class="parens"id="CALC.attribute.wisdom.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.wisdom.total"></td>
+                            <td>
+                                <span id="CALC.attribute.wisdom.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.wisdom.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Charisma</th>
+                            <td >
+                                <span id="character.attribute.charisma"></span>
+                                <span class="parens"id="CALC.attribute.charisma.raceModifier" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.charisma.total"></td>
+                            <td>
+                                <span id="CALC.attribute.charisma.savingThrow"></span>
+                                <span class="parens" id="CALC.attribute.charisma.proficiencySavingThrow" data-show-0="false"></span>
+                            </td>
+                            <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
+                        </tr>
                     </tbody>
                 </table>
-                </dd>
-            
-                <dt>Languages</dt>
-                <dd id="character.languages" data-lookup="LANGUAGES"></dd>
-
-                <dt>Inspiration</dt>
-                <dd><label><input type="checkbox" id="character.inspiration" disabled="disabled"/>Inspiration</label</dd>
-            </dl>
-
-            <table class="stack fullWidth attributes">
-                <caption>Your character's Attribute values</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Attribute Name</th>
-                        <th scope="col">Natural (Race Modifier)</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Saving Throw Modifier</th>
-                        <th scope="col">Passive Saving Throw</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Strength</th>
-                        <td >
-                            <span id="character.attribute.strength"></span>
-                            <span class="parens" id="CALC.attribute.strength.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.strength.total"></td>
-                        <td>
-                            <span id="CALC.attribute.strength.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.strength.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.strength.passiveSavingThrow"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dexterity</th>
-                        <td >
-                            <span id="character.attribute.dexterity"></span>
-                            <span class="parens"id="CALC.attribute.dexterity.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.dexterity.total"></td>
-                        <td>
-                            <span id="CALC.attribute.dexterity.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.dexterity.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
-                    </tr>  
-                    <tr>
-                        <th scope="row">Constitution</th>
-                        <td >
-                            <span id="character.attribute.constitution"></span>
-                            <span class="parens"id="CALC.attribute.constitution.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.constitution.total"></td>
-                        <td>
-                            <span id="CALC.attribute.constitution.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.constitution.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Intelligence</th>
-                        <td >
-                            <span id="character.attribute.intelligence"></span>
-                            <span class="parens"id="CALC.attribute.intelligence.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.intelligence.total"></td>
-                        <td>
-                            <span id="CALC.attribute.intelligence.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.intelligence.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Wisdom</th>
-                        <td >
-                            <span id="character.attribute.wisdom"></span>
-                            <span class="parens"id="CALC.attribute.wisdom.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.wisdom.total"></td>
-                        <td>
-                            <span id="CALC.attribute.wisdom.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.wisdom.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Charisma</th>
-                        <td >
-                            <span id="character.attribute.charisma"></span>
-                            <span class="parens"id="CALC.attribute.charisma.raceModifier" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.charisma.total"></td>
-                        <td>
-                            <span id="CALC.attribute.charisma.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.charisma.proficiencySavingThrow" data-show-0="false"></span>
-                        </td>
-                        <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <dl class="stack fullWidth subdivided appearance">
-                <dt>Sexuality</dt>
-                <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
-                <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
-                                                        data-lookup="BIOLOGICAL_SEX"></span></dd>
-                <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
-                </dd>
+                <dl class="stack fullWidth subdivided appearance">
+                    <dt>Sexuality</dt>
+                    <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
+                    <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
+                                                            data-lookup="BIOLOGICAL_SEX"></span></dd>
+                    <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
+                    </dd>
 
 
-                <dt>Age</dt>
-                <dd id="character.details.age" ></dd>
+                    <dt>Age</dt>
+                    <dd id="character.details.age" ></dd>
 
-                <dt>Height</dt>
-                <dd id="character.details.height"></dd>
+                    <dt>Height</dt>
+                    <dd id="character.details.height"></dd>
 
-                <dt>Weight (in lbs)</dt>
-                <dd id="character.details.weight"></dd>
+                    <dt>Weight (in lbs)</dt>
+                    <dd id="character.details.weight"></dd>
 
-                <dt><a href="#purseUpdate">Purse</a></dt>
-                <dd><span id="character.purse"></span></dd>
-                
-                <dt><a href="#equipment">Equipment</a></dt>
-                <dd id="character.equipment"></dd>
-
-                <dt><a href="#" onclick="showEditor('character.treasure')" >Treasure</a></dt>
-                <dd id="character.treasure"></dd>
-
-                <dt>Backstory Type</dt>
-                <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
-                
-                <dt><a href="#" onclick="showEditor('character.backstory.story')" >Backstory</a></dt>
-                <dd id="character.backstory.story"></dd>
-
-                <dt><a href="#" onclick="showEditor('character.details.appearance')" >Appearance</a></dt>
-                <dd id="character.details.appearance" ></dd>
-                
-                <dd>Eye:
-                    <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
-                    <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
-                </dd>
-                <dd>Hair:
-                    <div class="swatch tagAlong" id="character.details.hair.color"></div>
-                    <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
-                </dd>
-                <dd>Skin:
-                    <div class="swatch tagAlong" id="character.details.skin.color"></div>
-                    <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
-                </dd>
+                    <dt>Purse</dt>
+                    <dd>
+                    <span id="character.purse"></span>
+                    <br/>
+                    <a href="#purseUpdate">Edit</a>
+                    </dd>
+                    
+                    <dt>Equipment</dt>
+                    <dd id="character.equipment"></dd>
+                    <dd><a href="#equipment">Edit</a></dd>
 
 
-                <dt><a href="#" onclick="showEditor('character.personalitytraits')" >Personality Traits</a></dt>
-                <dd id="character.personalitytraits"></dd>
+                    <dt>Treasure</dt>
+                    <dd><span id="character.treasure" contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
-                <dt><a href="#" onclick="showEditor('character.ideals')" >Ideals</a></dt>
-                <dd id="character.ideals"></dd>
+                    <dt>Backstory Type</dt>
+                    <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
+                    
+                    <dt>Backstory</dt>
+                    <dd><span id="character.backstory.story" contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
-                <dt><a href="#" onclick="showEditor('character.bonds')" >Bonds</a></dt>
-                <dd id="character.bonds"></dd>
+                    <dt>Appearance</dt>
+                    <dd><span id="character.details.appearance" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                    
+                    <dd>Eye:
+                        <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
+                        <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
+                    </dd>
+                    <dd>Hair:
+                        <div class="swatch tagAlong" id="character.details.hair.color"></div>
+                        <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
+                    </dd>
+                    <dd>Skin:
+                        <div class="swatch tagAlong" id="character.details.skin.color"></div>
+                        <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
+                    </dd>
 
-                <dt><a href="#" onclick="showEditor('character.flaws')" >Flaws</a></dt>
-                <dd id="character.flaws"></dd>
 
-                <dt><a href="#" onclick="showEditor('character.allies')" >Allies</a></dt>
-                <dd id="character.allies"></dd> 
-            </dl>
+                    <dt>Personality Traits</dt>
+                    <dd><span id="character.personalitytraits" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+
+                    <dt>Ideals</dt>
+                    <dd><span id="character.ideals" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+
+                    <dt>Bonds</dt>
+                    <dd><span id="character.bonds" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+
+                    <dt>Flaws</dt>
+                    <dd><span id="character.flaws" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+
+                    <dt>Allies</dt>
+                    <dd><span id="character.allies" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                </dl>
 
             <footer class="footer">
                 <p class="fullWidth footer"><i>I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/online5eCS/issues/new">let me know!</a></i></p>
@@ -670,7 +678,7 @@
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <fieldset>
-                            <legend>Skills <span class="parens">choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</span></legend>
+                            <legend>Skills: choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</legend>
                             <div name="character.skills" data-lookup="SKILLS"></div>
                         </fieldset>
                     </form>
@@ -687,7 +695,7 @@
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter" >
                         <fieldset>
-                            <legend>Languages <span class="parens">choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</span></legend>
+                            <legend>Languages: choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</legend>
                             <div name="character.languages" data-lookup="LANGUAGES"></div>
                         </fieldset>
                     </form>

@@ -674,14 +674,17 @@ function processDataHolder(dataholder){
                     element.checked = node;
                 } else if (element.tagName == "INPUT"){
                     element.value = node;
+                } else if (isContentEditable(element)){
+                    console.log(node);
+                    element.innerHTML = isBlank(node) ? "" : node;
                 } else {
-                    element.innerHTML =  ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
+                    element.innerHTML = ((typeof node === "undefined") ||  (node === NaN)) ? "" : node;
                  
                     // prevent showing a literal value of 0 in some circumstances
                     let showEle = (getDataAttribute(element, "show-always", "false") == "true") 
                         || (!((getDataAttribute(element, 'show-0', "true") == "false")  
                             && (element.innerHTML == "0")) 
-                        && (element.innerHTML != ""));
+                            && (element.innerHTML != ""));
                     
                     show(element, showEle);
                 }
@@ -800,19 +803,18 @@ function beforeUnload(){
 }
 
 function updatePhoneNumber() {
-    updateLink(currentCharacter.player.phone, 'player.phone.link', 'tel:+', 'Call', "player.phone.display", "Phone number missing");
+    updateLink(currentCharacter.player.phone, 'player.phone.link', 'tel:+', 'Call', "player.phone.display");
 }
 
 function updateEmail() {
-    updateLink(currentCharacter.player.email, 'player.email.link', 'mailto:', 'Send email', "player.email.display", "Email missing");
+    updateLink(currentCharacter.player.email, 'player.email.link', 'mailto:', 'Email', "player.email.display");
 }
 
-function updateLink(value, linkId, hrefPrefix, linkText, spanId, missingMessage) {
+function updateLink(value, linkId, hrefPrefix, linkText, spanId) {
     let valueLink = $(linkId);
     let valueSpan = $(spanId);
     let isblank = isBlank(value);
     show(valueLink, !isblank);
-    show(valueSpan, true);
 
     if (!isblank) {
         valueLink.href = hrefPrefix+value;
@@ -820,6 +822,5 @@ function updateLink(value, linkId, hrefPrefix, linkText, spanId, missingMessage)
         valueSpan.innerHTML = value;
     } else {
         valueLink.href = "";
-        valueSpan.innerHTML = missingMessage;
     }
 }

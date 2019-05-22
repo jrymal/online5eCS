@@ -162,6 +162,10 @@ function isMultiSelect(element) {
     return element.options && element.multiple;
 }
 
+function isContentEditable(element){
+    return element.contentEditable == "true";
+}
+
 function getSelectValues(options) {
     if (options["length"]) {
         return options[options.selectedIndex]

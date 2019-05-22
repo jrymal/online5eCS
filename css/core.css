@@ -109,6 +109,12 @@ input.short {
     width: 3em;
 }
 
+[contentEditable=true]:empty:before {
+    content: attr(data-placeholder);
+    display: block; /* apparently for firefox*/
+    font-style: italic;
+}
+
 .no-action,
 form:invalid .next{
     pointer-events: none;
