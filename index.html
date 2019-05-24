@@ -56,10 +56,10 @@
 
             <section class="stack header">
                 <h1>
-                    <span id="character.name.first"></span>
-                    <span class="quoted" id="character.name.nickname"></span>
-                    <span class="parens" id="character.name.child"></span>
-                    <span id="character.name.family"></span>
+                    <span data-from="character.name.first"></span>
+                    <span class="quoted" data-from="character.name.nickname"></span>
+                    <span class="parens" data-from="character.name.child"></span>
+                    <span data-from="character.name.family"></span>
                 </h1>
             </section>
             
@@ -72,7 +72,7 @@
                     <dt>Phone Number</dt>
                     <dd>
                     <span data-from="player.phone" id="player.phone.display" contentEditable="true" data-placeholder="None specified"></span>
-                    <a target="_blank" id="player.phone.link" href="tel:+" data-show-always="true"></a>
+                    <a target="_blank" id="player.phone.link"  href="tel:+" data-show-always="true"></a>
                     </dd>
 
                     <dt>Email</dt>
@@ -86,18 +86,18 @@
             <dl class="stack fullWidth subdivided stats">
                 <dt>Race</dt>
                 <dd>
-                <span id="character.race" data-lookup="RACES"></span>
+                <span  data-from="character.race"  data-lookup="RACES"></span>
                 </dd>
 
                 <dt>Alignment</dt>
-                <dd>Society: <span id="character.alignment.society"></span></dd>
-                <dd>Morality: <span id="character.alignment.morality"></span></dd>
+                <dd>Society: <span data-from="character.alignment.society" ></span></dd>
+                <dd>Morality: <span data-from="character.alignment.morality" ></span></dd>
             
                 <dt>Size</dt>
-                <dd id="RACE.size.simple"></dd>
+                <dd data-from="RACE.size.simple" ></dd>
 
                 <dt>Speed</dt>
-                <dd id="RACE.speed"></dd>
+                <dd  data-from="RACE.speed" ></dd>
 
                 <dt>Class</dt>
                 <dd class="marginless">
@@ -110,37 +110,37 @@
                                 <th scope="col">Hit Die</th>
                             </tr>
                         </thead>
-                        <tbody id="character.class">
+                        <tbody  data-from="character.class" >
                         </tbody>
                     </table>
                     <a href="#levelUp">Level Up</a>
                 </dd>
 
                 <dt>Experience Points</dt>
-                <dd id="character.experience" ></dd>
+                <dd  data-from="character.experience"  ></dd>
 
                 <dt>Hit Points</dt>
                 <dd>
                     <!-- meter might be a better tag for this--> 
-                    <span id="character.hitPoints.current"></span>/<span id="character.hitPoints.max"></span>
+                    <span data-from="character.hitPoints.current" ></span>/<span data-from="character.hitPoints.max" ></span>
                 </dd>
 
                 <dt>Race Traits</dt>
-                <dd id="RACE.features"></dd>
+                <dd  data-from="RACE.features" ></dd>
 
                 <dt>Class Features</dt>
-                <dd id="CALC.class.features"></dd>
-                <dd id="CALC.class.special"></dd>
+                <dd data-from="CALC.class.features" ></dd>
+                <dd data-from="CALC.class.special" ></dd>
 
                 <dt class="spell-req">Spells</dt>
-                <dd class="spell-req" id="RACE.spells"></dd>
-                <dd class="spell-req" id="character.spells"></dd>
+                <dd class="spell-req"  data-from="RACE.spells" ></dd>
+                <dd class="spell-req"  data-from="character.spells" ></dd>
 
                 <dt>Saving Throw Bonus</dt>
-                <dd id="CALC.savingThrows"></dd> 
+                <dd  data-from="CALC.savingThrows" ></dd> 
 
                 <dt>Proficiencies</dt>
-                <dd id="CALC.proficiency"></dd>
+                <dd  data-from="CALC.proficiency" ></dd>
 
                 <dt>Skills</dt>
                 <dd class="marginless">
@@ -152,16 +152,16 @@
                             <th scope="col">Bonus</th>
                         </tr>
                     </thead>
-                    <tbody id="character.skills">
+                    <tbody  data-from="character.skills" >
                     </tbody>
                 </table>
                 </dd>
             
                 <dt>Languages</dt>
-                <dd id="character.languages" data-lookup="LANGUAGES"></dd>
+                <dd  data-from="character.languages"  data-lookup="LANGUAGES"></dd>
 
                 <dt>Inspiration</dt>
-                <dd><label><input type="checkbox" id="character.inspiration" disabled="disabled"/>Inspiration</label</dd>
+                <dd><label for="character_inspiration"><input type="checkbox" id="character_inspiration" name="character.inspiration"></input>Inspiration</label></dd>
             </dl>
 
             <table class="stack fullWidth attributes">
@@ -179,158 +179,157 @@
                     <tr>
                         <th scope="row">Strength</th>
                         <td >
-                            <span id="character.attribute.strength"></span>
-                            <span class="parens" id="CALC.attribute.strength.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.strength" ></span>
+                            <span class="parens" data-from="CALC.attribute.strength.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.strength.total"></td>
+                        <td data-from="CALC.attribute.strength.total" ></td>
                         <td>
-                            <span id="CALC.attribute.strength.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.strength.proficiencySavingThrow" data-show-0="false"></span>
+                            <span data-from="CALC.attribute.strength.savingThrow" ></span>
+                            <span class="parens" data-from="CALC.attribute.strength.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.strength.passiveSavingThrow"></td>
+                        <td data-from="CALC.attribute.strength.passiveSavingThrow" ></td>
                     </tr>
                     <tr>
                         <th scope="row">Dexterity</th>
                         <td >
-                            <span id="character.attribute.dexterity"></span>
-                            <span class="parens"id="CALC.attribute.dexterity.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.dexterity" ></span>
+                            <span class="parens"data-from="CALC.attribute.dexterity.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.dexterity.total"></td>
+                        <td data-from="CALC.attribute.dexterity.total" ></td>
                         <td>
-                            <span id="CALC.attribute.dexterity.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.dexterity.proficiencySavingThrow" data-show-0="false"></span>
+                            <span data-from="CALC.attribute.dexterity.savingThrow" ></span>
+                            <span class="parens" data-from="CALC.attribute.dexterity.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.dexterity.passiveSavingThrow"></td>
+                        <td data-from="CALC.attribute.dexterity.passiveSavingThrow" ></td>
                     </tr>  
                     <tr>
                         <th scope="row">Constitution</th>
                         <td >
-                            <span id="character.attribute.constitution"></span>
-                            <span class="parens"id="CALC.attribute.constitution.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.constitution" ></span>
+                            <span class="parens" data-from="CALC.attribute.constitution.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.constitution.total"></td>
+                        <td  data-from="CALC.attribute.constitution.total" ></td>
                         <td>
-                            <span id="CALC.attribute.constitution.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.constitution.proficiencySavingThrow" data-show-0="false"></span>
+                            <span  data-from="CALC.attribute.constitution.savingThrow" ></span>
+                            <span class="parens"  data-from="CALC.attribute.constitution.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.constitution.passiveSavingThrow"></td>
+                        <td  data-from="CALC.attribute.constitution.passiveSavingThrow" ></td>
                     </tr>
                     <tr>
                         <th scope="row">Intelligence</th>
                         <td >
-                            <span id="character.attribute.intelligence"></span>
-                            <span class="parens"id="CALC.attribute.intelligence.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.intelligence" ></span>
+                            <span class="parens" data-from="CALC.attribute.intelligence.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.intelligence.total"></td>
+                        <td  data-from="CALC.attribute.intelligence.total" ></td>
                         <td>
-                            <span id="CALC.attribute.intelligence.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.intelligence.proficiencySavingThrow" data-show-0="false"></span>
+                            <span  data-from="CALC.attribute.intelligence.savingThrow" ></span>
+                            <span class="parens"  data-from="CALC.attribute.intelligence.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.intelligence.passiveSavingThrow"></td>
+                        <td  data-from="CALC.attribute.intelligence.passiveSavingThrow" ></td>
                     </tr>
                     <tr>
                         <th scope="row">Wisdom</th>
                         <td >
-                            <span id="character.attribute.wisdom"></span>
-                            <span class="parens"id="CALC.attribute.wisdom.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.wisdom" ></span>
+                            <span class="parens" data-from="CALC.attribute.wisdom.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.wisdom.total"></td>
+                        <td  data-from="CALC.attribute.wisdom.total" ></td>
                         <td>
-                            <span id="CALC.attribute.wisdom.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.wisdom.proficiencySavingThrow" data-show-0="false"></span>
+                            <span  data-from="CALC.attribute.wisdom.savingThrow" ></span>
+                            <span class="parens"  data-from="CALC.attribute.wisdom.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.wisdom.passiveSavingThrow"></td>
+                        <td  data-from="CALC.attribute.wisdom.passiveSavingThrow" ></td>
                     </tr>
                     <tr>
                         <th scope="row">Charisma</th>
                         <td >
-                            <span id="character.attribute.charisma"></span>
-                            <span class="parens"id="CALC.attribute.charisma.raceModifier" data-show-0="false"></span>
+                            <span data-from="character.attribute.charisma" ></span>
+                            <span class="parens" data-from="CALC.attribute.charisma.raceModifier"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.charisma.total"></td>
+                        <td  data-from="CALC.attribute.charisma.total" ></td>
                         <td>
-                            <span id="CALC.attribute.charisma.savingThrow"></span>
-                            <span class="parens" id="CALC.attribute.charisma.proficiencySavingThrow" data-show-0="false"></span>
+                            <span  data-from="CALC.attribute.charisma.savingThrow" ></span>
+                            <span class="parens"  data-from="CALC.attribute.charisma.proficiencySavingThrow"  data-show-0="false"></span>
                         </td>
-                        <td id="CALC.attribute.charisma.passiveSavingThrow"></td>
+                        <td  data-from="CALC.attribute.charisma.passiveSavingThrow" ></td>
                     </tr>
                 </tbody>
             </table>
             
             <dl class="stack fullWidth subdivided appearance">
                 <dt>Sexuality</dt>
-                <dd>Pronoun: <span id="character.sexuality.pronoun" data-lookup="PRONOUNS"></span></dd>
-                <dd>Biological Sex: <span id="character.sexuality.biologicalsex"
+                <dd>Pronoun: <span data-from="character.sexuality.pronoun"  data-lookup="PRONOUNS"></span></dd>
+                <dd>Biological Sex: <span data-from="character.sexuality.biologicalsex" 
                                                         data-lookup="BIOLOGICAL_SEX"></span></dd>
-                <dd>Orientation: <span id="character.sexuality.sexualorientation" data-lookup="SEXUAL_ORIENTATION"></span>
+                <dd>Orientation: <span data-from="character.sexuality.sexualorientation"  data-lookup="SEXUAL_ORIENTATION"></span>
                 </dd>
 
 
                 <dt>Age</dt>
-                <dd id="character.details.age" ></dd>
+                <dd data-from="character.details.age"  ></dd>
 
                 <dt>Height</dt>
-                <dd id="character.details.height"></dd>
+                <dd data-from="character.details.height" ></dd>
 
                 <dt>Weight (in lbs)</dt>
-                <dd id="character.details.weight"></dd>
+                <dd data-from="character.details.weight" ></dd>
 
                 <dt>Purse</dt>
                 <dd>
-                <span id="character.purse"></span>
-                <br/>
+                <p><span data-from="character.purse" ></span></p>
                 <a href="#purseUpdate">Edit</a>
                 </dd>
                 
                 <dt>Equipment</dt>
-                <dd id="character.equipment"></dd>
+                <dd  data-from="character.equipment" ></dd>
                 <dd><a href="#equipment">Edit</a></dd>
 
 
                 <dt>Treasure</dt>
-                <dd><span id="character.treasure" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.treasure"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Backstory Type</dt>
-                <dd id="character.backstory.type" data-lookup="BACKSTORIES"></dd>
+                <dd data-from="character.backstory.type"  data-lookup="BACKSTORIES"></dd>
                 
                 <dt>Backstory</dt>
-                <dd><span id="character.backstory.story" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span data-from="character.backstory.story"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Appearance</dt>
-                <dd><span id="character.details.appearance" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span data-from="character.details.appearance"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
                 
                 <dd>Eye:
-                    <div class="swatch tagAlong" id="character.details.eyecolor.color"></div>
-                    <div class="tagAlong" id="character.details.eyecolor" data-lookup="EYE_COLOR"></div>
+                    <span class="swatch tagAlong" id="character_details_eyecolor_color" data-lookup="EYE_COLOR"></span>
+                    <span class="tagAlong" data-from="character.details.eyecolor"  data-lookup="EYE_COLOR"></span>
                 </dd>
                 <dd>Hair:
-                    <div class="swatch tagAlong" id="character.details.hair.color"></div>
-                    <div class="tagAlong" id="character.details.hair" data-lookup="HAIR_COLOR"></div>
+                    <span class="swatch tagAlong" id="character_details_hair_color" data-lookup="HAIR_COLOR"></span>
+                    <span class="tagAlong" data-from="character.details.hair"  data-lookup="HAIR_COLOR"></span>
                 </dd>
                 <dd>Skin:
-                    <div class="swatch tagAlong" id="character.details.skin.color"></div>
-                    <div class="tagAlong" id="character.details.skin" data-lookup="SKIN_COLOR"></div>
+                    <span class="swatch tagAlong" id="character_details_skin_color" data-lookup="SKIN_COLOR"></span>
+                    <span class="tagAlong" data-from="character.details.skin"  data-lookup="SKIN_COLOR"></span>
                 </dd>
 
 
                 <dt>Personality Traits</dt>
-                <dd><span id="character.personalitytraits" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.personalitytraits"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Ideals</dt>
-                <dd><span id="character.ideals" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.ideals"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Bonds</dt>
-                <dd><span id="character.bonds" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.bonds"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Flaws</dt>
-                <dd><span id="character.flaws" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.flaws"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
 
                 <dt>Allies</dt>
-                <dd><span id="character.allies" contentEditable="true" data-placeholder="None Expressed"></span></dd>
+                <dd><span  data-from="character.allies"  contentEditable="true" data-placeholder="None Expressed"></span></dd>
             </dl>
 
-            <footer class="footer">
-                <p class="fullWidth footer"><i>I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/online5eCS/issues/new">let me know!</a></i></p>
+            <footer class="footer" role="contentinfo">
+                <p class="fullWidth footer"><em>I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/online5eCS/issues/new">let me know!</a></em></p>
             </footer>
 
             <dialog class=" modal" id="importFile">
@@ -349,14 +348,14 @@
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="DB.character">
+                            <tbody  data-from="DB.character" >
                             </tbody>
                         </table>
                     </div>
                     <br>
                     <div>
                     <label class="tagAlong" for="importFile.importFile">Import file</label>
-                    <input class="tagAlong" type="file" id="importFile.importFile" name="importFile" onChange="loadFromJSON()"/>
+                    <input class="tagAlong" type="file"  data-from="importFile.importFile"  name="importFile" onChange="loadFromJSON()"/>
                     </div>
                     <a href="#">Cancel</a>
                 </div>
@@ -370,8 +369,8 @@
                         <p class="stack">Current Purse: <span data-from="character.purse"></span></p>
 
                         <label for="purse.value">Amount</label>
-                        <input class="tagAlong short" type="number" name="purse.value" pattern="[0-9]*" id="purse.value" min="0" value="0"/>
-                        <select class="tagAlong" id="purse.type" name="purse.type" aria-label="Coin type for amount">
+                        <input class="tagAlong short" type="number" name="purse.value" pattern="[0-9]*"  data-from="purse.value"  min="0" value="0"/>
+                        <select class="tagAlong"  data-from="purse.type"  name="purse.type" aria-label="Coin type for amount">
                             <option value="COPPER">Copper</option>
                             <option value="SILVER">Silver</option>
                             <option value="ELECTRUM">Electrum</option>
@@ -380,7 +379,7 @@
                         </select>
 
                         <label for="purse.description" name="purse.description">Purchase Description</label>
-                        <textarea id="purse.description" name="purse.description" spellcheck="true"></textarea>
+                        <textarea  data-from="purse.description"  name="purse.description" spellcheck="true"></textarea>
                         <table>
                             <caption>Exchange Listing</caption>
                                 <thead>
@@ -428,20 +427,20 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.player">
+            <dialog class=" modal"  data-from="createCharacter.player" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <p class="description notice">Any data input here is kept exclusively on your machine and is not shared to any services or databases.</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.player.name" class="required">Role Player</label>
-                        <input type="text" id="createCharacter.player.name" name="player.name" required/>
+                        <input type="text" id="createCharacter.player.name" data-from="createCharacter.player.name"  name="player.name" required/>
 
                         <label for="createCharacter.player.phone">Phone Number</label>
-                        <input type="tel" id="createCharacter.player.phone" name="player.phone" autocomplete="tel"/>
+                        <input type="tel" id="createCharacter.player.phone" data-from="createCharacter.player.phone"  name="player.phone" autocomplete="tel"/>
 
                         <label for="createCharacter.player.email">Email</label>
-                        <input type="email" id="createCharacter.player.email" name="player.email" autocomplete="email"/> 
+                        <input type="email" id="createCharacter.player.email" data-from="createCharacter.player.email"  name="player.email" autocomplete="email"/> 
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -450,23 +449,23 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.race">
+            <dialog class=" modal"  data-from="createCharacter.race" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.race">Race</label>
-                        <select id="createCharacter.character.race" name="character.race" data-lookup="RACES"></select>
+                        <select id="createCharacter.character.race" data-from="createCharacter.character.race"  name="character.race" data-lookup="RACES"></select>
 
                         <label for="createCharacter.character.pronoun">Pronoun</label>
-                        <select id="createCharacter.character.pronoun" name="character.sexuality.pronoun" data-lookup="PRONOUNS"></select>
+                        <select id="createCharacter.character.pronoun" data-from="createCharacter.character.pronoun"  name="character.sexuality.pronoun" data-lookup="PRONOUNS"></select>
                         
                         <label for="createCharacter.character.biologicalsex">Biological Sex</label>
-                        <select id="createCharacter.character.biologicalsex" name="character.sexuality.biologicalsex"
+                        <select id="createCharacter.character.biologicalsex" data-from="createCharacter.character.biologicalsex"  name="character.sexuality.biologicalsex"
                             data-lookup="BIOLOGICAL_SEX"></select>
 
                         <label for="createCharacter.character.sexualorientation">Sexual Orientation</label>
-                        <select id="createCharacter.character.sexualorientation" name="character.sexuality.sexualorientation"
+                        <select id="createCharacter.character.sexualorientation" data-from="createCharacter.character.sexualorientation"  name="character.sexuality.sexualorientation"
                             data-lookup="SEXUAL_ORIENTATION"></select>
 
                     </form>
@@ -477,19 +476,19 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.alignment">
+            <dialog class=" modal"  data-from="createCharacter.alignment" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.alignment.society">Alignment (Attitude toward Society)</label>
-                        <select id="createCharacter.character.alignment.society" name="character.alignment.society" data-rng="true">
+                        <select id="createCharacter.character.alignment.society" data-from="createCharacter.character.alignment.society"  name="character.alignment.society" data-rng="true">
                             <option value="Lawful">Lawful</option>
                             <option value="Neutral">Neutral</option>
                             <option value="Chaotic">Chaotic</option>
                         </select>
                         <label for="createCharacter.character.alignment.morality">Alignment (Morality)</label>
-                        <select id="createCharacter.character.alignment.morality" name="character.alignment.morality" data-rng="true">
+                        <select id="createCharacter.character.alignment.morality" data-from="createCharacter.character.alignment.morality"  name="character.alignment.morality" data-rng="true">
                             <option value="Good">Good</option>
                             <option value="Neutral">Neutral</option>
                             <option value="Evil">Evil</option>
@@ -502,19 +501,19 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.name">
+            <dialog class=" modal"  data-from="createCharacter.name" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.character.name.first" class="required">First Name</label>
-                        <input type="text" id="createCharacter.character.name.first" name="character.name.first" required/>
+                        <input type="text" id="createCharacter.character.name.first" data-from="createCharacter.character.name.first"  name="character.name.first" required/>
                         <label for="createCharacter.character.name.family">Family Name</label>
-                        <input type="text" id="createCharacter.character.name.family" name="character.name.family"/>
+                        <input type="text" id="createCharacter.character.name.family" data-from="createCharacter.character.name.family"  name="character.name.family"/>
                         <label for="createCharacter.character.name.nickname">Nickname</label>
-                        <input type="text" id="createCharacter.character.name.nickname" name="character.name.nickname"/>
+                        <input type="text" id="createCharacter.character.name.nickname" data-from="createCharacter.character.name.nickname"  name="character.name.nickname"/>
                         <label for="createCharacter.character.name.child">Child Name</label>
-                        <input type="text" id="createCharacter.character.name.child" name="character.name.child"/>
+                        <input type="text" id="createCharacter.character.name.child" data-from="createCharacter.character.name.child"  name="character.name.child"/>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -523,17 +522,17 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.class">
+            <dialog class=" modal"  data-from="createCharacter.class" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel" id="createCharacter.class.form">
+                    <form class="data-createCharacter entryPanel" id="createCharacter.class.form" data-from="createCharacter.class.form" >
                         <div class="createCharacter">
                             <label for="createCharacter.character.class.type">Class</label>
-                            <select id="createCharacter.character.class.type" data-lookup="CLASSES"></select>
+                            <select id="createCharacter.character.class.type" data-from="createCharacter.character.class.type"  data-lookup="CLASSES"></select>
 
                             <label for="createCharacter.character.level" class="required">Level</label>
-                            <input type="number" id="createCharacter.character.level" pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
+                            <input type="number" id="createCharacter.character.level" data-from="createCharacter.character.level"  pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
 
                             <button type="button" class="multiclass" onClick="addClass()">Add Class</button>
                         </div>
@@ -546,7 +545,7 @@
                                     <th scope="col">Remove</th>
                                 </tr>
                             </thead>
-                            <tbody id="createCharacter.character.class.tbody">
+                            <tbody id="createCharacter.character.class.tbody" data-from="createCharacter.character.class.tbody" >
                             </tbody> 
                         </table>
                     </form>
@@ -558,14 +557,14 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.attr">
+            <dialog class=" modal"  data-from="createCharacter.attr" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel">
                         <!-- generation options and execution -->
                         <label for="createCharacter.attr.chooser">How do you want your attributes set?</label>
-                        <select id="createCharacter.attr.chooser">
+                        <select id="createCharacter.attr.chooser" data-from="createCharacter.attr.chooser" >
                             <option value="Throwaway">Throwaway lowest of 4</option>
                             <option value="Straight">Straight 3 rolls</option>
                             <option value="Manual">I'll roll and enter the vaules</option>
@@ -574,17 +573,17 @@
 
                         <div class="column-2 createCharacter">
                             <label for="createCharacter.character.attribute.strength" class="required">Strength</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.strength" id="createCharacter.character.attribute.strength" data-from="createCharacter.character.attribute.strength"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.dexterity" class="required">Dexterity</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.dexterity" id="createCharacter.character.attribute.dexterity" data-from="createCharacter.character.attribute.dexterity"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.constitution" class="required">Constitution</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.constitution" id="createCharacter.character.attribute.constitution" data-from="createCharacter.character.attribute.constitution"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.intelligence" class="required">Intelligence</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.intelligence" id="createCharacter.character.attribute.intelligence" data-from="createCharacter.character.attribute.intelligence"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.wisdom" class="required">Wisdom</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter.character.attribute.wisdom" data-from="createCharacter.character.attribute.wisdom"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter.character.attribute.charisma" class="required">Charisma</label>
-                            <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" class="short"  min="3" max="20" required/>
+                            <input type="number"  pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter.character.attribute.charisma" data-from="createCharacter.character.attribute.charisma"  class="short"  min="3" max="20" required/>
                         </div>
                     </form>
                     <div class="buttonbar">
@@ -594,16 +593,16 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.backstory">
+            <dialog class=" modal"  data-from="createCharacter.backstory" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.backstory.type">Backstory Type</label>
-                        <select id="createCharacter.backstory.type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
+                        <select id="createCharacter.backstory.type" data-from="createCharacter.backstory.type"  name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
 
                         <label for="createCharacter.backstory.story">Backstory</label>
-                        <textarea id="createCharacter.backstory.story" name="character.backstory.story" spellcheck="true"></textarea> 
+                        <textarea id="createCharacter.backstory.story" data-from="createCharacter.backstory.story"  name="character.backstory.story" spellcheck="true"></textarea> 
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -612,19 +611,19 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.age">
+            <dialog class=" modal"  data-from="createCharacter.age" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.age">Age (in years)</label>
-                        <input type="number" pattern="[0-9]*" id="createCharacter.details.age" class="short" name="character.details.age" min="0"max="100"/>
+                        <input type="number" pattern="[0-9]*" id="createCharacter.details.age" data-from="createCharacter.details.age"  class="short" name="character.details.age" min="0"max="100"/>
 
                         <label for="createCharacter.details.height">Height (in inches)</label>
-                        <input type="text" id="createCharacter.details.height" name="character.details.height"/>
+                        <input type="text" id="createCharacter.details.height" data-from="createCharacter.details.height"  name="character.details.height"/>
 
                         <label for="createCharacter.details.weight">Weight (in pounds)</label>
-                        <input type="text" id="createCharacter.details.weight" name="character.details.weight"/>
+                        <input type="text" id="createCharacter.details.weight" data-from="createCharacter.details.weight"  name="character.details.weight"/>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -633,22 +632,22 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.colors">
+            <dialog class=" modal"  data-from="createCharacter.colors" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.eyecolor">Eye Color</label>
-                        <select class="tagAlong"  id="createCharacter.details.eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter.details.eyecolor.color" class="swatch"></div>
+                        <select class="tagAlong"  id="createCharacter.details.eyecolor" data-from="createCharacter.details.eyecolor"  name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                        <div id="createCharacter.details.eyecolor.color" data-from="createCharacter.details.eyecolor.color"  class="swatch"></div>
 
                         <label for="createCharacter.details.skin">Skin Color</label>
-                        <select class="tagAlong"  data-type="color" id="createCharacter.details.skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter.details.skin.color" class="swatch"></div>
+                        <select class="tagAlong"  data-type="color" id="createCharacter.details.skin" data-from="createCharacter.details.skin"  name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                        <div id="createCharacter.details.skin.color" data-from="createCharacter.details.skin.color"  class="swatch"></div>
 
                         <label for="createCharacter.details.hair">Hair Color</label>
-                        <select class="tagAlong" data-type="color" id="createCharacter.details.hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter.details.hair.color" class="swatch"></div>
+                        <select class="tagAlong" data-type="color" id="createCharacter.details.hair" data-from="createCharacter.details.hair"  name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                        <div id="createCharacter.details.hair.color" data-from="createCharacter.details.hair.color"  class="swatch"></div>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -657,16 +656,16 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.appearance">
+            <dialog class=" modal"  data-from="createCharacter.appearance" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <label for="createCharacter.details.appearance">Appearance</label>
-                        <textarea id="createCharacter.details.appearance" spellcheck="true" name="character.details.appearance"></textarea> 
+                        <textarea id="createCharacter.details.appearance" data-from="createCharacter.details.appearance"  spellcheck="true" name="character.details.appearance"></textarea> 
 
                         <label for="createCharacter.details.image">Image</label>
-                        <input type="image" id="createCharacter.details.image" name="character.details.image"/> 
+                        <input type="image" id="createCharacter.details.image" data-from="createCharacter.details.image"  name="character.details.image"/> 
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -675,13 +674,13 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.skills">
+            <dialog class=" modal"  data-from="createCharacter.skills" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter">
                         <fieldset>
-                            <legend>Skills: choose <span id="createCharacter.skills.legend" data-rulemax="0"></span> more</legend>
+                            <legend>Skills: choose <span id="createCharacter.skills.legend" data-from="createCharacter.skills.legend"  data-rulemax="0"></span> more</legend>
                             <div name="character.skills" data-lookup="SKILLS"></div>
                         </fieldset>
                     </form>
@@ -692,13 +691,13 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.language">
+            <dialog class=" modal"  data-from="createCharacter.language" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel createCharacter" >
                         <fieldset>
-                            <legend>Languages: choose <span id="createCharacter.languages.legend" data-rulemax="0"></span> more</legend>
+                            <legend>Languages: choose <span id="createCharacter.languages.legend" data-from="createCharacter.languages.legend"  data-rulemax="0"></span> more</legend>
                             <div name="character.languages" data-lookup="LANGUAGES"></div>
                         </fieldset>
                     </form>
@@ -709,7 +708,7 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class=" modal" id="createCharacter.traits">
+            <dialog class=" modal"  data-from="createCharacter.traits" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
@@ -717,7 +716,7 @@
                     <!-- need to sure up the proficiencies editor: choose from list of
                         Proficiencies with free entry and stash.-->
                         <label for="createCharacter.proficiency">Proficiencies</label>
-                        <textarea id="createCharacter.proficiency" name="character.proficiency" spellcheck="true"></textarea>
+                        <textarea  data-from="createCharacter.proficiency"  name="character.proficiency" spellcheck="true"></textarea>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -726,11 +725,11 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal" id="createCharacter.equipment">
+            <dialog class="modal"  data-from="createCharacter.equipment" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter" id="createCharacter.equipment.equipment"></form>
+                    <form class="data-createCharacter entryPanel createCharacter" id="createCharacter.equipment.equipment" data-from="createCharacter.equipment.equipment" ></form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter.embellishments">Previous</a>
@@ -744,36 +743,36 @@
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level</p>
                     <form class="entryPanel">
-                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.oldClass" value="levelUp.oldClass" onChange="setHref('levelUp.next','#levelUp.oldClass')" checked/>
+                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.oldClass" data-from="levelUp.input.oldClass"  value="levelUp.oldClass" onChange="setHref('levelUp.next','#levelUp.oldClass')" checked/>
                         <label for="levelUp.input.oldClass" class="tagAlong" >Raise a current class</label>
                         <label class="reveal-if-checked" for="levelUp.class">Class to level up</label>
-                        <select class="reveal-if-checked" id="levelUp.class" data-lookup="currentCharacter.CALC.classes"></select>
+                        <select class="reveal-if-checked"  data-from="levelUp.class"  data-lookup="currentCharacter.CALC.classes"></select>
                         <!-- Stupid tagAlong doesn't know when to break -->
                         <div></div>
-                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.newClass" value="levelUp.newClass" data-hrefid="levelUp.next"  onChange="setHref('levelUp.next','#levelUp.newClass')"/>
+                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp.input.newClass" data-from="levelUp.input.newClass"  value="levelUp.newClass" data-hrefid="levelUp.next"  onChange="setHref('levelUp.next','#levelUp.newClass')"/>
                         <label for="levelUp.input.newClass" class="tagAlong" >Add a new class</label>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
-                        <a href="#levelUp.oldClass" class="next" id="levelUp.next">Next</a>
+                        <a href="#levelUp.oldClass" class="next"  data-from="levelUp.next" >Next</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal levelUp" id="levelUp.oldClass">
+            <dialog class="modal levelUp"  data-from="levelUp.oldClass" >
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level by one</p>
                     <form class="entryPanel">
                         <dl>
                             <dt class="feature-req special-req">New Features</dt>
-                            <dd class="feature-req" id="levelUp.feature"/>
-                            <dd class="special-req" id="levelUp.special"/>
+                            <dd class="feature-req"  data-from="levelUp.feature" />
+                            <dd class="special-req"  data-from="levelUp.special" />
                             <dt class="spell-req">New Spells</dt>
-                            <dd class="spell-req" id="levelUp.spell"/>
+                            <dd class="spell-req"  data-from="levelUp.spell" />
                             <dt class="ability-req">Ability Score Up</dt>
                             <dd class="ability-req">
                                 <label for="levelUp.attribute">Ability to Improve</label>
-                                <select id="levelUp.attribute" data-lookup="ATTRIBUTES"></select>
+                                <select  data-from="levelUp.attribute"  data-lookup="ATTRIBUTES"></select>
                             </dd>
                         </dl>
                     </form>
@@ -784,13 +783,13 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal multiClass" id="levelUp.newClass">
+            <dialog class="modal multiClass"  data-from="levelUp.newClass" >
                 <div class="base">
                     <h2>Level Up</h2>
                     <p class="description">Choose a new class to add to this character.</p>
                     <form class="entryPanel">
                         <label for="multiClass.class">New class to add</label>
-                        <select id="multiClass.class" data-lookup="CLASSES"></select>
+                        <select  data-from="multiClass.class"  data-lookup="CLASSES"></select>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -804,7 +803,7 @@
                     <h2>Equipment</h2>
                     <p class="description">Add or Use equipment in your pack</p>
                     <form class="entryPanel" >
-                        <div id="equipment.list">
+                        <div  data-from="equipment.list" >
                         </div>
                         <button type="button" onClick="addEquipmentRow('equipment.list')">Add Item</button>
                     </form>
@@ -816,11 +815,11 @@
             </dialog>
             <dialog class="modal" id="editor">
                 <form method="dialog" class="base">
-                    <h2 id="editor.title">Editor</h2>
-                    <p class="description" id="editor.description">Edit your stuff</p>
+                    <h2  data-from="editor.title" >Editor</h2>
+                    <p class="description"  data-from="editor.description" >Edit your stuff</p>
                     <div class="entryPanel columned" >
-                        <label id="editor.field" for="editor.textarea">Edit field</label>
-                        <textarea id="editor.textarea" spellcheck="true"></textarea>
+                        <label  data-from="editor.field"  for="editor.textarea">Edit field</label>
+                        <textarea  data-from="editor.textarea"  spellcheck="true"></textarea>
                     </div>
                     <menu class="buttonbar">
                         <button onClick="closeDialog()">Cancel</button>

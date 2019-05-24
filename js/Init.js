@@ -649,7 +649,7 @@ function processDataHolder(dataholder){
     for (let i = 0; i < dataholder.childNodes.length; i++) {
         let element = dataholder.childNodes[i];
         
-        let loadValueFrom = getDataAttribute(element, 'from', element.id);
+        let loadValueFrom = getDataAttribute(element, 'from', element.name);
 
         // only follow elements with ids that are not anchors
         if (loadValueFrom && element.tagName != "A"){
@@ -738,13 +738,9 @@ function specialHandler(id, element, node){
             let colorObj = performObjectLookup(getDataAttribute(element, "lookup"), node); 
             if (colorObj){
                 element.innerHTML = colorObj.name;
-                $(id+'.color').style.backgroundColor = colorObj.color;
+                let nid = id.replace(/[.]/g,'_')+'_color';
+                $(nid).style.backgroundColor = colorObj.color;
             }
-            return true;
-        case "character.details.eyecolor.color":
-        case "character.details.hair.color":
-        case "character.details.skin.color":
-            // we want these to show even through there is no value
             return true;
         case 'character.details.height':
             element.innerHTML = Math.floor(node/12)+'\' '+ Math.floor(node%12) +'"';
