@@ -61,8 +61,8 @@ function levelUp(upgradeClass){
     currentCharacter.character.hitPoints.current = +currentCharacter.character.hitPoints.current + getMax(CLASSES[upgradeClass].hitDie);
    
     // add tp he select ability score
-    if ($('levelUp.newClass').classList.contains("abilityScore")){
-        let attr = $('levelUp.attribute').value;
+    if ($('levelUp_newClass').classList.contains("abilityScore")){
+        let attr = $('levelUp_attribute').value;
         currentCharacter.character.attribute[attr] = +currentCharacter.character.attribute[attr] + +1;
     }
     
@@ -70,7 +70,7 @@ function levelUp(upgradeClass){
 }
 
 function levelUpMultiClass(){
-    let newClass = $('multiClass.class').value;
+    let newClass = $('multiClass_class').value;
     
     currentCharacter.character.class.push({
         class : newClass,
@@ -324,7 +324,7 @@ function loadFromJSON() {
     reader.onerror = function(evt) {
         console.error("Error:"+evt.target.result);
     };
-    reader.readAsText($('importFile.importFile').files[0]);
+    reader.readAsText($('importFile_importFile').files[0]);
 }
 
 function getMaxHitPoints(classList) {
@@ -716,7 +716,7 @@ function renderTrForSkill(node){
 
 function usePurse( addDec ) {
     insertAtNode("purse", currentCharacter.character, 0, false);
-    let newValueInCp = getAsCoin($("purse.value").value, getSelectValues($("purse.type")).value);
+    let newValueInCp = getAsCoin($("purse_value").value, getSelectValues($("purse_type")).value);
 
     if (addDec === '+'){
         currentCharacter.character.purse += newValueInCp;

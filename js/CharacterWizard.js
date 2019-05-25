@@ -4,13 +4,13 @@ let callbackFunction = null;
 
 function addClass() {
     
-    var selectedEle = $("createCharacter.character.class.type");
-    var levelEle = $("createCharacter.character.level");
-    var tableEle = $("createCharacter.character.class.tbody");
+    var selectedEle = $("createCharacter_character_class_type");
+    var levelEle = $("createCharacter_character_level");
+    var tableEle = $("createCharacter_character_class_tbody");
     var className = selectedEle.value;
     var selIdx = selectedEle.selectedIndex;
 
-    tableEle.innerHTML += `<tr id="createCharacter.character.class.tableele.${className}">
+    tableEle.innerHTML += `<tr id="createCharacter_character_class_tableele.${className}">
         <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
         <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
         <td><button type="button" onClick="removeCharacterClass('${className}')">Remove</button></td>
@@ -20,8 +20,8 @@ function addClass() {
 }
 
 function removeCharacterClass(className) {
-    var tableEle = $("createCharacter.character.class.tableele."+className);
-    var selectedEle = $("createCharacter.character.class.type");
+    var tableEle = $("createCharacter_character_class_tableele_"+className);
+    var selectedEle = $("createCharacter_character_class_type");
     
     var i;
     for(i = 0; i < selectedEle.options.length; i++){
@@ -40,15 +40,15 @@ function removeCharacterClass(className) {
 }
 
 function cleanUpCreateWizard(){
-    $("createCharacter.character.class.tbody").innerHTML = "";
-    $('createCharacter.equipment.equipment').innerHTML = "";
+    $("createCharacter_character_class_tbody").innerHTML = "";
+    $('createCharacter_equipment_equipment').innerHTML = "";
 }
 
 function postProcessStep(form){
     if (form.checkValidity()){ 
         switch(form.id) {
-            case 'createCharacter.class.form':
-                if ($('createCharacter.character.class.tbody').childElementCount == 0){
+            case 'createCharacter_class_form':
+                if ($('createCharacter_character_class_tbody').childElementCount == 0){
                     addClass();
                 }
                 break;
@@ -59,54 +59,54 @@ function postProcessStep(form){
 
 function prepopulateValues(formName){
     switch(formName) {
-        case 'createCharacter.player':
+        case 'createCharacter_player':
             if (currentCharacter) {
-                setIfExistsAndEmpty('createCharacter.player.name', currentCharacter.player.name);
-                setIfExistsAndEmpty('createCharacter.player.phone', currentCharacter.player.phone);
-                setIfExistsAndEmpty('createCharacter.player.email', currentCharacter.player.email);
+                setIfExistsAndEmpty('createCharacter_player_name', currentCharacter.player.name);
+                setIfExistsAndEmpty('createCharacter_player_phone', currentCharacter.player.phone);
+                setIfExistsAndEmpty('createCharacter_player_email', currentCharacter.player.email);
             }
             break;
-        case 'createCharacter.race':
-            setIfExistsAndEmpty('createCharacter.character.race', chooseFromList(Object.keys(RACES)));
-            setIfExistsAndEmpty('createCharacter.character.pronoun', chooseFromList(Object.keys(PRONOUNS)));
-            setIfExistsAndEmpty('createCharacter.character.alignment.society', chooseFromList(ALIGNMENT_SOCIETY));
-            setIfExistsAndEmpty('createCharacter.character.alignment.morality', chooseFromList(ALIGNMENT_MORALITY));
+        case 'createCharacter_race':
+            setIfExistsAndEmpty('createCharacter_character_race', chooseFromList(Object.keys(RACES)));
+            setIfExistsAndEmpty('createCharacter_character_pronoun', chooseFromList(Object.keys(PRONOUNS)));
+            setIfExistsAndEmpty('createCharacter_character_alignment_society', chooseFromList(ALIGNMENT_SOCIETY));
+            setIfExistsAndEmpty('createCharacter_character_alignment_morality', chooseFromList(ALIGNMENT_MORALITY));
             
             break;
  
-        case 'createCharacter.name':
-            let nameObj = RACES[$('createCharacter.character.race').value].names;
-            setIfExistsAndEmpty('createCharacter.character.name.first', chooseFirstName(nameObj));
-            setIfExistsAndEmpty('createCharacter.character.name.family', chooseFamilyName(nameObj));
-            setIfExistsAndEmpty('createCharacter.character.name.nickname', chooseNickName(nameObj));
-            setIfExistsAndEmpty('createCharacter.character.name.child', chooseChildName(nameObj));
+        case 'createCharacter_name':
+            let nameObj = RACES[$('createCharacter_character_race').value].names;
+            setIfExistsAndEmpty('createCharacter_character_name_first', chooseFirstName(nameObj));
+            setIfExistsAndEmpty('createCharacter_character_name_family', chooseFamilyName(nameObj));
+            setIfExistsAndEmpty('createCharacter_character_name_nickname', chooseNickName(nameObj));
+            setIfExistsAndEmpty('createCharacter_character_name_child', chooseChildName(nameObj));
             break;
-        case 'createCharacter.attr':
+        case 'createCharacter_attr':
             generateAttributes();
             break; 
-        case 'createCharacter.age': {
-            let race = RACES[$('createCharacter.character.race').value];
+        case 'createCharacter_age': {
+            let race = RACES[$('createCharacter_character_race').value];
             let heightObj = chooseHeight(race);
-            setIfExistsAndEmpty('createCharacter.details.age', chooseAge(race));
-            setIfExistsAndEmpty('createCharacter.details.height', heightObj.total);
-            setIfExistsAndEmpty('createCharacter.details.weight', chooseWeight(race, heightObj.mod));
+            setIfExistsAndEmpty('createCharacter_details_age', chooseAge(race));
+            setIfExistsAndEmpty('createCharacter_details_height', heightObj.total);
+            setIfExistsAndEmpty('createCharacter_details_weight', chooseWeight(race, heightObj.mod));
         }
             break; 
-        case 'createCharacter.skills': {
-            let race = RACES[$('createCharacter.character.race').value];
-            let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
-            chooseCheckbox("createCharacter.skills.legend", "skills.", "skills", race, backstory);
+        case 'createCharacter_skills': {
+            let race = RACES[$('createCharacter_character_race').value];
+            let backstory = BACKSTORIES[$('createCharacter_backstory_type').value];
+            chooseCheckbox("createCharacter_skills_legend", "skills.", "skills", race, backstory);
         }
             break; 
-        case 'createCharacter.language': {
-            let race = RACES[$('createCharacter.character.race').value];
-            let backstory = BACKSTORIES[$('createCharacter.backstory.type').value];
-            chooseCheckbox("createCharacter.languages.legend", "languages.", "languages", race, backstory);
+        case 'createCharacter_language': {
+            let race = RACES[$('createCharacter_character_race').value];
+            let backstory = BACKSTORIES[$('createCharacter_backstory_type').value];
+            chooseCheckbox("createCharacter_languages_legend", "languages.", "languages", race, backstory);
         }
             break;
-        case 'createCharacter.class':
-            let table = $('createCharacter.character.class.tbody');
-            let chooser = $('createCharacter.character.class.type');
+        case 'createCharacter_class':
+            let table = $('createCharacter_character_class_tbody');
+            let chooser = $('createCharacter_character_class_type');
             if (table.childElementCount == 1 
                 && !isVisible(document.getElementsByClassName("multiclass")[0])){
                 let curValue = table.rows[0].cells[0].innerText;
@@ -114,9 +114,9 @@ function prepopulateValues(formName){
                 chooser.value = curValue;
             }
             break;
-        case 'createCharacter.equipment':
+        case 'createCharacter_equipment':
             let cnt = 0;
-            let equipmentEle = $('createCharacter.equipment.equipment');
+            let equipmentEle = $('createCharacter_equipment_equipment');
             EQUIP_COUNT = 0;
             if (equipmentEle.childElementCount == 0 ){ 
                 [].slice.call(document
@@ -128,7 +128,7 @@ function prepopulateValues(formName){
                         curClass.equipment
                             .forEach(function(itemSel){
                                 cnt++;
-                                let inputId = "createCharacter.equipment."+cnt;
+                                let inputId = "createCharacter_equipment."+cnt;
                                 if (Array.isArray(itemSel)){
                                    equipmentEle.innerHTML += 
                                    `<label for="${inputId}">Choose an item</label>
@@ -136,24 +136,24 @@ function prepopulateValues(formName){
                                         ${itemSel.map(optionifyItem)}
                                     </select><hr>`;
                                 } else {
-                                   equipmentEle.innerHTML += buildEquipmentRow('createCharacter.equipment.equipment',itemSel);
+                                   equipmentEle.innerHTML += buildEquipmentRow('createCharacter_equipment_equipment',itemSel);
                                 }
                             });
                     });
             }
             break;
         case 'equipment':{
-                let equipEle = $('equipment.list');
+                let equipEle = $('equipment_list');
                 equipEle.innerHTML = '';
                 EQUIP_COUNT = 0;
 
                 currentCharacter.character.equipment.forEach((equipItem) =>
-                    equipEle.innerHTML += buildEquipmentRow('equipment.list', equipItem));
+                    equipEle.innerHTML += buildEquipmentRow('equipment_list', equipItem));
             }
             break;
            
         case 'importFile':
-            let tableBody = $('DB.character');
+            let tableBody = $('DB_character');
             tableBody.innerHTML = "";
             let currentEncKey = encodeURIComponent(generateName());
             getAllCharacters(function(event){
@@ -182,7 +182,7 @@ function prepopulateValues(formName){
                 }
             });
             break;
-        case 'levelUp.oldClass':{
+        case 'levelUp_oldClass':{
             let levelUpEle = $(formName);
 
             // need to decide what to show
@@ -191,7 +191,7 @@ function prepopulateValues(formName){
             levelUpEle.classList.remove("abilityScore");
             levelUpEle.classList.remove("spells");
             
-            let upgradeClass = $('levelUp.class').value;
+            let upgradeClass = $('levelUp_class').value;
 
             if (!exists(upgradeClass)){
                 console.error("Upgrade class is not set.");
@@ -206,11 +206,11 @@ function prepopulateValues(formName){
        
             if (exists(nextLevelObj.features)){
                 levelUpEle.classList.add("feature");
-                $('levelUp.feature').innerHTML = renderUlArray(nextLevelObj.features);
+                $('levelUp_feature').innerHTML = renderUlArray(nextLevelObj.features);
             }
             if (exists(nextLevelObj.special)){
                 levelUpEle.classList.add("special");
-                $('levelUp.special').innerHTML = renderUlArray(Object.keys(nextLevelObj.special).map(function(key){
+                $('levelUp_special').innerHTML = renderUlArray(Object.keys(nextLevelObj.special).map(function(key){
                     return key+": "+nextLevelObj.special[key]; 
                 }));
             }
@@ -219,11 +219,11 @@ function prepopulateValues(formName){
             }
             if (exists(nextLevelObj.spells)){
                 levelUpEle.classList.add("spells");
-                $('levelUp.spell').innerHTML = 
+                $('levelUp_spell').innerHTML = 
                     (nextLevelObj.spells.total ? "Total spells increased by "+nextLevelObj.spells.total+"<br>" : "");
                 Object.getOwnPropertyNames(nextLevelObj.spells).forEach(function(objName){
                     if (objName !== "total"){
-                        $('levelUp.spell').innerHTML += nextLevelObj.spells[objName]+ " new level "+objName+" spells available";
+                        $('levelUp_spell').innerHTML += nextLevelObj.spells[objName]+ " new level "+objName+" spells available";
                     }
                 });
             }
@@ -231,14 +231,14 @@ function prepopulateValues(formName){
         }
             break;
         case 'levelUp':
-            populateSelect($('levelUp.class'));
+            populateSelect($('levelUp_class'));
             // remove any classes
             Object.keys(CLASSES).forEach(function(className){
-                $('levelUp.newClass').classList.remove(className);
+                $('levelUp_newClass').classList.remove(className);
             });
 
             currentCharacter.character.class.forEach(function(className){
-                $('levelUp.newClass').classList.add(className.class);
+                $('levelUp_newClass').classList.add(className.class);
             });
         
             break;
@@ -269,17 +269,17 @@ function buildEquipmentRow(id, item){
         }
     }
     
-    let inputId = id+"."+EQUIP_COUNT;
+    let inputId = id+"_"+EQUIP_COUNT;
 
     let element =`<div id="${inputId}">
-                <label for="${inputId}.name">Name</label>
-                <input type="text" id="${inputId}.name" value="${itemName}"/>
-                <label for="${inputId}.count">Count</label>
-                <input type="number" pattern="[0-9]*" id="${inputId}.count" value="${itemCount}"/>`;
+                <label for="${inputId}_name">Name</label>
+                <input type="text" id="${inputId}_name" value="${itemName}"/>
+                <label for="${inputId}_count">Count</label>
+                <input type="number" pattern="[0-9]*" id="${inputId}_count" value="${itemCount}"/>`;
     if (!exists(item)){
-        element += `<label for="${inputId}.cost">Cost per item</label>
-                    <input type="number" pattern="[0-9]*" class="short tagAlong" id="${inputId}.cost" value="${itemCost}" min="0" />
-                    <select class="tagAlong" id="${inputId}.costtype" aria-label="Coin type for cost">
+        element += `<label for="${inputId}_cost">Cost per item</label>
+                    <input type="number" pattern="[0-9]*" class="short tagAlong" id="${inputId}_cost" value="${itemCost}" min="0" />
+                    <select class="tagAlong" id="${inputId}_costtype" aria-label="Coin type for cost">
                         <option value="COPPER">Copper</option>
                         <option value="SILVER">Silver</option>
                         <option value="ELECTRUM">Electrum</option>
@@ -288,9 +288,9 @@ function buildEquipmentRow(id, item){
                     </select>
                 </fieldset>`;
     }
-    element += `<label for="${inputId}.desc">Description</label>
-                <textarea id="${inputId}.desc" value="${itemDesc}"></textarea>
-                <button id="${inputId}.delete">Remove</button>
+    element += `<label for="${inputId}_desc">Description</label>
+                <textarea id="${inputId}_desc" value="${itemDesc}"></textarea>
+                <button id="${inputId}_delete">Remove</button>
                 <hr>
             </div>
         `;
@@ -350,7 +350,7 @@ function updateEquipment(equipId, data){
                         case "SELECT": 
                         case "TEXTAREA": {
                             let id = subChild.id;
-                            let value = id.substring(id.lastIndexOf(".")+1);
+                            let value = id.substring(id.lastIndexOf("_")+1);
                             switch(value){
                                 case "name":
                                     equipName = subChild.value;
@@ -365,7 +365,7 @@ function updateEquipment(equipId, data){
                                     equipCost = subChild.value;
                                     break;
                                 case "costtype":
-                                    equipCostType = getSelectedValues(subChild).value;
+                                    equipCostType = getSelectValues(subChild).value;
                                     break;
                             }
                         }
@@ -374,7 +374,7 @@ function updateEquipment(equipId, data){
                 }
 
                 if (equipCost){
-                    data.character.purse -= (count * getAsCoin(equipCost, equipCostType));
+                    data.character.purse -= (equipCount * getAsCoin(equipCost, equipCostType));
                 }
 
                 insertAtNode(name, data, {name: equipName, count: equipCount, description: equipDesc});
@@ -446,10 +446,10 @@ function chooseChildName(nameObj){
 
 function chooseFirstName(nameObj){
     let nameList = [];
-    switch($('createCharacter.character.pronoun').value) {
+    switch($('createCharacter_character_pronoun').value) {
         case 'he':
         case 'she':
-            nameList = nameList.concat(nameObj[$('createCharacter.character.pronoun').value]);
+            nameList = nameList.concat(nameObj[$('createCharacter_character_pronoun').value]);
             break;
         case 'they':
         case 'ze':
@@ -462,7 +462,7 @@ function chooseFirstName(nameObj){
 }
 
 function chooseAge(race){
-    let element = $('createCharacter.details.age');
+    let element = $('createCharacter_details_age');
     let age = race.age;
     
     element.min=age.min;
@@ -472,7 +472,7 @@ function chooseAge(race){
 }
 
 function chooseHeight(race) {
-    let element = $('createCharacter.details.height');
+    let element = $('createCharacter_details_height');
     let height = race.size.height;
     element.min=height.base;
     element.max=height.max;
@@ -485,7 +485,7 @@ function chooseHeight(race) {
 }
 
 function chooseWeight(race, heightMod) {
-    let element = $('createCharacter.details.weight');
+    let element = $('createCharacter_details_weight');
     let weight = race.size.weight;
     
     return weight.base + (heightMod * rollDieFromString(weight.modifier));    
@@ -549,7 +549,7 @@ function randomizeDataRNG(){
 
 function generateAttributes() {
     let generateMethod;
-    switch($('createCharacter.attr.chooser').value) {
+    switch($('createCharacter_attr_chooser').value) {
         case 'Manual':
             generateMethod = function() {
                 return 10;
@@ -569,14 +569,14 @@ function generateAttributes() {
     }
     
     for(let attr in ATTRIBUTES) {
-        $('createCharacter.character.attribute.'+attr).value = 
+        $('createCharacter_character_attribute_'+attr).value = 
             generateMethod(); 
     }
 }
 
 function changeColor(event) {
     let eleId = event.target.id;
-    let swatchId = event.target.id+".color";
+    let swatchId = event.target.id+"_color";
 
     let colorSet = eval(getDataAttribute(event.target, "lookup")); 
     
@@ -650,7 +650,7 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
         opt.name = "character."+typeName+"[]";
         opt.id =idValue;
         opt.onclick = function(evt) {
-            let legendEle = $("createCharacter."+typeName+".legend");
+            let legendEle = $("createCharacter_"+typeName+"_legend");
             let curCount = getDataAttribute(legendEle, "rulemax");
             if (evt.currentTarget.checked){
                 curCount--;
@@ -698,7 +698,7 @@ function generateDataToJSON() {
         return data;
     }, {});
     
-    return updateEquipment('createCharacter.equipment.equipment', response);
+    return updateEquipment('createCharacter_equipment_equipment', response);
 }
 
 
