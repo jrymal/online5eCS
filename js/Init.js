@@ -345,6 +345,22 @@ function setHref(linkId, href){
     $(linkId).href = href;
 }
 
+function composeName(nameObj){
+    let fullName = nameObj.first;
+
+    if (!isBlank(nameObj.nickname)){
+        fullName += " \""+nameObj.nickname+"\""; 
+    }
+    if (!isBlank(nameObj.child)){
+        fullName += " ("+nameObj.child+")"; 
+    }
+    if (!isBlank(nameObj.family)){
+        fullName += " "+nameObj.family; 
+    }
+
+    return fullName;
+}
+
 let currentCharacter;
 function setCurrentCharacter(character){
     clearAllFields(document.getElementsByClassName("stack"));
@@ -362,6 +378,8 @@ function setCurrentCharacter(character){
     let maxHitPoints = getMaxHitPoints(character.character.class);
     insertAtNode("character.hitPoints.max", character, maxHitPoints, true);
     insertAtNode("character.hitPoints.current", character, maxHitPoints, false);
+    
+    insertAtNode("character.name.full", character, composeName(character.character.name), false);
     
     currentCharacter = character;
     
