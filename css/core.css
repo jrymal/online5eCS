@@ -260,7 +260,7 @@ label.required::after{
     grid-template-columns: auto auto auto auto auto auto;
 }
 
-.modal .entryPanel > fieldset > div {
+.modal .entryPanel .skill_grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }

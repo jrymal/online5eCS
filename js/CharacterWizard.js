@@ -10,8 +10,12 @@ function addClass() {
     var className = selectedEle.value;
     var selIdx = selectedEle.selectedIndex;
 
-    tableEle.innerHTML += `<tr id="createCharacter_character_class_tableele.${className}">
-        <th>${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
+    if (isBlank(levelEle.value)){
+        return;
+    }
+
+    tableEle.innerHTML += `<tr id="createCharacter_character_class_tableele_${className}">
+        <th scope="row">${className}<input type="hidden" name="character.class[].class" value="${className}"/></th>
         <td>${levelEle.value}<input type="hidden" name="character.class[].level" value="${levelEle.value}"/></td>
         <td><button type="button" onClick="removeCharacterClass('${className}')">Remove</button></td>
     </tr>`;              
@@ -95,13 +99,13 @@ function prepopulateValues(formName){
         case 'createCharacter_skills': {
             let race = RACES[$('createCharacter_character_race').value];
             let backstory = BACKSTORIES[$('createCharacter_backstory_type').value];
-            chooseCheckbox("createCharacter_skills_legend", "skills.", "skills", race, backstory);
+            chooseCheckbox("createCharacter_skills_legend", "skills_", "skills", race, backstory);
         }
             break; 
-        case 'createCharacter_language': {
+        case 'createCharacter_languages': {
             let race = RACES[$('createCharacter_character_race').value];
             let backstory = BACKSTORIES[$('createCharacter_backstory_type').value];
-            chooseCheckbox("createCharacter_languages_legend", "languages.", "languages", race, backstory);
+            chooseCheckbox("createCharacter_languages_legend", "languages_", "languages", race, backstory);
         }
             break;
         case 'createCharacter_class':
@@ -113,6 +117,7 @@ function prepopulateValues(formName){
                 removeCharacterClass(curValue);
                 chooser.value = curValue;
             }
+            setIfExists('createCharacter_character_level', 1);
             break;
         case 'createCharacter_equipment':
             let cnt = 0;
@@ -128,11 +133,11 @@ function prepopulateValues(formName){
                         curClass.equipment
                             .forEach(function(itemSel){
                                 cnt++;
-                                let inputId = "createCharacter_equipment."+cnt;
+                                let inputId = "createCharacter_equipment_"+cnt;
                                 if (Array.isArray(itemSel)){
                                    equipmentEle.innerHTML += 
                                    `<label for="${inputId}">Choose an item</label>
-                                    <select id="${inputId}" >
+                                    <select id="${inputId}" name="">
                                         ${itemSel.map(optionifyItem)}
                                     </select><hr>`;
                                 } else {
@@ -156,27 +161,29 @@ function prepopulateValues(formName){
             let tableBody = $('DB_character');
             tableBody.innerHTML = "";
             let currentEncKey = encodeURIComponent(generateName());
+            let uid = 0;
             getAllCharacters(function(event){
 
                 let cursor = event.target.result;
                 if (cursor) {
                     let key = cursor.primaryKey;
-                    let encKey = encodeURIComponent(cursor.primaryKey);
+                    let encKey = encodeURIComponent(key);
                     let character = cursor.value;
                     if (encKey !== currentEncKey){
                         tableBody.innerHTML += 
-                        `<tr id="importFile.DBLoad.${encKey}">
+                        `<tr id='importFile_DBLoad_${uid}'>
                             <td>${character.player.name}</td>
                             <td>${generateCharacterName(character)}</td>
                             <td>${RACES[character.character.race].name}</td>
                             <td>${joinClassName(character.character.class)}</td>
                             <td>
-                                <button type="button" onClick="loadByKey('${key}')">Load</button>
-                                <button type="button" onClick="deleteCharacterLoad('${encKey}','${key}')">Delete</button>
+                                <button type='button' onClick="loadByKey('${encKey}')">Load</button>
+                                <button type='button' onClick="deleteCharacterLoad(${uid},'${encKey}')">Delete</button>
                             </td>
                         </tr>`;
                     }
                     cursor.continue();
+                    uid++;
                 } else {
                     selectFirstInput(currentDialogDiv);
                 }
@@ -273,13 +280,13 @@ function buildEquipmentRow(id, item){
 
     let element =`<div id="${inputId}">
                 <label for="${inputId}_name">Name</label>
-                <input type="text" id="${inputId}_name" value="${itemName}"/>
+                <input type="text" id="${inputId}_name" value="${itemName}" name =""/>
                 <label for="${inputId}_count">Count</label>
-                <input type="number" pattern="[0-9]*" id="${inputId}_count" value="${itemCount}"/>`;
+                <input type="number" pattern="[0-9]*" id="${inputId}_count" value="${itemCount}" min="0" max="9999" name=""/>`;
     if (!exists(item)){
         element += `<label for="${inputId}_cost">Cost per item</label>
-                    <input type="number" pattern="[0-9]*" class="short tagAlong" id="${inputId}_cost" value="${itemCost}" min="0" />
-                    <select class="tagAlong" id="${inputId}_costtype" aria-label="Coin type for cost">
+                    <input type="number" pattern="[0-9]*" class="short tagAlong" id="${inputId}_cost" value="${itemCost}" min="0" max="9999999" name=""/>
+                    <select class="tagAlong" id="${inputId}_costtype" aria-label="Coin type for cost" name="">
                         <option value="COPPER">Copper</option>
                         <option value="SILVER">Silver</option>
                         <option value="ELECTRUM">Electrum</option>
@@ -289,8 +296,8 @@ function buildEquipmentRow(id, item){
                 </fieldset>`;
     }
     element += `<label for="${inputId}_desc">Description</label>
-                <textarea id="${inputId}_desc" value="${itemDesc}"></textarea>
-                <button id="${inputId}_delete">Remove</button>
+                <textarea id="${inputId}_desc" value="${itemDesc}" name=""></textarea>
+                <button type="button" id="${inputId}_delete">Remove</button>
                 <hr>
             </div>
         `;
@@ -400,10 +407,10 @@ function getClass(classList, className){
     return null;
 }
 
-function deleteCharacterLoad(key, value){
-    deleteCharacter(value, function(){
+function deleteCharacterLoad(uid, key){
+    deleteCharacter(decodeURIComponent(key), function(){
         // delete the value from the UI
-        let tableEle = $('importFile.DBLoad.'+key);
+        let tableEle = $('importFile_DBLoad_'+uid);
         tableEle.parentNode.removeChild(tableEle);
     });
 }
@@ -638,7 +645,7 @@ function populateCheckboxes(divEle, sourceObj, typeName) {
     for (let i = 0; i < sourceArray.length; i++  ) {
         let value = sourceArray[i];
         let obj = sourceObj[value];
-        let idValue = typeName+"."+value;
+        let idValue = typeName+"_"+value;
 
         let lbl = document.createElement('label');
         lbl.innerHTML = obj.name;

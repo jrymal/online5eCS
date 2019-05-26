@@ -307,7 +307,7 @@ function generateName() {
 //
 function loadByKey(keyToLoad){
     // : load from db
-    getCharacter(keyToLoad, function(event){
+    getCharacter(decodeURIComponent(keyToLoad), function(event){
         setCurrentCharacter(event.target.result);
         closeCurrentDialog();
     });
@@ -799,11 +799,11 @@ function beforeUnload(){
 }
 
 function updatePhoneNumber() {
-    updateLink(currentCharacter.player.phone, 'player.phone.link', 'tel:+', 'Call', "player.phone.display");
+    updateLink(currentCharacter.player.phone, 'player_phone_link', 'tel:+', 'Call', "player_phone_display");
 }
 
 function updateEmail() {
-    updateLink(currentCharacter.player.email, 'player.email.link', 'mailto:', 'Email', "player.email.display");
+    updateLink(currentCharacter.player.email, 'player_email_link', 'mailto:', 'Email', "player_email_display");
 }
 
 function updateLink(value, linkId, hrefPrefix, linkText, spanId) {

@@ -71,14 +71,14 @@
 
                     <dt>Phone Number</dt>
                     <dd>
-                    <span data-from="player.phone" id="player.phone.display" contentEditable="true" data-placeholder="None specified"></span>
-                    <a target="_blank" id="player.phone.link"  href="tel:+" data-show-always="true"></a>
+                    <span data-from="player.phone" id="player_phone_display" contentEditable="true" data-placeholder="None specified"></span>
+                    <a target="_blank" id="player_phone_link"  href="tel:+" data-show-always="true"></a>
                     </dd>
 
                     <dt>Email</dt>
                     <dd>
-                    <span data-from="player.email" id="player.email.display" contentEditable="true" data-placeholder="None specified"></span>
-                    <a target="_blank" id="player.email.link" href="mailto:" data-show-always="true"></a>
+                    <span data-from="player.email" id="player_email_display" contentEditable="true" data-placeholder="None specified"></span>
+                    <a target="_blank" id="player_email_link" href="mailto:" data-show-always="true"></a>
                     </dd>
                 </dl>
             </details>
@@ -352,7 +352,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <br>
                     <div>
                     <label class="tagAlong" for="importFile_importFile">Import file</label>
                     <input class="tagAlong" type="file"  id="importFile_importFile"  name="importFile" onChange="loadFromJSON()"/>
@@ -369,7 +368,7 @@
                         <p class="stack">Current Purse: <span data-from="character.purse"></span></p>
 
                         <label for="purse_value">Amount</label>
-                        <input class="tagAlong short" type="number" name="purse_value" pattern="[0-9]*"  id="purse_value"  min="0" value="0"/>
+                        <input class="tagAlong short" type="number" name="purse_value" pattern="[0-9]*" id="purse_value"  min="0" max="9999999" value="0"/>
                         <select class="tagAlong" id="purse_type"  name="purse.type" aria-label="Coin type for amount">
                             <option value="COPPER">Copper</option>
                             <option value="SILVER">Silver</option>
@@ -432,15 +431,18 @@
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <p class="description notice">Any data input here is kept exclusively on your machine and is not shared to any services or databases.</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_player_name" class="required">Role Player</label>
-                        <input type="text" id="createCharacter_player_name"  name="player.name" required/>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Player Information</legend>
+                            <label for="createCharacter_player_name" class="required">Role Player</label>
+                            <input type="text" id="createCharacter_player_name"  name="player.name" required/>
 
-                        <label for="createCharacter_player_phone">Phone Number</label>
-                        <input type="tel" id="createCharacter_player_phone" name="player.phone" autocomplete="tel"/>
+                            <label for="createCharacter_player_phone">Phone Number</label>
+                            <input type="tel" id="createCharacter_player_phone" name="player.phone" autocomplete="tel"/>
 
-                        <label for="createCharacter_player_email">Email</label>
-                        <input type="email" id="createCharacter_player_email" name="player.email" autocomplete="email"/> 
+                            <label for="createCharacter_player_email">Email</label>
+                            <input type="email" id="createCharacter_player_email" name="player.email" autocomplete="email"/> 
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -453,21 +455,23 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_character_race">Race</label>
-                        <select id="createCharacter_character_race"  name="character.race" data-lookup="RACES"></select>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Race and Sexuality Information</legend>
+                            <label for="createCharacter_character_race">Race</label>
+                            <select id="createCharacter_character_race"  name="character.race" data-lookup="RACES"></select>
 
-                        <label for="createCharacter_character_pronoun">Pronoun</label>
-                        <select id="createCharacter_character_pronoun" name="character.sexuality.pronoun" data-lookup="PRONOUNS"></select>
-                        
-                        <label for="createCharacter_character_biologicalsex">Biological Sex</label>
-                        <select id="createCharacter_character_biologicalsex"  name="character.sexuality.biologicalsex"
-                            data-lookup="BIOLOGICAL_SEX"></select>
+                            <label for="createCharacter_character_pronoun">Pronoun</label>
+                            <select id="createCharacter_character_pronoun" name="character.sexuality.pronoun" data-lookup="PRONOUNS"></select>
+                            
+                            <label for="createCharacter_character_biologicalsex">Biological Sex</label>
+                            <select id="createCharacter_character_biologicalsex"  name="character.sexuality.biologicalsex"
+                                data-lookup="BIOLOGICAL_SEX"></select>
 
-                        <label for="createCharacter_character_sexualorientation">Sexual Orientation</label>
-                        <select id="createCharacter_character_sexualorientation" name="character.sexuality.sexualorientation"
-                            data-lookup="SEXUAL_ORIENTATION"></select>
-
+                            <label for="createCharacter_character_sexualorientation">Sexual Orientation</label>
+                            <select id="createCharacter_character_sexualorientation" name="character.sexuality.sexualorientation"
+                                data-lookup="SEXUAL_ORIENTATION"></select>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -480,19 +484,22 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_character_alignment_society">Alignment (Attitude toward Society)</label>
-                        <select id="createCharacter_character_alignment_society" name="character.alignment.society" data-rng="true">
-                            <option value="Lawful">Lawful</option>
-                            <option value="Neutral">Neutral</option>
-                            <option value="Chaotic">Chaotic</option>
-                        </select>
-                        <label for="createCharacter_character_alignment_morality">Alignment (Morality)</label>
-                        <select id="createCharacter_character_alignment_morality" name="character.alignment.morality" data-rng="true">
-                            <option value="Good">Good</option>
-                            <option value="Neutral">Neutral</option>
-                            <option value="Evil">Evil</option>
-                        </select>  
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Alignment Information</legend>
+                            <label for="createCharacter_character_alignment_society">Alignment (Attitude toward Society)</label>
+                            <select id="createCharacter_character_alignment_society" name="character.alignment.society" data-rng="true">
+                                <option value="Lawful">Lawful</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Chaotic">Chaotic</option>
+                            </select>
+                            <label for="createCharacter_character_alignment_morality">Alignment (Morality)</label>
+                            <select id="createCharacter_character_alignment_morality" name="character.alignment.morality" data-rng="true">
+                                <option value="Good">Good</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Evil">Evil</option>
+                            </select>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -505,15 +512,18 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_character_name_first" class="required">First Name</label>
-                        <input type="text" id="createCharacter_character_name_first" name="character.name.first" required/>
-                        <label for="createCharacter_character_name_family">Family Name</label>
-                        <input type="text" id="createCharacter_character_name_family" name="character.name.family"/>
-                        <label for="createCharacter_character_name_nickname">Nickname</label>
-                        <input type="text" id="createCharacter_character_name_nickname" name="character.name.nickname"/>
-                        <label for="createCharacter_character_name_child">Child Name</label>
-                        <input type="text" id="createCharacter_character_name_child" name="character.name.child"/>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Name</legend>
+                            <label for="createCharacter_character_name_first" class="required">First Name</label>
+                            <input type="text" id="createCharacter_character_name_first" name="character.name.first" required/>
+                            <label for="createCharacter_character_name_family">Family Name</label>
+                            <input type="text" id="createCharacter_character_name_family" name="character.name.family"/>
+                            <label for="createCharacter_character_name_nickname">Nickname</label>
+                            <input type="text" id="createCharacter_character_name_nickname" name="character.name.nickname"/>
+                            <label for="createCharacter_character_name_child">Child Name</label>
+                            <input type="text" id="createCharacter_character_name_child" name="character.name.child"/>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -527,27 +537,28 @@
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel" id="createCharacter_class_form">
-                        <div class="createCharacter">
+                        <fieldset class="createCharacter">
+                            <legend>Character Class Information</legend>
                             <label for="createCharacter_character_class_type">Class</label>
-                            <select id="createCharacter_character_class_type" data-lookup="CLASSES"></select>
+                            <select id="createCharacter_character_class_type" data-lookup="CLASSES" name=""></select>
 
                             <label for="createCharacter_character_level" class="required">Level</label>
-                            <input type="number" id="createCharacter_character_level" pattern="[0-9]*" class="short" min="1" max="40" required value="1"/>
+                            <input type="number" id="createCharacter_character_level" pattern="[0-9]*" class="short" min="1" max="40" value="1" required name=""/>
 
                             <button type="button" class="multiclass" onClick="addClass()">Add Class</button>
-                        </div>
-                        <table>
-                            <caption>Classes choosen</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Class</th>
-                                    <th scope="col">Level</th>
-                                    <th scope="col">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody id="createCharacter_character_class_tbody">
-                            </tbody> 
-                        </table>
+                            <table>
+                                <caption>Classes choosen</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Level</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="createCharacter_character_class_tbody">
+                                </tbody> 
+                            </table>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -562,16 +573,17 @@
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
                     <form class="data-createCharacter entryPanel">
-                        <!-- generation options and execution -->
-                        <label for="createCharacter_attr_chooser">How do you want your attributes set?</label>
-                        <select id="createCharacter_attr_chooser" id="createCharacter_attr_chooser" >
-                            <option value="Throwaway">Throwaway lowest of 4</option>
-                            <option value="Straight">Straight 3 rolls</option>
-                            <option value="Manual">I'll roll and enter the vaules</option>
-                        </select>
-                        <button type="button" onClick="generateAttributes()">Generate Attributes</button>
+                        <fieldset class="column-2">
+                            <legend>Character Attributes</legend>
+                            <!-- generation options and execution -->
+                            <label for="createCharacter_attr_chooser">How do you want your attributes set?</label>
+                            <select id="createCharacter_attr_chooser" id="createCharacter_attr_chooser" name="">
+                                <option value="Throwaway">Throwaway lowest of 4</option>
+                                <option value="Straight">Straight 3 rolls</option>
+                                <option value="Manual">I'll roll and enter the vaules</option>
+                            </select>
+                            <button type="button" onClick="generateAttributes()">Generate Attributes</button>
 
-                        <div class="column-2 createCharacter">
                             <label for="createCharacter_character_attribute_strength" class="required">Strength</label>
                             <input type="number" pattern="[0-9]*" name="character.attribute.strength" id="createCharacter_character_attribute_strength" class="short"  min="3" max="20" required/>
                             <label for="createCharacter_character_attribute_dexterity" class="required">Dexterity</label>
@@ -584,7 +596,7 @@
                             <input type="number" pattern="[0-9]*" name="character.attribute.wisdom" id="createCharacter_character_attribute_wisdom"  class="short"  min="3" max="20" required/>
                             <label for="createCharacter_character_attribute_charisma" class="required">Charisma</label>
                             <input type="number" pattern="[0-9]*" name="character.attribute.charisma" id="createCharacter_character_attribute_charisma"  class="short"  min="3" max="20" required/>
-                        </div>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -597,12 +609,15 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_backstory_type">Backstory Type</label>
-                        <select id="createCharacter_backstory_type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Backstory</legend>
+                            <label for="createCharacter_backstory_type">Backstory Type</label>
+                            <select id="createCharacter_backstory_type" name="character.backstory.type"  data-lookup="BACKSTORIES"></select>
 
-                        <label for="createCharacter_backstory_story">Backstory</label>
-                        <textarea id="createCharacter_backstory_story" name="character.backstory.story" spellcheck="true"></textarea> 
+                            <label for="createCharacter_backstory_story">Backstory</label>
+                            <textarea id="createCharacter_backstory_story" name="character.backstory.story" spellcheck="true"></textarea>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -615,15 +630,18 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_details_age">Age (in years)</label>
-                        <input type="number" pattern="[0-9]*" id="createCharacter_details_age" class="short" name="character.details.age" min="0"max="100"/>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Biometrics</legend>
+                            <label for="createCharacter_details_age">Age (in years)</label>
+                            <input type="number" pattern="[0-9]*" id="createCharacter_details_age" class="short" name="character.details.age" min="0"max="100"/>
 
-                        <label for="createCharacter_details_height">Height (in inches)</label>
-                        <input type="text" id="createCharacter_details_height" name="character.details.height"/>
+                            <label for="createCharacter_details_height">Height (in inches)</label>
+                            <input type="text" id="createCharacter_details_height" name="character.details.height"/>
 
-                        <label for="createCharacter_details_weight">Weight (in pounds)</label>
-                        <input type="text" id="createCharacter_details_weight" name="character.details.weight"/>
+                            <label for="createCharacter_details_weight">Weight (in pounds)</label>
+                            <input type="text" id="createCharacter_details_weight" name="character.details.weight"/>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -636,18 +654,21 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
-                        <label for="createCharacter_details_eyecolor">Eye Color</label>
-                        <select class="tagAlong" id="createCharacter_details_eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter_details_eyecolor_color" class="swatch"></div>
+                    <form class="data-createCharacter entryPanel">
+                        <fieldset>
+                            <legend>Character Details</legend>
+                            <label for="createCharacter_details_eyecolor">Eye Color</label>
+                            <select class="tagAlong" id="createCharacter_details_eyecolor" name="character.details.eyecolor" data-type="color" data-lookup="EYE_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <span id="createCharacter_details_eyecolor_color" class="swatch"></span>
 
-                        <label for="createCharacter_details_skin">Skin Color</label>
-                        <select class="tagAlong"  data-type="color" id="createCharacter_details_skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter_details_skin_color" class="swatch"></div>
+                            <label for="createCharacter_details_skin">Skin Color</label>
+                            <select class="tagAlong"  data-type="color" id="createCharacter_details_skin" name="character.details.skin" data-lookup="SKIN_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <span id="createCharacter_details_skin_color" class="swatch"></span>
 
-                        <label for="createCharacter_details_hair">Hair Color</label>
-                        <select class="tagAlong" data-type="color" id="createCharacter_details_hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
-                        <div id="createCharacter_details_hair_color" class="swatch"></div>
+                            <label for="createCharacter_details_hair">Hair Color</label>
+                            <select class="tagAlong" data-type="color" id="createCharacter_details_hair" name="character.details.hair" data-lookup="HAIR_COLOR" data-sort="false" onchange="changeColor(event);"></select>
+                            <span id="createCharacter_details_hair_color" class="swatch"></span>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -660,27 +681,27 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter">
+                    <form class="data-createCharacter entryPanel">
                         <fieldset>
                             <legend>Skills: choose <span id="createCharacter_skills_legend" data-rulemax="0"></span> more</legend>
-                            <div name="character_skills" data-lookup="SKILLS"></div>
+                            <div class="skill_grid" name="character.skills" data-lookup="SKILLS"></div>
                         </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter_colors" >Previous</a>
-                        <a href="#createCharacter_language" class="next">Next</a>
+                        <a href="#createCharacter_languages" class="next">Next</a>
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal"  id="createCharacter_language" >
+            <dialog class="modal"  id="createCharacter_languages" >
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter" >
+                    <form class="data-createCharacter entryPanel" >
                         <fieldset>
                             <legend>Languages: choose <span id="createCharacter_languages_legend" data-rulemax="0"></span> more</legend>
-                            <div name="character_languages" data-lookup="LANGUAGES"></div>
+                            <div class="skill_grid" name="character.languages" data-lookup="LANGUAGES"></div>
                         </fieldset>
                     </form>
                     <div class="buttonbar">
@@ -694,7 +715,13 @@
                 <div class="base">
                     <h2>Create a new character</h2>
                     <p class="description">Load your character</p>
-                    <form class="data-createCharacter entryPanel createCharacter" id="createCharacter_equipment_equipment"></form>
+                    <form class="data-createCharacter entryPanel" >
+                        <fieldset>
+                            <legend>Character Equipment</legend>
+                            <div id="createCharacter_equipment_equipment">
+                            </div>
+                        </fieldset>
+                    </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
                         <a href="#createCharacter_languages">Previous</a>
@@ -708,14 +735,17 @@
                     <h2>Level Up</h2>
                     <p class="description">Raise your character's level</p>
                     <form class="entryPanel">
-                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp_input_oldClass" value="levelUp_oldClass" onChange="setHref('levelUp_next','#levelUp_oldClass')" checked/>
-                        <label for="levelUp_input_oldClass" class="tagAlong" >Raise a current class</label>
-                        <label class="reveal-if-checked" for="levelUp_class">Class to level up</label>
-                        <select class="reveal-if-checked"  id="levelUp_class"  data-lookup="currentCharacter.CALC.classes"></select>
-                        <!-- Stupid tagAlong doesn't know when to break -->
-                        <div></div>
-                        <input type="radio" class="tagAlong" name="levelUpType" id="levelUp_input_newClass" value="levelUp_newClass" onChange="setHref('levelUp_next','#levelUp_newClass')"/>
-                        <label for="levelUp_input_newClass" class="tagAlong" >Add a new class</label>
+                        <fieldset>
+                            <legend>Level Up</legend>
+                            <input type="radio" class="tagAlong" name="levelUpType" id="levelUp_input_oldClass" value="levelUp_oldClass" onChange="setHref('levelUp_next','#levelUp_oldClass')" checked/>
+                            <label for="levelUp_input_oldClass" class="tagAlong" >Raise a current class</label>
+                            <label class="reveal-if-checked" for="levelUp_class">Class to level up</label>
+                            <select class="reveal-if-checked"  id="levelUp_class"  data-lookup="currentCharacter.CALC.classes" name=""></select>
+                            <!-- Stupid tagAlong doesn't know when to break -->
+                            <br>
+                            <input type="radio" class="tagAlong" name="levelUpType" id="levelUp_input_newClass" value="levelUp_newClass" onChange="setHref('levelUp_next','#levelUp_newClass')"/>
+                            <label for="levelUp_input_newClass" class="tagAlong" >Add a new class</label>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -754,7 +784,7 @@
                     <p class="description">Choose a new class to add to this character_</p>
                     <form class="entryPanel">
                         <label for="multiClass_class">New class to add</label>
-                        <select id="multiClass_class"  data-lookup="CLASSES"></select>
+                        <select id="multiClass_class"  data-lookup="CLASSES" name=""></select>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
@@ -763,14 +793,17 @@
                     </div>
                 </div>
             </dialog>
-            <dialog class="modal " id="equipment">
+            <dialog class="modal" id="equipment">
                 <div class="base">
                     <h2>Equipment</h2>
                     <p class="description">Add or Use equipment in your pack</p>
-                    <form class="entryPanel" >
-                        <div id="equipment_list" >
-                        </div>
-                        <button type="button" onClick="addEquipmentRow('equipment_list')">Add Item</button>
+                    <form class="entryPanel scrollable" >
+                        <fieldset>
+                            <legend>Equipment</legend>
+                            <div id="equipment_list" >
+                            </div>
+                            <button type="button" onClick="addEquipmentRow('equipment_list')">Add Item</button>
+                        </fieldset>
                     </form>
                     <div class="buttonbar">
                         <a href="#">Cancel</a>
